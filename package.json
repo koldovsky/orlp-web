@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/krtaras/angular-example#readme",
   "scripts": {
-    "start": "lite-server --baseDir ./dist"
+    "start": "lite-server"
   },
   "dependencies": {
     "@angular/common": "4.1.3",
