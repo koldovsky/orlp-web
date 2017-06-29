@@ -1,17 +1,17 @@
 {
-  "name": "angular-example",
+  "name": "orlp-web",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krtaras/angular-example.git"
+    "url": "git+https://github.com/koldovsky/orlp-web.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/krtaras/angular-example/issues"
+    "url": "https://github.com/koldovsky/orlp-web.git"
   },
-  "homepage": "https://github.com/krtaras/angular-example#readme",
+  "homepage": "https://github.com/koldovsky/orlp-web.git#readme",
   "scripts": {
     "start": "lite-server"
   },
