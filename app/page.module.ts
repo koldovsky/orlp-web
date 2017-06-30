@@ -2,13 +2,29 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
-import { PageComponent } from './page/page.component';
+import {CommonModule} from "@angular/common";
+import {PageComponent} from "./page/page.component";
+import {StartPageComponent} from "./page/mainPage/startPage.component";
+import {RouterModule} from "@angular/router";
+import {LoginComponent} from "./page/login/login.component";
+import {HttpModule} from "@angular/http";
+import {StartPageService} from "./page/mainPage/startPage.service";
+import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
+import {SignUpComponent} from "./page/signup/signup.component";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule],
+    imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
+              RouterModule.forRoot([
+                  {path: 'mainPage', component: StartPageComponent},
+                  {path: 'login', component: LoginComponent},
+                  {path: 'registr', component: SignUpComponent},
+                  {path: 'catalog/:id', component: CatalogInfoComponent},
+                  {path: '', redirectTo: 'mainPage', pathMatch: 'full'},
+                  {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
+              ])],
     exports: [],
-    declarations: [PageComponent],
-    providers: [],
+    declarations: [PageComponent, StartPageComponent, LoginComponent, CatalogInfoComponent, SignUpComponent],
+    providers: [StartPageService],
     bootstrap: [PageComponent]
 })
 export class PageModule { }

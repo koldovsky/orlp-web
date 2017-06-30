@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row mb-3" *ngIf="catalogs">
+        <div class="col-md-12 mt-4 font-color-white text-center">
+            <h2>Top Categories</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let catalog of catalogs" class="col-3" [routerLink]="['/catalog', catalog.catalogId]">
+            <div class="card">
+                <img [src]="catalog.imageUrl" class="mx-auto d-block rounded card-img-top" style="width: 100%">
+                <div class="card-block text-center"><h4><p class="card-text">{{catalog.catalogName}}</p></h4></div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 mb-4">
+        <div class="col-md-12 font-color-white text-center">
+            <h2>Top Catalogs</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
+                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
+                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
+                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
+                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row ml-xl-5 mt-5">
+        <h1 style="color: white">What is Spaced Repetition?</h1>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6" style="color: darkgray">Spaced Repetition this is the best site!</div>
+    </div>
+</div>
+

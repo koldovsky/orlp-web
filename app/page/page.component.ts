@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PageComponent implements OnInit {
+    pageTitle: string = 'Spaced Repetition';
+
     constructor() { }
 
     ngOnInit() { }

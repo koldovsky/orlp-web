@@ -1,1 +1,27 @@
-<h1> Hello World!!! </h1>
+<div>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+
+        <a class="navbar-brand" [routerLink]="['/mainPage']"><h4>{{pageTitle}}</h4></a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Categories</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><h6>Courses</h6></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <form class="form-inline my-1 my-lg-0 mr-auto ml-5">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+            </form>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/login']"><h6>Sign in</h6></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/registr']"><h6>Sign up</h6></a>
+            </li>
+        </ul>
+    </nav>
+    <router-outlet></router-outlet>
+</div>
