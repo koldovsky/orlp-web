@@ -3,7 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
-    template: `<div style="color: white">HELLO {{id}}</div>`
+    template: require('app/page/catalogInfo/catalogInfo.component.html!text')
 })
 export class CatalogInfoComponent implements OnInit {
     id: number;

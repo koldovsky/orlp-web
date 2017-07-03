@@ -23,7 +23,11 @@ import {SignUpComponent} from "./page/signup/signup.component";
                   {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
               ])],
     exports: [],
-    declarations: [PageComponent, StartPageComponent, LoginComponent, CatalogInfoComponent, SignUpComponent],
+    declarations: [PageComponent,
+        StartPageComponent,
+        LoginComponent,
+        CatalogInfoComponent,
+        SignUpComponent ],
     providers: [StartPageService],
     bootstrap: [PageComponent]
 })
