@@ -11,6 +11,8 @@ import {HttpModule} from "@angular/http";
 import {StartPageService} from "./page/mainPage/startPage.service";
 import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
 import {SignUpComponent} from "./page/signup/signup.component";
+import {Table1Component} from "./page/catalogInfo/table1.component";
+import {ORLPService} from "./orlp.service";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
@@ -23,12 +25,13 @@ import {SignUpComponent} from "./page/signup/signup.component";
                   {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
               ])],
     exports: [],
-    declarations: [PageComponent,
+    declarations: [ PageComponent,
         StartPageComponent,
         LoginComponent,
         CatalogInfoComponent,
-        SignUpComponent ],
-    providers: [StartPageService],
+        SignUpComponent,
+        Table1Component ],
+    providers: [StartPageService, ORLPService],
     bootstrap: [PageComponent]
 })
 export class PageModule { }

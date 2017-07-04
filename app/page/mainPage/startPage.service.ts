@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {ICatalog} from "./catalogs";
+import {ICatalog} from "../../interfaces/catalogs";
+import {ORLPService} from "../../orlp.service";
 
 @Injectable()
 export class StartPageService {
 
-    private catalogsUrl = 'app/json/catalogs.json';
+    private catalogsUrl: string = 'app/json/catalogs.json';
 
-    constructor(private http: Http) { }
+    constructor(private orlp: ORLPService) { }
 
     getCatalogs() : Observable<ICatalog[]> {
-        return this.http.get(this.catalogsUrl)
+        return this.orlp.get(this.catalogsUrl)
             .map((response: Response) => <ICatalog[]> response.json())
             .do(data => console.log('All: ' + JSON.stringify(data)))
             .catch(this.handleError)
+
     }
 
     private handleError(error: Response) {

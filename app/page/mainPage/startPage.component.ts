@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {StartPageService} from "./startPage.service";
-import {ICatalog} from "./catalogs";
+import {ICatalog} from "../../interfaces/catalogs";
 import {error} from "util";
 
 @Component({

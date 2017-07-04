@@ -5,3 +5,28 @@ body {
 .font-color-white {
     color: white;
 }
+.nav-pills .nav-item {
+    background-color: white;
+}
+
+.nav-pills .nav-item .active {
+    background-color: #3F5B5C;
+}
+
+.nav-pills .nav-item a {
+    color: #3a3345;
+}
+
+.navbar .nav-item .nav-link {
+    color: #3a3345;
+}
+
+.navbar {
+    background-color: white;
+}
+
+.navbar .form-inline .form-control{
+    background-color: #3a3345;
+}
+
+
