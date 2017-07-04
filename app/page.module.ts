@@ -13,6 +13,7 @@ import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
 import {SignUpComponent} from "./page/signup/signup.component";
 import {Table1Component} from "./page/catalogInfo/table1.component";
 import {ORLPService} from "./orlp.service";
+import {AdminComponent} from "./page/admin/admin.component";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
@@ -20,6 +21,7 @@ import {ORLPService} from "./orlp.service";
                   {path: 'mainPage', component: StartPageComponent},
                   {path: 'login', component: LoginComponent},
                   {path: 'registr', component: SignUpComponent},
+                  {path: 'admin', component: AdminComponent},
                   {path: 'catalog/:id', component: CatalogInfoComponent},
                   {path: '', redirectTo: 'mainPage', pathMatch: 'full'},
                   {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
@@ -30,7 +32,8 @@ import {ORLPService} from "./orlp.service";
         LoginComponent,
         CatalogInfoComponent,
         SignUpComponent,
-        Table1Component ],
+        Table1Component,
+        AdminComponent ],
     providers: [StartPageService, ORLPService],
     bootstrap: [PageComponent]
 })
