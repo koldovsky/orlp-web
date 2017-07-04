@@ -14,6 +14,8 @@ var router_1 = require("@angular/router");
 var CatalogInfoComponent = (function () {
     function CatalogInfoComponent(route) {
         this.route = route;
+        this.table1 = true;
+        this.table2 = false;
     }
     CatalogInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -21,6 +23,16 @@ var CatalogInfoComponent = (function () {
             var id = +params['id'];
             _this.id = id;
         });
+    };
+    CatalogInfoComponent.prototype.tabClick = function (id) {
+        if (id == 1) {
+            this.table1 = true;
+            this.table2 = false;
+        }
+        else {
+            this.table2 = true;
+            this.table1 = false;
+        }
     };
     return CatalogInfoComponent;
 }());

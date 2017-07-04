@@ -22,6 +22,7 @@ var table1_component_1 = require("./page/catalogInfo/table1.component");
 var orlp_service_1 = require("./orlp.service");
 var signup_service_1 = require("./page/signup/signup.service");
 var signup_alert_service_1 = require("./page/signup/signup-alert.service");
+var admin_component_1 = require("./page/admin/admin.component");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -34,6 +35,7 @@ PageModule = __decorate([
                 { path: 'mainPage', component: startPage_component_1.StartPageComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'registr', component: signup_component_1.SignUpComponent },
+                { path: 'admin', component: admin_component_1.AdminComponent },
                 { path: 'catalog/:id', component: catalogInfo_component_1.CatalogInfoComponent },
                 { path: '', redirectTo: 'mainPage', pathMatch: 'full' },
                 { path: '**', redirectTo: 'mainPage', pathMatch: 'full' }
@@ -44,6 +46,7 @@ PageModule = __decorate([
             login_component_1.LoginComponent,
             catalogInfo_component_1.CatalogInfoComponent,
             signup_component_1.SignUpComponent,
+            admin_component_1.AdminComponent,
             table1_component_1.Table1Component],
         providers: [startPage_service_1.StartPageService, orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService],
         bootstrap: [page_component_1.PageComponent]

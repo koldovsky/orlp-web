@@ -23,7 +23,7 @@ export class CatalogInfoComponent implements OnInit {
     }
 
     tabClick(id : number) {
-        if(id == 1) {
+        if(id == 0) {
             this.table1 = true;
             this.table2 = false;
         } else {

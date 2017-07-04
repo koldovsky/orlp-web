@@ -16,6 +16,6 @@ export class StartPageComponent implements OnInit {
     ngOnInit(): void {
         this.startPageService.getCatalogs()
             .subscribe(catalogs => this.catalogs = catalogs,
-                        error => this.errorMessage = <any>error)
+                        error => this.errorMessage = <any>error);
     }
 }
