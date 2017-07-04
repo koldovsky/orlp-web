@@ -11,9 +11,12 @@ import {HttpModule} from "@angular/http";
 import {StartPageService} from "./page/mainPage/startPage.service";
 import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
 import {SignUpComponent} from "./page/signup/signup.component";
-import {Table1Component} from "./page/catalogInfo/table1.component";
+import {Table1Component} from "./page/catalogInfo/table1/table1.component";
 import {ORLPService} from "./orlp.service";
 import {AdminComponent} from "./page/admin/admin.component";
+import {Table2Component} from "./page/catalogInfo/table2/table2.component";
+import {Table2Service} from "./page/catalogInfo/table2/table2.service";
+import {Table1Service} from "./page/catalogInfo/table1/table1.service";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
@@ -33,8 +36,9 @@ import {AdminComponent} from "./page/admin/admin.component";
         CatalogInfoComponent,
         SignUpComponent,
         Table1Component,
+        Table2Component,
         AdminComponent ],
-    providers: [StartPageService, ORLPService],
+    providers: [StartPageService, ORLPService, Table2Service, Table1Service],
     bootstrap: [PageComponent]
 })
 export class PageModule { }

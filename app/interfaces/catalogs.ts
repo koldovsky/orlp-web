@@ -1,5 +1,5 @@
 export interface ICatalog {
-    catalogId: number
+    catalogId: number;
     catalogName: string;
     imageUrl: string;
 }

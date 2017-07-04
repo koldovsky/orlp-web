@@ -1,0 +1,9 @@
+<div class="container">
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+    <div *ngFor="let course of courses" class="card" style="background-color: #524C38">
+        <div class="card-block">
+            <h4 class="card-title">{{course.name}}</h4>
+            <p class="card-text">{{course.description}}</p>
+        </div>
+    </div>
+</div>
