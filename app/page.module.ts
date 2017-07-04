@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule} from "@angular/forms";
 
 import {CommonModule} from "@angular/common";
 import {PageComponent} from "./page/page.component";
@@ -13,27 +13,35 @@ import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
 import {SignUpComponent} from "./page/signup/signup.component";
 import {Table1Component} from "./page/catalogInfo/table1.component";
 import {ORLPService} from "./orlp.service";
+
 import {SignupService} from "./page/signup/signup.service";
 import {SignupAlertService} from "./page/signup/signup-alert.service";
+import {AdminComponent} from "./page/admin/admin.component";
+
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
-              RouterModule.forRoot([
-                  {path: 'mainPage', component: StartPageComponent},
-                  {path: 'login', component: LoginComponent},
-                  {path: 'registr', component: SignUpComponent},
-                  {path: 'catalog/:id', component: CatalogInfoComponent},
-                  {path: '', redirectTo: 'mainPage', pathMatch: 'full'},
-                  {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
-              ])],
+        RouterModule.forRoot([
+            {path: 'mainPage', component: StartPageComponent},
+            {path: 'login', component: LoginComponent},
+            {path: 'registr', component: SignUpComponent},
+            {path: 'admin', component: AdminComponent},
+            {path: 'catalog/:id', component: CatalogInfoComponent},
+            {path: '', redirectTo: 'mainPage', pathMatch: 'full'},
+            {path: '**', redirectTo: 'mainPage', pathMatch: 'full'}
+        ])],
     exports: [],
-    declarations: [ PageComponent,
+    declarations: [PageComponent,
         StartPageComponent,
         LoginComponent,
         CatalogInfoComponent,
         SignUpComponent,
-        Table1Component ],
-    providers: [StartPageService, ORLPService ,SignupService, SignupAlertService],
+        AdminComponent,
+        Table1Component],
+
+    providers: [StartPageService, ORLPService, SignupService, SignupAlertService],
+
     bootstrap: [PageComponent]
 })
-export class PageModule { }
+export class PageModule {
+}
