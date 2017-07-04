@@ -13,6 +13,8 @@ import {CatalogInfoComponent} from "./page/catalogInfo/catalogInfo.component";
 import {SignUpComponent} from "./page/signup/signup.component";
 import {Table1Component} from "./page/catalogInfo/table1.component";
 import {ORLPService} from "./orlp.service";
+import {SignupService} from "./page/signup/signup.service";
+import {SignupAlertService} from "./page/signup/signup-alert.service";
 
 @NgModule({
     imports: [BrowserModule, HttpModule, FormsModule, CommonModule,
@@ -31,7 +33,7 @@ import {ORLPService} from "./orlp.service";
         CatalogInfoComponent,
         SignUpComponent,
         Table1Component ],
-    providers: [StartPageService, ORLPService],
+    providers: [StartPageService, ORLPService ,SignupService, SignupAlertService],
     bootstrap: [PageComponent]
 })
 export class PageModule { }
