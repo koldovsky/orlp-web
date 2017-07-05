@@ -5,6 +5,7 @@ body {
 .font-color-white {
     color: white;
 }
+
 .nav-pills .nav-item {
     background-color: white;
 }
@@ -25,8 +26,15 @@ body {
     background-color: white;
 }
 
-.navbar .form-inline .form-control{
+.navbar .form-inline .form-control {
     background-color: #3a3345;
 }
 
-
+.divider {
+    display: inline-block;
+    width: 0;
+    height: 1em;
+     border-right: 1px solid #3a3345;
+    border-left: 1px solid #3a3345;
+    
+}
