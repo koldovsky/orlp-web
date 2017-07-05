@@ -1,6 +1,6 @@
 <div class="container">
     <br/>
-    <form class="form-horizontal" role="form" method="POST" action="/register">
+    <form class="form-horizontal" role="form" (ngSubmit)="register()" [formGroup]="userForm" novalidate>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -8,6 +8,7 @@
                 <hr>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-3 field-label-responsive">
                 <label for="name" style="color: #41FF05">Name</label>
@@ -16,8 +17,8 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" name="name" class="form-control" id="name"
-                               placeholder="John" required autofocus>
+                        <input type="text" class="form-control" id="name"
+                               placeholder="John" formControlName="firstName" minlength="3" required>
                     </div>
                 </div>
             </div>
@@ -30,16 +31,9 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" name="last_name" class="form-control" id="last_name"
-                               placeholder="Doe" required autofocus>
+                        <input type="text" class="form-control" id="last_name"
+                               placeholder="Doe" required>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put last name validation error messages here -->
-                        </span>
                 </div>
             </div>
         </div>
@@ -51,16 +45,9 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" name="email" class="form-control" id="email"
-                               placeholder="you@example.com" required autofocus>
+                        <input type="email" class="form-control" id="email"
+                               placeholder="you@example.com" required>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put e-mail validation error messages here -->
-                        </span>
                 </div>
             </div>
         </div>
@@ -69,19 +56,12 @@
                 <label for="password" style="color: #41FF05">Password</label>
             </div>
             <div class="col-md-6">
-                <div class="form-group has-danger">
+                <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                        <input type="password" name="password" class="form-control" id="password"
+                        <input type="password" class="form-control" id="password"
                                placeholder="Password" required>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <i class="fa fa-close"> Example Error Message</i>
-                        </span>
                 </div>
             </div>
         </div>
@@ -95,7 +75,7 @@
                         <div class="input-group-addon" style="width: 2.6rem">
                             <i class="fa fa-repeat"></i>
                         </div>
-                        <input type="password" name="password-confirmation" class="form-control"
+                        <input type="password" class="form-control"
                                id="password-confirm" placeholder="Password" required>
                     </div>
                 </div>
@@ -104,7 +84,21 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success" (click)="registerUser()"><i class="fa fa-user-plus"></i> Register</button>
+                <button type="submit" class="btn btn-success"><i
+                        class="fa fa-user-plus"></i>
+                    Register
+                </button>
+
+
+                <div class="active" style="height: 150px">
+
+                    <br>Dirty : {{userForm.dirty}}>
+                    <br>Touched : {{userForm.touched}}>
+                    <br>Valid : {{userForm.valid}}>
+                    <br>Dirty : {{userForm.value | json}}>
+
+                </div>
+
             </div>
         </div>
     </form>

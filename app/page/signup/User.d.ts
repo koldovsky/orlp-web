@@ -1,6 +1,7 @@
-export declare class IUser {
-    name: string;
-    surname: string;
-    email: string;
-    password: string;
+import { Person } from "./Person";
+import { Account } from "./Account";
+export declare class User {
+    person: Person;
+    account: Account;
+    constructor();
 }

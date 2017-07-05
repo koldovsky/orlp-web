@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {Response} from '@angular/http';
 import {ORLPService} from "../../orlp.service";
-import {IUser} from "./User";
+import {User} from "./User";
 
 
 @Injectable()
@@ -11,10 +11,9 @@ export class SignupService {
     constructor(private _orlp: ORLPService) { }
 
 
-    registerUser(newUser: IUser): Observable<any[]> {
-        return this._orlp.post(this._controllerUrl, newUser).map((response: Response) => {
-        response.json()
-        }).catch(this.handleError);
+    registerUser(newUser: User): Observable<User> {
+        return this._orlp.post(this._controllerUrl, newUser).map((response: Response) => <User> response.json());
+
 
     }
 

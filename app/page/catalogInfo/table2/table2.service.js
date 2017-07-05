@@ -10,25 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var orlp_service_1 = require("../../../orlp.service");
 var Observable_1 = require("rxjs/Observable");
-var orlp_service_1 = require("../../orlp.service");
-var SignupService = (function () {
-    function SignupService(_orlp) {
-        this._orlp = _orlp;
-        this._controllerUrl = 'http://localhost:8080/api/registration';
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
+require("rxjs/add/observable/throw");
+var Table2Service = (function () {
+    function Table2Service(orlp) {
+        this.orlp = orlp;
     }
-    SignupService.prototype.registerUser = function (newUser) {
-        return this._orlp.post(this._controllerUrl, newUser).map(function (response) { return response.json(); });
+    Table2Service.prototype.getDeck = function (id) {
+        return this.orlp.get('http://localhost:8080/api/category/' + id + '/decks')
+            .map(function (response) { return response.json(); })
+            .do(function (data) { return console.log('Decks: ' + JSON.stringify(data)); })
+            .catch(this.handleError);
     };
-    SignupService.prototype.handleError = function (error) {
+    Table2Service.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return SignupService;
+    return Table2Service;
 }());
-SignupService = __decorate([
+Table2Service = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], SignupService);
-exports.SignupService = SignupService;
-//# sourceMappingURL=signup.service.js.map
+], Table2Service);
+exports.Table2Service = Table2Service;
+//# sourceMappingURL=table2.service.js.map

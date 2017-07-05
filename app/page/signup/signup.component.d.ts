@@ -1,14 +1,19 @@
-import { Router } from '@angular/router';
+import { OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { SignupService } from "./signup.service";
-import { SignupAlertService } from "./signup-alert.service";
-import { IUser } from "./User";
-export declare class SignUpComponent {
+import { User } from "./User";
+import { FormBuilder, FormGroup } from "@angular/forms";
+export declare class SignUpComponent implements OnInit {
     private router;
     private signupService;
-    private signupAlert;
-    newUser: IUser;
+    private fb;
+    newUser: User;
+    userForm: FormGroup;
     error: string;
-    loading: boolean;
-    constructor(router: Router, signupService: SignupService, signupAlert: SignupAlertService);
-    register(): void;
+    constructor(router: Router, signupService: SignupService, fb: FormBuilder);
+    ngOnInit(): void;
+    onSubmit({value, valid}: {
+        value: User;
+        valid: boolean;
+    }): void;
 }

@@ -32,6 +32,7 @@ PageModule = __decorate([
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             forms_1.FormsModule,
+            forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
                 { path: 'login', component: login_component_1.LoginComponent },

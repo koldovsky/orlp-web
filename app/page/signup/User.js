@@ -1,9 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var IUser = (function () {
-    function IUser() {
+var Person_1 = require("./Person");
+var Account_1 = require("./Account");
+var User = (function () {
+    function User() {
+        this.person = new Person_1.Person();
+        this.account = new Account_1.Account;
     }
-    return IUser;
+    return User;
 }());
-exports.IUser = IUser;
+exports.User = User;
 //# sourceMappingURL=User.js.map
