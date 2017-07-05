@@ -25,7 +25,7 @@ var CatalogInfoComponent = (function () {
         });
     };
     CatalogInfoComponent.prototype.tabClick = function (id) {
-        if (id == 1) {
+        if (id == 0) {
             this.table1 = true;
             this.table2 = false;
         }
