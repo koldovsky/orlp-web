@@ -1,27 +1,45 @@
 <div>
     <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        <a class="navbar-brand" [routerLink]="['/mainPage']">
+            <h4>{{pageTitle}}</h4>
+        </a>
 
-        <a class="navbar-brand" [routerLink]="['/mainPage']"><h4>{{pageTitle}}</h4></a>
-
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="#"><h6>Categories</h6></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><h6>Courses</h6></a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <form class="form-inline my-1 my-lg-0 mr-auto ml-5">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            </form>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/login']"><h6>Sign in</h6></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/registr']"><h6>Sign up</h6></a>
-            </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                
+                <li class="nav-item">
+                    
+                    <a class="nav-link" href="#">
+                        <h6>Categories</h6>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <h6>Courses</h6>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto navbar-right">
+                <form class="form-inline my-1 my-lg-0 mr-auto ml-5">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                </form>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/login']">
+                        <h6>Sign in</h6>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/registr']">
+                        <h6>Sign up</h6>
+                    </a>
+                </li>
+            </ul>
+            
+        </div>
     </nav>
     <router-outlet></router-outlet>
 </div>
