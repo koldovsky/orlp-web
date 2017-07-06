@@ -12,25 +12,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var signup_service_1 = require("./signup.service");
-var User_1 = require("./User");
 var forms_1 = require("@angular/forms");
+var Person_1 = require("./Person");
+var Account_1 = require("./Account");
+function passwordMatcher(c) {
+    var passwordControl = c.get('password');
+    var confirmPassword = c.get('confirmPassword');
+    if (passwordControl.value === confirmPassword.value) {
+        return null;
+    }
+    return { 'match': true };
+}
 var SignUpComponent = (function () {
-    function SignUpComponent(router, signupService, fb) {
+    function SignUpComponent(router, signupService, formBuilder) {
         this.router = router;
         this.signupService = signupService;
-        this.fb = fb;
-        this.error = 'has-danger';
-        this.newUser = new User_1.User();
+        this.formBuilder = formBuilder;
+        this.person = new Person_1.Person();
+        this.account = new Account_1.Account();
     }
     SignUpComponent.prototype.ngOnInit = function () {
-        this.userForm = this.fb.group({
-            firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2)]],
+        this.userForm = this.formBuilder.group({
+            firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
+            lastName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
+            email: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
+            passwordGroup: this.formBuilder.group({
+                password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+                confirmPassword: ['', [forms_1.Validators.required]],
+            }, { validator: passwordMatcher })
         });
     };
-    SignUpComponent.prototype.onSubmit = function (_a) {
-        var value = _a.value, valid = _a.valid;
-        console.log(value, valid);
-    };
+    ;
     return SignUpComponent;
 }());
 SignUpComponent = __decorate([

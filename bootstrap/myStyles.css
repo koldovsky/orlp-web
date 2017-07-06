@@ -38,3 +38,14 @@ body {
     border-left: 1px solid #3a3345;
     
 }
+.alertMessage{
+    padding: 0.5rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-top: -12px;
+    color: #e8241e;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: sans-serif;
+}

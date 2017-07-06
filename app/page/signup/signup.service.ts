@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import {Response} from '@angular/http';
+import {RequestOptions, Response} from '@angular/http';
 import {ORLPService} from "../../orlp.service";
 import {User} from "./User";
 
@@ -12,7 +12,10 @@ export class SignupService {
 
 
     registerUser(newUser: User): Observable<User> {
-        return this._orlp.post(this._controllerUrl, newUser).map((response: Response) => <User> response.json());
+      /*  let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({ headers : headers });
+        return this._orlp.post(this._controllerUrl, newUser, options).map(this.);*/
+        return new Observable<User>();
 
 
     }

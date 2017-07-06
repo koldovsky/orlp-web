@@ -18,7 +18,10 @@ var SignupService = (function () {
         this._controllerUrl = 'http://localhost:8080/api/registration';
     }
     SignupService.prototype.registerUser = function (newUser) {
-        return this._orlp.post(this._controllerUrl, newUser).map(function (response) { return response.json(); });
+        /*  let headers = new Headers({'Content-Type': 'application/json'});
+          let options = new RequestOptions({ headers : headers });
+          return this._orlp.post(this._controllerUrl, newUser, options).map(this.);*/
+        return new Observable_1.Observable();
     };
     SignupService.prototype.handleError = function (error) {
         console.error(error);

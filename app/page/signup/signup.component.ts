@@ -1,9 +1,19 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
-import {User} from "./User";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Person} from "./Person";
+import {Account} from "./Account";
 
+
+function passwordMatcher(c: AbstractControl) {
+    let passwordControl = c.get('password');
+    let confirmPassword = c.get('confirmPassword');
+    if (passwordControl.value === confirmPassword.value) {
+        return null;
+    }
+    return {'match': true};
+}
 
 @Component({
 
@@ -12,25 +22,28 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 
 export class SignUpComponent implements OnInit {
-    newUser: User;
     userForm: FormGroup;
-    error: string = 'has-danger';
+    person = new Person();
+    account = new Account();
+
 
     constructor(private router: Router,
                 private signupService: SignupService,
-                private fb: FormBuilder) {
-        this.newUser = new User();
+                private formBuilder: FormBuilder) {
+
 
     }
 
     ngOnInit() {
+        this.userForm = this.formBuilder.group({
+            firstName: ['', [Validators.required, Validators.minLength(3)]],
+            lastName: ['', [Validators.required, Validators.minLength(3)]],
+            email: ['', [Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), Validators.required]],
+            passwordGroup: this.formBuilder.group({
+                password: ['', [Validators.required, Validators.minLength(5)]],
+                confirmPassword: ['', [Validators.required]],
+            }, {validator: passwordMatcher})
+        })
+    };
 
-        this.userForm = this.fb.group({
-            firstName: ['', [Validators.required, Validators.minLength(2)]],
-        });
-    }
-
-    onSubmit({value, valid}: { value: User, valid: boolean }) {
-        console.log(value, valid);
-    }
 }

@@ -1,19 +1,16 @@
 import { OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { SignupService } from "./signup.service";
-import { User } from "./User";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { Person } from "./Person";
+import { Account } from "./Account";
 export declare class SignUpComponent implements OnInit {
     private router;
     private signupService;
-    private fb;
-    newUser: User;
+    private formBuilder;
     userForm: FormGroup;
-    error: string;
-    constructor(router: Router, signupService: SignupService, fb: FormBuilder);
+    person: Person;
+    account: Account;
+    constructor(router: Router, signupService: SignupService, formBuilder: FormBuilder);
     ngOnInit(): void;
-    onSubmit({value, valid}: {
-        value: User;
-        valid: boolean;
-    }): void;
 }
