@@ -11,20 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var CatalogInfoComponent = (function () {
-    function CatalogInfoComponent(route) {
+var CategoryInfoComponent = (function () {
+    function CategoryInfoComponent(route) {
         this.route = route;
         this.table1 = true;
         this.table2 = false;
     }
-    CatalogInfoComponent.prototype.ngOnInit = function () {
+    CategoryInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
             var id = +params['id'];
             _this.id = id;
         });
     };
-    CatalogInfoComponent.prototype.tabClick = function (id) {
+    CategoryInfoComponent.prototype.tabClick = function (id) {
         if (id == 0) {
             this.table1 = true;
             this.table2 = false;
@@ -34,13 +34,13 @@ var CatalogInfoComponent = (function () {
             this.table1 = false;
         }
     };
-    return CatalogInfoComponent;
+    return CategoryInfoComponent;
 }());
-CatalogInfoComponent = __decorate([
+CategoryInfoComponent = __decorate([
     core_1.Component({
         template: require('app/page/catalogInfo/catalogInfo.component.html!text')
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute])
-], CatalogInfoComponent);
-exports.CatalogInfoComponent = CatalogInfoComponent;
+], CategoryInfoComponent);
+exports.CategoryInfoComponent = CategoryInfoComponent;
 //# sourceMappingURL=catalogInfo.component.js.map

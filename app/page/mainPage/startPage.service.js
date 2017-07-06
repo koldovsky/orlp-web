@@ -19,15 +19,14 @@ var orlp_service_1 = require("../../orlp.service");
 var StartPageService = (function () {
     function StartPageService(orlp) {
         this.orlp = orlp;
-        this.catalogsUrl = 'app/json/catalogs.json';
     }
     StartPageService.prototype.getCatalogs = function () {
-        return this.orlp.get(this.catalogsUrl)
+        return this.orlp.get('app/json/catalogs.json')
             .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('All: ' + JSON.stringify(data)); })
+            .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })
             .catch(this.handleError);
     };
-    StartPageService.prototype.getCatalogs2 = function () {
+    StartPageService.prototype.getCategories = function () {
         return this.orlp.get('http://localhost:8080/api/topcategories')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })

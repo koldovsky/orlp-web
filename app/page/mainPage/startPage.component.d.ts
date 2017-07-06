@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { StartPageService } from "./startPage.service";
-import { ICatalog } from "../../interfaces/catalogs";
+import { ICategory } from "../../interfaces/category";
 export declare class StartPageComponent implements OnInit {
     private startPageService;
-    catalogs: ICatalog[];
+    categories: ICategory[];
     errorMessage: string;
     constructor(startPageService: StartPageService);
     ngOnInit(): void;

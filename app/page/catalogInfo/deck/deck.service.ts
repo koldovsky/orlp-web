@@ -25,8 +25,8 @@ export class DeckService {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
 
-        return this.http.post('http://localhost:8080/api/category/' + id + '/decks', body, {})
-            .map((res: Response) =>  console.log(res))
+        return this.orlp.post('http://localhost:8080/api/category/' + id + '/decks', body)
+            .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }
 

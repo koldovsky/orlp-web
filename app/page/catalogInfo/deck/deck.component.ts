@@ -19,7 +19,7 @@ export class DeckComponent implements OnInit {
     ngOnInit(): void {
         this.deckService.getDeck(this.id)
             .subscribe(decks => this.decks = decks,
-                        error => this.errorMessage = <any>error);
+                error => this.errorMessage = <any>error);
     }
 
     addDeck(value: IDeck) {

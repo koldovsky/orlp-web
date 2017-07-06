@@ -14,8 +14,8 @@ import {ORLPService} from "./orlp.service";
 import {SignupService} from "./page/signup/signup.service";
 import {SignupAlertService} from "./page/signup/signup-alert.service";
 import {AdminComponent} from "./page/admin/admin.component";
-import {CatalogInfoModule} from "./page/catalogInfo/catalogInfo.module";
 import {StartPageModule} from "./page/mainPage/startPage.module";
+import {CategoryInfoModule} from "./page/catalogInfo/catalogInfo.module";
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import {StartPageModule} from "./page/mainPage/startPage.module";
             {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
         ]),
 
-        CatalogInfoModule,
+        CategoryInfoModule,
         StartPageModule
     ],
     exports: [],

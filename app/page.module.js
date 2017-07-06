@@ -19,8 +19,8 @@ var orlp_service_1 = require("./orlp.service");
 var signup_service_1 = require("./page/signup/signup.service");
 var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
-var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
+var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -41,7 +41,7 @@ PageModule = __decorate([
                 { path: '', redirectTo: 'startPage', pathMatch: 'full' },
                 { path: '**', redirectTo: 'startPage', pathMatch: 'full' }
             ]),
-            catalogInfo_module_1.CatalogInfoModule,
+            catalogInfo_module_1.CategoryInfoModule,
             startPage_module_1.StartPageModule
         ],
         exports: [],

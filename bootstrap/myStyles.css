@@ -3,41 +3,13 @@ body {
     padding-top: 70px;
 }
 
-.header-text{
+.header-text {
     text-shadow: 4px 4px 10px #5C14CC;
 
 }
+
 .font-color-white {
     color: white;
-}
-/*Page header*/
-.nav-pills .nav-item {
-    background-color: white;
-}
-
-.active {
-    background-color: #3F5B5C;
-}
-
-.nav-pills a {
-    color: #3a3345;
-}
-
-.navbar .nav-item .nav-link {
-    color: #3a3345;
-}
-
-.navbar {
-    background-color: white;
-}
-
-.navbar-main{
-box-shadow: 0px 1px 7px 1px #ffffff;
-
-}
-
-.navbar .form-inline .form-control {
-    background-color: #3a3345;
 }
 
 .divider {
@@ -115,16 +87,19 @@ box-shadow: 0px 1px 7px 1px #ffffff;
     text-transform: uppercase;
     font-weight: bold;
 }
-.mp-deck{
+
+.mp-deck {
     outline: none;
 }
+
 .mp-card {
     width: 100%;
     border: 1px solid rgb(165, 161, 161);
     border-radius: 1.25rem;
     box-shadow: 0px 1px 7px 1px #ffffff;
 }
-.alertMessage{
+
+.alertMessage {
     padding: 0.5rem 1.25rem;
     margin-bottom: 1rem;
     border: 1px solid transparent;
@@ -134,4 +109,43 @@ box-shadow: 0px 1px 7px 1px #ffffff;
     font-size: 15px;
     font-weight: 700;
     font-family: sans-serif;
+}
+
+.catalogPage-nav-borders {
+    width: 100%;
+    border-top: 4px solid white;
+    border-right: 4px solid white;
+    border-left: 4px solid white;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+}
+
+.catalogPage-item-right {
+    background-color: #c8c8c8;
+    width: 100%;
+    border-top-right-radius: 1.6rem;
+}
+
+
+.catalogPage-item-left {
+    background-color: #c8c8c8;
+    width: 100%;
+    border-top-left-radius: 1.6rem;
+}
+
+.catalogPage-items {
+    background-color: #c8c8c8;
+    border-right: 4px solid white;
+    border-left: 4px solid white;
+    border-bottom: 1px solid black;
+}
+
+.catalogPage-active-element {
+    background-color: #3f5b5c;
+}
+
+.catalogPage-button {
+    background-color: #3f5b5c;
+    color: white;
+    border: none;
 }

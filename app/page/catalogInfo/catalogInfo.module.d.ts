@@ -1,2 +1,2 @@
-export declare class CatalogInfoModule {
+export declare class CategoryInfoModule {
 }
