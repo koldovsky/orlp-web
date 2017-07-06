@@ -10,5 +10,6 @@ export declare class StartPageService {
     private catalogsUrl;
     constructor(orlp: ORLPService);
     getCatalogs(): Observable<ICatalog[]>;
+    getCatalogs2(): Observable<ICatalog[]>;
     private handleError(error);
 }

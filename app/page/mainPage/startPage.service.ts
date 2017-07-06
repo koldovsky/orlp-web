@@ -23,6 +23,13 @@ export class StartPageService {
 
     }
 
+    getCatalogs2() : Observable<ICatalog[]> {
+        return this.orlp.get('http://localhost:8080/api/topcategories')
+            .map((response: Response) => <ICatalog[]> response.json())
+            .do(data => console.log('TOP CATEGORIES: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
 

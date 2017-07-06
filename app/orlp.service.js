@@ -20,7 +20,7 @@ var ORLPService = (function () {
         return this.http.get(url, http_1.RequestMethod.Get);
     };
     ORLPService.prototype.post = function (url, body) {
-        return this.http.post(url, http_1.RequestMethod.Post, body);
+        return this.http.post(url, body, {});
     };
     return ORLPService;
 }());

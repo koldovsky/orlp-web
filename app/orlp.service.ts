@@ -14,7 +14,7 @@ export class ORLPService {
     }
 
     post(url : string, body : any) {
-        return this.http.post(url, RequestMethod.Post, body);
+        return this.http.post(url, body, {});
     }
 
 }
