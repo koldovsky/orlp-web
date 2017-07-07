@@ -16,6 +16,7 @@ var login_component_1 = require("./page/login/login.component");
 var http_1 = require("@angular/http");
 var signup_component_1 = require("./page/signup/signup.component");
 var orlp_service_1 = require("./orlp.service");
+var category_filter_pipe_1 = require("./page/admin/category.filter.pipe");
 var signup_service_1 = require("./page/signup/signup.service");
 var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
@@ -49,7 +50,8 @@ PageModule = __decorate([
             page_component_1.PageComponent,
             login_component_1.LoginComponent,
             signup_component_1.SignUpComponent,
-            admin_component_1.AdminComponent
+            admin_component_1.AdminComponent,
+            category_filter_pipe_1.CategoryFilterPipe
         ],
         providers: [orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService],
         bootstrap: [page_component_1.PageComponent]

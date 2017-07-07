@@ -10,6 +10,7 @@ import {ICategoryForAdmin} from "../../interfaces/category-for-admin";
 export class AdminComponent implements OnInit {
     catalogs: ICategoryForAdmin[];
     errorMessage: string;
+    listFilter: string;
     showTable: boolean = false;
 
     constructor(private adminService: AdminService) {

@@ -5,6 +5,7 @@ export declare class AdminComponent implements OnInit {
     private adminService;
     catalogs: ICategoryForAdmin[];
     errorMessage: string;
+    listFilter: string;
     showTable: boolean;
     constructor(adminService: AdminService);
     ngOnInit(): void;

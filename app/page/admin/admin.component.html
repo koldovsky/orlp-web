@@ -86,7 +86,13 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9">
             <div class="collapse" id="collapseCategoriesView" style="padding: .35rem">
-                <h1 class="font-color-white header-text">Table name</h1>
+                <div class="row">
+                    <h1 class="col-md-6 font-color-white header-text">All Categories</h1>
+                    <div class="col-md-6 font-color-white" align="right">Filter by Name:
+                        <input type="text" style="border-radius: 0.8rem" [(ngModel)]="listFilter"/>
+                    </div>
+                </div>
+
                 <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
                     <thead>
                     <tr style="border-top: hidden">
@@ -97,7 +103,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let catalogue of catalogs">
+                    <tr *ngFor="let catalogue of catalogs | categoryFilter:listFilter">
                         <td><img [src]="catalogue.imagebase64" class="mx-auto d-block rounded-main"
                                  style="width: 50px; height: 50px"></td>
                         <td>{{catalogue.name}}</td>
