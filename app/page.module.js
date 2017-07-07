@@ -16,12 +16,16 @@ var login_component_1 = require("./page/login/login.component");
 var http_1 = require("@angular/http");
 var signup_component_1 = require("./page/signup/signup.component");
 var orlp_service_1 = require("./orlp.service");
+var category_filter_pipe_1 = require("./page/admin/category.filter.pipe");
 var signup_service_1 = require("./page/signup/signup.service");
 var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
-var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
+<<<<<<< HEAD
 var login_service_1 = require("./page/login/login.service");
+=======
+var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
+>>>>>>> 11ee3a38dc1e1e3d063b7e9e736057dd2818c089
 var PageModule = (function () {
     function PageModule() {
     }
@@ -42,7 +46,7 @@ PageModule = __decorate([
                 { path: '', redirectTo: 'startPage', pathMatch: 'full' },
                 { path: '**', redirectTo: 'startPage', pathMatch: 'full' }
             ]),
-            catalogInfo_module_1.CatalogInfoModule,
+            catalogInfo_module_1.CategoryInfoModule,
             startPage_module_1.StartPageModule
         ],
         exports: [],
@@ -50,7 +54,8 @@ PageModule = __decorate([
             page_component_1.PageComponent,
             login_component_1.LoginComponent,
             signup_component_1.SignUpComponent,
-            admin_component_1.AdminComponent
+            admin_component_1.AdminComponent,
+            category_filter_pipe_1.CategoryFilterPipe
         ],
         providers: [orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService, login_service_1.LoginService],
         bootstrap: [page_component_1.PageComponent]

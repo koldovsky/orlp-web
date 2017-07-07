@@ -1,22 +1,22 @@
 [
   {
-    "catalogId": 1,
-    "catalogName": "Java",
+    "categoryId": 1,
+    "categoryName": "Java",
     "imageUrl": "image/java.png"
   },
   {
-    "catalogId": 2,
-    "catalogName": "C++",
+    "categoryId": 2,
+    "categoryName": "C++",
     "imageUrl": "image/c++.png"
   },
   {
-    "catalogId": 3,
-    "catalogName": "C#",
+    "categoryId": 3,
+    "categoryName": "C#",
     "imageUrl": "image/Csharp.png"
   },
   {
-    "catalogId": 4,
-    "catalogName": "Java Script",
+    "categoryId": 4,
+    "categoryName": "Java Script",
     "imageUrl": "image/js.png"
   }
 ]

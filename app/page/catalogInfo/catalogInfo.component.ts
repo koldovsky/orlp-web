@@ -5,7 +5,7 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
     template: require('app/page/catalogInfo/catalogInfo.component.html!text')
 })
-export class CatalogInfoComponent implements OnInit {
+export class CategoryInfoComponent implements OnInit {
     id: number;
     private sub: Subscription;
     table1 : boolean = true;

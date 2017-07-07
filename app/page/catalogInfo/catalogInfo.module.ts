@@ -1,31 +1,29 @@
 import { NgModule } from '@angular/core';
-import {BrowserModule} from "@angular/platform-browser";
-import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {CatalogInfoComponent} from "./catalogInfo.component";
-import {Table1Component} from "./table1/table1.component";
-import {Table2Component} from "./table2/table2.component";
-import {Table1Service} from "./table1/table1.service";
-import {Table2Service} from "./table2/table2.service";
-import {ORLPService} from "../../orlp.service";
+import {DeckComponent} from "./deck/deck.component";
+import {CourseComponent} from "./course/course.component";
+import {CourseService} from "./course/course.service";
+import {DeckService} from "./deck/deck.service";
+import {CategoryInfoComponent} from "./catalogInfo.component";
 
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
         RouterModule.forChild([
-            {path: 'catalog/:id', component: CatalogInfoComponent}
+            {path: 'category/:id', component: CategoryInfoComponent}
         ])],
     exports: [],
     declarations: [
-        CatalogInfoComponent,
-        Table1Component,
-        Table2Component ],
+        CategoryInfoComponent,
+        CourseComponent,
+        DeckComponent ],
     providers: [
-        Table1Service,
-        Table2Service
+        CourseService,
+        DeckService
     ],
 })
-export class CatalogInfoModule { }
+
+export class CategoryInfoModule { }

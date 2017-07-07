@@ -10,13 +10,17 @@ import {LoginComponent} from "./page/login/login.component";
 import {HttpModule} from "@angular/http";
 import {SignUpComponent} from "./page/signup/signup.component";
 import {ORLPService} from "./orlp.service";
+import {CategoryFilterPipe} from "./page/admin/category.filter.pipe";
 
 import {SignupService} from "./page/signup/signup.service";
 import {SignupAlertService} from "./page/signup/signup-alert.service";
 import {AdminComponent} from "./page/admin/admin.component";
-import {CatalogInfoModule} from "./page/catalogInfo/catalogInfo.module";
 import {StartPageModule} from "./page/mainPage/startPage.module";
+
 import {LoginService} from "./page/login/login.service";
+
+import {CategoryInfoModule} from "./page/catalogInfo/catalogInfo.module";
+
 
 
 @NgModule({
@@ -34,7 +38,7 @@ import {LoginService} from "./page/login/login.service";
             {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
         ]),
 
-        CatalogInfoModule,
+        CategoryInfoModule,
         StartPageModule
     ],
     exports: [],
@@ -42,7 +46,8 @@ import {LoginService} from "./page/login/login.service";
         PageComponent,
         LoginComponent,
         SignUpComponent,
-        AdminComponent],
+        AdminComponent,
+        CategoryFilterPipe],
 
     providers: [ORLPService, SignupService, SignupAlertService, LoginService],
     bootstrap: [PageComponent]

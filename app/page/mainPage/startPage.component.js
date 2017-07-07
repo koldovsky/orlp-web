@@ -18,7 +18,7 @@ var StartPageComponent = (function () {
     StartPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.startPageService.getCatalogs()
-            .subscribe(function (catalogs) { return _this.catalogs = catalogs; }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
     };
     return StartPageComponent;
 }());

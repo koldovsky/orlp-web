@@ -1,46 +1,75 @@
 <div class="container">
-    <div class="row mb-3">
+    <div class="row mt-4 mb-4">
         <div class="col-md-12 mt-4 font-color-white text-center">
-            <h2>Top Categories</h2>
+            <h2 class="header-text">Top Categories</h2>
         </div>
+        <br/>
     </div>
-    <div class="row">
-        <div *ngFor="let catalog of catalogs" class="col-3" [routerLink]="['/catalog', catalog.catalogId]">
-            <div class="card">
-                <img [src]="catalog.imageUrl" class="mx-auto d-block rounded card-img-top" style="width: 100%">
-                <div class="card-block text-center"><h4><p class="card-text">{{catalog.catalogName}}</p></h4></div>
+
+
+    <div class="row" >
+        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', category.categoryId]">
+            <div class="card mp-card">
+                <img [src]="category.imageUrl" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
+                <div class="card-block text-center">
+                    <h4>
+                        <p class="card-text">{{category.categoryName}}</p>
+                    </h4>
+                </div>
             </div>
+            <br/>
         </div>
     </div>
+    <!--Cources-->
     <div class="row mt-5 mb-4">
         <div class="col-md-12 font-color-white text-center">
-            <h2>Top Courses</h2>
+            <h2 class="header-text">Top Courses</h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
-            <div class="card">
-                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
-                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+        <div class="col-md-3 col-sm-6 col-xs-12 mp-deck">
+            <div class="card mp-card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded-main card-img-top">
+                <div style="text-align: center" class="card-block">
+                    <h4>
+                        <p class="card-text">Java</p>
+                    </h4>
+                </div>
             </div>
+            <br/>
         </div>
-        <div class="col-3">
-            <div class="card">
-                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
-                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card mp-card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded-main card-img-top">
+                <div style="text-align: center" class="card-block">
+                    <h4>
+                        <p class="card-text">Java</p>
+                    </h4>
+                </div>
             </div>
+            <br/>
         </div>
-        <div class="col-3">
-            <div class="card">
-                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
-                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card mp-card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded-main card-img-top">
+                <div style="text-align: center" class="card-block">
+                    <h4>
+                        <p class="card-text">Java</p>
+                    </h4>
+                </div>
             </div>
+            <br/>
         </div>
-        <div class="col-3">
-            <div class="card">
-                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top" style="width: 100%">
-                <div style="text-align: center" class="card-block"><h4><p class="card-text">Java</p></h4></div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="card mp-card">
+                <img src="image/images.jpg" class="mx-auto d-block rounded card-img-top">
+                <div style="text-align: center" class="card-block">
+                    <h4>
+                        <p class="card-text">Java</p>
+                    </h4>
+                </div>
             </div>
+            <br/>
         </div>
     </div>
 
@@ -51,4 +80,3 @@
         <div class="col-6" style="color: darkgray">Spaced Repetition this is the best site!</div>
     </div>
 </div>
-

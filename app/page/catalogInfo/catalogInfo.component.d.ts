@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-export declare class CatalogInfoComponent implements OnInit {
+export declare class CategoryInfoComponent implements OnInit {
     private route;
     id: number;
     private sub;

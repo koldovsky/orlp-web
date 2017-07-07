@@ -10,13 +10,22 @@ import {IDeck} from "../../../interfaces/deck";
 import {ICourse} from "../../../interfaces/course";
 
 @Injectable()
-export class Table1Service {
+export class CourseService {
     constructor(private orlp: ORLPService) { }
 
     getCourse(id : number): Observable<ICourse[]> {
         return this.orlp.get('http://localhost:8080/api/category/' + id + '/courses')
             .map((response: Response) => <ICourse[]> response.json())
             .do(data => console.log('Courses: ' + JSON.stringify(data)))
+            .catch(this.handleError);
+    }
+
+    addCourse(body: ICourse, id: number): Observable<ICourse> {
+        // let headers = new Headers({'Content-Type': 'application/json'});
+        // let options = new RequestOptions({headers : headers});
+
+        return this.orlp.post('http://localhost:8080/api/category/' + id + '/courses', body)
+            .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }
 

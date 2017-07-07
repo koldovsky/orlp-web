@@ -3,12 +3,12 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { ICatalog } from "../../interfaces/catalogs";
 import { ORLPService } from "../../orlp.service";
+import { ICategory } from "../../interfaces/category";
 export declare class StartPageService {
     private orlp;
-    private catalogsUrl;
     constructor(orlp: ORLPService);
-    getCatalogs(): Observable<ICatalog[]>;
+    getCatalogs(): Observable<ICategory[]>;
+    getCategories(): Observable<ICategory[]>;
     private handleError(error);
 }

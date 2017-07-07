@@ -10,36 +10,36 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
+var deck_component_1 = require("./deck/deck.component");
+var course_component_1 = require("./course/course.component");
+var course_service_1 = require("./course/course.service");
+var deck_service_1 = require("./deck/deck.service");
 var catalogInfo_component_1 = require("./catalogInfo.component");
-var table1_component_1 = require("./table1/table1.component");
-var table2_component_1 = require("./table2/table2.component");
-var table1_service_1 = require("./table1/table1.service");
-var table2_service_1 = require("./table2/table2.service");
-var CatalogInfoModule = (function () {
-    function CatalogInfoModule() {
+var CategoryInfoModule = (function () {
+    function CategoryInfoModule() {
     }
-    return CatalogInfoModule;
+    return CategoryInfoModule;
 }());
-CatalogInfoModule = __decorate([
+CategoryInfoModule = __decorate([
     core_1.NgModule({
         imports: [
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                { path: 'catalog/:id', component: catalogInfo_component_1.CatalogInfoComponent }
+                { path: 'category/:id', component: catalogInfo_component_1.CategoryInfoComponent }
             ])
         ],
         exports: [],
         declarations: [
-            catalogInfo_component_1.CatalogInfoComponent,
-            table1_component_1.Table1Component,
-            table2_component_1.Table2Component
+            catalogInfo_component_1.CategoryInfoComponent,
+            course_component_1.CourseComponent,
+            deck_component_1.DeckComponent
         ],
         providers: [
-            table1_service_1.Table1Service,
-            table2_service_1.Table2Service
+            course_service_1.CourseService,
+            deck_service_1.DeckService
         ],
     })
-], CatalogInfoModule);
-exports.CatalogInfoModule = CatalogInfoModule;
+], CategoryInfoModule);
+exports.CategoryInfoModule = CategoryInfoModule;
 //# sourceMappingURL=catalogInfo.module.js.map
