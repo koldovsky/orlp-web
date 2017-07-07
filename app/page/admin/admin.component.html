@@ -93,15 +93,30 @@
                     <thead>
                     <tr style="border-top: hidden">
                         <th>#</th>
-                        <th >Category Name</th>
-                        <th >Category Description</th>
+                        <th>Category Name</th>
+                        <th>Category Description</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let catalogue of catalogs" >
-                        <td ><img [src]="catalogue.imagebase64" class="mx-auto d-block rounded-main" style="width: 50px; height: 50px"></td>
-                        <td >{{catalogue.name}}</td>
-                        <td >{{catalogue.description}}</td>
+                    <tr *ngFor="let catalogue of catalogs">
+                        <td><img [src]="catalogue.imagebase64" class="mx-auto d-block rounded-main"
+                                 style="width: 50px; height: 50px"></td>
+                        <td>{{catalogue.name}}</td>
+                        <td>{{catalogue.description}}</td>
+                        <td>
+                            <div class="btn-group open">
+                                <a class="btn btn-secondary"><i class="fa fa-cog"></i> More</a>
+                                <a class="btn btn-secondary " data-toggle="dropdown">
+                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-eye"></i> View Details</a></li>
+                                    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+                                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
