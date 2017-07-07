@@ -15,7 +15,7 @@ import {SignupService} from "./page/signup/signup.service";
 import {SignupAlertService} from "./page/signup/signup-alert.service";
 import {AdminComponent} from "./page/admin/admin.component";
 import {StartPageModule} from "./page/mainPage/startPage.module";
-import {CategoryInfoModule} from "./page/catalogInfo/catalogInfo.module";
+import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
 
 
 @NgModule({
