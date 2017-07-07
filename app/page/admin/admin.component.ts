@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminService} from "./admin.service";
 import {ICategoryForAdmin} from "../../interfaces/category-for-admin";
 
 @Component({
-    providers: [AdminService],
+   // providers: [AdminService],
     template: require('app/page/admin/admin.component.html!text')
 })
 
-export class AdminComponent implements OnInit {
+export class AdminComponent /*implements OnInit*/ {
     catalogs: ICategoryForAdmin[];
     errorMessage: string;
     listFilter: string;
     showTable: boolean = false;
-
+/*
     constructor(private adminService: AdminService) {
     }
 
@@ -31,5 +30,5 @@ export class AdminComponent implements OnInit {
 
     toggleTable(): void {
         this.showTable = !this.showTable;
-    }
+    }*/
 }

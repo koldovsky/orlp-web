@@ -7,7 +7,6 @@ import {LoginService} from "./login.service";
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-
     errorMessage: String;
     success: boolean = false;
     errorUserExists: string;
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.fb.group({
-            email: ['', [Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), Validators.required]],
+            username: ['', [Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), Validators.required]],
             password: ['', [Validators.required]],
 
         })
@@ -30,20 +29,19 @@ export class LoginComponent implements OnInit {
         this.loginService.login(this.loginForm.value)
             .subscribe(() => {
                     this.success = true;
+                    console.log(this.loginForm.value);
                 },
+
                 (response) => this.processError(response));
     }
 
     private processError(response) {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
-            this.errorUserExists = 'ERROR';
-        } else if (response.status === 400 && response._body === 'email address already in use') {
-            this.errorEmailExists = 'ERROR';
-        } else {
             this.error = true;
-        }
 
+
+        }
     }
 }
 

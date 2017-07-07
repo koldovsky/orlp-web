@@ -133,15 +133,21 @@
                     Register
                 </button>
 
-
-                <div class="active" style="height: 150px">
-
-                    <br>Dirty : {{userForm.dirty}}>
-                    <br>Touched : {{userForm.touched}}>
-                    <br>Valid : {{userForm.valid}}>
-                    <br>Dirty : {{userForm.value | json}}>
-
+                <div class="alert alert-danger" *ngIf="error">
+                    <span>Registration failed</span>
                 </div>
+                <div class="alert alert-success" *ngIf="success">
+                    <span>Registration success</span>
+                </div>
+
+                <!--<div class="active" style="height: 150px">-->
+
+                <!--<br>Dirty : {{userForm.dirty}}>-->
+                <!--<br>Touched : {{userForm.touched}}>-->
+                <!--<br>Valid : {{userForm.valid}}>-->
+                <!--<br>Dirty : {{userForm.value | json}}>-->
+
+                <!--</div>-->
 
             </div>
         </div>

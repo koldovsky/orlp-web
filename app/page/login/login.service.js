@@ -18,7 +18,7 @@ var LoginService = (function () {
     function LoginService(orlp, http) {
         this.orlp = orlp;
         this.http = http;
-        this._controllerUrl = 'http://localhost:8080/api/login';
+        this._controllerUrl = 'http://localhost:8080/auth';
     }
     LoginService.prototype.login = function (account) {
         var bodyString = JSON.stringify(account);

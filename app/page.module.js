@@ -21,11 +21,8 @@ var signup_service_1 = require("./page/signup/signup.service");
 var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
-<<<<<<< HEAD
 var login_service_1 = require("./page/login/login.service");
-=======
 var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
->>>>>>> 11ee3a38dc1e1e3d063b7e9e736057dd2818c089
 var PageModule = (function () {
     function PageModule() {
     }

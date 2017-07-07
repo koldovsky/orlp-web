@@ -3,7 +3,6 @@ import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "./User";
-import {jsonpFactory} from "@angular/http/src/http_module";
 
 
 function passwordMatcher(c: AbstractControl) {
@@ -70,10 +69,6 @@ export class SignUpComponent implements OnInit {
     private processError(response) {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
-            this.errorUserExists = 'ERROR';
-        } else if (response.status === 400 && response._body === 'email address already in use') {
-            this.errorEmailExists = 'ERROR';
-        } else {
             this.error = true;
         }
 

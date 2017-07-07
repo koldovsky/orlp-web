@@ -5,16 +5,18 @@ import {Account} from "../signup/Account";
 import "rxjs/add/operator/map";
 import {ORLPService} from "../../orlp.service";
 import {FormGroup} from "@angular/forms";
+import {LoginAccount} from "./LoginAccount";
+
 
 @Injectable()
 export class LoginService {
-    private _controllerUrl = 'http://localhost:8080/api/login';
+    private _controllerUrl = 'http://localhost:8080/auth';
 
     constructor(private orlp: ORLPService,
                 private http: Http) {
     }
 
-    login(account: FormGroup): Observable<Account> {
+    login(account: LoginAccount): Observable<Account> {
         let bodyString = JSON.stringify(account);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});

@@ -45,7 +45,7 @@ var SignUpComponent = (function () {
     ;
     SignUpComponent.prototype.register = function () {
         var _this = this;
-        this.user.account.password = this.userForm.value.confirmPassword;
+        this.user.account.password = this.userForm.value.confirmPassword.password;
         this.user.account.email = this.userForm.value.email;
         this.user.person.firstName = this.userForm.value.firstName;
         this.user.person.lastName = this.userForm.value.lastName;
@@ -59,12 +59,6 @@ var SignUpComponent = (function () {
     SignUpComponent.prototype.processError = function (response) {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
-            this.errorUserExists = 'ERROR';
-        }
-        else if (response.status === 400 && response._body === 'email address already in use') {
-            this.errorEmailExists = 'ERROR';
-        }
-        else {
             this.error = true;
         }
     };

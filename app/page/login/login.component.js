@@ -21,7 +21,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this.fb.group({
-            email: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
+            username: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
             password: ['', [forms_1.Validators.required]],
         });
     };
@@ -30,17 +30,12 @@ var LoginComponent = (function () {
         this.loginService.login(this.loginForm.value)
             .subscribe(function () {
             _this.success = true;
+            console.log(_this.loginForm.value);
         }, function (response) { return _this.processError(response); });
     };
     LoginComponent.prototype.processError = function (response) {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
-            this.errorUserExists = 'ERROR';
-        }
-        else if (response.status === 400 && response._body === 'email address already in use') {
-            this.errorEmailExists = 'ERROR';
-        }
-        else {
             this.error = true;
         }
     };
