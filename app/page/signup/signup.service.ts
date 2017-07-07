@@ -1,29 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import {RequestOptions, Response} from '@angular/http';
+import {RequestOptions, Response, Headers, Http} from '@angular/http';
 import {ORLPService} from "../../orlp.service";
 import {User} from "./User";
+import {FormGroup} from "@angular/forms";
 
 
 @Injectable()
 export class SignupService {
     private _controllerUrl = 'http://localhost:8080/api/registration';
-    constructor(private _orlp: ORLPService) { }
+    constructor(private _orlp: ORLPService, private http: Http) { }
 
 
     registerUser(newUser: User): Observable<User> {
-      /*  let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers : headers });
-        return this._orlp.post(this._controllerUrl, newUser, options).map(this.);*/
-        return new Observable<User>();
-
+     // let headers = new Headers({'Content-Type': 'application/json'});
+       // let options = new RequestOptions({ headers : headers });
+        return this.http.post(this._controllerUrl, newUser).map(this.extractData)
+            .catch(this.handleErrorObservable);
 
     }
 
-    private handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+    private extractData(res: Response) {
+        let body = res.json();
+        return body.data || {};
     }
 
-    
+    private handleErrorObservable(error: Response | any) {
+        return Observable.throw(error.message || error);
+    }
+
+
+
 }

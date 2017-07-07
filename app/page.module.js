@@ -21,6 +21,7 @@ var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
 var catalogInfo_module_1 = require("./page/catalogInfo/catalogInfo.module");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
+var login_service_1 = require("./page/login/login.service");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -51,7 +52,7 @@ PageModule = __decorate([
             signup_component_1.SignUpComponent,
             admin_component_1.AdminComponent
         ],
-        providers: [orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService],
+        providers: [orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService, login_service_1.LoginService],
         bootstrap: [page_component_1.PageComponent]
     })
 ], PageModule);

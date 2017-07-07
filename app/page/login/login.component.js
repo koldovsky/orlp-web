@@ -10,17 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
+var login_service_1 = require("./login.service");
 var LoginComponent = (function () {
-    function LoginComponent() {
+    function LoginComponent(fb, loginService) {
+        this.fb = fb;
+        this.loginService = loginService;
+        this.success = false;
+        this.error = false;
     }
-    LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.ngOnInit = function () {
+        this.loginForm = this.fb.group({
+            email: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
+            password: ['', [forms_1.Validators.required]],
+        });
+    };
+    LoginComponent.prototype.userLogin = function () {
+        var _this = this;
+        this.loginService.login(this.loginForm.value)
+            .subscribe(function () {
+            _this.success = true;
+        }, function (response) { return _this.processError(response); });
+    };
+    LoginComponent.prototype.processError = function (response) {
+        this.success = null;
+        if (response.status === 400 && response._body === 'login already in use') {
+            this.errorUserExists = 'ERROR';
+        }
+        else if (response.status === 400 && response._body === 'email address already in use') {
+            this.errorEmailExists = 'ERROR';
+        }
+        else {
+            this.error = true;
+        }
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
     core_1.Component({
         template: require('app/page/login/login.component.html!text')
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

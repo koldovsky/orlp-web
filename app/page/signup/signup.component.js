@@ -13,8 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var signup_service_1 = require("./signup.service");
 var forms_1 = require("@angular/forms");
-var Person_1 = require("./Person");
-var Account_1 = require("./Account");
+var User_1 = require("./User");
 function passwordMatcher(c) {
     var passwordControl = c.get('password');
     var confirmPassword = c.get('confirmPassword');
@@ -28,8 +27,9 @@ var SignUpComponent = (function () {
         this.router = router;
         this.signupService = signupService;
         this.formBuilder = formBuilder;
-        this.person = new Person_1.Person();
-        this.account = new Account_1.Account();
+        this.user = new User_1.User();
+        this.success = false;
+        this.error = false;
     }
     SignUpComponent.prototype.ngOnInit = function () {
         this.userForm = this.formBuilder.group({
@@ -43,6 +43,31 @@ var SignUpComponent = (function () {
         });
     };
     ;
+    SignUpComponent.prototype.register = function () {
+        var _this = this;
+        this.user.account.password = this.userForm.value.confirmPassword;
+        this.user.account.email = this.userForm.value.email;
+        this.user.person.firstName = this.userForm.value.firstName;
+        this.user.person.lastName = this.userForm.value.lastName;
+        console.log(this.user);
+        this.signupService.registerUser(this.user)
+            .subscribe(function () {
+            _this.success = true;
+        }, function (response) { return _this.processError(response); });
+        console.log(this.user);
+    };
+    SignUpComponent.prototype.processError = function (response) {
+        this.success = null;
+        if (response.status === 400 && response._body === 'login already in use') {
+            this.errorUserExists = 'ERROR';
+        }
+        else if (response.status === 400 && response._body === 'email address already in use') {
+            this.errorEmailExists = 'ERROR';
+        }
+        else {
+            this.error = true;
+        }
+    };
     return SignUpComponent;
 }());
 SignUpComponent = __decorate([

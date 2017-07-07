@@ -2,8 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Person} from "./Person";
-import {Account} from "./Account";
+import {User} from "./User";
+import {jsonpFactory} from "@angular/http/src/http_module";
 
 
 function passwordMatcher(c: AbstractControl) {
@@ -23,8 +23,12 @@ function passwordMatcher(c: AbstractControl) {
 
 export class SignUpComponent implements OnInit {
     userForm: FormGroup;
-    person = new Person();
-    account = new Account();
+    user: User = new User();
+    errorMessage: String;
+    success: boolean = false;
+    errorUserExists: string;
+    error: boolean = false;
+    errorEmailExists: string;
 
 
     constructor(private router: Router,
@@ -45,5 +49,34 @@ export class SignUpComponent implements OnInit {
             }, {validator: passwordMatcher})
         })
     };
+
+    register(): void {
+
+
+        this.user.account.password = this.userForm.value.confirmPassword.password;
+        this.user.account.email = this.userForm.value.email;
+        this.user.person.firstName = this.userForm.value.firstName;
+        this.user.person.lastName = this.userForm.value.lastName;
+        console.log(this.user);
+        this.signupService.registerUser(this.user)
+            .subscribe(() => {
+                    this.success = true;
+                },
+                (response) => this.processError(response));
+        console.log(this.user);
+
+    }
+
+    private processError(response) {
+        this.success = null;
+        if (response.status === 400 && response._body === 'login already in use') {
+            this.errorUserExists = 'ERROR';
+        } else if (response.status === 400 && response._body === 'email address already in use') {
+            this.errorEmailExists = 'ERROR';
+        } else {
+            this.error = true;
+        }
+
+    }
 
 }

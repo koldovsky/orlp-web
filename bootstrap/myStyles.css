@@ -29,6 +29,9 @@ body {
 .navbar .form-inline .form-control {
     background-color: #3a3345;
 }
+.nav:hover.a{
+    background-color: #3a3345;
+}
 
 .divider {
     display: inline-block;

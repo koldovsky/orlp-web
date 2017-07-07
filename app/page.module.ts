@@ -16,6 +16,7 @@ import {SignupAlertService} from "./page/signup/signup-alert.service";
 import {AdminComponent} from "./page/admin/admin.component";
 import {CatalogInfoModule} from "./page/catalogInfo/catalogInfo.module";
 import {StartPageModule} from "./page/mainPage/startPage.module";
+import {LoginService} from "./page/login/login.service";
 
 
 @NgModule({
@@ -43,7 +44,7 @@ import {StartPageModule} from "./page/mainPage/startPage.module";
         SignUpComponent,
         AdminComponent],
 
-    providers: [ORLPService, SignupService, SignupAlertService],
+    providers: [ORLPService, SignupService, SignupAlertService, LoginService],
     bootstrap: [PageComponent]
 })
 export class PageModule {
