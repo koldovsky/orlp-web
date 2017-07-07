@@ -12,17 +12,17 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <div class="form-group "
-                     [ngClass]="{'has-danger': (loginForm.get('email').touched||loginForm.get('email').dirty)&&!loginForm.get('email').valid}">
-                    <label class="sr-only" for="email">E-Mail Address</label>
+                     [ngClass]="{'has-danger': (loginForm.get('username').touched||loginForm.get('username').dirty)&&!loginForm.get('username').valid}">
+                    <label class="sr-only">E-Mail Address</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" name="email" class="form-control" id="email"
-                               placeholder="you@example.com" formControlName="email">
+                        <input type="text"
+                               placeholder="you@example.com" formControlName="username">
                     </div>
                     <div class="alert alert-danger"
-                         *ngIf="(loginForm.get('email').touched || loginForm.get('email').dirty)&&loginForm.get('email').errors">
-                        <span *ngIf="loginForm.get('email').errors.required">Please enter your email address</span>
-                        <span *ngIf="loginForm.get('email').errors.pattern">Please enter valid email address</span>
+                         *ngIf="(loginForm.get('username').touched || loginForm.get('username').dirty)&&loginForm.get('username').errors">
+                        <span *ngIf="loginForm.get('username').errors.required">Please enter your email address</span>
+                        <span *ngIf="loginForm.get('username').errors.pattern">Please enter valid email address</span>
 
                     </div>
                 </div>
