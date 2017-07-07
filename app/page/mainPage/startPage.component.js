@@ -17,7 +17,7 @@ var StartPageComponent = (function () {
     }
     StartPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.startPageService.getCatalogs()
+        this.startPageService.getCategories()
             .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
     };
     return StartPageComponent;

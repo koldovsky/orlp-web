@@ -15,7 +15,7 @@ export class StartPageComponent implements OnInit {
     constructor(private startPageService: StartPageService) { }
 
     ngOnInit(): void {
-        this.startPageService.getCatalogs()
+        this.startPageService.getCategories()
             .subscribe(category => this.categories = category,
                         error => this.errorMessage = <any>error);
     }

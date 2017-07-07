@@ -8,7 +8,6 @@ import { ICategory } from "../../interfaces/category";
 export declare class StartPageService {
     private orlp;
     constructor(orlp: ORLPService);
-    getCatalogs(): Observable<ICategory[]>;
     getCategories(): Observable<ICategory[]>;
     private handleError(error);
 }

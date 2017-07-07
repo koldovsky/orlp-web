@@ -1,5 +1,6 @@
 export interface ICategory {
-    categoryId: number;
-    categoryName: string;
-    imageUrl: string;
+    id: number;
+    name: string;
+    imagebase64: string;
+    description: string;
 }

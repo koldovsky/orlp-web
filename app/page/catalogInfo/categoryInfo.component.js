@@ -38,9 +38,9 @@ var CategoryInfoComponent = (function () {
 }());
 CategoryInfoComponent = __decorate([
     core_1.Component({
-        template: require('app/page/catalogInfo/catalogInfo.component.html!text')
+        template: require('app/page/catalogInfo/categoryInfo.component.html!text')
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute])
 ], CategoryInfoComponent);
 exports.CategoryInfoComponent = CategoryInfoComponent;
-//# sourceMappingURL=catalogInfo.component.js.map
+//# sourceMappingURL=categoryInfo.component.js.map

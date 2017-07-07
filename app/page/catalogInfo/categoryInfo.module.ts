@@ -6,7 +6,7 @@ import {DeckComponent} from "./deck/deck.component";
 import {CourseComponent} from "./course/course.component";
 import {CourseService} from "./course/course.service";
 import {DeckService} from "./deck/deck.service";
-import {CategoryInfoComponent} from "./catalogInfo.component";
+import {CategoryInfoComponent} from "./categoryInfo.component";
 
 @NgModule({
     imports: [

@@ -8,12 +8,12 @@
 
 
     <div class="row" >
-        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', category.categoryId]">
+        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', category.id]">
             <div class="card mp-card">
-                <img [src]="category.imageUrl" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
+                <img [src]="category.imagebase64" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
                 <div class="card-block text-center">
                     <h4>
-                        <p class="card-text">{{category.categoryName}}</p>
+                        <p class="card-text">{{category.name}}</p>
                     </h4>
                 </div>
             </div>

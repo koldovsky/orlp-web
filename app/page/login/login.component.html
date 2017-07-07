@@ -20,7 +20,7 @@
                                placeholder="you@example.com" formControlName="email">
                     </div>
                     <div class="alert alert-danger"
-                         *ngIf="(loginForm.get('email').touched|| loginForm.get('email').dirty)&&loginForm.get('email').errors">
+                         *ngIf="(loginForm.get('email').touched || loginForm.get('email').dirty)&&loginForm.get('email').errors">
                         <span *ngIf="loginForm.get('email').errors.required">Please enter your email address</span>
                         <span *ngIf="loginForm.get('email').errors.pattern">Please enter valid email address</span>
 

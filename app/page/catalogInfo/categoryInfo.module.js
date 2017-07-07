@@ -14,7 +14,7 @@ var deck_component_1 = require("./deck/deck.component");
 var course_component_1 = require("./course/course.component");
 var course_service_1 = require("./course/course.service");
 var deck_service_1 = require("./deck/deck.service");
-var catalogInfo_component_1 = require("./catalogInfo.component");
+var categoryInfo_component_1 = require("./categoryInfo.component");
 var CategoryInfoModule = (function () {
     function CategoryInfoModule() {
     }
@@ -26,12 +26,12 @@ CategoryInfoModule = __decorate([
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                { path: 'category/:id', component: catalogInfo_component_1.CategoryInfoComponent }
+                { path: 'category/:id', component: categoryInfo_component_1.CategoryInfoComponent }
             ])
         ],
         exports: [],
         declarations: [
-            catalogInfo_component_1.CategoryInfoComponent,
+            categoryInfo_component_1.CategoryInfoComponent,
             course_component_1.CourseComponent,
             deck_component_1.DeckComponent
         ],
@@ -42,4 +42,4 @@ CategoryInfoModule = __decorate([
     })
 ], CategoryInfoModule);
 exports.CategoryInfoModule = CategoryInfoModule;
-//# sourceMappingURL=catalogInfo.module.js.map
+//# sourceMappingURL=categoryInfo.module.js.map
