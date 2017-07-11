@@ -21,12 +21,8 @@ var LoginService = (function () {
         this._controllerUrl = 'http://localhost:8080/auth';
     }
     LoginService.prototype.login = function (account) {
-        var bodyString = JSON.stringify(account);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        var options = new http_1.RequestOptions({ headers: headers });
         console.log(account);
-        return this.http.post(this._controllerUrl, account, {})
-            .map(function (response) { return console.log(response); })
+        return this.http.post(this._controllerUrl, account).map(this.extractData)
             .catch(this.handleErrorObservable);
     };
     LoginService.prototype.extractData = function (res) {
@@ -34,7 +30,6 @@ var LoginService = (function () {
         return body.data || {};
     };
     LoginService.prototype.handleErrorObservable = function (error) {
-        console.error(error.message || error);
         return Observable_1.Observable.throw(error.message || error);
     };
     return LoginService;

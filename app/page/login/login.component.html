@@ -9,34 +9,36 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
+            <div class="col-md-3 field-label-responsive">
+                <label for="username" style="color: #41FF05">Email address</label>
+            </div>
             <div class="col-md-6">
-                <div class="form-group "
+                <div class="form-group"
                      [ngClass]="{'has-danger': (loginForm.get('username').touched||loginForm.get('username').dirty)&&!loginForm.get('username').valid}">
-                    <label class="sr-only">E-Mail Address</label>
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text"
-                               placeholder="you@example.com" formControlName="username">
+                        <input type="text" class="form-control" id="username"
+                               placeholder="Email" formControlName="username">
                     </div>
                     <div class="alert alert-danger"
-                         *ngIf="(loginForm.get('username').touched || loginForm.get('username').dirty)&&loginForm.get('username').errors">
+                         *ngIf="(loginForm.get('username').touched||loginForm.get('username').dirty)&&loginForm.get('username').errors">
                         <span *ngIf="loginForm.get('username').errors.required">Please enter your email address</span>
-                        <span *ngIf="loginForm.get('username').errors.pattern">Please enter valid email address</span>
 
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
+            <div class="col-md-3 field-label-responsive">
+                <label for="password" style="color: #41FF05">Password</label>
+            </div>
             <div class="col-md-6">
                 <div class="form-group"
                      [ngClass]="{'has-danger': (loginForm.get('password').touched||loginForm.get('password').dirty)&&!loginForm.get('password').valid}">
-                    <label class="sr-only" for="password">Password</label>
+
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                        <input type="password" name="password" class="form-control" id="password"
+                        <input type="password" class="form-control" id="password"
                                placeholder="Password" formControlName="password">
                     </div>
                     <div class="alert alert-danger"
@@ -63,14 +65,16 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
-                <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+                <div class="alertMessage">
+
+                    <div class="alert alert-danger" *ngIf="error">
+                        <span><b>Authorization failed!</b> Try again.</span>
+                    </div>
+                    <div class="alert alert-success" *ngIf="success">
+                        <span>Authorization <b>successful!</b></span>
+                    </div>
+                </div>
             </div>
-
-
-        </div>
-
-        <div class="alert alert-danger" *ngIf="error">
-            <span>Not valid email or password</span>
         </div>
 
     </form>

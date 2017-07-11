@@ -28,16 +28,14 @@ var SignUpComponent = (function () {
         this.signupService = signupService;
         this.formBuilder = formBuilder;
         this.user = new User_1.User();
-        this.success = false;
-        this.error = false;
     }
     SignUpComponent.prototype.ngOnInit = function () {
         this.userForm = this.formBuilder.group({
-            firstName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
-            lastName: ['', [forms_1.Validators.required, forms_1.Validators.minLength(3)]],
-            email: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
+            firstName: ['', [forms_1.Validators.required]],
+            lastName: ['', [forms_1.Validators.required]],
+            email: ['', [forms_1.Validators.email, forms_1.Validators.required]],
             passwordGroup: this.formBuilder.group({
-                password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(5)]],
+                password: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8)]],
                 confirmPassword: ['', [forms_1.Validators.required]],
             }, { validator: passwordMatcher })
         });
@@ -45,22 +43,33 @@ var SignUpComponent = (function () {
     ;
     SignUpComponent.prototype.register = function () {
         var _this = this;
-        this.user.account.password = this.userForm.value.confirmPassword.password;
-        this.user.account.email = this.userForm.value.email;
-        this.user.person.firstName = this.userForm.value.firstName;
-        this.user.person.lastName = this.userForm.value.lastName;
+        this.error = false;
+        this.success = false;
+        this.errorEmailExists = false;
+        this.transferingDataFromFormToUserObj();
         console.log(this.user);
         this.signupService.registerUser(this.user)
             .subscribe(function () {
             _this.success = true;
         }, function (response) { return _this.processError(response); });
-        console.log(this.user);
+    };
+    SignUpComponent.prototype.transferingDataFromFormToUserObj = function () {
+        this.user.account.password = this.userForm.value.passwordGroup.password;
+        this.user.account.email = this.userForm.value.email;
+        this.user.person.firstName = this.userForm.value.firstName;
+        this.user.person.lastName = this.userForm.value.lastName;
     };
     SignUpComponent.prototype.processError = function (response) {
-        this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
-            this.error = true;
+        console.log(response.status);
+        console.log(response.body);
+        if (response.status === 400) {
+            this.errorEmailExists = true;
         }
+        else if (response.status === 201) {
+            this.success = true;
+        }
+        else
+            this.error = true;
     };
     return SignUpComponent;
 }());

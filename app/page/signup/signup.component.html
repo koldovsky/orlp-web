@@ -25,7 +25,6 @@
                     <div class="alert alert-danger"
                          *ngIf="(userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors">
                         <span *ngIf="userForm.get('firstName').errors.required">Name is Required field</span>
-                        <span *ngIf="userForm.get('firstName').errors.minlength">Name must be more than 3 symbols</span>
 
                     </div>
                 </div>
@@ -49,7 +48,6 @@
                     <div class="alert alert-danger"
                          *ngIf="(userForm.get('lastName').touched||userForm.get('lastName').dirty)&&userForm.get('lastName').errors">
                         <span *ngIf="userForm.get('lastName').errors.required">Last Name is Required field</span>
-                        <span *ngIf="userForm.get('lastName').errors.minlength">Last name must be more than 3 symbols</span>
 
                     </div>
                 </div>
@@ -63,7 +61,7 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group"
-                     [ngClass]="{'has-danger': (userForm.get('email').touched||userForm.get('email').dirty)&&!userForm.get('email').valid}">
+                     [ngClass]="{'has-danger': (userForm.get('email').touched||userForm.get('email').dirty)&&!userForm.get('email').valid ||errorEmailExists}">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                         <input type="email" class="form-control" id="email"
@@ -94,7 +92,7 @@
                         <div class="alert alert-danger"
                              *ngIf="(userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)&&userForm.get('passwordGroup.password').errors">
                             <span *ngIf="userForm.get('passwordGroup.password').errors.required">Password is Required field</span>
-                            <span *ngIf="userForm.get('passwordGroup.password').errors.minlength">Password must be more than 5 symbols</span>
+                            <span *ngIf="userForm.get('passwordGroup.password').errors.minlength">Password must be more than 8 symbols</span>
 
 
                         </div>
@@ -133,23 +131,19 @@
                     Register
                 </button>
 
-                <div class="alert alert-danger" *ngIf="error">
-                    <span>Registration failed</span>
+                <div class="alertMessage">
+                    <div class="alert alert-danger" *ngIf="errorEmailExists">
+                        <span>Email already exists</span>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="error">
+                        <span><b>Registration failed!</b> Try again.</span>
+                    </div>
+                    <div class="alert alert-success" *ngIf="success">
+                        <span>Registration <b>successful!</b></span>
+                    </div>
                 </div>
-                <div class="alert alert-success" *ngIf="success">
-                    <span>Registration success</span>
-                </div>
-
-                <!--<div class="active" style="height: 150px">-->
-
-                <!--<br>Dirty : {{userForm.dirty}}>-->
-                <!--<br>Touched : {{userForm.touched}}>-->
-                <!--<br>Valid : {{userForm.valid}}>-->
-                <!--<br>Dirty : {{userForm.value | json}}>-->
-
-                <!--</div>-->
-
             </div>
+
         </div>
     </form>
 </div>

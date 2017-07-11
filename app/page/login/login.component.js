@@ -16,8 +16,6 @@ var LoginComponent = (function () {
     function LoginComponent(fb, loginService) {
         this.fb = fb;
         this.loginService = loginService;
-        this.success = false;
-        this.error = false;
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this.fb.group({
@@ -27,17 +25,23 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.userLogin = function () {
         var _this = this;
+        this.error = false;
+        this.success = false;
         this.loginService.login(this.loginForm.value)
             .subscribe(function () {
             _this.success = true;
-            console.log(_this.loginForm.value);
+            console.log(_this.loginForm);
         }, function (response) { return _this.processError(response); });
     };
     LoginComponent.prototype.processError = function (response) {
-        this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
+        if (response.status === 401) {
             this.error = true;
         }
+        else if (response.status === 201) {
+            this.success = true;
+        }
+        else
+            this.error = true;
     };
     return LoginComponent;
 }());
