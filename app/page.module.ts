@@ -19,6 +19,7 @@ import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
 import {LoginService} from "./page/login/login.service";
 import {LoginModule} from "./page/login/login.module";
 import {SignupModule} from "./page/signup/signup.module";
+import {AdminModule} from "./page/admin/admin.module";
 
 
 @NgModule({
@@ -29,7 +30,6 @@ import {SignupModule} from "./page/signup/signup.module";
         ReactiveFormsModule,
         CommonModule,
         RouterModule.forRoot([
-            {path: 'admin', component: AdminComponent},
             {path: '', redirectTo: 'startPage', pathMatch: 'full'},
             {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
         ]),
@@ -37,12 +37,12 @@ import {SignupModule} from "./page/signup/signup.module";
         CategoryInfoModule,
         LoginModule,
         StartPageModule,
-        SignupModule
+        SignupModule,
+        AdminModule
     ],
     exports: [],
     declarations: [
         PageComponent,
-        AdminComponent
     ],
 
     providers: [ORLPService],

@@ -1,24 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Http, Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
+import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {ORLPService} from "../../orlp.service";
+
 import {ICategory} from "../../interfaces/category";
-import {Template} from "../../interfaces/templateUrl";
 
 @Injectable()
-export class StartPageService {
+export class AdminService {
 
     constructor(private http: Http) { }
 
-    getCategories() : Observable<ICategory[]> {
-        return this.http.get(Template.url + '/api/category/top/')
+    getCatalogs() : Observable<ICategory[]> {
+        return this.http.get('http://localhost:8080/api/category')
             .map((response: Response) => <ICategory[]> response.json())
-            .do(data => console.log('TOP CATEGORIES: ' + JSON.stringify(data)))
-            .catch(this.handleError);
+            .do(data => console.log('All: ' + JSON.stringify(data)))
+            .catch(this.handleError)
+
     }
 
     private handleError(error: Response) {

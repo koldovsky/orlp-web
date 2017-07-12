@@ -22,7 +22,7 @@ var StartPageService = (function () {
         this.http = http;
     }
     StartPageService.prototype.getCategories = function () {
-        return this.http.get(templateUrl_1.Template.url + '/api/category/top')
+        return this.http.get(templateUrl_1.Template.url + '/api/category/top/')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })
             .catch(this.handleError);

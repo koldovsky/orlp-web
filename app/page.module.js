@@ -14,11 +14,11 @@ var page_component_1 = require("./page/page.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
-var admin_component_1 = require("./page/admin/admin.component");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
 var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
 var login_module_1 = require("./page/login/login.module");
 var signup_module_1 = require("./page/signup/signup.module");
+var admin_module_1 = require("./page/admin/admin.module");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -33,19 +33,18 @@ PageModule = __decorate([
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
-                { path: 'admin', component: admin_component_1.AdminComponent },
                 { path: '', redirectTo: 'startPage', pathMatch: 'full' },
                 { path: '**', redirectTo: 'startPage', pathMatch: 'full' }
             ]),
             categoryInfo_module_1.CategoryInfoModule,
             login_module_1.LoginModule,
             startPage_module_1.StartPageModule,
-            signup_module_1.SignupModule
+            signup_module_1.SignupModule,
+            admin_module_1.AdminModule
         ],
         exports: [],
         declarations: [
             page_component_1.PageComponent,
-            admin_component_1.AdminComponent
         ],
         providers: [orlp_service_1.ORLPService],
         bootstrap: [page_component_1.PageComponent]

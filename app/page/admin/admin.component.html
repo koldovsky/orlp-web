@@ -1,3 +1,132 @@
 <div class="container">
+    <div class="row mb-3">
+        <div class="font-color-white header-text">
+            <h2>Hello, Admin</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="collapse"
+                                    data-target="#collapseView" aria-controls="collapseView" aria-expanded="false"
+                                    style="width: 10rem">
+                                View
+                            </button>
+                            <div class="collapse" id="collapseView" style="padding: .35rem">
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn-secondary btn-lg" style="width: 14.6rem"> Show All
+                                        Users
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn-secondary btn-lg" data-toggle="collapse"
+                                            data-target="#collapseCategoriesView" aria-controls="collapseCategoriesView"
+                                            aria-expanded="false" style="width: 14.6rem" (click)="toggleTable()">
+                                        {{showTable ? "Hide" : "Show"}} All Categories
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Show
+                                        Courses
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn bbtn-secondaryy btn-lg" style="width: 14.6rem">
+                                        Show
+                                        Decks
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="collapse"
+                                    data-target="#collapseAdd" aria-controls="collapseAdd" aria-expanded="false"
+                                    style="width: 10rem">
+                                Create
+                            </button>
+                            <div class="collapse" id="collapseAdd" style="padding: .35rem">
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
+                                        Category
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
+                                        Course to
+                                        Category
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
+                                        Deck to
+                                        Course
+                                    </button>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
+                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
+                                        Card to
+                                        Deck
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-9">
+            <div class="collapse" id="collapseCategoriesView" style="padding: .35rem">
+                <div class="row">
+                    <h1 class="col-md-6 font-color-white header-text">All Categories</h1>
+                    <div class="col-md-6 font-color-white" align="right">Filter by Name:
+                        <input type="text" style="border-radius: 0.8rem" [(ngModel)]="listFilter"/>
+                    </div>
+                </div>
+
+                <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
+                    <thead>
+                    <tr style="border-top: hidden">
+                        <th>#</th>
+                        <th>Category Name</th>
+                        <th>Category Description</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let category of categories | categoryFilter:listFilter">
+                        <td><img [src]="category.imagebase64" class="mx-auto d-block rounded-main"
+                                 style="width: 50px; height: 50px">
+                        </td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                        <td>
+                            <div class="btn-group open">
+                                <a class="btn btn-secondary"><i class="fa fa-cog"></i> More</a>
+                                <a class="btn btn-secondary " data-toggle="dropdown">
+                                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#"><i class="fa fa-eye"></i> View Details</a></li>
+                                    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
+                                    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 </div>
