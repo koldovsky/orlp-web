@@ -12,16 +12,13 @@ var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var page_component_1 = require("./page/page.component");
 var router_1 = require("@angular/router");
-var login_component_1 = require("./page/login/login.component");
 var http_1 = require("@angular/http");
-var signup_component_1 = require("./page/signup/signup.component");
 var orlp_service_1 = require("./orlp.service");
-var signup_service_1 = require("./page/signup/signup.service");
-var signup_alert_service_1 = require("./page/signup/signup-alert.service");
 var admin_component_1 = require("./page/admin/admin.component");
 var startPage_module_1 = require("./page/mainPage/startPage.module");
 var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
-var login_service_1 = require("./page/login/login.service");
+var login_module_1 = require("./page/login/login.module");
+var signup_module_1 = require("./page/signup/signup.module");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -36,23 +33,21 @@ PageModule = __decorate([
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
-                { path: 'login', component: login_component_1.LoginComponent },
-                { path: 'registr', component: signup_component_1.SignUpComponent },
                 { path: 'admin', component: admin_component_1.AdminComponent },
                 { path: '', redirectTo: 'startPage', pathMatch: 'full' },
                 { path: '**', redirectTo: 'startPage', pathMatch: 'full' }
             ]),
             categoryInfo_module_1.CategoryInfoModule,
-            startPage_module_1.StartPageModule
+            login_module_1.LoginModule,
+            startPage_module_1.StartPageModule,
+            signup_module_1.SignupModule
         ],
         exports: [],
         declarations: [
             page_component_1.PageComponent,
-            login_component_1.LoginComponent,
-            signup_component_1.SignUpComponent,
             admin_component_1.AdminComponent
         ],
-        providers: [orlp_service_1.ORLPService, signup_service_1.SignupService, signup_alert_service_1.SignupAlertService, login_service_1.LoginService],
+        providers: [orlp_service_1.ORLPService],
         bootstrap: [page_component_1.PageComponent]
     })
 ], PageModule);

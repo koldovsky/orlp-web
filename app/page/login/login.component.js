@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var login_service_1 = require("./login.service");
+var angular2_social_login_1 = require("angular2-social-login");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService) {
+    function LoginComponent(fb, loginService, auth) {
         this.fb = fb;
         this.loginService = loginService;
+        this.auth = auth;
         this.success = false;
         this.error = false;
     }
@@ -39,13 +41,24 @@ var LoginComponent = (function () {
             this.error = true;
         }
     };
+    LoginComponent.prototype.signIn = function (provider) {
+        var _this = this;
+        this.auth.login(provider).subscribe(function (data) {
+            _this.user = data;
+            console.log(_this.user.idToken);
+            _this.sendToken();
+        });
+    };
+    LoginComponent.prototype.sendToken = function () {
+        this.loginService.sendIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
     core_1.Component({
         template: require('app/page/login/login.component.html!text')
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

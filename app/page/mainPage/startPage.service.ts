@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Response} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
@@ -7,14 +7,15 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../orlp.service";
 import {ICategory} from "../../interfaces/category";
+import {Template} from "../../interfaces/templateUrl";
 
 @Injectable()
 export class StartPageService {
 
-    constructor(private orlp: ORLPService) { }
+    constructor(private http: Http) { }
 
     getCategories() : Observable<ICategory[]> {
-        return this.orlp.get('http://localhost:8080/api/topcategories')
+        return this.http.get(Template.url + '/api/category/top')
             .map((response: Response) => <ICategory[]> response.json())
             .do(data => console.log('TOP CATEGORIES: ' + JSON.stringify(data)))
             .catch(this.handleError);

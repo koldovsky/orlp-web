@@ -7,15 +7,15 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {IDeck} from "../../../interfaces/deck";
+import {Template} from "../../../interfaces/templateUrl";
 
 @Injectable()
 export class DeckService {
 
-    constructor(private orlp: ORLPService,
-                private http: Http) { }
+    constructor(private http: Http) { }
 
     getDeck(id : number): Observable<IDeck[]> {
-        return this.orlp.get('http://localhost:8080/api/category/' + id + '/decks')
+        return this.http.get(Template.url +'/api/category/' + id + '/decks')
             .map((response: Response) => <IDeck[]> response.json())
             .do(data => console.log('Decks: ' + JSON.stringify(data)))
             .catch(this.handleError);
@@ -25,7 +25,7 @@ export class DeckService {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
 
-        return this.orlp.post('http://localhost:8080/api/category/' + id + '/decks', body)
+        return this.http.post(Template.url + '/api/category/' + id + '/decks', body, {})
             .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }

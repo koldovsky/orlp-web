@@ -25,5 +25,4 @@ import {CategoryInfoComponent} from "./categoryInfo.component";
         DeckService
     ],
 })
-
 export class CategoryInfoModule { }

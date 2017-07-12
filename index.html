@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head itemscope itemtype="http://schema.org/Article">
     <base href="/">
     <title>Angular Example</title>
     <meta charset="UTF-8">
@@ -23,13 +23,15 @@
 <script src="systemjs.config.js"></script>
 <!-- endbuild -->
 
-    <!-- build:app -->
-    <script>
-        System.import('app/vendor.js').then(function () {
-            System.import('app').catch(function (err) { console.error(err); });
+<!-- build:app -->
+<script>
+    System.import('app/vendor.js').then(function () {
+        System.import('app').catch(function (err) {
+            console.error(err);
         });
-    </script>
-    <!-- endbuild -->
+    });
+</script>
+<!-- endbuild -->
 
 </body>
 

@@ -6,14 +6,21 @@ import "rxjs/add/operator/map";
 import {ORLPService} from "../../orlp.service";
 import {FormGroup} from "@angular/forms";
 import {LoginAccount} from "./LoginAccount";
+import {Template} from "../../interfaces/templateUrl";
 
 
 @Injectable()
 export class LoginService {
     private _controllerUrl = 'http://localhost:8080/auth';
 
-    constructor(private orlp: ORLPService,
-                private http: Http) {
+    constructor(private http: Http) {
+    }
+
+    sendIdToken(idToken: string) {
+        console.log(idToken);
+        return this.http.post(Template.url + "/api/auth/google", idToken, {})
+            .map((response: Response) => console.log(response))
+            .catch(this.handleErrorObservable);
     }
 
     login(account: LoginAccount): Observable<Account> {

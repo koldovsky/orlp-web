@@ -1,3 +1,13 @@
+<script>
+    function Google_signIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+    }
+</script>
+
 <div class="container">
     <br/>
     <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="userLogin()" novalidate>
@@ -11,21 +21,21 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="form-group "
-                     [ngClass]="{'has-danger': (loginForm.get('email').touched||loginForm.get('email').dirty)&&!loginForm.get('email').valid}">
-                    <label class="sr-only" for="email">E-Mail Address</label>
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" name="email" class="form-control" id="email"
-                               placeholder="you@example.com" formControlName="email">
-                    </div>
-                    <div class="alert alert-danger"
-                         *ngIf="(loginForm.get('email').touched || loginForm.get('email').dirty)&&loginForm.get('email').errors">
-                        <span *ngIf="loginForm.get('email').errors.required">Please enter your email address</span>
-                        <span *ngIf="loginForm.get('email').errors.pattern">Please enter valid email address</span>
+                <!--<div class="form-group"-->
+                <!--[ngClass]="{'has-danger': (loginForm.get('email').touched||loginForm.get('email').dirty)&&!loginForm.get('email').valid}">-->
+                <!--<label class="sr-only" for="email">E-Mail Address</label>-->
+                <!--<div class="input-group mb-2 mr-sm-2 mb-sm-0">-->
+                <!--<div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>-->
+                <!--<input type="text" name="email" class="form-control" id="email"-->
+                <!--placeholder="you@example.com" formControlName="email">-->
+                <!--</div>-->
+                <!--<div class="alert alert-danger"-->
+                <!--*ngIf="(loginForm.get('email').touched || loginForm.get('email').dirty)&&loginForm.get('email').errors">-->
+                <!--<span *ngIf="loginForm.get('email').errors.required">Please enter your email address</span>-->
+                <!--<span *ngIf="loginForm.get('email').errors.pattern">Please enter valid email address</span>-->
 
-                    </div>
-                </div>
+                <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="row">
@@ -65,13 +75,11 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
                 <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
             </div>
-
-
         </div>
 
         <div class="alert alert-danger" *ngIf="error">
             <span>Not valid email or password</span>
         </div>
-
     </form>
+    <button (click)="signIn('google')">google</button>
 </div>

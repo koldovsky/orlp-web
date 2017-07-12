@@ -10,20 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var orlp_service_1 = require("../../../orlp.service");
 var Observable_1 = require("rxjs/Observable");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
+var templateUrl_1 = require("../../../interfaces/templateUrl");
 var DeckService = (function () {
-    function DeckService(orlp, http) {
-        this.orlp = orlp;
+    function DeckService(http) {
         this.http = http;
     }
     DeckService.prototype.getDeck = function (id) {
-        return this.orlp.get('http://localhost:8080/api/category/' + id + '/decks')
+        return this.http.get(templateUrl_1.Template.url + '/api/category/' + id + '/decks')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('Decks: ' + JSON.stringify(data)); })
             .catch(this.handleError);
@@ -31,7 +30,7 @@ var DeckService = (function () {
     DeckService.prototype.addDeck = function (body, id) {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
-        return this.orlp.post('http://localhost:8080/api/category/' + id + '/decks', body)
+        return this.http.post(templateUrl_1.Template.url + '/api/category/' + id + '/decks', body, {})
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
@@ -43,8 +42,7 @@ var DeckService = (function () {
 }());
 DeckService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [orlp_service_1.ORLPService,
-        http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http])
 ], DeckService);
 exports.DeckService = DeckService;
 //# sourceMappingURL=deck.service.js.map

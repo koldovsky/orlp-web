@@ -1,21 +1,27 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, NgZone, OnDestroy, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
+import {AuthService} from "angular2-social-login";
+import {User} from "../signup/User";
+
+declare const gapi: any;
 
 @Component({
     template: require('app/page/login/login.component.html!text')
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+
     errorMessage: String;
+    sub: any;
     success: boolean = false;
     errorUserExists: string;
     error: boolean = false;
     errorEmailExists: string;
+    public user;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService) {
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService) {
     }
-
 
     ngOnInit() {
         this.loginForm = this.fb.group({
@@ -24,6 +30,7 @@ export class LoginComponent implements OnInit {
 
         })
     }
+
 
     userLogin(): void {
         this.loginService.login(this.loginForm.value)
@@ -39,9 +46,23 @@ export class LoginComponent implements OnInit {
         this.success = null;
         if (response.status === 400 && response._body === 'login already in use') {
             this.error = true;
-
-
         }
+    }
+
+    signIn(provider:string) {
+        this.auth.login(provider).subscribe(
+            (data) => {
+                this.user = data;
+                console.log(this.user.idToken);
+                this.sendToken();
+            }
+        )
+    }
+
+    sendToken() {
+        this.loginService.sendIdToken(this.user.idToken).subscribe(
+            error => console.log(error)
+        );
     }
 }
 
