@@ -39,10 +39,11 @@
     "gulp": "3.9.1",
     "gulp-clean": "0.3.2",
     "gulp-html-replace": "1.6.2",
+    "gulp-livereload": "^3.8.1",
     "gulp-shell": "0.6.3",
+    "lite-server": "^2.3.0",
     "run-sequence": "1.2.2",
-    "typescript": "2.3.3",
     "systemjs-builder": "0.16.6",
-    "lite-server": "^2.3.0"
+    "typescript": "2.3.3"
   }
 }

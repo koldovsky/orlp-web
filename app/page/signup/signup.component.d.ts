@@ -11,11 +11,11 @@ export declare class SignUpComponent implements OnInit {
     user: User;
     errorMessage: String;
     success: boolean;
-    errorUserExists: string;
     error: boolean;
-    errorEmailExists: string;
+    errorEmailExists: boolean;
     constructor(router: Router, signupService: SignupService, formBuilder: FormBuilder);
     ngOnInit(): void;
     register(): void;
+    transferingDataFromFormToUserObj(): void;
     private processError(response);
 }

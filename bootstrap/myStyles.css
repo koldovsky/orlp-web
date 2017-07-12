@@ -109,9 +109,8 @@ body {
     border-radius: 0.25rem;
     margin-top: -12px;
     color: #e8241e;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: sans-serif;
+    margin-top: 15px;
+    text-align: center;
 }
 
 .catalogPage-nav-borders {

@@ -20,8 +20,6 @@ var SignupService = (function () {
         this._controllerUrl = 'http://localhost:8080/api/registration';
     }
     SignupService.prototype.registerUser = function (newUser) {
-        // let headers = new Headers({'Content-Type': 'application/json'});
-        // let options = new RequestOptions({ headers : headers });
         return this.http.post(this._controllerUrl, newUser).map(this.extractData)
             .catch(this.handleErrorObservable);
     };

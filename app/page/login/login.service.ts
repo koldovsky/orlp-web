@@ -1,10 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
-import {Account} from "../signup/Account";
+import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/map";
 import {ORLPService} from "../../orlp.service";
-import {FormGroup} from "@angular/forms";
 import {LoginAccount} from "./LoginAccount";
 import {Template} from "../../interfaces/templateUrl";
 
@@ -23,13 +21,9 @@ export class LoginService {
             .catch(this.handleErrorObservable);
     }
 
-    login(account: LoginAccount): Observable<Account> {
-        let bodyString = JSON.stringify(account);
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+    login(account: LoginAccount): Observable<LoginAccount> {
         console.log(account);
-        return this.http.post(this._controllerUrl, account, {})
-            .map((response: Response) => console.log(response))
+        return this.http.post(this._controllerUrl, account).map(this.extractData)
             .catch(this.handleErrorObservable);
     }
 
@@ -39,7 +33,6 @@ export class LoginService {
     }
 
     private handleErrorObservable(error: Response | any) {
-        console.error(error.message || error);
         return Observable.throw(error.message || error);
     }
 

@@ -14,6 +14,7 @@ function passwordMatcher(c: AbstractControl) {
     return {'match': true};
 }
 
+
 @Component({
 
     template: require('app/page/signup/signup.component.html!text')
@@ -24,10 +25,9 @@ export class SignUpComponent implements OnInit {
     userForm: FormGroup;
     user: User = new User();
     errorMessage: String;
-    success: boolean = false;
-    errorUserExists: string;
-    error: boolean = false;
-    errorEmailExists: string;
+    success: boolean;
+    error: boolean;
+    errorEmailExists: boolean;
 
 
     constructor(private router: Router,
@@ -39,39 +39,48 @@ export class SignUpComponent implements OnInit {
 
     ngOnInit() {
         this.userForm = this.formBuilder.group({
-            firstName: ['', [Validators.required, Validators.minLength(3)]],
-            lastName: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), Validators.required]],
+            firstName: ['', [Validators.required]],
+            lastName: ['', [Validators.required]],
+            email: ['', [Validators.email, Validators.required]],
             passwordGroup: this.formBuilder.group({
-                password: ['', [Validators.required, Validators.minLength(5)]],
+                password: ['', [Validators.required, Validators.minLength(8)]],
                 confirmPassword: ['', [Validators.required]],
             }, {validator: passwordMatcher})
         })
     };
 
     register(): void {
-
-
-        this.user.account.password = this.userForm.value.confirmPassword.password;
-        this.user.account.email = this.userForm.value.email;
-        this.user.person.firstName = this.userForm.value.firstName;
-        this.user.person.lastName = this.userForm.value.lastName;
+        this.error = false;
+        this.success = false;
+        this.errorEmailExists = false;
+        this.transferingDataFromFormToUserObj();
         console.log(this.user);
         this.signupService.registerUser(this.user)
             .subscribe(() => {
                     this.success = true;
                 },
                 (response) => this.processError(response));
-        console.log(this.user);
+
 
     }
 
-    private processError(response) {
-        this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
-            this.error = true;
-        }
+    transferingDataFromFormToUserObj() {
+        this.user.account.password = this.userForm.value.passwordGroup.password;
+        this.user.account.email = this.userForm.value.email;
+        this.user.person.firstName = this.userForm.value.firstName;
+        this.user.person.lastName = this.userForm.value.lastName;
+    }
 
+    private processError(response) {
+        console.log(response.status);
+        console.log(response.body);
+
+        if (response.status === 400) {
+            this.errorEmailExists = true;
+        } else if (response.status === 201) {
+            this.success = true;
+        } else
+            this.error = true;
     }
 
 }
