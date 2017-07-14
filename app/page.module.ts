@@ -14,6 +14,7 @@ import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
 import {LoginModule} from "./page/login/login.module";
 import {SignupModule} from "./page/signup/signup.module";
 import {AdminModule} from "./page/admin/admin.module";
+import {CardModule} from "./page/card/card.module";
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {AdminModule} from "./page/admin/admin.module";
         LoginModule,
         StartPageModule,
         SignupModule,
-        AdminModule
+        AdminModule,
+        CardModule
     ],
     exports: [],
     declarations: [
