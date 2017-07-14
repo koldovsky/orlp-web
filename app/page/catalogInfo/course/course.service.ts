@@ -12,10 +12,10 @@ import {Template} from "../../../interfaces/templateUrl";
 
 @Injectable()
 export class CourseService {
-    constructor(private http: Http) { }
+    constructor(private orlp: ORLPService) { }
 
     getCourse(id : number): Observable<ICourse[]> {
-        return this.http.get(Template.url + '/api/category/' + id + '/courses')
+        return this.orlp.get('api/category/' + id + '/courses')
             .map((response: Response) => <ICourse[]> response.json())
             .do(data => console.log('Courses: ' + JSON.stringify(data)))
             .catch(this.handleError);
@@ -25,7 +25,7 @@ export class CourseService {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
 
-        return this.http.post(Template.url + '/api/category/' + id + '/courses', body, {})
+        return this.orlp.post('api/category/' + id + '/courses', body)
             .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }

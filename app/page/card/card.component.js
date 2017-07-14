@@ -10,23 +10,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var ORLPService = (function () {
-    function ORLPService(http) {
-        this.http = http;
-        this.url = "http://localhost:8080/";
+var CardComponent = (function () {
+    function CardComponent() {
+        this.routing = false;
+        this.answer = "";
     }
-    ORLPService.prototype.get = function (url) {
-        return this.http.get(this.url + url, http_1.RequestMethod.Get);
+    CardComponent.prototype.onRotate = function () {
+        this.routing = true;
     };
-    ORLPService.prototype.post = function (url, body) {
-        return this.http.post(this.url + url, body, {});
-    };
-    return ORLPService;
+    CardComponent.prototype.ngOnInit = function () { };
+    return CardComponent;
 }());
-ORLPService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], ORLPService);
-exports.ORLPService = ORLPService;
-//# sourceMappingURL=orlp.service.js.map
+CardComponent = __decorate([
+    core_1.Component({
+        template: require('./card.component.html!text')
+    }),
+    __metadata("design:paramtypes", [])
+], CardComponent);
+exports.CardComponent = CardComponent;
+//# sourceMappingURL=card.component.js.map

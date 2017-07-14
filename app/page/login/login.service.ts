@@ -11,12 +11,12 @@ import {Template} from "../../interfaces/templateUrl";
 export class LoginService {
     private _controllerUrl = 'http://localhost:8080/auth';
 
-    constructor(private http: Http) {
+    constructor(private http: Http,
+                private orlp: ORLPService) {
     }
 
     sendIdToken(idToken: string) {
-        console.log(idToken);
-        return this.http.post(Template.url + "/api/auth/google", idToken, {})
+        return this.orlp.post("api/auth/google", idToken)
             .map((response: Response) => console.log(response))
             .catch(this.handleErrorObservable);
     }

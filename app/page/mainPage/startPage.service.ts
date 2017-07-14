@@ -12,10 +12,10 @@ import {Template} from "../../interfaces/templateUrl";
 @Injectable()
 export class StartPageService {
 
-    constructor(private http: Http) { }
+    constructor(private orlp : ORLPService) { }
 
     getCategories() : Observable<ICategory[]> {
-        return this.http.get(Template.url + '/api/category/top/')
+        return this.orlp.get('api/category/top/')
             .map((response: Response) => <ICategory[]> response.json())
             .do(data => console.log('TOP CATEGORIES: ' + JSON.stringify(data)))
             .catch(this.handleError);

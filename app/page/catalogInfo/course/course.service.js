@@ -10,19 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var orlp_service_1 = require("../../../orlp.service");
 var Observable_1 = require("rxjs/Observable");
-var http_1 = require("@angular/http");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var templateUrl_1 = require("../../../interfaces/templateUrl");
 var CourseService = (function () {
-    function CourseService(http) {
-        this.http = http;
+    function CourseService(orlp) {
+        this.orlp = orlp;
     }
     CourseService.prototype.getCourse = function (id) {
-        return this.http.get(templateUrl_1.Template.url + '/api/category/' + id + '/courses')
+        return this.orlp.get('api/category/' + id + '/courses')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('Courses: ' + JSON.stringify(data)); })
             .catch(this.handleError);
@@ -30,7 +29,7 @@ var CourseService = (function () {
     CourseService.prototype.addCourse = function (body, id) {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
-        return this.http.post(templateUrl_1.Template.url + '/api/category/' + id + '/courses', body, {})
+        return this.orlp.post('api/category/' + id + '/courses', body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
@@ -42,7 +41,7 @@ var CourseService = (function () {
 }());
 CourseService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService])
 ], CourseService);
 exports.CourseService = CourseService;
 //# sourceMappingURL=course.service.js.map

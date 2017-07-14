@@ -19,6 +19,7 @@ var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
 var login_module_1 = require("./page/login/login.module");
 var signup_module_1 = require("./page/signup/signup.module");
 var admin_module_1 = require("./page/admin/admin.module");
+var card_module_1 = require("./page/card/card.module");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -40,7 +41,8 @@ PageModule = __decorate([
             login_module_1.LoginModule,
             startPage_module_1.StartPageModule,
             signup_module_1.SignupModule,
-            admin_module_1.AdminModule
+            admin_module_1.AdminModule,
+            card_module_1.CardModule
         ],
         exports: [],
         declarations: [

@@ -10,19 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var templateUrl_1 = require("../../interfaces/templateUrl");
+var orlp_service_1 = require("../../orlp.service");
 var StartPageService = (function () {
-    function StartPageService(http) {
-        this.http = http;
+    function StartPageService(orlp) {
+        this.orlp = orlp;
     }
     StartPageService.prototype.getCategories = function () {
-        return this.http.get(templateUrl_1.Template.url + '/api/category/top/')
+        return this.orlp.get('api/category/top/')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })
             .catch(this.handleError);
@@ -35,7 +34,7 @@ var StartPageService = (function () {
 }());
 StartPageService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService])
 ], StartPageService);
 exports.StartPageService = StartPageService;
 //# sourceMappingURL=startPage.service.js.map
