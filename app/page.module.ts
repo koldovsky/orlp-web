@@ -6,17 +6,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {PageComponent} from "./page/page.component";
 import {RouterModule} from "@angular/router";
-import {LoginComponent} from "./page/login/login.component";
 import {HttpModule} from "@angular/http";
-import {SignUpComponent} from "./page/signup/signup.component";
 import {ORLPService} from "./orlp.service";
 
-import {SignupService} from "./page/signup/signup.service";
-import {SignupAlertService} from "./page/signup/signup-alert.service";
-import {AdminComponent} from "./page/admin/admin.component";
 import {StartPageModule} from "./page/mainPage/startPage.module";
 import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
-import {LoginService} from "./page/login/login.service";
 import {LoginModule} from "./page/login/login.module";
 import {SignupModule} from "./page/signup/signup.module";
 import {AdminModule} from "./page/admin/admin.module";

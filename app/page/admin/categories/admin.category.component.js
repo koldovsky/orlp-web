@@ -10,28 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var admin_service_1 = require("./admin.service");
-var AdminComponent = (function () {
-    function AdminComponent(adminService) {
-        this.adminService = adminService;
+var admin_category_service_1 = require("./admin.category.service");
+var AdminCategoryComponent = (function () {
+    function AdminCategoryComponent(adminCategoryService) {
+        this.adminCategoryService = adminCategoryService;
         this.showTable = false;
     }
-    AdminComponent.prototype.ngOnInit = function () {
+    AdminCategoryComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.adminService.getCatalogs()
+        this.adminCategoryService.getCatalogs()
             .subscribe(function (categories) { return _this.categories = categories; }, function (error) { return _this.errorMessage = error; });
     };
-    AdminComponent.prototype.toggleTable = function () {
+    AdminCategoryComponent.prototype.toggleTable = function () {
         this.showTable = !this.showTable;
     };
-    return AdminComponent;
+    return AdminCategoryComponent;
 }());
-AdminComponent = __decorate([
+AdminCategoryComponent = __decorate([
     core_1.Component({
-        providers: [admin_service_1.AdminService],
-        template: require('app/page/admin/admin.component.html!text')
+        providers: [admin_category_service_1.AdminCategoryService],
+        template: require('app/page/admin/categories/admin.category.component.html!text')
     }),
-    __metadata("design:paramtypes", [admin_service_1.AdminService])
-], AdminComponent);
-exports.AdminComponent = AdminComponent;
-//# sourceMappingURL=admin.component.js.map
+    __metadata("design:paramtypes", [admin_category_service_1.AdminCategoryService])
+], AdminCategoryComponent);
+exports.AdminCategoryComponent = AdminCategoryComponent;
+//# sourceMappingURL=admin.category.component.js.map
