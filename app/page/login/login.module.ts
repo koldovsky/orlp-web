@@ -10,7 +10,7 @@ import {Angular2SocialLoginModule} from "angular2-social-login";
 
 let providers = {
     "google": {
-        "clientId": "382441109972-qj4emrs9s68ihflvgkfi7olctcildocr.apps.googleusercontent.com"
+        "clientId": "109414995516-fftdn22fnpfdh80fgfsvpq1ht97hdkl5.apps.googleusercontent.com"
     }
 };
 

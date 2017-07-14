@@ -46,6 +46,7 @@ var LoginComponent = (function () {
         this.auth.login(provider).subscribe(function (data) {
             _this.user = data;
             console.log(_this.user.idToken);
+            console.log(_this.user.email);
             _this.sendToken();
         });
     };

@@ -18,7 +18,7 @@ var login_component_1 = require("./login.component");
 var angular2_social_login_1 = require("angular2-social-login");
 var providers = {
     "google": {
-        "clientId": "382441109972-qj4emrs9s68ihflvgkfi7olctcildocr.apps.googleusercontent.com"
+        "clientId": "109414995516-fftdn22fnpfdh80fgfsvpq1ht97hdkl5.apps.googleusercontent.com"
     }
 };
 var LoginModule = (function () {

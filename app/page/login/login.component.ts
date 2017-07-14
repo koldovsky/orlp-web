@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
             (data) => {
                 this.user = data;
                 console.log(this.user.idToken);
+                console.log(this.user.email);
                 this.sendToken();
             }
         )
