@@ -1,19 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AdminCategoryService} from "./admin.category.service";
 import {ICategory} from "../../../interfaces/category";
+import {CategoriesPublic} from "../../../classes/public.categories";
+import {ORLPService} from "../../../orlp.service";
 
 @Component({
+    selector: "admin-all-category",
     providers: [AdminCategoryService],
     template: require('app/page/admin/categories/admin.category.component.html!text')
 })
 
 export class AdminCategoryComponent implements OnInit {
-    categories: ICategory[];
+    categories: CategoriesPublic[];
     errorMessage: string;
     listFilter: string;
     showTable: boolean = false;
 
-    constructor(private adminCategoryService: AdminCategoryService) {
+    constructor(private adminCategoryService: AdminCategoryService, private orlpService: ORLPService) {
     }
 
     ngOnInit(): void {
