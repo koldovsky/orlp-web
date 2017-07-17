@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/map";
-import {ORLPService} from "../../orlp.service";
 import {LoginAccount} from "./LoginAccount";
 
 
@@ -10,8 +9,7 @@ import {LoginAccount} from "./LoginAccount";
 export class LoginService {
     private _controllerUrl = 'http://localhost:8080/auth';
 
-    constructor(private orlp: ORLPService,
-                private http: Http) {
+    constructor(private http: Http) {
     }
 
     login(account: LoginAccount): Observable<LoginAccount> {

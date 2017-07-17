@@ -13,10 +13,8 @@ var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var orlp_service_1 = require("../../orlp.service");
 var LoginService = (function () {
-    function LoginService(orlp, http) {
-        this.orlp = orlp;
+    function LoginService(http) {
         this.http = http;
         this._controllerUrl = 'http://localhost:8080/auth';
     }
@@ -36,8 +34,7 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [orlp_service_1.ORLPService,
-        http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

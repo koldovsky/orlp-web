@@ -19,8 +19,8 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this.fb.group({
-            username: ['', [forms_1.Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]"), forms_1.Validators.required]],
             password: ['', [forms_1.Validators.required]],
+            username: ['', [forms_1.Validators.required]],
         });
     };
     LoginComponent.prototype.userLogin = function () {
@@ -28,20 +28,15 @@ var LoginComponent = (function () {
         this.error = false;
         this.success = false;
         this.loginService.login(this.loginForm.value)
-            .subscribe(function () {
-            _this.success = true;
-            console.log(_this.loginForm);
-        }, function (response) { return _this.processError(response); });
+            .subscribe(function () { console.log(_this.loginForm.value); }, function (response) { return _this.processError(response); });
     };
     LoginComponent.prototype.processError = function (response) {
-        if (response.status === 401) {
-            this.error = true;
-        }
-        else if (response.status === 201) {
+        console.log("status =" + response.status, "body =" + response.body);
+        console.log(response.headers);
+        if (response.status === 200) {
             this.success = true;
+            console.log(1);
         }
-        else
-            this.error = true;
     };
     return LoginComponent;
 }());

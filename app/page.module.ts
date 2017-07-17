@@ -6,17 +6,14 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {PageComponent} from "./page/page.component";
 import {RouterModule} from "@angular/router";
-import {LoginComponent} from "./page/login/login.component";
 import {HttpModule} from "@angular/http";
-import {SignUpComponent} from "./page/signup/signup.component";
 import {ORLPService} from "./orlp.service";
 
-import {SignupService} from "./page/signup/signup.service";
-import {SignupAlertService} from "./page/signup/signup-alert.service";
 import {AdminComponent} from "./page/admin/admin.component";
 import {StartPageModule} from "./page/mainPage/startPage.module";
 import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
-import {LoginService} from "./page/login/login.service";
+import {SignUpModule} from "./page/signup/SignUp.module";
+import {LoginModule} from "./page/login/Login.module";
 
 
 @NgModule({
@@ -27,24 +24,22 @@ import {LoginService} from "./page/login/login.service";
         ReactiveFormsModule,
         CommonModule,
         RouterModule.forRoot([
-            {path: 'login', component: LoginComponent},
-            {path: 'registr', component: SignUpComponent},
             {path: 'admin', component: AdminComponent},
             {path: '', redirectTo: 'startPage', pathMatch: 'full'},
             {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
         ]),
 
         CategoryInfoModule,
-        StartPageModule
+        StartPageModule,
+        SignUpModule,
+        LoginModule
     ],
     exports: [],
     declarations: [
         PageComponent,
-        LoginComponent,
-        SignUpComponent,
         AdminComponent],
 
-    providers: [ORLPService, SignupService, SignupAlertService, LoginService],
+    providers: [ORLPService],
     bootstrap: [PageComponent]
 })
 export class PageModule {
