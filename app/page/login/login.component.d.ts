@@ -12,7 +12,7 @@ export declare class LoginComponent implements OnInit {
     user: any;
     constructor(fb: FormBuilder, loginService: LoginService, auth: AuthService);
     ngOnInit(): void;
-    login2(): void;
+    login(): void;
     private processError(response);
     signIn(provider: string): void;
     sendToken(): void;

@@ -27,16 +27,14 @@ var LoginComponent = (function () {
             username: ['', [forms_1.Validators.required]],
         });
     };
-    LoginComponent.prototype.login2 = function () {
+    LoginComponent.prototype.login = function () {
+        var _this = this;
         this.loginService.loginServ(this.loginForm.value)
-            .subscribe(function (response) { return console.log(response.status); });
+            .subscribe(function (response) { return _this.processError(response); });
     };
     LoginComponent.prototype.processError = function (response) {
         this.success = false;
-        if (response.status === 200) {
-            this.success = true;
-        }
-        else {
+        if (response.status === 401) {
             this.error = true;
         }
     };

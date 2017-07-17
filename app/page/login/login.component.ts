@@ -29,17 +29,16 @@ export class LoginComponent implements OnInit {
 
     login(): void {
         this.loginService.loginServ(this.loginForm.value)
-            .subscribe(response => console.log(response.status));
+            .subscribe(response => this.processError(response));
     }
 
     private processError(response){
         this.success = false;
-        if (response.status === 200){
-            this.success = true;
-
-        } else{
+        if (response.status === 401){
             this.error = true;
+
         }
+
     }
 
     signIn(provider: string) {
