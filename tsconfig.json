@@ -9,7 +9,6 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "declaration": true,
-    "watch": true,
     "lib": ["es2017", "dom"]
   },
   "exclude": [

@@ -1,0 +1,142 @@
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+    outline: 0 !important;
+}
+
+/* entire container, keeps perspective */
+.card-container {
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+    margin-bottom: 1%;
+    margin-top: 2%;
+}
+
+.rotate {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+/*.card-container.static:hover .card,*/
+/*.card-container.static.hover .card {*/
+    /*-webkit-transform: none;*/
+    /*-moz-transform: none;*/
+    /*-o-transform: none;*/
+    /*transform: none;*/
+/*}*/
+
+.card {
+    -webkit-transition: -webkit-transform .5s;
+    -moz-transition: -moz-transform .5s;
+    -o-transition: -o-transform .5s;
+    transition: transform .5s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.14);
+}
+
+.main textarea {
+    width: 100%;
+    height: 230px;
+}
+
+/* back, initially hidden pane */
+.back {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    z-index: 3;
+}
+
+/*        Style       */
+
+.card {
+    border: none;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 4px;
+    color: #444444;
+}
+
+.card-container, .front, .back {
+    width: 100%;
+    height: 550px;
+    border-radius: 4px;
+}
+
+.card .content {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    padding: 10px 20px 20px;
+}
+
+.card .content .main {
+    height: 50%;
+}
+
+.card .back .content .main {
+    height: 100%;
+}
+
+.card .header {
+    padding: 15px 20px;
+    height: 40%;
+    overflow: auto;
+}
+
+.card .motto {
+    color: black;
+    font-size: 25px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.card .stats-container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+/*       Fix bug for IE      */
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .front, .back {
+        -ms-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+
+    .back {
+        visibility: hidden;
+        -ms-transition: all 0.2s cubic-bezier(.92, .01, .83, .67);
+    }
+
+    .front {
+        z-index: 4;
+    }
+
+    .card-container:not(.manual-flip):hover .back,
+    .card-container.manual-flip.hover .back {
+        z-index: 5;
+        visibility: visible;
+    }
+}

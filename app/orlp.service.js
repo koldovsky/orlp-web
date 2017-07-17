@@ -14,13 +14,13 @@ var http_1 = require("@angular/http");
 var ORLPService = (function () {
     function ORLPService(http) {
         this.http = http;
-        this.token = "";
+        this.url = "http://localhost:8080/";
     }
     ORLPService.prototype.get = function (url) {
-        return this.http.get(url, http_1.RequestMethod.Get);
+        return this.http.get(this.url + url, http_1.RequestMethod.Get);
     };
     ORLPService.prototype.post = function (url, body) {
-        return this.http.post(url, body, {});
+        return this.http.post(this.url + url, body, {});
     };
     return ORLPService;
 }());

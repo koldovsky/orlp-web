@@ -22,11 +22,12 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
-      // other libraries
+        'angular2-social-login': 'node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js',
+        // other libraries
       'rxjs': 'npm:rxjs',
       'text': './plugin-text.js',
       'zone':'npm:zone.js/dist/zone.js',
-      'reflect':'npm:reflect-metadata/Reflect.js',
+      'reflect':'npm:reflect-metadata/Reflect.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

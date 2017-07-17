@@ -21,7 +21,7 @@ var StartPageService = (function () {
         this.orlp = orlp;
     }
     StartPageService.prototype.getCategories = function () {
-        return this.orlp.get('http://localhost:8080/api/topcategories')
+        return this.orlp.get('api/category/top/')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })
             .catch(this.handleError);

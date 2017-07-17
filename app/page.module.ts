@@ -8,12 +8,12 @@ import {PageComponent} from "./page/page.component";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ORLPService} from "./orlp.service";
-
-import {AdminComponent} from "./page/admin/admin.component";
 import {StartPageModule} from "./page/mainPage/startPage.module";
 import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
-import {SignUpModule} from "./page/signup/SignUp.module";
-import {LoginModule} from "./page/login/Login.module";
+import {SignUpModule} from "./page/signup/signup.module";
+import {AdminModule} from "./page/admin/admin.module";
+import {CardModule} from "./page/card/card.module";
+import {LoginModule} from "./page/login/login.module";
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import {LoginModule} from "./page/login/Login.module";
         ReactiveFormsModule,
         CommonModule,
         RouterModule.forRoot([
-            {path: 'admin', component: AdminComponent},
+            // {path: 'admin', component: AdminComponent},
             {path: '', redirectTo: 'startPage', pathMatch: 'full'},
             {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
         ]),
@@ -32,12 +32,16 @@ import {LoginModule} from "./page/login/Login.module";
         CategoryInfoModule,
         StartPageModule,
         SignUpModule,
-        LoginModule
+        LoginModule,
+        StartPageModule,
+        AdminModule,
+        CardModule
     ],
     exports: [],
     declarations: [
         PageComponent,
-        AdminComponent],
+        /*AdminComponent*/],
+
 
     providers: [ORLPService],
     bootstrap: [PageComponent]

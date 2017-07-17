@@ -19,4 +19,6 @@ export class StartPageComponent implements OnInit {
             .subscribe(category => this.categories = category,
                         error => this.errorMessage = <any>error);
     }
+
+
 }

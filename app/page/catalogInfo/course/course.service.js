@@ -21,7 +21,7 @@ var CourseService = (function () {
         this.orlp = orlp;
     }
     CourseService.prototype.getCourse = function (id) {
-        return this.orlp.get('http://localhost:8080/api/category/' + id + '/courses')
+        return this.orlp.get('api/category/' + id + '/courses')
             .map(function (response) { return response.json(); })
             .do(function (data) { return console.log('Courses: ' + JSON.stringify(data)); })
             .catch(this.handleError);
@@ -29,7 +29,7 @@ var CourseService = (function () {
     CourseService.prototype.addCourse = function (body, id) {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
-        return this.orlp.post('http://localhost:8080/api/category/' + id + '/courses', body)
+        return this.orlp.post('api/category/' + id + '/courses', body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

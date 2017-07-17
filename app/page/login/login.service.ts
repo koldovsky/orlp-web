@@ -3,13 +3,21 @@ import {Observable} from "rxjs/Observable";
 import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/map";
 import {LoginAccount} from "./LoginAccount";
+import {Template} from "../../interfaces/templateUrl";
+import {ORLPService} from "../../orlp.service";
 
 
 @Injectable()
 export class LoginService {
     private _controllerUrl = 'http://localhost:8080/auth';
 
-    constructor(private http: Http) {
+    constructor(private http: Http,private orlp: ORLPService) {
+    }
+
+    sendIdToken(idToken: string) {
+        return this.orlp.post("api/auth/google", idToken)
+            .map((response: Response) => console.log(response))
+            .catch(this.handleErrorObservable);
     }
 
     login(account: LoginAccount): Observable<LoginAccount> {
