@@ -7,16 +7,12 @@ export declare class LoginComponent implements OnInit {
     private loginService;
     auth: AuthService;
     loginForm: FormGroup;
-    errorMessage: String;
-    sub: any;
     success: boolean;
-    errorUserExists: string;
     error: boolean;
-    errorEmailExists: string;
     user: any;
     constructor(fb: FormBuilder, loginService: LoginService, auth: AuthService);
     ngOnInit(): void;
-    userLogin(): void;
+    login2(): void;
     private processError(response);
     signIn(provider: string): void;
     sendToken(): void;

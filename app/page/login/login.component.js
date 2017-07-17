@@ -27,21 +27,17 @@ var LoginComponent = (function () {
             username: ['', [forms_1.Validators.required]],
         });
     };
-    LoginComponent.prototype.userLogin = function () {
-        var _this = this;
-        this.loginService.login(this.loginForm.value)
-            .subscribe(function () { console.log(_this.loginForm.value); }, function (response) { return _this.processError(response); });
+    LoginComponent.prototype.login2 = function () {
+        this.loginService.loginServ(this.loginForm.value)
+            .subscribe(function (response) { return console.log(response.status); });
     };
     LoginComponent.prototype.processError = function (response) {
-        this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
-            this.error = true;
-        }
-        console.log("status =" + response.status, "body =" + response.body);
-        console.log(response.headers);
+        this.success = false;
         if (response.status === 200) {
             this.success = true;
-            console.log(1);
+        }
+        else {
+            this.error = true;
         }
     };
     LoginComponent.prototype.signIn = function (provider) {

@@ -3,7 +3,6 @@ import {Observable} from "rxjs/Observable";
 import {Http, Response} from "@angular/http";
 import "rxjs/add/operator/map";
 import {LoginAccount} from "./LoginAccount";
-import {Template} from "../../interfaces/templateUrl";
 import {ORLPService} from "../../orlp.service";
 
 
@@ -11,7 +10,7 @@ import {ORLPService} from "../../orlp.service";
 export class LoginService {
     private _controllerUrl = 'http://localhost:8080/auth';
 
-    constructor(private http: Http,private orlp: ORLPService) {
+    constructor(private http: Http, private orlp: ORLPService) {
     }
 
     sendIdToken(idToken: string) {
@@ -20,15 +19,14 @@ export class LoginService {
             .catch(this.handleErrorObservable);
     }
 
-    login(account: LoginAccount): Observable<LoginAccount> {
-        console.log(account);
-        return this.http.post(this._controllerUrl, account).map(this.extractData)
-            .catch(this.handleErrorObservable);
+    loginServ(account: LoginAccount) :Observable<Response>{
+        return this.http.post(this._controllerUrl, account).map(this.extractData);
+
     }
 
     private extractData(res: Response) {
         let body = res.json();
-        return body.data || {};
+        return body;
     }
 
     private handleErrorObservable(error: Response | any) {

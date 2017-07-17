@@ -25,14 +25,12 @@ var LoginService = (function () {
             .map(function (response) { return console.log(response); })
             .catch(this.handleErrorObservable);
     };
-    LoginService.prototype.login = function (account) {
-        console.log(account);
-        return this.http.post(this._controllerUrl, account).map(this.extractData)
-            .catch(this.handleErrorObservable);
+    LoginService.prototype.loginServ = function (account) {
+        return this.http.post(this._controllerUrl, account).map(this.extractData);
     };
     LoginService.prototype.extractData = function (res) {
         var body = res.json();
-        return body.data || {};
+        return body;
     };
     LoginService.prototype.handleErrorObservable = function (error) {
         return Observable_1.Observable.throw(error.message || error);

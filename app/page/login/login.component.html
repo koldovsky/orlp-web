@@ -10,7 +10,7 @@
 
 <div class="container">
     <br/>
-    <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="userLogin()" novalidate>
+    <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -90,10 +90,9 @@
                     <span>Authorization <b>successful!</b></span>
                 </div>
             </div>
-            <div class="alert">Success :{{success}}</div>
-            <div class="alert">Error :{{error}}</div>
         </div>
-
-
     </form>
+    <button (click)="signIn('google')">google</button>
+    <div class="alert">Success :{{success}}</div>
+    <div class="alert">Error :{{error}}</div>
 </div>

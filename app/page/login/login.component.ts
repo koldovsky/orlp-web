@@ -1,9 +1,8 @@
-import {Component, NgZone, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
-import {User} from "../signup/User";
 
 declare const gapi: any;
 
@@ -12,13 +11,8 @@ declare const gapi: any;
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-
-    errorMessage: String;
-    sub: any;
     success: boolean = false;
-    errorUserExists: string;
     error: boolean = false;
-    errorEmailExists: string;
     public user;
 
     constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService) {
@@ -33,26 +27,22 @@ export class LoginComponent implements OnInit {
     }
 
 
-    userLogin(): void {
-        this.loginService.login(this.loginForm.value)
-            .subscribe(() =>{console.log(this.loginForm.value)},
-                (response) => this.processError(response));
+    login(): void {
+        this.loginService.loginServ(this.loginForm.value)
+            .subscribe(response => console.log(response.status));
     }
 
-    private processError(response) {
-        this.success = null;
-        if (response.status === 400 && response._body === 'login already in use') {
+    private processError(response){
+        this.success = false;
+        if (response.status === 200){
+            this.success = true;
+
+        } else{
             this.error = true;
         }
-        console.log("status =" + response.status, "body =" + response.body);
-        console.log(response.headers);
-        if (response.status === 200) {
-            this.success = true;
-            console.log(1)
-        }
     }
 
-    signIn(provider:string) {
+    signIn(provider: string) {
         this.auth.login(provider).subscribe(
             (data) => {
                 this.user = data;
@@ -69,4 +59,3 @@ export class LoginComponent implements OnInit {
         );
     }
 }
-
