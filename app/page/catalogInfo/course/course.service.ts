@@ -10,6 +10,7 @@ import {IDeck} from "../../../interfaces/deck";
 import {ICourse} from "../../../interfaces/course";
 import {Template} from "../../../interfaces/templateUrl";
 import {CoursePublic} from "../../../classes/public.course.DTO";
+import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()
 export class CourseService {
@@ -17,7 +18,7 @@ export class CourseService {
 
     getCourse(url : string): Observable<CoursePublic[]> {
         return this.orlp.get(url)
-            .map((response: Response) => <CoursePublic[]> response.json())
+            .map((response: Response) => <CoursePublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
             .catch(this.handleError);
     }
 
