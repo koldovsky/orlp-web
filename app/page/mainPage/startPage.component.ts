@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {StartPageService} from "./startPage.service";
 
-import {error} from "util";
-import {ICategory} from "../../interfaces/category";
+import {ORLPService} from "../../orlp.service";
+import {Link} from "../../classes/link";
+import {CategoryTop} from "../../classes/top.category.DTO";
 
 @Component({
     template: require('app/page/mainPage/startPage.component.html!text')
 })
 
 export class StartPageComponent implements OnInit {
-    categories: ICategory[];
+    public categories: CategoryTop[];
     errorMessage: string;
 
-    constructor(private startPageService: StartPageService) { }
+    constructor(private startPageService: StartPageService,
+                private orlp: ORLPService) { }
 
     ngOnInit(): void {
         this.startPageService.getCategories()
@@ -20,5 +22,7 @@ export class StartPageComponent implements OnInit {
                         error => this.errorMessage = <any>error);
     }
 
-
+    getCategoryLink(link : Link) : string {
+        return this.orlp.getShortLink(link);
+    }
 }

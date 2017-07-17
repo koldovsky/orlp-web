@@ -9,23 +9,24 @@ import 'rxjs/add/observable/throw';
 import {IDeck} from "../../../interfaces/deck";
 import {ICourse} from "../../../interfaces/course";
 import {Template} from "../../../interfaces/templateUrl";
+import {CoursePublic} from "../../../classes/public.course.DTO";
+import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()
 export class CourseService {
     constructor(private orlp: ORLPService) { }
 
-    getCourse(id : number): Observable<ICourse[]> {
-        return this.orlp.get('api/category/' + id + '/courses')
-            .map((response: Response) => <ICourse[]> response.json())
-            .do(data => console.log('Courses: ' + JSON.stringify(data)))
+    getCourse(url : string): Observable<CoursePublic[]> {
+        return this.orlp.get(url)
+            .map((response: Response) => <CoursePublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
             .catch(this.handleError);
     }
 
-    addCourse(body: ICourse, id: number): Observable<ICourse> {
+    addCourse(body: CoursePublic, url: string): Observable<CoursePublic> {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
 
-        return this.orlp.post('api/category/' + id + '/courses', body)
+        return this.orlp.post(url, body)
             .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }

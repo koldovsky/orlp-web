@@ -6,17 +6,18 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../orlp.service";
-import {CategoryTop} from "../../classes/top.category.DTO";
+import {CategoryLink} from "../../classes/link.category.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
 
+
 @Injectable()
-export class StartPageService {
+export class CategoryInfoService {
 
-    constructor(private orlp : ORLPService) { }
+    constructor(private orlp: ORLPService) { }
 
-    getCategories() : Observable<CategoryTop[]> {
-        return this.orlp.get('api/category/top/')
-            .map((response: Response) => <CategoryTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
+    public getCategory(url:string): Observable<CategoryLink> {
+        return this.orlp.get(url)
+            .map((response: Response) => <CategoryLink> DTOConverter.jsonToPublicCategory(response.json()))
             .catch(this.handleError);
     }
 

@@ -1,27 +1,32 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ICourse} from "../../../interfaces/course";
 import {CourseService} from "./course.service";
+import {ORLPService} from "../../../orlp.service";
+import {CoursePublic} from "../../../classes/public.course.DTO";
 
 @Component({
-    selector: 'table1',
+    selector: 'course-table',
     template: require('./course.component.html!text')
 })
 export class CourseComponent implements OnInit {
-    courses: ICourse[];
-    errorMessage: string;
-    @Input() id: number;
+    public courses: CoursePublic[];
+    public errorMessage: string;
+    @Input() url: string;
 
-    constructor(private courseService: CourseService) {
+    constructor(private courseService: CourseService,
+                private orlpService: ORLPService) {
     }
 
     ngOnInit(): void {
-        this.courseService.getCourse(this.id)
+        this.url = this.orlpService.decodeLink(this.url);
+
+        this.courseService.getCourse(this.url)
             .subscribe(courses => this.courses = courses,
                 error => this.errorMessage = <any>error);
     }
 
-    addCourse(value: ICourse) {
-        this.courseService.addCourse(value, this.id).subscribe(
+    addCourse(value: CoursePublic) {
+        this.courseService.addCourse(value, this.url).subscribe(
             data => this.courses.push(data),
             error => console.log(error)
         );

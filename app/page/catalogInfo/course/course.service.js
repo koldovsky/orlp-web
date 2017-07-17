@@ -16,20 +16,20 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
+var dto_Converter_1 = require("../../../classes/dto.Converter");
 var CourseService = (function () {
     function CourseService(orlp) {
         this.orlp = orlp;
     }
-    CourseService.prototype.getCourse = function (id) {
-        return this.orlp.get('api/category/' + id + '/courses')
-            .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('Courses: ' + JSON.stringify(data)); })
+    CourseService.prototype.getCourse = function (url) {
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
             .catch(this.handleError);
     };
-    CourseService.prototype.addCourse = function (body, id) {
+    CourseService.prototype.addCourse = function (body, url) {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
-        return this.orlp.post('api/category/' + id + '/courses', body)
+        return this.orlp.post(url, body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };
