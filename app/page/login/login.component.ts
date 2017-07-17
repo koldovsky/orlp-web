@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
+import {Router} from "@angular/router";
 
 declare const gapi: any;
 
@@ -13,9 +14,10 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     success: boolean = false;
     error: boolean = false;
+    wrongDetails: boolean = false;
     public user;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService) {
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, router: Router) {
 
     }
 
@@ -26,19 +28,30 @@ export class LoginComponent implements OnInit {
         })
     }
 
-
     login(): void {
         this.loginService.loginServ(this.loginForm.value)
-            .subscribe(response => this.processError(response));
+            .subscribe(response => {
+
+
+                    console.log(response.status)
+                }
+            )
     }
 
-    private processError(response){
+    private processError(response) {
         this.success = false;
-        if (response.status === 401){
+
+        if (response.status === 200) {
+            this.success = true;
+
+
+        } else if (response.status === 401) {
+            this.wrongDetails = true;
+            console.log(2)
+        } else {
             this.error = true;
-
+            console.log(3)
         }
-
     }
 
     signIn(provider: string) {

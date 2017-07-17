@@ -19,15 +19,13 @@ export class LoginService {
             .catch(this.handleErrorObservable);
     }
 
-    loginServ(account: LoginAccount) :Observable<Response>{
+    loginServ(account: LoginAccount): Observable<Response> {
         return this.http.post(this._controllerUrl, account).map(this.extractData);
 
     }
 
     private extractData(res: Response) {
         let body = res.json();
-        console.log(body);
-
         return body;
     }
 

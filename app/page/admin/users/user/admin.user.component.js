@@ -10,26 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var admin_users_service_1 = require("./admin.users.service");
-var AdminUsersComponent = (function () {
-    function AdminUsersComponent(adminUsersService) {
-        this.adminUsersService = adminUsersService;
+var admin_user_service_1 = require("./admin.user.service");
+var AdminUserComponent = (function () {
+    function AdminUserComponent(adminUserService) {
+        this.adminUserService = adminUserService;
         this.showTable = false;
     }
-    AdminUsersComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.adminUsersService.getUsers()
-            .subscribe(function (users) { return _this.users = users; }, function (error) { return _this.errorMessage = error; });
+    AdminUserComponent.prototype.ngOnInit = function () {
+        // this.adminUserService.getUsers()
+        //     .subscribe(users => this.users = users,
+        //         error => this.errorMessage = <any>error);
     };
-    return AdminUsersComponent;
+    return AdminUserComponent;
 }());
-AdminUsersComponent = __decorate([
+AdminUserComponent = __decorate([
     core_1.Component({
-        selector: "admin-all-users",
-        providers: [admin_users_service_1.AdminUsersService],
-        template: require('app/page/admin/users/admin.users.component.html!text')
+        providers: [admin_user_service_1.AdminUserService],
+        template: require('app/page/admin/users/user/admin.user.component.html!text')
     }),
-    __metadata("design:paramtypes", [admin_users_service_1.AdminUsersService])
-], AdminUsersComponent);
-exports.AdminUsersComponent = AdminUsersComponent;
-//# sourceMappingURL=admin.users.component.js.map
+    __metadata("design:paramtypes", [admin_user_service_1.AdminUserService])
+], AdminUserComponent);
+exports.AdminUserComponent = AdminUserComponent;
+//# sourceMappingURL=admin.user.component.js.map

@@ -30,7 +30,6 @@ var LoginService = (function () {
     };
     LoginService.prototype.extractData = function (res) {
         var body = res.json();
-        console.log(body);
         return body;
     };
     LoginService.prototype.handleErrorObservable = function (error) {

@@ -23,7 +23,6 @@ export class AccountVerificationComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
             let token = params['token'];
-
             console.log(token);
             this.router.navigate['login'];
         });

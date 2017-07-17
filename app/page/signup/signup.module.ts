@@ -4,6 +4,7 @@ import {CommonModule} from "@angular/common";
 import {SignUpComponent} from "./signup.component";
 import {RouterModule} from "@angular/router";
 import {SignupService} from "./signup.service";
+import {AccountVerificationComponent} from "./AccountVerification.component";
 
 @NgModule({
     imports: [
@@ -11,12 +12,13 @@ import {SignupService} from "./signup.service";
         ReactiveFormsModule,
         CommonModule,
         RouterModule.forRoot([
-            {path: 'registr', component: SignUpComponent}
+            {path: 'registr', component: SignUpComponent},
+            {path: 'registrationConfirm', component: AccountVerificationComponent}
         ])
     ],
     exports: [],
     declarations: [
-        SignUpComponent
+        SignUpComponent, AccountVerificationComponent
     ],
     providers: [
         SignupService,

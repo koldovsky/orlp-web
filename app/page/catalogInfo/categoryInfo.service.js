@@ -11,31 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var orlp_service_1 = require("../../../orlp.service");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
-var AdminCategoryService = (function () {
-    function AdminCategoryService(orlp) {
+var orlp_service_1 = require("../../orlp.service");
+var dto_Converter_1 = require("../../classes/dto.Converter");
+var CategoryInfoService = (function () {
+    function CategoryInfoService(orlp) {
         this.orlp = orlp;
     }
-    AdminCategoryService.prototype.getCatalogs = function () {
-        return this.orlp.get('api/category')
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCategories, response.json()); })
+    CategoryInfoService.prototype.getCategory = function (url) {
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToPublicCategory(response.json()); })
             .catch(this.handleError);
     };
-    AdminCategoryService.prototype.handleError = function (error) {
+    CategoryInfoService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return AdminCategoryService;
+    return CategoryInfoService;
 }());
-AdminCategoryService = __decorate([
+CategoryInfoService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], AdminCategoryService);
-exports.AdminCategoryService = AdminCategoryService;
-//# sourceMappingURL=admin.category.service.js.map
+], CategoryInfoService);
+exports.CategoryInfoService = CategoryInfoService;
+//# sourceMappingURL=categoryInfo.service.js.map
