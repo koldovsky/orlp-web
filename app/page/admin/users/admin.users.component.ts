@@ -3,6 +3,7 @@ import {AdminUsersService} from "./admin.users.service";
 import {IUser} from "../../../interfaces/user";
 
 @Component({
+    selector: "admin-all-users",
     providers: [AdminUsersService],
     template: require('app/page/admin/users/admin.users.component.html!text')
 })

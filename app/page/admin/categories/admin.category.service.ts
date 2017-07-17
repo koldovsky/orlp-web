@@ -7,18 +7,18 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
-import {ICategory} from "../../../interfaces/category";
+import {ORLPService} from "../../../orlp.service";
+import {CategoriesPublic} from "../../../classes/public.categories";
+import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()
 export class AdminCategoryService {
 
-    constructor(private http: Http) {
-    }
+    constructor(private orlp: ORLPService) {}
 
-    getCatalogs(): Observable<ICategory[]> {
-        return this.http.get('http://localhost:8080/api/category')
-            .map((response: Response) => <ICategory[]> response.json())
-            .do(data => console.log('All: ' + JSON.stringify(data)))
+    getCatalogs(): Observable<CategoriesPublic[]> {
+        return this.orlp.get('api/category')
+            .map((response: Response) => <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()))
             .catch(this.handleError);
     }
 

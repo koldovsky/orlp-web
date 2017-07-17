@@ -4,6 +4,7 @@ import {CategoryLink} from "./link.category.DTO";
 import {DeckPublic} from "./public.deck.DTO";
 import {CoursePublic} from "./public.course.DTO";
 import {link} from "fs";
+import {CategoriesPublic} from "./public.categories";
 
 export class DTOConverter {
 
@@ -25,6 +26,12 @@ export class DTOConverter {
         return new CategoryTop(data.name, data.imagebase64, self);
     }
 
+    public static jsonToPublicCategories(data: any): CategoriesPublic {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+
+        return new CategoriesPublic(data.name, data.description, data.imagebase64, self);
+    }
+
     public static jsonToPublicCategory(data: any): CategoryLink {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
         let courses: Link = DTOConverter.jsonToLink("courses", data._links.courses);
@@ -37,7 +44,7 @@ export class DTOConverter {
         return new Link(rel, data.href);
     }
 
-    public static jsonArrayToCollection(callback: Function, data:Array<any>): Array<any> {
+    public static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any> {
         let array: Array<any> = [];
         data.forEach(element => {
             array.push(callback(element));

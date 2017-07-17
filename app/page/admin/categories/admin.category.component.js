@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var admin_category_service_1 = require("./admin.category.service");
+var orlp_service_1 = require("../../../orlp.service");
 var AdminCategoryComponent = (function () {
-    function AdminCategoryComponent(adminCategoryService) {
+    function AdminCategoryComponent(adminCategoryService, orlpService) {
         this.adminCategoryService = adminCategoryService;
+        this.orlpService = orlpService;
         this.showTable = false;
     }
     AdminCategoryComponent.prototype.ngOnInit = function () {
@@ -28,10 +30,11 @@ var AdminCategoryComponent = (function () {
 }());
 AdminCategoryComponent = __decorate([
     core_1.Component({
+        selector: "admin-all-category",
         providers: [admin_category_service_1.AdminCategoryService],
         template: require('app/page/admin/categories/admin.category.component.html!text')
     }),
-    __metadata("design:paramtypes", [admin_category_service_1.AdminCategoryService])
+    __metadata("design:paramtypes", [admin_category_service_1.AdminCategoryService, orlp_service_1.ORLPService])
 ], AdminCategoryComponent);
 exports.AdminCategoryComponent = AdminCategoryComponent;
 //# sourceMappingURL=admin.category.component.js.map
