@@ -11,31 +11,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var course_service_1 = require("./course.service");
+var orlp_service_1 = require("../../../orlp.service");
 var CourseComponent = (function () {
-    function CourseComponent(courseService) {
+    function CourseComponent(courseService, orlpService) {
         this.courseService = courseService;
+        this.orlpService = orlpService;
     }
     CourseComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.courseService.getCourse(this.id)
+        this.url = this.orlpService.decodeLink(this.url);
+        this.courseService.getCourse(this.url)
             .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
     };
     CourseComponent.prototype.addCourse = function (value) {
         var _this = this;
-        this.courseService.addCourse(value, this.id).subscribe(function (data) { return _this.courses.push(data); }, function (error) { return console.log(error); });
+        this.courseService.addCourse(value, this.url).subscribe(function (data) { return _this.courses.push(data); }, function (error) { return console.log(error); });
     };
     return CourseComponent;
 }());
 __decorate([
     core_1.Input(),
-    __metadata("design:type", Number)
-], CourseComponent.prototype, "id", void 0);
+    __metadata("design:type", String)
+], CourseComponent.prototype, "url", void 0);
 CourseComponent = __decorate([
     core_1.Component({
-        selector: 'table1',
+        selector: 'course-table',
         template: require('./course.component.html!text')
     }),
-    __metadata("design:paramtypes", [course_service_1.CourseService])
+    __metadata("design:paramtypes", [course_service_1.CourseService,
+        orlp_service_1.ORLPService])
 ], CourseComponent);
 exports.CourseComponent = CourseComponent;
 //# sourceMappingURL=course.component.js.map

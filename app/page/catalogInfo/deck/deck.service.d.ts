@@ -5,10 +5,11 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { IDeck } from "../../../interfaces/deck";
+import { DeckPublic } from "../../../classes/public.deck.DTO";
 export declare class DeckService {
     private orlp;
     constructor(orlp: ORLPService);
-    getDeck(id: number): Observable<IDeck[]>;
-    addDeck(body: IDeck, id: number): Observable<IDeck>;
+    getDecks(url: string): Observable<DeckPublic[]>;
+    addDeck(body: IDeck, url: string): Observable<DeckPublic>;
     private handleError(error);
 }

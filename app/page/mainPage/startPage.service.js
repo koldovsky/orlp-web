@@ -16,14 +16,14 @@ require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
 var orlp_service_1 = require("../../orlp.service");
+var dto_Converter_1 = require("../../classes/dto.Converter");
 var StartPageService = (function () {
     function StartPageService(orlp) {
         this.orlp = orlp;
     }
     StartPageService.prototype.getCategories = function () {
         return this.orlp.get('api/category/top/')
-            .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('TOP CATEGORIES: ' + JSON.stringify(data)); })
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToTopCategory, response.json()); })
             .catch(this.handleError);
     };
     StartPageService.prototype.handleError = function (error) {

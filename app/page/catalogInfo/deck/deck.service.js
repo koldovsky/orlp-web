@@ -16,20 +16,20 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
+var dto_Converter_1 = require("../../../classes/dto.Converter");
 var DeckService = (function () {
     function DeckService(orlp) {
         this.orlp = orlp;
     }
-    DeckService.prototype.getDeck = function (id) {
-        return this.orlp.get('api/category/' + id + '/decks')
-            .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log('Decks: ' + JSON.stringify(data)); })
+    DeckService.prototype.getDecks = function (url) {
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };
-    DeckService.prototype.addDeck = function (body, id) {
+    DeckService.prototype.addDeck = function (body, url) {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
-        return this.orlp.post('api/category/' + id + '/decks', body)
+        return this.orlp.post(url, body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
     };

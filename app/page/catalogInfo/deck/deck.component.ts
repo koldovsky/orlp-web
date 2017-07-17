@@ -2,28 +2,33 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {IDeck} from "../../../interfaces/deck";
 import {DeckService} from "./deck.service";
+import {ORLPService} from "../../../orlp.service";
+import {DeckPublic} from "../../../classes/public.deck.DTO";
 
 @Component({
-    selector: 'table2',
+    selector: 'deck-table',
     template: require('./deck.component.html!text')
 })
 export class DeckComponent implements OnInit {
 
-    decks: IDeck[];
-    errorMessage: string;
-    @Input() id: number;
+    public decks: DeckPublic[];
+    public errorMessage: string;
+    @Input() url: string;
 
-    constructor(private deckService: DeckService) {
+    constructor(private deckService: DeckService,
+                private orlpService: ORLPService) {
     }
 
     ngOnInit(): void {
-        this.deckService.getDeck(this.id)
+        this.url = this.orlpService.decodeLink(this.url);
+
+        this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
     }
 
-    addDeck(value: IDeck) {
-        this.deckService.addDeck(value, this.id).subscribe(
+    addDeck(value: DeckPublic) {
+        this.deckService.addDeck(value, this.url).subscribe(
             data => this.decks.push(data),
             error => console.log(error)
         );

@@ -14,13 +14,25 @@ var http_1 = require("@angular/http");
 var ORLPService = (function () {
     function ORLPService(http) {
         this.http = http;
-        this.url = "http://localhost:8080/";
+        this.SERVER_ADDRESS = "http://localhost:8080/";
     }
     ORLPService.prototype.get = function (url) {
-        return this.http.get(this.url + url, http_1.RequestMethod.Get);
+        return this.http.get(this.SERVER_ADDRESS + url, http_1.RequestMethod.Get);
     };
     ORLPService.prototype.post = function (url, body) {
-        return this.http.post(this.url + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+    };
+    ORLPService.prototype.getShortLink = function (link) {
+        var url = link.href;
+        url = url.replace(this.SERVER_ADDRESS, "");
+        url = btoa(url);
+        url = encodeURI(url);
+        return url;
+    };
+    ORLPService.prototype.decodeLink = function (url) {
+        url = decodeURI(url);
+        url = atob(url);
+        return url;
     };
     return ORLPService;
 }());

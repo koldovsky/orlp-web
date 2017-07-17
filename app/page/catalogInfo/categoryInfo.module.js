@@ -15,6 +15,7 @@ var course_component_1 = require("./course/course.component");
 var course_service_1 = require("./course/course.service");
 var deck_service_1 = require("./deck/deck.service");
 var categoryInfo_component_1 = require("./categoryInfo.component");
+var categoryInfo_service_1 = require("./categoryInfo.service");
 var CategoryInfoModule = (function () {
     function CategoryInfoModule() {
     }
@@ -26,7 +27,7 @@ CategoryInfoModule = __decorate([
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                { path: 'category/:id', component: categoryInfo_component_1.CategoryInfoComponent }
+                { path: 'category/:url', component: categoryInfo_component_1.CategoryInfoComponent }
             ])
         ],
         exports: [],
@@ -37,7 +38,8 @@ CategoryInfoModule = __decorate([
         ],
         providers: [
             course_service_1.CourseService,
-            deck_service_1.DeckService
+            deck_service_1.DeckService,
+            categoryInfo_service_1.CategoryInfoService
         ],
     })
 ], CategoryInfoModule);

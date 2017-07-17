@@ -8,7 +8,7 @@
 
 
     <div class="row" >
-        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', category.id]">
+        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', getCategoryLink(category.self)]">
             <div class="card mp-card">
                 <img [src]="category.imagebase64" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
                 <div class="card-block text-center">

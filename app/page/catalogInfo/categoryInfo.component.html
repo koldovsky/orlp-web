@@ -9,6 +9,9 @@
                 </li>
             </ul>
         </div>
-        <table1 [id]="id" *ngIf="table1"></table1>
-        <table2 [id]="id" *ngIf="table2"></table2>
+
+        <course-table [url]="getLinkForCourses()" *ngIf="table1 && category"></course-table>
+        <deck-table [url]="getLinkForDecks()" *ngIf="table2 && category"></deck-table>
+
 </div>
+

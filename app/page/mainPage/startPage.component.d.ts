@@ -1,10 +1,14 @@
 import { OnInit } from '@angular/core';
 import { StartPageService } from "./startPage.service";
-import { ICategory } from "../../interfaces/category";
+import { ORLPService } from "../../orlp.service";
+import { Link } from "../../classes/link";
+import { CategoryTop } from "../../classes/top.category.DTO";
 export declare class StartPageComponent implements OnInit {
     private startPageService;
-    categories: ICategory[];
+    private orlp;
+    categories: CategoryTop[];
     errorMessage: string;
-    constructor(startPageService: StartPageService);
+    constructor(startPageService: StartPageService, orlp: ORLPService);
     ngOnInit(): void;
+    getCategoryLink(link: Link): string;
 }

@@ -11,14 +11,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var startPage_service_1 = require("./startPage.service");
+var orlp_service_1 = require("../../orlp.service");
 var StartPageComponent = (function () {
-    function StartPageComponent(startPageService) {
+    function StartPageComponent(startPageService, orlp) {
         this.startPageService = startPageService;
+        this.orlp = orlp;
     }
     StartPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.startPageService.getCategories()
             .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
+    };
+    StartPageComponent.prototype.getCategoryLink = function (link) {
+        return this.orlp.getShortLink(link);
     };
     return StartPageComponent;
 }());
@@ -26,7 +31,8 @@ StartPageComponent = __decorate([
     core_1.Component({
         template: require('app/page/mainPage/startPage.component.html!text')
     }),
-    __metadata("design:paramtypes", [startPage_service_1.StartPageService])
+    __metadata("design:paramtypes", [startPage_service_1.StartPageService,
+        orlp_service_1.ORLPService])
 ], StartPageComponent);
 exports.StartPageComponent = StartPageComponent;
 //# sourceMappingURL=startPage.component.js.map

@@ -8,24 +8,25 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {IDeck} from "../../../interfaces/deck";
 import {Template} from "../../../interfaces/templateUrl";
+import {DeckPublic} from "../../../classes/public.deck.DTO";
+import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()
 export class DeckService {
 
     constructor(private orlp: ORLPService) { }
 
-    getDeck(id : number): Observable<IDeck[]> {
-        return this.orlp.get('api/category/' + id + '/decks')
-            .map((response: Response) => <IDeck[]> response.json())
-            .do(data => console.log('Decks: ' + JSON.stringify(data)))
+    getDecks(url : string): Observable<DeckPublic[]> {
+        return this.orlp.get(url)
+            .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
             .catch(this.handleError);
     }
 
-    addDeck(body: IDeck, id: number): Observable<IDeck> {
+    addDeck(body: IDeck, url: string): Observable<DeckPublic> {
         // let headers = new Headers({'Content-Type': 'application/json'});
         // let options = new RequestOptions({headers : headers});
 
-        return this.orlp.post('api/category/' + id + '/decks', body)
+        return this.orlp.post(url, body)
             .map((res: Response) =>  res.json())
             .catch(this.handleError);
     }

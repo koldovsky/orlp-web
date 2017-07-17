@@ -7,13 +7,14 @@ import {CourseComponent} from "./course/course.component";
 import {CourseService} from "./course/course.service";
 import {DeckService} from "./deck/deck.service";
 import {CategoryInfoComponent} from "./categoryInfo.component";
+import {CategoryInfoService} from "./categoryInfo.service";
 
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
         RouterModule.forChild([
-            {path: 'category/:id', component: CategoryInfoComponent}
+            {path: 'category/:url', component: CategoryInfoComponent}
         ])],
     exports: [],
     declarations: [
@@ -22,7 +23,8 @@ import {CategoryInfoComponent} from "./categoryInfo.component";
         DeckComponent ],
     providers: [
         CourseService,
-        DeckService
+        DeckService,
+        CategoryInfoService
     ],
 })
 export class CategoryInfoModule { }
