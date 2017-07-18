@@ -34,7 +34,8 @@ var MainComponent = (function () {
 }());
 MainComponent = __decorate([
     core_1.Component({
-        template: require('app/page/main/main.component.html!text')
+        template: require('app/page/main/main.component.html!text'),
+        styleUrls: ['app/page/main/main.css']
     }),
     __metadata("design:paramtypes", [main_service_1.MainService,
         orlp_service_1.ORLPService])

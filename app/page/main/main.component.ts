@@ -7,7 +7,8 @@ import {CategoryTop} from "../../classes/top.category.DTO";
 import {CourseTop} from "../../classes/top.course.DTO";
 
 @Component({
-    template: require('app/page/main/main.component.html!text')
+    template: require('app/page/main/main.component.html!text'),
+    styleUrls: ['app/page/main/main.css']
 })
 
 export class MainComponent implements OnInit {

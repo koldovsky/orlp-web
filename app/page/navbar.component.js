@@ -21,7 +21,7 @@ PageComponent = __decorate([
     core_1.Component({
         selector: 'page',
         template: require('./navbar.component.html!text'),
-        styleUrls: ['app/page/page.css']
+        styleUrls: ['app/page/navbar.css']
     }),
     __metadata("design:paramtypes", [])
 ], PageComponent);
