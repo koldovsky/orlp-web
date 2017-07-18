@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import {StartPageComponent} from "./startPage.component";
-import {StartPageService} from "./startPage.service";
+import {NgModule} from '@angular/core';
+import {MainComponent} from "./main.component";
+import {MainService} from "./main.service";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
@@ -10,15 +10,16 @@ import {RouterModule} from "@angular/router";
         FormsModule,
         CommonModule,
         RouterModule.forChild([
-            {path: 'startPage', component: StartPageComponent}
+            {path: 'main', component: MainComponent}
         ])
     ],
     exports: [],
     declarations: [
-        StartPageComponent
+        MainComponent
     ],
     providers: [
-        StartPageService
+        MainService
     ],
 })
-export class StartPageModule { }
+export class MainModule {
+}

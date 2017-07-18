@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {StartPageService} from "./startPage.service";
+import {Component, OnInit} from '@angular/core';
+import {MainService} from "./main.service";
 
 import {ORLPService} from "../../orlp.service";
 import {Link} from "../../classes/link";
@@ -7,32 +7,33 @@ import {CategoryTop} from "../../classes/top.category.DTO";
 import {CourseTop} from "../../classes/top.course.DTO";
 
 @Component({
-    template: require('app/page/mainPage/startPage.component.html!text')
+    template: require('app/page/main/main.component.html!text')
 })
 
-export class StartPageComponent implements OnInit {
+export class MainComponent implements OnInit {
     public categories: CategoryTop[];
     public courses: CourseTop[];
     errorMessage: string;
 
-    constructor(private startPageService: StartPageService,
-                private orlp: ORLPService) { }
+    constructor(private MainService: MainService,
+                private orlp: ORLPService) {
+    }
 
     ngOnInit(): void {
-        this.startPageService.getCategories()
+        this.MainService.getCategories()
             .subscribe(category => this.categories = category,
-                        error => this.errorMessage = <any>error);
+                error => this.errorMessage = <any>error);
 
-        this.startPageService.getCourses()
+        this.MainService.getCourses()
             .subscribe(course => this.courses = course,
                 error => this.errorMessage = <any>error);
     }
 
-    getCategoryLink(link : Link) : string {
+    getCategoryLink(link: Link): string {
         return this.orlp.getShortLink(link);
     }
 
-    getCourseLink(link : Link) : string {
+    getCourseLink(link: Link): string {
         return this.orlp.getShortLink(link);
     }
 }

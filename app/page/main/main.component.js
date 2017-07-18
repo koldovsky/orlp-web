@@ -10,34 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var startPage_service_1 = require("./startPage.service");
+var main_service_1 = require("./main.service");
 var orlp_service_1 = require("../../orlp.service");
-var StartPageComponent = (function () {
-    function StartPageComponent(startPageService, orlp) {
-        this.startPageService = startPageService;
+var MainComponent = (function () {
+    function MainComponent(MainService, orlp) {
+        this.MainService = MainService;
         this.orlp = orlp;
     }
-    StartPageComponent.prototype.ngOnInit = function () {
+    MainComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.startPageService.getCategories()
+        this.MainService.getCategories()
             .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
-        this.startPageService.getCourses()
+        this.MainService.getCourses()
             .subscribe(function (course) { return _this.courses = course; }, function (error) { return _this.errorMessage = error; });
     };
-    StartPageComponent.prototype.getCategoryLink = function (link) {
+    MainComponent.prototype.getCategoryLink = function (link) {
         return this.orlp.getShortLink(link);
     };
-    StartPageComponent.prototype.getCourseLink = function (link) {
+    MainComponent.prototype.getCourseLink = function (link) {
         return this.orlp.getShortLink(link);
     };
-    return StartPageComponent;
+    return MainComponent;
 }());
-StartPageComponent = __decorate([
+MainComponent = __decorate([
     core_1.Component({
-        template: require('app/page/mainPage/startPage.component.html!text')
+        template: require('app/page/main/main.component.html!text')
     }),
-    __metadata("design:paramtypes", [startPage_service_1.StartPageService,
+    __metadata("design:paramtypes", [main_service_1.MainService,
         orlp_service_1.ORLPService])
-], StartPageComponent);
-exports.StartPageComponent = StartPageComponent;
-//# sourceMappingURL=startPage.component.js.map
+], MainComponent);
+exports.MainComponent = MainComponent;
+//# sourceMappingURL=main.component.js.map

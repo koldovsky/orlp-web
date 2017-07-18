@@ -11,7 +11,7 @@ import {DTOConverter} from "../../classes/dto.Converter";
 import {CourseTop} from "../../classes/top.course.DTO";
 
 @Injectable()
-export class StartPageService {
+export class MainService {
 
     constructor(private orlp : ORLPService) { }
 

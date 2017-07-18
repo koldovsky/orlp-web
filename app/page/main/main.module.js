@@ -7,33 +7,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var startPage_component_1 = require("./startPage.component");
-var startPage_service_1 = require("./startPage.service");
+var main_component_1 = require("./main.component");
+var main_service_1 = require("./main.service");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var StartPageModule = (function () {
-    function StartPageModule() {
+var MainModule = (function () {
+    function MainModule() {
     }
-    return StartPageModule;
+    return MainModule;
 }());
-StartPageModule = __decorate([
+MainModule = __decorate([
     core_1.NgModule({
         imports: [
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                { path: 'startPage', component: startPage_component_1.StartPageComponent }
+                { path: 'main', component: main_component_1.MainComponent }
             ])
         ],
         exports: [],
         declarations: [
-            startPage_component_1.StartPageComponent
+            main_component_1.MainComponent
         ],
         providers: [
-            startPage_service_1.StartPageService
+            main_service_1.MainService
         ],
     })
-], StartPageModule);
-exports.StartPageModule = StartPageModule;
-//# sourceMappingURL=startPage.module.js.map
+], MainModule);
+exports.MainModule = MainModule;
+//# sourceMappingURL=main.module.js.map

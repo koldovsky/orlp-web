@@ -17,29 +17,29 @@ require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
 var orlp_service_1 = require("../../orlp.service");
 var dto_Converter_1 = require("../../classes/dto.Converter");
-var StartPageService = (function () {
-    function StartPageService(orlp) {
+var MainService = (function () {
+    function MainService(orlp) {
         this.orlp = orlp;
     }
-    StartPageService.prototype.getCategories = function () {
+    MainService.prototype.getCategories = function () {
         return this.orlp.get('api/category/top/')
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToTopCategory, response.json()); })
             .catch(this.handleError);
     };
-    StartPageService.prototype.getCourses = function () {
+    MainService.prototype.getCourses = function () {
         return this.orlp.get('api/course/top/')
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToTopCourse, response.json()); })
             .catch(this.handleError);
     };
-    StartPageService.prototype.handleError = function (error) {
+    MainService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return StartPageService;
+    return MainService;
 }());
-StartPageService = __decorate([
+MainService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], StartPageService);
-exports.StartPageService = StartPageService;
-//# sourceMappingURL=startPage.service.js.map
+], MainService);
+exports.MainService = MainService;
+//# sourceMappingURL=main.service.js.map

@@ -20,7 +20,8 @@ var PageComponent = (function () {
 PageComponent = __decorate([
     core_1.Component({
         selector: 'page',
-        template: require('./page.component.html!text')
+        template: require('./page.component.html!text'),
+        styleUrls: ['app/page/page.css']
     }),
     __metadata("design:paramtypes", [])
 ], PageComponent);

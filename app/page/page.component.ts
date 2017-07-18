@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'page',
-    template: require('./registernavbar.component.html!text'),
+    template: require('./page.component.html!text'),
     styleUrls: ['app/page/page.css']
 })
 
