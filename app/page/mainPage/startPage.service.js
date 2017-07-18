@@ -26,6 +26,11 @@ var StartPageService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToTopCategory, response.json()); })
             .catch(this.handleError);
     };
+    StartPageService.prototype.getCourses = function () {
+        return this.orlp.get('api/course/top/')
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToTopCourse, response.json()); })
+            .catch(this.handleError);
+    };
     StartPageService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

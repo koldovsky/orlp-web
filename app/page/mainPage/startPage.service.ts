@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../orlp.service";
 import {CategoryTop} from "../../classes/top.category.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
+import {CourseTop} from "../../classes/top.course.DTO";
 
 @Injectable()
 export class StartPageService {
@@ -17,6 +18,12 @@ export class StartPageService {
     getCategories() : Observable<CategoryTop[]> {
         return this.orlp.get('api/category/top/')
             .map((response: Response) => <CategoryTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
+            .catch(this.handleError);
+    }
+
+    getCourses() : Observable<CourseTop[]> {
+        return this.orlp.get('api/course/top/')
+            .map((response: Response) => <CourseTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCourse, response.json()))
             .catch(this.handleError);
     }
 

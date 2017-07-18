@@ -21,8 +21,13 @@ var StartPageComponent = (function () {
         var _this = this;
         this.startPageService.getCategories()
             .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
+        this.startPageService.getCourses()
+            .subscribe(function (course) { return _this.courses = course; }, function (error) { return _this.errorMessage = error; });
     };
     StartPageComponent.prototype.getCategoryLink = function (link) {
+        return this.orlp.getShortLink(link);
+    };
+    StartPageComponent.prototype.getCourseLink = function (link) {
         return this.orlp.getShortLink(link);
     };
     return StartPageComponent;

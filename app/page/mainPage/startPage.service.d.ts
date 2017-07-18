@@ -5,9 +5,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { ORLPService } from "../../orlp.service";
 import { CategoryTop } from "../../classes/top.category.DTO";
+import { CourseTop } from "../../classes/top.course.DTO";
 export declare class StartPageService {
     private orlp;
     constructor(orlp: ORLPService);
     getCategories(): Observable<CategoryTop[]>;
+    getCourses(): Observable<CourseTop[]>;
     private handleError(error);
 }
