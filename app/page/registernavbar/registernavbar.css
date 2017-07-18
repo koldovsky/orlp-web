@@ -1,0 +1,74 @@
+/*NAVIGATION BAR*/
+.register-user-navigation-bar {
+    height:50px;
+    background-color: #f7f7f7;
+}
+
+/*LEFT SIDE*/
+.category, .course, .search {
+    float:left;
+}
+
+.category {
+    margin: 10px 0px 0px 70px;
+}
+
+.course {
+    margin: 10px 30px 0px 15px;
+}
+
+.search {
+    margin:10px;
+}
+
+#category, #course {
+    color:grey;
+    text-decoration: none;
+}
+
+#category:hover, #course:hover {
+    color:black;
+}
+
+#search {
+    width:250px;
+    background: url(search2.png) no-repeat right center;
+    background-color:white;
+    font-size:14px;
+    outline:none;
+    padding:5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/*RIGHT SIDE*/
+.username, .email {
+    color:gray;
+    text-align:center;
+    font-size: 14px;
+}
+
+#user-image {
+    width: 39px;
+}
+
+.user-information, .user-image, .user-details {
+    float:right;
+}
+
+.user-information, .user-image {
+    margin:5px;
+}
+
+.user-details {
+    margin:10px 20px;
+}
+
+#user-details {
+    text-decoration:none;
+    color:grey;
+}
+
+#user-details:hover {
+    color:black;
+}

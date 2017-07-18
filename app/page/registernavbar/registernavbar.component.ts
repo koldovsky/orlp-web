@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'page',
-    template: require('./registernavbar.component.html!text'),
-    styleUrls: ['app/page/page.css']
+    template: require('./registernavbar.component.html!text')
 })
 
 export class PageComponent implements OnInit {

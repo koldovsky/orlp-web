@@ -1,105 +1,22 @@
+/*TODO*/
 body {
     background-color: #3a3345;
-    padding-top: 70px;
 }
 
 .header-text {
-    text-shadow: 4px 4px 10px #5C14CC;
-
-}
-
-.font-color-white {
-    color: white;
-}
-
-.divider {
-    width: 0;
-    height: 24px;
-    border-left: 1px solid #3a3345;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.navbar-brand-main {
-    padding: 0;
-    text-align: center;
-}
-
-.navbar-nav .nav-link .form-inline {
-    padding-top: 0;
-    padding-bottom: 0;
-    height: 50px;
-    line-height: 50px;
-}
-
-.search-input {
-    font: Arial;
-    font-size: 12px;
-}
-
-.slim {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    font: Arial;
-    font-weight: bold;
-}
-
-.rounded-main {
-    border-radius: 24px;
-}
-
-.backdown-right {
-    margin-right: 30px;
-}
-.nav:hover.a{
-    background-color: #3a3345;
-}
-
-.backdown-left {
-    margin-left: 10px;
-}
-
-.form-control::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    color: white;
-}
-
-.form-control::-moz-placeholder {
-    /* Firefox 19+ */
-    color: white;
-}
-
-.form-control:-ms-input-placeholder {
-    /* IE 10+ */
-    color: white;
-}
-
-.form-control:-moz-placeholder {
-    /* Firefox 18- */
-    color: white;
-}
-
-.left-panel {
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
-}
-
-.right-panel {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.mp-deck {
-    outline: none;
+    color:white;
+    text-shadow: 0px 1px white;
 }
 
 .mp-card {
     width: 100%;
-    border: 1px solid rgb(165, 161, 161);
-    border-radius: 1.25rem;
-    box-shadow: 0px 1px 7px 1px #ffffff;
+    border: 1px solid #f7f7f7;
+    box-shadow: 0px 1px 10px 1px white;
+}
+
+.mp-card:hover {
+    cursor:pointer;
+    background-color:#f7f7f7;
 }
 
 .alertMessage {

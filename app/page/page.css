@@ -1,0 +1,54 @@
+/*NAVIGATION BAR*/
+.navigation-bar {
+    height:50px;
+    background-color: #f7f7f7;
+}
+
+/*LEFT SIDE*/
+.nav-logo, .nav-category, .nav-course, .nav-search {
+    float:left;
+}
+
+.nav-category, .nav-course, .nav-search {
+    margin: 10px;
+}
+
+.nav-logo {
+    margin: 5px;
+}
+
+#nav-logo {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#nav-logo, #nav-category, #nav-course {
+    color:grey;
+    text-decoration: none;
+}
+
+#category:hover, #course:hover {
+    color:black;
+}
+
+#nav-search {
+    width:250px;
+    background: url(../../image/search.png) no-repeat right center;
+    background-color:white;
+    font-size:14px;
+    outline:none;
+    padding:5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/*RIGHT SIDE*/
+.nav-signin, .nav-signup {
+    float: right;
+    margin:10px;
+}
+
+#nav-signin, #nav-signup {
+    text-decoration: none;
+    color:grey;
+}
