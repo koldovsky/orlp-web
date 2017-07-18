@@ -5,13 +5,14 @@ import {DeckPublic} from "./public.deck.DTO";
 import {CoursePublic} from "./public.course.DTO";
 import {link} from "fs";
 import {CategoriesPublic} from "./public.categories";
+import {CourseTop} from "./top.course.DTO";
 
 export class DTOConverter {
 
     public static jsonToPublicCourse(data: any): CoursePublic {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
 
-        return new CoursePublic(data.name, data.description, self);
+        return new CoursePublic(data.name, data.description, data.imagebase64, self);
     }
 
     public static jsonToPublicDeck(data: any): DeckPublic {
@@ -24,6 +25,12 @@ export class DTOConverter {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
 
         return new CategoryTop(data.name, data.imagebase64, self);
+    }
+
+    public static jsonToTopCourse(data: any): CourseTop {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+
+        return new CourseTop(data.name, data.imagebase64, self);
     }
 
     public static jsonToPublicCategories(data: any): CategoriesPublic {

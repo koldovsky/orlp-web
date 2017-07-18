@@ -1,12 +1,26 @@
 <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
-<div style="border-bottom: 4px solid white">
-    <div *ngFor="let course of courses" class="card catalogPage-items">
-        <div class="card-block">
-            <h4 class="card-title">{{course.name}}</h4>
-            <p class="card-text">{{course.description}}</p>
-        </div>
-    </div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
+        <thead>
+            <tr style="border-top: hidden">
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let course of courses">
+                <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main" style="width: 50px; height: 50px"></td>
+                <td>{{course.name}}</td>
+                <td>{{course.description}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
 <div class="row">
     <button class="btn ml-auto mt-3 mr-4 catalogPage-button" data-toggle="modal" data-target="#courseModal">
         Add Course

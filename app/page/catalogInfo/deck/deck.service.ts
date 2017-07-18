@@ -23,8 +23,6 @@ export class DeckService {
     }
 
     addDeck(body: IDeck, url: string): Observable<DeckPublic> {
-        // let headers = new Headers({'Content-Type': 'application/json'});
-        // let options = new RequestOptions({headers : headers});
 
         return this.orlp.post(url, body)
             .map((res: Response) =>  res.json())
@@ -36,5 +34,4 @@ export class DeckService {
 
         return Observable.throw(error.json().error || 'Server error');
     }
-
 }

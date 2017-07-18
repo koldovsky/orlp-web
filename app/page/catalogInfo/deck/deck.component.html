@@ -1,11 +1,22 @@
 <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
-<div style="border-bottom: 4px solid white">
-    <div *ngFor="let deck of decks" class="card catalogPage-items">
-        <div class="card-block">
-            <h4 class="card-title">{{deck.name}}</h4>
-            <p class="card-text">{{deck.description}}</p>
-        </div>
-    </div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
+        <thead>
+        <tr style="border-top: hidden">
+            <th>Name</th>
+            <th>Description</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let deck of decks">
+            <td>{{deck.name}}</td>
+            <td>{{deck.description}}</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 <div class="row">
