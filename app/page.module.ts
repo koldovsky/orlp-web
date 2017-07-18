@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 import {CommonModule} from "@angular/common";
-import {PageComponent} from "./page/page.component";
+import {PageComponent} from "./page/navbar.component";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ORLPService} from "./orlp.service";

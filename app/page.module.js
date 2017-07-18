@@ -10,7 +10,7 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var page_component_1 = require("./page/page.component");
+var navbar_component_1 = require("./page/navbar.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
@@ -48,10 +48,10 @@ PageModule = __decorate([
         ],
         exports: [],
         declarations: [
-            page_component_1.PageComponent,
+            navbar_component_1.PageComponent,
         ],
         providers: [orlp_service_1.ORLPService],
-        bootstrap: [page_component_1.PageComponent,]
+        bootstrap: [navbar_component_1.PageComponent,]
     })
 ], PageModule);
 exports.PageModule = PageModule;

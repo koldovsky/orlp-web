@@ -20,10 +20,10 @@ var PageComponent = (function () {
 PageComponent = __decorate([
     core_1.Component({
         selector: 'page',
-        template: require('./page.component.html!text'),
+        template: require('./navbar.component.html!text'),
         styleUrls: ['app/page/page.css']
     }),
     __metadata("design:paramtypes", [])
 ], PageComponent);
 exports.PageComponent = PageComponent;
-//# sourceMappingURL=page.component.js.map
+//# sourceMappingURL=navbar.component.js.map
