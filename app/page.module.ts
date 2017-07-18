@@ -44,7 +44,7 @@ import {LoginModule} from "./page/login/login.module";
 
 
     providers: [ORLPService],
-    bootstrap: [PageComponent]
+    bootstrap: [PageComponent, ]
 })
 export class PageModule {
 }

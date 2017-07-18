@@ -16,12 +16,27 @@ var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
 var LoginComponent = (function () {
     function LoginComponent(fb, loginService, auth, router) {
+        var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
+        this.router = router;
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
+        this.login = function () {
+            _this.success = false;
+            _this.error = false;
+            _this.wrongDetails = false;
+            _this.loginService.loginServ(_this.loginForm.value)
+                .subscribe(function (response) {
+                _this.success = true;
+                console.log(response.status);
+                _this.router.navigate(['registr']);
+            }, function (error) {
+                _this.processError(error);
+            });
+        };
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.loginForm = this.fb.group({
@@ -29,24 +44,15 @@ var LoginComponent = (function () {
             username: ['', [forms_1.Validators.required]],
         });
     };
-    LoginComponent.prototype.login = function () {
-        this.loginService.loginServ(this.loginForm.value)
-            .subscribe(function (response) {
-            console.log(response.status);
-        });
-    };
     LoginComponent.prototype.processError = function (response) {
         this.success = false;
-        if (response.status === 200) {
-            this.success = true;
-        }
-        else if (response.status === 401) {
+        if (response.status === 401) {
             this.wrongDetails = true;
-            console.log(2);
+            console.log(response.status);
         }
         else {
             this.error = true;
-            console.log(3);
+            console.log(response.status);
         }
     };
     LoginComponent.prototype.signIn = function (provider) {

@@ -79,6 +79,7 @@ export class SignUpComponent implements OnInit {
             this.errorEmailExists = true;
         } else if (response.status === 201) {
             this.success = true;
+            console.log(response.status);
         } else
             this.error = true;
     }

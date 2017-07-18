@@ -14,25 +14,31 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var AccountVerificationComponent = (function () {
     function AccountVerificationComponent(activatedRoute, http, router) {
+        var _this = this;
         this.activatedRoute = activatedRoute;
         this.http = http;
         this.router = router;
+        this._url = "dfse";
+        this.sendTokenToController = function () {
+            _this.
+            ;
+        };
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activatedRoute.params.subscribe(function (params) {
-            var token = params['token'];
-            console.log(token);
-            _this.router.navigate['login'];
+        this.activatedRoute.queryParams.subscribe(function (params) {
+            _this.token = params['token'];
+            console.log('token= ' + _this.token);
+            _this.router.navigate(['registr']);
         });
     };
     return AccountVerificationComponent;
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
-        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Hello</div>\n        <br/>\n        <span>your tiken = {{token}}</span>\n        </body>\n        </html>\n    "
+        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Hello</div>\n        <br/>\n        <span>your token = {{token}}</span>\n        </body>\n        </html>\n    "
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute, http_1.Http, router_1.Router])
 ], AccountVerificationComponent);
 exports.AccountVerificationComponent = AccountVerificationComponent;
-//# sourceMappingURL=AccountVerification.component.js.map
+//# sourceMappingURL=accountVerification.component.js.map

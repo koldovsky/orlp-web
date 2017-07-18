@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {SignUpComponent} from "./signup.component";
 import {RouterModule} from "@angular/router";
 import {SignupService} from "./signup.service";
-import {AccountVerificationComponent} from "./AccountVerification.component";
+import {AccountVerificationComponent} from "../accountVerification/accountVerification.component";
 
 @NgModule({
     imports: [
@@ -24,4 +24,5 @@ import {AccountVerificationComponent} from "./AccountVerification.component";
         SignupService,
     ],
 })
-export class SignUpModule { }
+export class SignUpModule {
+}

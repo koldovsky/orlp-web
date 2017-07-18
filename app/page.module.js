@@ -51,7 +51,7 @@ PageModule = __decorate([
             page_component_1.PageComponent,
         ],
         providers: [orlp_service_1.ORLPService],
-        bootstrap: [page_component_1.PageComponent]
+        bootstrap: [page_component_1.PageComponent,]
     })
 ], PageModule);
 exports.PageModule = PageModule;

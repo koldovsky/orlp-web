@@ -26,7 +26,7 @@ var LoginService = (function () {
             .catch(this.handleErrorObservable);
     };
     LoginService.prototype.loginServ = function (account) {
-        return this.http.post(this._controllerUrl, account).map(this.extractData);
+        return this.http.post(this._controllerUrl, account);
     };
     LoginService.prototype.extractData = function (res) {
         var body = res.json();

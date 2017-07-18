@@ -20,7 +20,8 @@ export class LoginService {
     }
 
     loginServ(account: LoginAccount): Observable<Response> {
-        return this.http.post(this._controllerUrl, account).map(this.extractData);
+        return this.http.post(this._controllerUrl, account);
+
 
     }
 

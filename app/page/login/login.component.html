@@ -56,6 +56,7 @@
                         <span *ngIf="loginForm.get('password').errors.required">Please enter your password</span>
 
                     </div>
+
                 </div>
             </div>
         </div>
@@ -77,22 +78,29 @@
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
                 <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
             </div>
+
         </div>
-
-        <div class="alert alert-danger" *ngIf="error">
-            <span>Not valid email or password</span>
-            <div class="alertMessage">
-
-                <div class="alert alert-danger" *ngIf="error">
-                    <span><b>Authorization failed!</b> Try again.</span>
-                </div>
-                <div class="alert alert-success" *ngIf="success">
-                    <span>Authorization <b>successful!</b></span>
+        <br/>
+        <div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 text-center">
+                    <div class="alert alert-danger" *ngIf="wrongDetails">
+                        <span>Not valid email or password</span>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="error">
+                        <span><b>Authorization failed!</b> Try again.</span>
+                    </div>
+                    <div class="alert alert-success" *ngIf="success">
+                        <span>Authorization <b>successful!</b></span>
+                    </div>
                 </div>
             </div>
         </div>
+
     </form>
     <button (click)="signIn('google')">google</button>
     <div class="alert">Success :{{success}}</div>
     <div class="alert">Error :{{error}}</div>
+    <div class="alert">wrongDetails :{{wrongDetails}}</div>
 </div>

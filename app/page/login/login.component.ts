@@ -10,6 +10,8 @@ declare const gapi: any;
 @Component({
     template: require('app/page/login/login.component.html!text')
 })
+
+
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     success: boolean = false;
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
     wrongDetails: boolean = false;
     public user;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, router: Router) {
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router) {
 
     }
 
@@ -28,29 +30,28 @@ export class LoginComponent implements OnInit {
         })
     }
 
-    login(): void {
+    login = () => {
+        this.success = false;
+        this.error = false;
+        this.wrongDetails = false;
         this.loginService.loginServ(this.loginForm.value)
-            .subscribe(response => {
-
-
-                    console.log(response.status)
-                }
-            )
+            .subscribe((response) => {
+                this.success = true;
+                console.log(response.status);
+                this.router.navigate(['registr']);
+            }, (error) => {
+                this.processError(error);
+            });
     }
 
     private processError(response) {
         this.success = false;
-
-        if (response.status === 200) {
-            this.success = true;
-
-
-        } else if (response.status === 401) {
+        if (response.status === 401) {
             this.wrongDetails = true;
-            console.log(2)
+            console.log(response.status)
         } else {
             this.error = true;
-            console.log(3)
+            console.log(response.status)
         }
     }
 

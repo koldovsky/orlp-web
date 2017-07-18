@@ -5,6 +5,9 @@ export declare class AccountVerificationComponent implements OnInit {
     private activatedRoute;
     private http;
     private router;
+    token: string;
+    _url: string;
     constructor(activatedRoute: ActivatedRoute, http: Http, router: Router);
     ngOnInit(): void;
+    sendTokenToController: () => void;
 }
