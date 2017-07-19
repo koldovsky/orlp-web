@@ -11,12 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
-var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var orlp_service_1 = require("../../orlp.service");
 var LoginService = (function () {
-    function LoginService(http, orlp) {
-        this.http = http;
+    function LoginService(orlp) {
         this.orlp = orlp;
     }
     LoginService.prototype.sendGoogleIdToken = function (idToken) {
@@ -43,7 +41,7 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, orlp_service_1.ORLPService])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

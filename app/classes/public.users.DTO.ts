@@ -1,5 +1,6 @@
-import {Link} from "../../../../../../admin/classes/link";
 
+
+import {Link} from "./link";
 export class UsersPublic {
     firstName: string;
     lastName: string;

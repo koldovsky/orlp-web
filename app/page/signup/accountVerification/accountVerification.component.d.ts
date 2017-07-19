@@ -9,7 +9,7 @@ export declare class AccountVerificationComponent implements OnInit {
     private activatedRoute;
     token: string;
     error: boolean;
-    _url: string;
+    verificationStat: boolean;
     constructor(accVerify: AccountVerificationService, http: Http, router: Router, activatedRoute: ActivatedRoute);
     ngOnInit(): void;
 }

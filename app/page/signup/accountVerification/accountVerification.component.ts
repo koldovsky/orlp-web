@@ -9,7 +9,6 @@ import {AccountVerificationService} from "./accountVerification.service";
         <html>
         <head></head>
         <body>
-        <div>Token verification</div>
         </body>
         </html>
     `
@@ -19,13 +18,12 @@ import {AccountVerificationService} from "./accountVerification.service";
 export class AccountVerificationComponent implements OnInit {
     token: string;
     error: boolean;
-    _url: string = "http://localhost:8080/api/registrationConfirm";
+    verificationStat: boolean;
 
     constructor(private accVerify: AccountVerificationService, private http: Http, private router: Router, private activatedRoute: ActivatedRoute) {
 
         this.activatedRoute.queryParams.subscribe((params: Params) => {
             this.token = params['token'];
-            console.log('token= ' + this.token);
         });
 
     }

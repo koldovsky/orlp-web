@@ -9,7 +9,7 @@ import {ORLPService} from "../../orlp.service";
 @Injectable()
 export class LoginService {
 
-    constructor(private http: Http, private orlp: ORLPService) {
+    constructor(private orlp: ORLPService) {
     }
 
     sendGoogleIdToken(idToken: string) {

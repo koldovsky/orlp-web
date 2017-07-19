@@ -15,15 +15,17 @@ var login_service_1 = require("./login.service");
 var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService, auth, router) {
+    function LoginComponent(fb, loginService, auth, router, activatedRoute) {
         var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
         this.router = router;
+        this.activatedRoute = activatedRoute;
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
+        this.verificationStat = false;
         this.login = function () {
             _this.success = false;
             _this.error = false;
@@ -85,7 +87,7 @@ LoginComponent = __decorate([
     core_1.Component({
         template: require('app/page/login/login.component.html!text')
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router, router_1.ActivatedRoute])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

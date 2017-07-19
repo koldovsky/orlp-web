@@ -1,9 +1,9 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {error} from "util";
 
 @Component({
@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
     error: boolean = false;
     wrongDetails: boolean = false;
     public user;
+    verificationStat: boolean = false;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router) {
-
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {

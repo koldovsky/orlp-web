@@ -8,12 +8,12 @@ import {FormGroup} from "@angular/forms";
 
 @Injectable()
 export class SignupService {
-    private _controllerUrl = 'http://localhost:8080/api/registration';
+    private _controllerUrl = 'api/registration';
     constructor(private _orlp: ORLPService, private http: Http) { }
 
 
     registerUser(newUser: User): Observable<User> {
-        return this.http.post(this._controllerUrl, newUser).map(this.extractData)
+        return this._orlp.post(this._controllerUrl, newUser).map(this.extractData)
             .catch(this.handleErrorObservable);
 
     }

@@ -20,10 +20,8 @@ var AccountVerificationComponent = (function () {
         this.http = http;
         this.router = router;
         this.activatedRoute = activatedRoute;
-        this._url = "http://localhost:8080/api/registrationConfirm";
         this.activatedRoute.queryParams.subscribe(function (params) {
             _this.token = params['token'];
-            console.log('token= ' + _this.token);
         });
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
@@ -42,7 +40,7 @@ var AccountVerificationComponent = (function () {
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
-        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Token verification</div>\n        </body>\n        </html>\n    "
+        template: "\n        <html>\n        <head></head>\n        <body>\n        </body>\n        </html>\n    "
     }),
     __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, http_1.Http, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);
