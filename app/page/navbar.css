@@ -1,43 +1,43 @@
-/*NAVIGATION BAR*/
-.navigation-bar {
-    height:50px;
-    background-color: #f7f7f7;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
 }
 
-/*LEFT SIDE*/
 .nav-logo, .nav-category, .nav-course, .nav-search {
-    float:left;
+    float: left;
 }
 
-.nav-category, .nav-course, .nav-search {
-    margin: 10px;
-}
-
-.nav-logo {
-    margin: 5px;
-}
-
-#nav-logo {
-    font-weight: bold;
-    font-size: 20px;
-}
-
-#nav-logo, #nav-category, #nav-course {
-    color:grey;
+#nav-logo, #nav-category, #nav-course, #nav-signin, #nav-signup {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
 }
 
-#category:hover, #course:hover {
-    color:black;
+#nav-logo:hover, #nav-category:hover, #nav-course:hover, #nav-signin:hover, #nav-signup:hover {
+    background-color: #111;
+}
+
+.nav-logo {
+    font-weight: bold;
+    background-color: black;
+}
+
+.nav-search {
+    margin: 10px;
 }
 
 #nav-search {
-    width:250px;
+    width: 250px;
     background: url(../../image/search.png) no-repeat right center;
-    background-color:white;
-    font-size:14px;
-    outline:none;
-    padding:5px;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -45,10 +45,4 @@
 /*RIGHT SIDE*/
 .nav-signin, .nav-signup {
     float: right;
-    margin:10px;
-}
-
-#nav-signin, #nav-signup {
-    text-decoration: none;
-    color:grey;
 }

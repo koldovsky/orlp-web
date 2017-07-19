@@ -1,30 +1,30 @@
 <!-- NAVBAR GUEST -->
 <nav>
-    <div class="navigation-bar">
+    <ul class="navigation-bar">
         <!-- LOGO -->
-        <div class="nav-logo">
+        <li class="nav-logo">
             <a id="nav-logo" [routerLink]="['/main']">ORLP</a>
-        </div>
+        </li>
         <!-- CATEGORIES -->
-        <div class="nav-category">
-            <a id="nav-category" href="#">Category</a>
-        </div>
+        <li class="nav-category">
+            <a id="nav-category" href="#">Categories</a>
+        </li>
         <!-- COURSES -->
-        <div class="nav-course">
-            <a id="nav-course" href="#">Course</a>
-        </div>
+        <li class="nav-course">
+            <a id="nav-course" href="#">Courses</a>
+        </li>
         <!-- SEARCH -->
-        <div class="nav-search">
+        <li class="nav-search">
             <input id="nav-search" type="text" placeholder="Search">
-        </div>
+        </li>
         <!-- SIGN UP -->
-        <div class="nav-signup">
+        <li class="nav-signup">
             <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
-        </div>
+        </li>
         <!-- SIGN IN -->
-        <div class="nav-signin">
+        <li class="nav-signin">
             <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
-        </div>
-    </div>
+        </li>
+    </ul>
 </nav>
 <router-outlet></router-outlet>

@@ -57,8 +57,8 @@ var CategoryInfoComponent = (function () {
 }());
 CategoryInfoComponent = __decorate([
     core_1.Component({
-        template: require('app/page/catalogInfo/categoryInfo.component.html!text'),
-        styleUrls: ['app/page/catalogInfo/catalogInfo.css']
+        template: require('app/page/categoryInfo/categoryInfo.component.html!text'),
+        styleUrls: ['app/page/categoryInfo/categoryInfo.css']
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         orlp_service_1.ORLPService,

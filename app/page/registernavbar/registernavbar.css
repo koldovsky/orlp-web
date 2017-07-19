@@ -1,12 +1,12 @@
 /*NAVIGATION BAR*/
 .register-user-navigation-bar {
-    height:50px;
+    height: 50px;
     background-color: #f7f7f7;
 }
 
 /*LEFT SIDE*/
 .category, .course, .search {
-    float:left;
+    float: left;
 }
 
 .category {
@@ -18,33 +18,33 @@
 }
 
 .search {
-    margin:10px;
+    margin: 10px;
 }
 
 #category, #course {
-    color:grey;
+    color: grey;
     text-decoration: none;
 }
 
 #category:hover, #course:hover {
-    color:black;
+    color: black;
 }
 
 #search {
-    width:250px;
-    background: url(search2.png) no-repeat right center;
-    background-color:white;
-    font-size:14px;
-    outline:none;
-    padding:5px;
+    width: 300px;
+    background: url(../../../image/search.png) no-repeat right center;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 /*RIGHT SIDE*/
 .username, .email {
-    color:gray;
-    text-align:center;
+    color: gray;
+    text-align: center;
     font-size: 14px;
 }
 
@@ -53,22 +53,22 @@
 }
 
 .user-information, .user-image, .user-details {
-    float:right;
+    float: right;
 }
 
 .user-information, .user-image {
-    margin:5px;
+    margin: 5px;
 }
 
 .user-details {
-    margin:10px 20px;
+    margin: 10px 20px;
 }
 
 #user-details {
-    text-decoration:none;
-    color:grey;
+    text-decoration: none;
+    color: grey;
 }
 
 #user-details:hover {
-    color:black;
+    color: black;
 }

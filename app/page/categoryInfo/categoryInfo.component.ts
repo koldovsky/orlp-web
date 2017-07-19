@@ -6,8 +6,8 @@ import {CategoryLink} from "../../classes/link.category.DTO";
 import {CategoryInfoService} from "./categoryInfo.service";
 
 @Component({
-    template: require('app/page/catalogInfo/categoryInfo.component.html!text'),
-    styleUrls: ['app/page/catalogInfo/catalogInfo.css']
+    template: require('app/page/categoryInfo/categoryInfo.component.html!text'),
+    styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
 
 export class CategoryInfoComponent implements OnInit {

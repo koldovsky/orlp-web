@@ -5,79 +5,79 @@
     padding-left: 0px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 14px;
-    list-style:none;
-    opacity:.5;
-    width:50px;
-    z-index:1;
+    list-style: none;
+    opacity: .5;
+    width: 50px;
+    z-index: 1;
 
-    transition:opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
 }
 
 .main-dropdown-menu ul:hover {
-    opacity:1;
+    opacity: 1;
 }
 
 .main-dropdown-menu li {
-    height:50px;
-    overflow:hidden;
-    width:50px;
+    height: 50px;
+    overflow: hidden;
+    width: 50px;
 
-    transition:width .2s ease-in-out, height .2s ease-in-out .2s;
+    transition: width .2s ease-in-out, height .2s ease-in-out .2s;
 }
 
 .main-dropdown-menu li:hover {
-    height:200px;
-    width:200px;
+    height: 200px;
+    width: 200px;
 }
 
 .main-dropdown-menu li a {
-    background:#f7f7f7;
-    color:black;
-    cursor:pointer;
-    display:block;
-    height:40px;
-    line-height:40px;
-    width:230px;
-    text-decoration:none;
+    background: #f7f7f7;
+    color: black;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    width: 230px;
+    text-decoration: none;
 
-    transition:background .2s ease-in-out;
+    transition: background .2s ease-in-out;
 }
 
 .main-dropdown-menu li a:hover {
-    background:grey;
-    color:white;
+    background: grey;
+    color: white;
 }
 
 .main-dropdown-menu li a {
-    padding-left:20px;
-    font-size:1.1em;
-    height:50px;
-    line-height:50px;
-    position:relative;
-    text-indent:36px;
+    padding-left: 20px;
+    font-size: 1.1em;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    text-indent: 36px;
 }
 
 .main-dropdown-menu li a::before {
-    content:'';
-    height:32px;
-    left:9px;
-    position:absolute;
-    top:9px;
-    width:32px;
+    content: '';
+    height: 32px;
+    left: 9px;
+    position: absolute;
+    top: 9px;
+    width: 32px;
 }
 
 .main-menu a::before {
-    background:url(home.png) center no-repeat;
+    background: url(../../../image/home.png) center no-repeat;
 }
 
 .settings a::before {
-    background:url(settings.png) center no-repeat;
+    background: url(../../../image/settings.png) center no-repeat;
 }
 
 .link a::before {
-    background:url(link.png) center no-repeat;
+    background: url(../../../image/link.png) center no-repeat;
 }
 
 .forum a::before {
-    background:url(search.png) center no-repeat;
+    background: url(../../../image/search.png) center no-repeat;
 }
