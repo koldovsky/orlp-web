@@ -46,6 +46,7 @@ var SignUpComponent = (function () {
         this.error = false;
         this.success = false;
         this.errorEmailExists = false;
+        this.mailNotSended = false;
         this.transferingDataFromFormToUserObj();
         console.log(this.user);
         this.signupService.registerUser(this.user)
@@ -69,8 +70,12 @@ var SignUpComponent = (function () {
             this.success = true;
             console.log(response.status);
         }
-        else
+        else if (response.status === 404) {
+            this.mailNotSended = true;
+        }
+        else {
             this.error = true;
+        }
     };
     return SignUpComponent;
 }());

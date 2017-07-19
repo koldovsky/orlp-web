@@ -12,24 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
+var accountVerification_service_1 = require("./accountVerification.service");
 var AccountVerificationComponent = (function () {
-    function AccountVerificationComponent(activatedRoute, http, router) {
-        var _this = this;
-        this.activatedRoute = activatedRoute;
+    function AccountVerificationComponent(accVerify, http, router, activatedRoute) {
+        this.accVerify = accVerify;
         this.http = http;
         this.router = router;
+        this.activatedRoute = activatedRoute;
         this._url = "dfse";
-        this.sendTokenToController = function () {
-            _this.
-            ;
-        };
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.error = false;
         this.activatedRoute.queryParams.subscribe(function (params) {
             _this.token = params['token'];
+            _this.accVerify.accountVerificate(_this.token).subscribe(function (success) {
+                console.log(success);
+                //this.router.navigate(['login']);
+            }, function (error) {
+                _this.error = true;
+                console.log(error);
+            });
             console.log('token= ' + _this.token);
-            _this.router.navigate(['registr']);
+            // this.router.navigate(['registr']);
         });
     };
     return AccountVerificationComponent;
@@ -38,7 +43,7 @@ AccountVerificationComponent = __decorate([
     core_1.Component({
         template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Hello</div>\n        <br/>\n        <span>your token = {{token}}</span>\n        </body>\n        </html>\n    "
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, http_1.Http, router_1.Router])
+    __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, http_1.Http, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);
 exports.AccountVerificationComponent = AccountVerificationComponent;
 //# sourceMappingURL=accountVerification.component.js.map

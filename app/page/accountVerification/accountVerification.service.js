@@ -9,20 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var Observable_1 = require("rxjs/Observable");
 var http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
 var AccountVerificationService = (function () {
     function AccountVerificationService(http) {
         this.http = http;
         this._controllerUrl = 'http://localhost:8080/api/registrationConfirm';
     }
     ;
-    AccountVerificationService.prototype.verificate = function (token) {
+    AccountVerificationService.prototype.accountVerificate = function (token) {
         return this.http.post(this._controllerUrl, token);
-    };
-    AccountVerificationService.prototype.handleErrorObservable = function (error) {
-        return Observable_1.Observable.throw(error.message || error);
     };
     return AccountVerificationService;
 }());

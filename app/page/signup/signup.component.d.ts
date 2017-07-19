@@ -9,7 +9,7 @@ export declare class SignUpComponent implements OnInit {
     private formBuilder;
     userForm: FormGroup;
     user: User;
-    errorMessage: String;
+    mailNotSended: boolean;
     success: boolean;
     error: boolean;
     errorEmailExists: boolean;
