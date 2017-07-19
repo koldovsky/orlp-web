@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import {RequestOptions, Response, Headers, Http} from '@angular/http';
 import {ORLPService} from "../../orlp.service";
-import {User} from "./User";
+import {User} from "../../classes/User";
 import {FormGroup} from "@angular/forms";
 
 

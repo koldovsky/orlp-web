@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/core-js": "0.9.41",
     "@types/node": "7.0.22",
-    "gulp": "3.9.1",
+    "gulp": "^3.9.1",
     "gulp-clean": "0.3.2",
     "gulp-html-replace": "1.6.2",
     "gulp-livereload": "^3.8.1",

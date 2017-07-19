@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var signup_service_1 = require("./signup.service");
 var forms_1 = require("@angular/forms");
-var User_1 = require("./User");
+var User_1 = require("../../classes/User");
 function passwordMatcher(c) {
     var passwordControl = c.get('password');
     var confirmPassword = c.get('confirmPassword');

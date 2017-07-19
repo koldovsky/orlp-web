@@ -1,7 +1,7 @@
 import { Observable } from "rxjs/Observable";
 import { Http, Response } from "@angular/http";
 import "rxjs/add/operator/map";
-import { LoginAccount } from "./LoginAccount";
+import { LoginAccount } from "../../classes/LoginAccount";
 import { ORLPService } from "../../orlp.service";
 export declare class LoginService {
     private http;

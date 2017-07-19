@@ -4,7 +4,8 @@ import {CommonModule} from "@angular/common";
 import {SignUpComponent} from "./signup.component";
 import {RouterModule} from "@angular/router";
 import {SignupService} from "./signup.service";
-import {AccountVerificationComponent} from "../accountVerification/accountVerification.component";
+import {AccountVerificationComponent} from "./accountVerification/accountVerification.component";
+import {AccountVerificationService} from "./accountVerification/accountVerification.service";
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import {AccountVerificationComponent} from "../accountVerification/accountVerifi
         SignUpComponent, AccountVerificationComponent
     ],
     providers: [
-        SignupService,
+        SignupService, AccountVerificationService
     ],
 })
 export class SignUpModule {

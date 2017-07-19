@@ -15,33 +15,34 @@ var http_1 = require("@angular/http");
 var accountVerification_service_1 = require("./accountVerification.service");
 var AccountVerificationComponent = (function () {
     function AccountVerificationComponent(accVerify, http, router, activatedRoute) {
+        var _this = this;
         this.accVerify = accVerify;
         this.http = http;
         this.router = router;
         this.activatedRoute = activatedRoute;
-        this._url = "dfse";
+        this._url = "http://localhost:8080/api/registrationConfirm";
+        this.activatedRoute.queryParams.subscribe(function (params) {
+            _this.token = params['token'];
+            console.log('token= ' + _this.token);
+        });
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.error = false;
-        this.activatedRoute.queryParams.subscribe(function (params) {
-            _this.token = params['token'];
-            _this.accVerify.accountVerificate(_this.token).subscribe(function (success) {
-                console.log(success);
-                //this.router.navigate(['login']);
-            }, function (error) {
-                _this.error = true;
-                console.log(error);
-            });
-            console.log('token= ' + _this.token);
-            // this.router.navigate(['registr']);
+        this.accVerify.accountVerificate(this.token).subscribe(function (success) {
+            console.log(success);
+            _this.router.navigate(['login']);
+        }, function (error) {
+            _this.error = true;
+            console.log(error);
+            _this.router.navigate(['registr']);
         });
     };
     return AccountVerificationComponent;
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
-        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Hello</div>\n        <br/>\n        <span>your token = {{token}}</span>\n        </body>\n        </html>\n    "
+        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Token verification</div>\n        </body>\n        </html>\n    "
     }),
     __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, http_1.Http, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);

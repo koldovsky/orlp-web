@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
             .subscribe((response) => {
                 this.success = true;
                 console.log(response.status);
-                this.router.navigate(['registr']);
+                this.router.navigate(['main']);
             }, (error) => {
                 this.processError(error);
             });
