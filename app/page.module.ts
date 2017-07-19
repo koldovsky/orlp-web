@@ -4,11 +4,11 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 import {CommonModule} from "@angular/common";
-import {PageComponent} from "./page/page.component";
+import {PageComponent} from "./page/navbar.component";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ORLPService} from "./orlp.service";
-import {StartPageModule} from "./page/mainPage/startPage.module";
+import {MainModule} from "./page/main/main.module";
 import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
 import {SignUpModule} from "./page/signup/signup.module";
 import {AdminModule} from "./page/admin/admin.module";
@@ -25,15 +25,15 @@ import {LoginModule} from "./page/login/login.module";
         CommonModule,
         RouterModule.forRoot([
             // {path: 'admin', component: AdminComponent},
-            {path: '', redirectTo: 'startPage', pathMatch: 'full'},
-            {path: '**', redirectTo: 'startPage', pathMatch: 'full'}
+            {path: '', redirectTo: 'main', pathMatch: 'full'},
+            {path: '**', redirectTo: 'main', pathMatch: 'full'}
         ]),
 
         CategoryInfoModule,
-        StartPageModule,
+        MainModule,
         SignUpModule,
         LoginModule,
-        StartPageModule,
+        MainModule,
         AdminModule,
         CardModule
     ],

@@ -1,0 +1,50 @@
+<!-- NAVBAR FOR REGISTER USER -->
+<nav>
+    <div class="register-user-navigation-bar">
+        <!-- DROPDOWN -->
+        <div class=" main-dropdown-menu">
+            <ul>
+                <li class="main-menu">
+                    <a href>Main Menu</a>
+                    <div class="link">
+                        <a href>My folder</a>
+                    </div>
+                    <div class="settings">
+                        <a href>Settings</a>
+                    </div>
+                    <div class="forum">
+                        <a href>Forum</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- CATEGORIES -->
+        <div class="category">
+            <a id="category" href="#">Category</a>
+        </div>
+        <!-- COURSES -->
+        <div class="course">
+            <a id="course" href="#">Course</a>
+        </div>
+        <!-- SEARCH -->
+        <div class="search">
+            <input id="search" type="text" placeholder="Search">
+        </div>
+        <!-- USER-DETAILS -->
+        <div class="user-details">
+            <a id="user-details" href="#"><b>. . .</b></a>
+        </div>
+        <!-- USER-IMAGE -->
+        <div class="user-image">
+            <a [routerLink]="['/login']">
+                <img id="user-image" src="https://s.pluralsight.com/sc/img/account/avatar-v2.png">
+            </a>
+        </div>
+        <!-- USER-INFORMATION -->
+        <div class="user-information">
+            <div class="username">Username</div>
+            <div class="email">user@gmail.com</div>
+        </div>
+    </div>
+</nav>
+<router-outlet></router-outlet>

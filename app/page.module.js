@@ -10,11 +10,11 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var page_component_1 = require("./page/page.component");
+var navbar_component_1 = require("./page/navbar.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
-var startPage_module_1 = require("./page/mainPage/startPage.module");
+var main_module_1 = require("./page/main/main.module");
 var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
 var signup_module_1 = require("./page/signup/signup.module");
 var admin_module_1 = require("./page/admin/admin.module");
@@ -35,23 +35,23 @@ PageModule = __decorate([
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
                 // {path: 'admin', component: AdminComponent},
-                { path: '', redirectTo: 'startPage', pathMatch: 'full' },
-                { path: '**', redirectTo: 'startPage', pathMatch: 'full' }
+                { path: '', redirectTo: 'main', pathMatch: 'full' },
+                { path: '**', redirectTo: 'main', pathMatch: 'full' }
             ]),
             categoryInfo_module_1.CategoryInfoModule,
-            startPage_module_1.StartPageModule,
+            main_module_1.MainModule,
             signup_module_1.SignUpModule,
             login_module_1.LoginModule,
-            startPage_module_1.StartPageModule,
+            main_module_1.MainModule,
             admin_module_1.AdminModule,
             card_module_1.CardModule
         ],
         exports: [],
         declarations: [
-            page_component_1.PageComponent,
+            navbar_component_1.PageComponent,
         ],
         providers: [orlp_service_1.ORLPService],
-        bootstrap: [page_component_1.PageComponent,]
+        bootstrap: [navbar_component_1.PageComponent,]
     })
 ], PageModule);
 exports.PageModule = PageModule;
