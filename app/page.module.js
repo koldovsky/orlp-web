@@ -15,11 +15,11 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
 var main_module_1 = require("./page/main/main.module");
-var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
 var signup_module_1 = require("./page/signup/signup.module");
 var admin_module_1 = require("./page/admin/admin.module");
 var card_module_1 = require("./page/card/card.module");
 var login_module_1 = require("./page/login/login.module");
+var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
 var PageModule = (function () {
     function PageModule() {
     }

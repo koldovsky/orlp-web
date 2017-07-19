@@ -9,11 +9,11 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ORLPService} from "./orlp.service";
 import {MainModule} from "./page/main/main.module";
-import {CategoryInfoModule} from "./page/catalogInfo/categoryInfo.module";
 import {SignUpModule} from "./page/signup/signup.module";
 import {AdminModule} from "./page/admin/admin.module";
 import {CardModule} from "./page/card/card.module";
 import {LoginModule} from "./page/login/login.module";
+import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
 
 
 @NgModule({
