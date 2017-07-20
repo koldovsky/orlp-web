@@ -12,11 +12,11 @@ export class ORLPService {
     }
 
     get(url: string): Observable<Response> {
-        return this.http.get(this.SERVER_ADDRESS + url, RequestMethod.Get);
+        return this.http.get(this.SERVER_ADDRESS + url, {withCredentials: true});
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body, {withCredentials: true});
     }
 
     public getShortLink(link: Link) {

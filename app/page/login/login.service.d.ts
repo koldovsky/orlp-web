@@ -6,10 +6,10 @@ import { ORLPService } from "../../orlp.service";
 export declare class LoginService {
     private http;
     private orlp;
-    private _controllerUrl;
     constructor(http: Http, orlp: ORLPService);
-    sendIdToken(idToken: string): Observable<any>;
-    loginServ(account: LoginAccount): Observable<Response>;
+    sendGoogleIdToken(idToken: string): Observable<any>;
+    sendFacebookToken(token: string): Observable<any>;
+    signIn(account: LoginAccount): Observable<Response>;
     private extractData(res);
     private handleErrorObservable(error);
 }

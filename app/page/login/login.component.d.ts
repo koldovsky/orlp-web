@@ -17,6 +17,8 @@ export declare class LoginComponent implements OnInit {
     ngOnInit(): void;
     login: () => void;
     private processError(response);
-    signIn(provider: string): void;
-    sendToken(): void;
+    signInGoogle(provider: string): void;
+    signInFacebook(provider: string): void;
+    sendFacebookToken(): void;
+    sendGoogleToken(): void;
 }

@@ -4,8 +4,7 @@ import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
 import {Router} from "@angular/router";
-
-declare const gapi: any;
+import {error} from "util";
 
 @Component({
     template: require('app/page/login/login.component.html!text')
@@ -55,19 +54,36 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    signIn(provider: string) {
+    signInGoogle(provider: string) {
         this.auth.login(provider).subscribe(
             (data) => {
                 this.user = data;
                 console.log(this.user.idToken);
                 console.log(this.user.email);
-                this.sendToken();
+                this.sendGoogleToken();
             }
         )
     }
 
-    sendToken() {
-        this.loginService.sendIdToken(this.user.idToken).subscribe(
+    signInFacebook(provider: string) {
+        this.auth.login(provider).subscribe(
+            (data) => {
+                this.user = data;
+                console.log(this.user.token);
+                console.log(this.user.email);
+                this.sendFacebookToken();
+            }
+        )
+    }
+
+    sendFacebookToken() {
+        this.loginService.sendFacebookToken(this.user.token).subscribe(
+            error => console.log(error)
+        )
+    }
+
+    sendGoogleToken() {
+        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(
             error => console.log(error)
         );
     }

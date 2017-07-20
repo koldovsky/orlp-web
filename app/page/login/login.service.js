@@ -18,15 +18,19 @@ var LoginService = (function () {
     function LoginService(http, orlp) {
         this.http = http;
         this.orlp = orlp;
-        this._controllerUrl = 'http://localhost:8080/auth';
     }
-    LoginService.prototype.sendIdToken = function (idToken) {
+    LoginService.prototype.sendGoogleIdToken = function (idToken) {
         return this.orlp.post("api/auth/google", idToken)
             .map(function (response) { return console.log(response); })
             .catch(this.handleErrorObservable);
     };
-    LoginService.prototype.loginServ = function (account) {
-        return this.http.post(this._controllerUrl, account);
+    LoginService.prototype.sendFacebookToken = function (token) {
+        return this.orlp.post("api/auth/facebook", token)
+            .map(function (response) { return console.log(response); })
+            .catch(this.handleErrorObservable);
+    };
+    LoginService.prototype.signIn = function (account) {
+        return this.orlp.post("api/auth", account);
     };
     LoginService.prototype.extractData = function (res) {
         var body = res.json();
