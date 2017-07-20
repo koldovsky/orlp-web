@@ -8,8 +8,6 @@ import {ORLPService} from "../../orlp.service";
 
 @Injectable()
 export class LoginService {
-    private _controllerUrl = 'http://localhost:8080/auth';
-
     constructor(private http: Http, private orlp: ORLPService) {
     }
 
@@ -19,10 +17,8 @@ export class LoginService {
             .catch(this.handleErrorObservable);
     }
 
-    loginServ(account: LoginAccount): Observable<Response> {
-        return this.http.post(this._controllerUrl, account);
-
-
+    signIn(account: LoginAccount): Observable<Response> {
+        return this.orlp.post("api/auth", account);
     }
 
     private extractData(res: Response) {
@@ -33,6 +29,4 @@ export class LoginService {
     private handleErrorObservable(error: Response | any) {
         return Observable.throw(error.message || error);
     }
-
-
 }

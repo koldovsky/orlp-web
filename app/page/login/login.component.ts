@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
-        this.loginService.loginServ(this.loginForm.value)
+        this.loginService.signIn(this.loginForm.value)
             .subscribe((response) => {
                 this.success = true;
                 console.log(response.status);

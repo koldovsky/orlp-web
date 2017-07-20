@@ -1,16 +1,17 @@
 import {Http, Response} from "@angular/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
+import {ORLPService} from "../../../orlp.service";
 
 @Injectable()
 export class AccountVerificationService {
-    private _controllerUrl = 'http://localhost:8080/api/registrationConfirm';
+    private _controllerUrl = 'api/registrationConfirm';
 
-    constructor(private http: Http) {
+    constructor(private orlp: ORLPService) {
     };
 
     accountVerificate(token: string): Observable<Response> {
-        return this.http.post(this._controllerUrl, token);
+        return this.orlp.post(this._controllerUrl, token);
     }
 
 
