@@ -28,7 +28,7 @@ var LoginComponent = (function () {
             _this.success = false;
             _this.error = false;
             _this.wrongDetails = false;
-            _this.loginService.loginServ(_this.loginForm.value)
+            _this.loginService.signIn(_this.loginForm.value)
                 .subscribe(function (response) {
                 _this.success = true;
                 console.log(response.status);

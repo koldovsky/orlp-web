@@ -17,10 +17,10 @@ var ORLPService = (function () {
         this.SERVER_ADDRESS = "http://localhost:8080/";
     }
     ORLPService.prototype.get = function (url) {
-        return this.http.get(this.SERVER_ADDRESS + url, http_1.RequestMethod.Get);
+        return this.http.get(this.SERVER_ADDRESS + url, { withCredentials: true });
     };
     ORLPService.prototype.post = function (url, body) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body, { withCredentials: true });
     };
     ORLPService.prototype.getShortLink = function (link) {
         var url = link.href;
