@@ -15,17 +15,19 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
 var main_module_1 = require("./page/main/main.module");
-var categoryInfo_module_1 = require("./page/catalogInfo/categoryInfo.module");
+var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
 var signup_module_1 = require("./page/signup/signup.module");
 var admin_module_1 = require("./page/admin/admin.module");
 var card_module_1 = require("./page/card/card.module");
 var login_module_1 = require("./page/login/login.module");
-var PageModule = (function () {
-    function PageModule() {
+var navbar_filter_pipe_1 = require("./page/navbar.filter.pipe");
+var course_service_1 = require("./page/course.service");
+var NavbarModule = (function () {
+    function NavbarModule() {
     }
-    return PageModule;
+    return NavbarModule;
 }());
-PageModule = __decorate([
+NavbarModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
@@ -48,11 +50,12 @@ PageModule = __decorate([
         ],
         exports: [],
         declarations: [
-            navbar_component_1.PageComponent,
+            navbar_component_1.NavbarComponent,
+            navbar_filter_pipe_1.NavbarFilterPipe
         ],
-        providers: [orlp_service_1.ORLPService],
-        bootstrap: [navbar_component_1.PageComponent,]
+        providers: [orlp_service_1.ORLPService, course_service_1.CourseService],
+        bootstrap: [navbar_component_1.NavbarComponent]
     })
-], PageModule);
-exports.PageModule = PageModule;
-//# sourceMappingURL=page.module.js.map
+], NavbarModule);
+exports.NavbarModule = NavbarModule;
+//# sourceMappingURL=navbar.module.js.map

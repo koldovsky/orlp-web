@@ -10,20 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var PageComponent = (function () {
-    function PageComponent() {
-        this.pageTitle = 'Spaced Repetition';
+var orlp_service_1 = require("../orlp.service");
+var course_service_1 = require("./course.service");
+var NavbarComponent = (function () {
+    function NavbarComponent(courseService, orlpService) {
+        this.courseService = courseService;
+        this.orlpService = orlpService;
     }
-    PageComponent.prototype.ngOnInit = function () { };
-    return PageComponent;
+    NavbarComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.courseService.getCourse(this.url)
+            .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
+    };
+    return NavbarComponent;
 }());
-PageComponent = __decorate([
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", String)
+], NavbarComponent.prototype, "url", void 0);
+NavbarComponent = __decorate([
     core_1.Component({
         selector: 'page',
         template: require('./navbar.component.html!text'),
-        styleUrls: ['app/page/navbar.css']
+        styleUrls: ['app/page/navbar.css', 'app/page/dropdown.css']
     }),
-    __metadata("design:paramtypes", [])
-], PageComponent);
-exports.PageComponent = PageComponent;
+    __metadata("design:paramtypes", [course_service_1.CourseService,
+        orlp_service_1.ORLPService])
+], NavbarComponent);
+exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

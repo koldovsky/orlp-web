@@ -2,14 +2,14 @@
 /*TODO*/
 .main-dropdown-menu ul {
     position: absolute;
-    padding-left: 0px;
+    padding: 0px;
+    margin: 0px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     font-size: 14px;
     list-style: none;
     opacity: .5;
     width: 50px;
     z-index: 1;
-
     transition: opacity .3s ease-in-out;
 }
 
@@ -27,25 +27,25 @@
 
 .main-dropdown-menu li:hover {
     height: 200px;
-    width: 200px;
+    width: 170px;
 }
 
 .main-dropdown-menu li a {
-    background: #f7f7f7;
-    color: black;
+    background-color: #333;
+    color: white;
     cursor: pointer;
     display: block;
-    height: 40px;
-    line-height: 40px;
-    width: 230px;
+    height: 50px;
+    line-height: 50px;
+    width: 250px;
     text-decoration: none;
 
     transition: background .2s ease-in-out;
 }
 
 .main-dropdown-menu li a:hover {
-    background: grey;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .main-dropdown-menu li a {
@@ -67,17 +67,17 @@
 }
 
 .main-menu a::before {
-    background: url(../../../image/home.png) center no-repeat;
+    background: url(../../image/home.png) center no-repeat;
 }
 
 .settings a::before {
-    background: url(../../../image/settings.png) center no-repeat;
+    background: url(../../image/settings.png) center no-repeat;
 }
 
 .link a::before {
-    background: url(../../../image/link.png) center no-repeat;
+    background: url(../../image/link.png) center no-repeat;
 }
 
 .forum a::before {
-    background: url(../../../image/search.png) center no-repeat;
+    background: url(../../image/nav-search.png) center no-repeat;
 }

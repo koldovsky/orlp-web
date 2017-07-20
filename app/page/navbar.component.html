@@ -2,8 +2,25 @@
 <nav>
     <ul class="navigation-bar">
         <!-- LOGO -->
-        <li class="nav-logo">
+        <li *ngIf="false" class="nav-logo">
             <a id="nav-logo" [routerLink]="['/main']">ORLP</a>
+        </li>
+        <!-- DROPDOWN -->
+        <li *ngIf="true" class="main-dropdown-menu">
+            <ul>
+                <li class="main-menu">
+                    <a href>Main Menu</a>
+                    <div class="link">
+                        <a href>My folder</a>
+                    </div>
+                    <div class="settings">
+                        <a href>Settings</a>
+                    </div>
+                    <div class="forum">
+                        <a href>Forum</a>
+                    </div>
+                </li>
+            </ul>
         </li>
         <!-- CATEGORIES -->
         <li class="nav-category">
@@ -15,16 +32,42 @@
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search">
+            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
+                   (blur)="show=false"/>
         </li>
         <!-- SIGN UP -->
-        <li class="nav-signup">
+        <li *ngIf="false" class="nav-signup">
             <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
         </li>
         <!-- SIGN IN -->
-        <li class="nav-signin">
+        <li *ngIf="false" class="nav-signin">
             <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
+        </li>
+        <!-- USER-DETAILS -->
+        <li *ngIf="true" class="user-details">
+            <a id="user-details" href="#"><b>. . .</b></a>
+        </li>
+        <!-- USER-IMAGE -->
+        <li *ngIf="true" class="user-image">
+            <a [routerLink]="['/login']">
+                <img id="user-image" src="https://s.pluralsight.com/sc/img/account/avatar-v2.png">
+            </a>
+        </li>
+        <!-- USER-INFORMATION -->
+        <li *ngIf="true" class="user-information">
+            <div class="username">Username</div>
+            <div class="email">user@gmail.com</div>
         </li>
     </ul>
 </nav>
+
+<table class="table table-striped" style="background-color: white; width: 50%; position:absolute; z-index: 1;" *ngIf="show">
+    <tbody>
+    <tr *ngFor="let course of courses | courseFilter: listFilter">
+        <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main" style="width: 50px; height: 50px"></td>
+        <td>{{course.name}}</td>
+        <td>{{course.description}}</td>
+    </tr>
+    </tbody>
+</table>
 <router-outlet></router-outlet>
