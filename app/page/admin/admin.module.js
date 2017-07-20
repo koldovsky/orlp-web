@@ -34,7 +34,7 @@ AdminModule = __decorate([
                 { path: 'admin', component: admin_main_component_1.AdminMainComponent },
                 { path: 'admin/categories', component: admin_category_component_1.AdminCategoryComponent },
                 { path: 'admin/users', component: admin_users_component_1.AdminUsersComponent },
-                { path: 'admin/user', component: admin_user_component_1.AdminUserComponent }
+                { path: 'admin/users/:url', component: admin_user_component_1.AdminUserComponent }
             ])
         ],
         exports: [],

@@ -11,24 +11,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var admin_user_service_1 = require("./admin.user.service");
+var orlp_service_1 = require("../../../../orlp.service");
+var router_1 = require("@angular/router");
 var AdminUserComponent = (function () {
-    function AdminUserComponent(adminUserService) {
-        this.adminUserService = adminUserService;
-        this.showTable = false;
+    function AdminUserComponent(route, orlp, adminUserSevice) {
+        this.route = route;
+        this.orlp = orlp;
+        this.adminUserSevice = adminUserSevice;
     }
     AdminUserComponent.prototype.ngOnInit = function () {
-        // this.adminUserService.getUsers()
-        //     .subscribe(users => this.users = users,
-        //         error => this.errorMessage = <any>error);
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            var url = params['url'];
+            _this.url = url;
+        });
+        this.takeUser();
+    };
+    AdminUserComponent.prototype.takeUser = function () {
+        var _this = this;
+        this.decodeLink();
+        this.adminUserSevice.getUser(this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return _this.errorMessage = error; });
+    };
+    AdminUserComponent.prototype.decodeLink = function () {
+        this.url = this.orlp.decodeLink(this.url);
+    };
+    AdminUserComponent.prototype.getUserLink = function (link) {
+        return this.orlp.getShortLink(link);
     };
     return AdminUserComponent;
 }());
 AdminUserComponent = __decorate([
     core_1.Component({
+        selector: 'one-user',
         providers: [admin_user_service_1.AdminUserService],
-        template: require('app/page/admin/users/user/admin.user.component.html!text')
+        template: require('app/page/admin/users/user/admin.user.component.html!text'),
+        styleUrls: ['app/page/admin/styles-for-admin-page.css']
     }),
-    __metadata("design:paramtypes", [admin_user_service_1.AdminUserService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute,
+        orlp_service_1.ORLPService,
+        admin_user_service_1.AdminUserService])
 ], AdminUserComponent);
 exports.AdminUserComponent = AdminUserComponent;
 //# sourceMappingURL=admin.user.component.js.map

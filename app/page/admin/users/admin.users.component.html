@@ -1,15 +1,18 @@
 <div class="container">
     <div class="row">
         <h1 class="font-color-white header-text">All Users</h1>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" align="right" [routerLink]="['/admin']">
+            <button class="btn btn-secondary">Back</button>
+        </div>
     </div>
     <div class="row">
-        <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
+        <table class="table table-striped admins-tables">
             <thead>
             <tr style="border-top: hidden">
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>e-mail</th>
-                <th></th>
+                <th>Account Status</th>
             </tr>
             </thead>
             <tbody>
@@ -17,6 +20,7 @@
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
                 <td>{{user.email}}</td>
+                <td>{{user.accountStatus}}</td>
                 <td>
                     <div class="btn-group open">
                         <a class="btn btn-secondary"><i class="fa fa-cog"></i> More</a>
@@ -24,7 +28,11 @@
                             <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="fa fa-eye"></i> View Details</a></li>
+                            <div [routerLink]="['/admin/users', getUserLink(user.self)]">
+                                <li>
+                                    <button class="btn btn-secondary"> View Details</button>
+                                </li>
+                            </div>
                             <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
                             <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
                         </ul>

@@ -10,23 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
+var orlp_service_1 = require("../../../../orlp.service");
+var dto_Converter_1 = require("../../../../classes/dto.Converter");
 var AdminUserService = (function () {
-    function AdminUserService(http) {
-        this.http = http;
+    function AdminUserService(orlp) {
+        this.orlp = orlp;
     }
-    // getUsers(): Observable<IUser[]> {
-    //     return this.http.get('http://localhost:8080//api/admin/users')
-    //         .map((response: Response) => <IUser[]> response.json())
-    //         .do(data => console.log('All: ' + JSON.stringify(data)))
-    //         .catch(this.handleError);
-    // }
+    AdminUserService.prototype.getUser = function (url) {
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToPublicUsers(response.json()); })
+            .catch(this.handleError);
+    };
     AdminUserService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
@@ -35,7 +35,7 @@ var AdminUserService = (function () {
 }());
 AdminUserService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService])
 ], AdminUserService);
 exports.AdminUserService = AdminUserService;
 //# sourceMappingURL=admin.user.service.js.map
