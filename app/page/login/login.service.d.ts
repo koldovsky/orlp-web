@@ -8,7 +8,8 @@ export declare class LoginService {
     private orlp;
     private _controllerUrl;
     constructor(http: Http, orlp: ORLPService);
-    sendIdToken(idToken: string): Observable<any>;
+    sendGoogleIdToken(idToken: string): Observable<any>;
+    sendFacebookToken(token: string): Observable<any>;
     loginServ(account: LoginAccount): Observable<Response>;
     private extractData(res);
     private handleErrorObservable(error);

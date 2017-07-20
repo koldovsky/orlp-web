@@ -19,6 +19,10 @@ var angular2_social_login_1 = require("angular2-social-login");
 var providers = {
     "google": {
         "clientId": "109414995516-fftdn22fnpfdh80fgfsvpq1ht97hdkl5.apps.googleusercontent.com"
+    },
+    "facebook": {
+        "clientId": "439882899718340",
+        "apiVersion": "v2.9"
     }
 };
 var LoginModule = (function () {

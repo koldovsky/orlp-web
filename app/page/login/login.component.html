@@ -1,12 +1,3 @@
-<script>
-    function Google_signIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId());
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail());
-    }
-</script>
 
 <div class="container">
     <br/>
@@ -99,7 +90,8 @@
         </div>
 
     </form>
-    <button (click)="signIn('google')">google</button>
+    <button (click)="signInGoogle('google')">google</button>
+    <button (click)="signInFacebook('facebook')">facebook</button>
     <div class="alert">Success :{{success}}</div>
     <div class="alert">Error :{{error}}</div>
     <div class="alert">wrongDetails :{{wrongDetails}}</div>

@@ -20,8 +20,13 @@ var LoginService = (function () {
         this.orlp = orlp;
         this._controllerUrl = 'http://localhost:8080/auth';
     }
-    LoginService.prototype.sendIdToken = function (idToken) {
+    LoginService.prototype.sendGoogleIdToken = function (idToken) {
         return this.orlp.post("api/auth/google", idToken)
+            .map(function (response) { return console.log(response); })
+            .catch(this.handleErrorObservable);
+    };
+    LoginService.prototype.sendFacebookToken = function (token) {
+        return this.orlp.post("api/auth/facebook", token)
             .map(function (response) { return console.log(response); })
             .catch(this.handleErrorObservable);
     };

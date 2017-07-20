@@ -13,8 +13,14 @@ export class LoginService {
     constructor(private http: Http, private orlp: ORLPService) {
     }
 
-    sendIdToken(idToken: string) {
+    sendGoogleIdToken(idToken: string) {
         return this.orlp.post("api/auth/google", idToken)
+            .map((response: Response) => console.log(response))
+            .catch(this.handleErrorObservable);
+    }
+
+    sendFacebookToken(token: string) {
+        return this.orlp.post("api/auth/facebook", token)
             .map((response: Response) => console.log(response))
             .catch(this.handleErrorObservable);
     }

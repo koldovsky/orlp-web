@@ -55,17 +55,29 @@ var LoginComponent = (function () {
             console.log(response.status);
         }
     };
-    LoginComponent.prototype.signIn = function (provider) {
+    LoginComponent.prototype.signInGoogle = function (provider) {
         var _this = this;
         this.auth.login(provider).subscribe(function (data) {
             _this.user = data;
             console.log(_this.user.idToken);
             console.log(_this.user.email);
-            _this.sendToken();
+            _this.sendGoogleToken();
         });
     };
-    LoginComponent.prototype.sendToken = function () {
-        this.loginService.sendIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
+    LoginComponent.prototype.signInFacebook = function (provider) {
+        var _this = this;
+        this.auth.login(provider).subscribe(function (data) {
+            _this.user = data;
+            console.log(_this.user.token);
+            console.log(_this.user.email);
+            _this.sendFacebookToken();
+        });
+    };
+    LoginComponent.prototype.sendFacebookToken = function () {
+        this.loginService.sendFacebookToken(this.user.token).subscribe(function (error) { return console.log(error); });
+    };
+    LoginComponent.prototype.sendGoogleToken = function () {
+        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
     };
     return LoginComponent;
 }());
