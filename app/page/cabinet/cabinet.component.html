@@ -1,0 +1,25 @@
+<main>
+    <div class="vertical-menu" style="float:left">
+        <ul>
+            <li><a [routerLink]="['/cabinet/folder']">My folder</a></li>
+            <li><a [routerLink]="['/cabinet/calendar']">Calendar</a></li>
+        </ul>
+    </div>
+    <button (click) = "value = !value"></button>
+    <table class="table table-striped" style="background-color: white; width: 50%;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody  *ngIf="value">
+            <tr *ngFor="let deck of decks" [routerLink]="['/main']" style="cursor:pointer;">
+                <td>{{deck.name}}</td>
+                <td>{{deck.description}}</td>
+                <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
