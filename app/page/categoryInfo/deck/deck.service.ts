@@ -6,8 +6,6 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {IDeck} from "../../../interfaces/deck";
-import {Template} from "../../../interfaces/templateUrl";
 import {DeckPublic} from "../../../classes/public.deck.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
 
@@ -22,8 +20,7 @@ export class DeckService {
             .catch(this.handleError);
     }
 
-    addDeck(body: IDeck, url: string): Observable<DeckPublic> {
-
+    addDeck(body: DeckPublic, url: string): Observable<DeckPublic> {
         return this.orlp.post(url, body)
             .map((res: Response) =>  res.json())
             .catch(this.handleError);

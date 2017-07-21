@@ -36,7 +36,8 @@ __decorate([
 CourseComponent = __decorate([
     core_1.Component({
         selector: 'course-table',
-        template: require('./course.component.html!text')
+        template: require('./course.component.html!text'),
+        styleUrls: ['app/page/categoryInfo/categoryInfo.css']
     }),
     __metadata("design:paramtypes", [course_service_1.CourseService,
         orlp_service_1.ORLPService])

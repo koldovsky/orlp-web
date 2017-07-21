@@ -36,7 +36,8 @@ __decorate([
 DeckComponent = __decorate([
     core_1.Component({
         selector: 'deck-table',
-        template: require('./deck.component.html!text')
+        template: require('./deck.component.html!text'),
+        styleUrls: ['app/page/categoryInfo/categoryInfo.css']
     }),
     __metadata("design:paramtypes", [deck_service_1.DeckService,
         orlp_service_1.ORLPService])

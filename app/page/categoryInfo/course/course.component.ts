@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ICourse} from "../../../interfaces/course";
 import {CourseService} from "./course.service";
 import {ORLPService} from "../../../orlp.service";
 import {CoursePublic} from "../../../classes/public.course.DTO";
 
 @Component({
     selector: 'course-table',
-    template: require('./course.component.html!text')
+    template: require('./course.component.html!text'),
+    styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
 export class CourseComponent implements OnInit {
     public courses: CoursePublic[];

@@ -25,8 +25,7 @@ export class CategoryInfoComponent implements OnInit {
     ngOnInit(): void {
         this.sub = this.route.params.subscribe(
             params => {
-                let url = params['url'];
-                this.url = url;
+                this.url = params['url'];
             }
         );
 
