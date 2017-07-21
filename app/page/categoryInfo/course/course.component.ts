@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ICourse} from "../../../interfaces/course";
 import {CourseService} from "./course.service";
 import {ORLPService} from "../../../orlp.service";
-import {CoursePublic} from "../../../classes/public.course.DTO";
+import {CoursePublic} from "../../../classes/CourseDTO/public.course.DTO";
 
 @Component({
     selector: 'course-table',

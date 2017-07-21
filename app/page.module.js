@@ -20,6 +20,7 @@ var admin_module_1 = require("./page/admin/admin.module");
 var card_module_1 = require("./page/card/card.module");
 var login_module_1 = require("./page/login/login.module");
 var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
+var core_2 = require("angular2-cookie/core");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -50,7 +51,10 @@ PageModule = __decorate([
         declarations: [
             navbar_component_1.PageComponent,
         ],
-        providers: [orlp_service_1.ORLPService],
+        providers: [
+            orlp_service_1.ORLPService,
+            core_2.CookieService
+        ],
         bootstrap: [navbar_component_1.PageComponent,]
     })
 ], PageModule);

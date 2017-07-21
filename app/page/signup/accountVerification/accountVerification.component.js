@@ -20,7 +20,6 @@ var AccountVerificationComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.activatedRoute.queryParams.subscribe(function (params) {
             _this.token = params['token'];
-            console.log('token= ' + _this.token);
         });
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
@@ -42,7 +41,11 @@ var AccountVerificationComponent = (function () {
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
+<<<<<<< HEAD
         template: "",
+=======
+        template: "\n        <html>\n        <head></head>\n        <body>\n        </body>\n        </html>\n    "
+>>>>>>> 03b95e6b153f6db3cb2eba3fede5eeeae0e758a5
     }),
     __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);

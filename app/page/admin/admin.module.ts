@@ -24,7 +24,7 @@ import {AdminMainService} from "./admin.main.service";
             {path: 'admin', component: AdminMainComponent},
             {path: 'admin/categories', component: AdminCategoryComponent},
             {path: 'admin/users', component: AdminUsersComponent},
-            {path: 'admin/user', component: AdminUserComponent}
+            {path: 'admin/users/:url', component: AdminUserComponent}
         ])],
     exports: [],
     declarations: [

@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Http} from "@angular/http";
 import {AccountVerificationService} from "./accountVerification.service";
 
 
@@ -11,12 +12,13 @@ export class AccountVerificationComponent implements OnInit {
     error: boolean;
     verificationError: boolean;
 
+    constructor(private accVerify: AccountVerificationService, private http: Http, private router: Router, private activatedRoute: ActivatedRoute) {
 
-    constructor(private accVerify: AccountVerificationService, private router: Router, private activatedRoute: ActivatedRoute) {
         this.activatedRoute.queryParams.subscribe((params: Params) => {
             this.token = params['token'];
             console.log('token= ' + this.token);
         });
+
     }
 
     ngOnInit() {
@@ -33,5 +35,6 @@ export class AccountVerificationComponent implements OnInit {
                 console.log(this.verificationError);
                 this.router.navigate(['registr']);
             })
+
     }
 }

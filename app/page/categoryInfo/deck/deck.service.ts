@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {IDeck} from "../../../interfaces/deck";
 import {Template} from "../../../interfaces/templateUrl";
-import {DeckPublic} from "../../../classes/public.deck.DTO";
+import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()

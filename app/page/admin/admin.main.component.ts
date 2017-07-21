@@ -8,20 +8,11 @@ import {AdminMainService} from "./admin.main.service";
 })
 
 export class AdminMainComponent implements OnInit {
-    errorMessage: string;
-    listFilter: string;
-    showOneTable: boolean = false;
 
     constructor(private adminMainService: AdminMainService) {
     }
 
     ngOnInit(): void {
-        // this.adminCategoryService.getCatalogs()
-        //     .subscribe(categories => this.categories = categories,
-        //         error => this.errorMessage = <any>error);
     }
 
-    toggleOneTable(): void {
-        this.showOneTable = !this.showOneTable;
-    }
 }

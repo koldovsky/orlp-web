@@ -6,20 +6,21 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {IUser} from '../../../../interfaces/user';
+import {ORLPService} from "../../../../orlp.service";
+import {UsersPublic} from "../../../../classes/public.users.DTO";
+import {DTOConverter} from "../../../../classes/dto.Converter";
 
 @Injectable()
 export class AdminUserService {
 
-    constructor(private http: Http) {
+    constructor(private orlp: ORLPService) {
     }
 
-    // getUsers(): Observable<IUser[]> {
-    //     return this.http.get('http://localhost:8080//api/admin/users')
-    //         .map((response: Response) => <IUser[]> response.json())
-    //         .do(data => console.log('All: ' + JSON.stringify(data)))
-    //         .catch(this.handleError);
-    // }
+    public getUser(url: string): Observable<UsersPublic> {
+        return this.orlp.get(url)
+            .map((response: Response) => <UsersPublic> DTOConverter.jsonToPublicUsers(response.json()))
+            .catch(this.handleError);
+    }
 
     private handleError(error: Response) {
         console.error(error);

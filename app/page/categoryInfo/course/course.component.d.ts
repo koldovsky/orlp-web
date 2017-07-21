@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { CourseService } from "./course.service";
 import { ORLPService } from "../../../orlp.service";
-import { CoursePublic } from "../../../classes/public.course.DTO";
+import { CoursePublic } from "../../../classes/CourseDTO/public.course.DTO";
 export declare class CourseComponent implements OnInit {
     private courseService;
     private orlpService;

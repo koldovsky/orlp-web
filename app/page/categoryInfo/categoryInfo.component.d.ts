@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { ORLPService } from "../../orlp.service";
-import { CategoryLink } from "../../classes/link.category.DTO";
+import { CategoryLink } from "../../classes/CategoryDTO/link.category.DTO";
 import { CategoryInfoService } from "./categoryInfo.service";
 export declare class CategoryInfoComponent implements OnInit {
     private route;

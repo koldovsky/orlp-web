@@ -4,10 +4,12 @@ import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {error} from "util";
 
 @Component({
     template: require('app/page/login/login.component.html!text')
 })
+
 
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -15,12 +17,9 @@ export class LoginComponent implements OnInit {
     error: boolean = false;
     wrongDetails: boolean = false;
     public user;
-    verificationError: boolean;
+    verificationStat: boolean = false;
 
-    constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router) {
-        this.activatedRoute.queryParams.subscribe((params: Params) => {
-        })
-
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {

@@ -14,15 +14,8 @@ var admin_main_service_1 = require("./admin.main.service");
 var AdminMainComponent = (function () {
     function AdminMainComponent(adminMainService) {
         this.adminMainService = adminMainService;
-        this.showOneTable = false;
     }
     AdminMainComponent.prototype.ngOnInit = function () {
-        // this.adminCategoryService.getCatalogs()
-        //     .subscribe(categories => this.categories = categories,
-        //         error => this.errorMessage = <any>error);
-    };
-    AdminMainComponent.prototype.toggleOneTable = function () {
-        this.showOneTable = !this.showOneTable;
     };
     return AdminMainComponent;
 }());

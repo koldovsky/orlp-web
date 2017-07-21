@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AdminCategoryService} from "./admin.category.service";
 import {ICategory} from "../../../interfaces/category";
-import {CategoriesPublic} from "../../../classes/public.categories";
+import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
 import {ORLPService} from "../../../orlp.service";
 
 @Component({

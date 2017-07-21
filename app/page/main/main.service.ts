@@ -6,9 +6,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../orlp.service";
-import {CategoryTop} from "../../classes/top.category.DTO";
+import {CategoryTop} from "../../classes/CategoryDTO/top.category.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
-import {CourseTop} from "../../classes/top.course.DTO";
+import {CourseTop} from "../../classes/CourseDTO/top.course.DTO";
 
 @Injectable()
 export class MainService {

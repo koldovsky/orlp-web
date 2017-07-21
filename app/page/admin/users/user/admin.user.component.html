@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <h2 class="font-color-white">User info:</h2>
+        <h2 class="font-color-white">User info: </h2>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
@@ -8,43 +8,60 @@
                 <tbody>
                 <tr>
                     <th>First Name</th>
-                    <td>Orest</td>
+                    <td>{{user?.firstName}}</td>
                 </tr>
                 <tr>
                     <th>Second Name</th>
-                    <td>Potsiluiko</td>
+                    <td>{{user?.lastName}}</td>
                 </tr>
                 <tr>
                     <th>e-mail</th>
-                    <td>leork@gmail.com</td>
+                    <td>{{user?.email}}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>Active</td>
+                    <td>{{user?.accountStatus}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-            <div class="btn-group">
-                <button class="btn btn-success">Change User's Status</button>
-                <button class="btn btn-secondary " data-toggle="dropdown">
-                    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button><i class="fa fa-check"></i> Active</button>
-                    </li>
-                    <li>
-                        <button><i class="fa fa-check fa-fw fa-user-inactive-state"></i> Inactive</button>
-                    </li>
-                    <li>
-                        <button><i class="fa fa-ban fa-fw"></i> Banned</button>
-                    </li>
-                    <li>
-                        <button><i class="fa fa-trash-o fa-fw"></i> Deleted</button>
-                    </li>
-                </ul>
+        <div>
+            <div class="row">
+                <div>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                    <div class="btn-group">
+                        <button class="btn btn-success">Change User's Status</button>
+                        <button class="btn btn-secondary " data-toggle="dropdown">
+                            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <label class="btn btn-primary active fa fa-check">
+                                    <input type="radio" name="options" id="options1" autocomplete="off" checked>
+                                    Active</label>
+                            </li>
+                            <li>
+                                <label class="btn btn-primary active fa fa-check">
+                                    <input type="radio" name="options" id="options2" autocomplete="off" checked>
+                                    Inactive</label>
+                            </li>
+                            <li>
+                                <label class="btn btn-primary active fa Banned">
+                                    <input type="radio" name="options" id="options3" autocomplete="off" checked>
+                                    Banned</label>
+                            </li>
+                            <li>
+                                <label class="btn btn-primary active fa fa-trash-o fa-fw">
+                                    <input type="radio" name="options" id="options4" autocomplete="off" checked>
+                                    Deleted</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

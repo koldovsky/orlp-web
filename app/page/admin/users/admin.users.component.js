@@ -11,15 +11,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var admin_users_service_1 = require("./admin.users.service");
+var orlp_service_1 = require("../../../orlp.service");
 var AdminUsersComponent = (function () {
-    function AdminUsersComponent(adminUsersService) {
-        this.adminUsersService = adminUsersService;
-        this.showTable = false;
+    function AdminUsersComponent(orlp, adminUsersSevice) {
+        this.orlp = orlp;
+        this.adminUsersSevice = adminUsersSevice;
     }
     AdminUsersComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.adminUsersService.getUsers()
+        this.adminUsersSevice.getUsers()
             .subscribe(function (users) { return _this.users = users; }, function (error) { return _this.errorMessage = error; });
+    };
+    AdminUsersComponent.prototype.getUserLink = function (link) {
+        console.log('LINK : ' + link.href);
+        console.log('Code : ' + this.orlp.getShortLink(link));
+        return this.orlp.getShortLink(link);
     };
     return AdminUsersComponent;
 }());
@@ -27,9 +33,11 @@ AdminUsersComponent = __decorate([
     core_1.Component({
         selector: "admin-all-users",
         providers: [admin_users_service_1.AdminUsersService],
-        template: require('app/page/admin/users/admin.users.component.html!text')
+        template: require('app/page/admin/users/admin.users.component.html!text'),
+        styleUrls: ['app/page/admin/styles-for-admin-page.css']
     }),
-    __metadata("design:paramtypes", [admin_users_service_1.AdminUsersService])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService,
+        admin_users_service_1.AdminUsersService])
 ], AdminUsersComponent);
 exports.AdminUsersComponent = AdminUsersComponent;
 //# sourceMappingURL=admin.users.component.js.map
