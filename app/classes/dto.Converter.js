@@ -16,7 +16,7 @@ var DTOConverter = (function () {
     };
     DTOConverter.jsonToPublicDeck = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
-        return new public_deck_DTO_1.DeckPublic(data.name, data.description, self);
+        return new public_deck_DTO_1.DeckPublic(data.name, data.description, data.rating, self);
     };
     DTOConverter.jsonToTopCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
