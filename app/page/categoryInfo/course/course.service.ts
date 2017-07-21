@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 import {IDeck} from "../../../interfaces/deck";
 import {ICourse} from "../../../interfaces/course";
 import {Template} from "../../../interfaces/templateUrl";
-import {CoursePublic} from "../../../classes/public.course.DTO";
+import {CoursePublic} from "../../../classes/CourseDTO/public.course.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()

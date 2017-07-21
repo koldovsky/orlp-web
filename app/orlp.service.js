@@ -11,11 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var core_2 = require("angular2-cookie/core");
 var ORLPService = (function () {
-    function ORLPService(http, cookieService) {
+    function ORLPService(http) {
         this.http = http;
-        this.cookieService = cookieService;
         this.SERVER_ADDRESS = "http://localhost:8080/";
     }
     ORLPService.prototype.get = function (url) {
@@ -36,15 +34,11 @@ var ORLPService = (function () {
         url = atob(url);
         return url;
     };
-    ORLPService.prototype.getCookie = function () {
-        var cookieService = core_2.CookieService;
-    };
     return ORLPService;
 }());
 ORLPService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http,
-        core_2.CookieService])
+    __metadata("design:paramtypes", [http_1.Http])
 ], ORLPService);
 exports.ORLPService = ORLPService;
 //# sourceMappingURL=orlp.service.js.map

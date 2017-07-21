@@ -9,8 +9,7 @@ export class ORLPService {
 
     private SERVER_ADDRESS: string = "http://localhost:8080/";
 
-    constructor(private http: Http,
-                private cookieService: CookieService) {}
+    constructor(private http: Http) {}
 
     get(url: string): Observable<Response> {
         return this.http.get(this.SERVER_ADDRESS + url);
@@ -33,10 +32,5 @@ export class ORLPService {
         url = atob(url);
 
         return url;
-    }
-
-    public getCookie() {
-        let cookieService = CookieService;
-
     }
 }

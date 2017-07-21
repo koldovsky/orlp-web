@@ -1,10 +1,10 @@
-import { CategoryTop } from "./top.category.DTO";
+import { CategoryTop } from "./CategoryDTO/top.category.DTO";
 import { Link } from "./link";
-import { CategoryLink } from "./link.category.DTO";
-import { DeckPublic } from "./public.deck.DTO";
-import { CoursePublic } from "./public.course.DTO";
-import { CategoriesPublic } from "./public.categories";
-import { CourseTop } from "./top.course.DTO";
+import { CategoryLink } from "./CategoryDTO/link.category.DTO";
+import { DeckPublic } from "./DeckDTO/public.deck.DTO";
+import { CoursePublic } from "./CourseDTO/public.course.DTO";
+import { CategoriesPublic } from "./CategoryDTO/public.categories";
+import { CourseTop } from "./CourseDTO/top.course.DTO";
 import { UsersPublic } from "./public.users.DTO";
 export declare class DTOConverter {
     static jsonToPublicCourse(data: any): CoursePublic;

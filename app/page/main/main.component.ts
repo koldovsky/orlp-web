@@ -3,8 +3,8 @@ import {MainService} from "./main.service";
 
 import {ORLPService} from "../../orlp.service";
 import {Link} from "../../classes/link";
-import {CategoryTop} from "../../classes/top.category.DTO";
-import {CourseTop} from "../../classes/top.course.DTO";
+import {CategoryTop} from "../../classes/CategoryDTO/top.category.DTO";
+import {CourseTop} from "../../classes/CourseDTO/top.course.DTO";
 
 @Component({
     template: require('app/page/main/main.component.html!text'),

@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var top_category_DTO_1 = require("./top.category.DTO");
+var top_category_DTO_1 = require("./CategoryDTO/top.category.DTO");
 var link_1 = require("./link");
-var link_category_DTO_1 = require("./link.category.DTO");
-var public_deck_DTO_1 = require("./public.deck.DTO");
-var public_course_DTO_1 = require("./public.course.DTO");
-var public_categories_1 = require("./public.categories");
-var top_course_DTO_1 = require("./top.course.DTO");
+var link_category_DTO_1 = require("./CategoryDTO/link.category.DTO");
+var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
+var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
+var public_categories_1 = require("./CategoryDTO/public.categories");
+var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var public_users_DTO_1 = require("./public.users.DTO");
 var DTOConverter = (function () {
     function DTOConverter() {
