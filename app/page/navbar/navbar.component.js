@@ -10,17 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var orlp_service_1 = require("../orlp.service");
-var course_service_1 = require("./course.service");
+var orlp_service_1 = require("../../orlp.service");
+var deck_service_1 = require("./deck.service");
 var NavbarComponent = (function () {
-    function NavbarComponent(courseService, orlpService) {
-        this.courseService = courseService;
+    function NavbarComponent(deckService, orlpService) {
+        this.deckService = deckService;
         this.orlpService = orlpService;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.courseService.getCourse(this.url)
-            .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
+        this.deckService.getDecks(this.url)
+            .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     return NavbarComponent;
 }());
@@ -32,9 +32,9 @@ NavbarComponent = __decorate([
     core_1.Component({
         selector: 'page',
         template: require('./navbar.component.html!text'),
-        styleUrls: ['app/page/navbar.css', 'app/page/dropdown.css']
+        styleUrls: ['app/page/navbar/navbar.css', 'app/page/navbar/dropdown.css']
     }),
-    __metadata("design:paramtypes", [course_service_1.CourseService,
+    __metadata("design:paramtypes", [deck_service_1.DeckService,
         orlp_service_1.ORLPService])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;

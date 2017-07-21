@@ -10,18 +10,20 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var navbar_component_1 = require("./page/navbar.component");
+var navbar_component_1 = require("./navbar.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
-var orlp_service_1 = require("./orlp.service");
-var main_module_1 = require("./page/main/main.module");
-var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
-var signup_module_1 = require("./page/signup/signup.module");
-var admin_module_1 = require("./page/admin/admin.module");
-var card_module_1 = require("./page/card/card.module");
-var login_module_1 = require("./page/login/login.module");
-var navbar_filter_pipe_1 = require("./page/navbar.filter.pipe");
-var course_service_1 = require("./page/course.service");
+var orlp_service_1 = require("../../orlp.service");
+var main_module_1 = require("../main/main.module");
+var categoryInfo_module_1 = require("../categoryInfo/categoryInfo.module");
+var signup_module_1 = require("../signup/signup.module");
+var admin_module_1 = require("../admin/admin.module");
+var card_module_1 = require("../card/card.module");
+var login_module_1 = require("../login/login.module");
+var navbar_filter_pipe_1 = require("./navbar.filter.pipe");
+var deck_service_1 = require("./deck.service");
+var cabinet_module_1 = require("../cabinet/cabinet.module");
+var angular_star_rating_1 = require("angular-star-rating");
 var NavbarModule = (function () {
     function NavbarModule() {
     }
@@ -36,7 +38,6 @@ NavbarModule = __decorate([
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
-                // {path: 'admin', component: AdminComponent},
                 { path: '', redirectTo: 'main', pathMatch: 'full' },
                 { path: '**', redirectTo: 'main', pathMatch: 'full' }
             ]),
@@ -46,14 +47,16 @@ NavbarModule = __decorate([
             login_module_1.LoginModule,
             main_module_1.MainModule,
             admin_module_1.AdminModule,
-            card_module_1.CardModule
+            card_module_1.CardModule,
+            cabinet_module_1.CabinetModule,
+            angular_star_rating_1.StarRatingModule
         ],
         exports: [],
         declarations: [
             navbar_component_1.NavbarComponent,
             navbar_filter_pipe_1.NavbarFilterPipe
         ],
-        providers: [orlp_service_1.ORLPService, course_service_1.CourseService],
+        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService],
         bootstrap: [navbar_component_1.NavbarComponent]
     })
 ], NavbarModule);

@@ -27,7 +27,7 @@
 
 .main-dropdown-menu li:hover {
     height: 200px;
-    width: 170px;
+    width: 300px;
 }
 
 .main-dropdown-menu li a {
@@ -37,7 +37,7 @@
     display: block;
     height: 50px;
     line-height: 50px;
-    width: 250px;
+    width: 300px;
     text-decoration: none;
 
     transition: background .2s ease-in-out;
@@ -67,17 +67,17 @@
 }
 
 .main-menu a::before {
-    background: url(../../image/home.png) center no-repeat;
+    background: url(../../../image/home.png) center no-repeat;
 }
 
 .settings a::before {
-    background: url(../../image/settings.png) center no-repeat;
+    background: url(../../../image/settings.png) center no-repeat;
 }
 
 .link a::before {
-    background: url(../../image/link.png) center no-repeat;
+    background: url(../../../image/link.png) center no-repeat;
 }
 
 .forum a::before {
-    background: url(../../image/nav-search.png) center no-repeat;
+    background: url(../../../image/nav-search.png) center no-repeat;
 }

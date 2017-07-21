@@ -1,27 +1,27 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ORLPService} from "../orlp.service";
-import {CourseService} from "./course.service";
-import {CoursePublic} from "../classes/public.course.DTO";
+import {ORLPService} from "../../orlp.service";
+import {DeckPublic} from "../../classes/public.deck.DTO";
+import {DeckService} from "./deck.service";
 
 @Component({
     selector: 'page',
     template: require('./navbar.component.html!text'),
-    styleUrls: ['app/page/navbar.css', 'app/page/dropdown.css']
+    styleUrls: ['app/page/navbar/navbar.css', 'app/page/navbar/dropdown.css']
 })
 
 export class NavbarComponent implements OnInit {
-    courses: CoursePublic[];
+    decks: DeckPublic[];
     listFilter: string;
     @Input() url: string;
     public errorMessage: string;
 
-    constructor(private courseService: CourseService,
+    constructor(private deckService: DeckService,
                 private orlpService: ORLPService) {
     }
 
     ngOnInit(): void {
-        this.courseService.getCourse(this.url)
-            .subscribe(courses => this.courses = courses,
+        this.deckService.getDecks(this.url)
+            .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
     }
 }

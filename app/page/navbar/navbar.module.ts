@@ -3,18 +3,20 @@ import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {CommonModule} from "@angular/common";
-import {NavbarComponent} from "./page/navbar.component";
+import {NavbarComponent} from "./navbar.component";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
-import {ORLPService} from "./orlp.service";
-import {MainModule} from "./page/main/main.module";
-import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
-import {SignUpModule} from "./page/signup/signup.module";
-import {AdminModule} from "./page/admin/admin.module";
-import {CardModule} from "./page/card/card.module";
-import {LoginModule} from "./page/login/login.module";
-import {NavbarFilterPipe} from "./page/navbar.filter.pipe";
-import {CourseService} from "./page/course.service";
+import {ORLPService} from "../../orlp.service";
+import {MainModule} from "../main/main.module";
+import {CategoryInfoModule} from "../categoryInfo/categoryInfo.module";
+import {SignUpModule} from "../signup/signup.module";
+import {AdminModule} from "../admin/admin.module";
+import {CardModule} from "../card/card.module";
+import {LoginModule} from "../login/login.module";
+import {NavbarFilterPipe} from "./navbar.filter.pipe";
+import {DeckService} from "./deck.service";
+import {CabinetModule} from "../cabinet/cabinet.module";
+import {StarRatingModule} from "angular-star-rating";
 
 @NgModule({
     imports: [
@@ -24,7 +26,6 @@ import {CourseService} from "./page/course.service";
         ReactiveFormsModule,
         CommonModule,
         RouterModule.forRoot([
-            // {path: 'admin', component: AdminComponent},
             {path: '', redirectTo: 'main', pathMatch: 'full'},
             {path: '**', redirectTo: 'main', pathMatch: 'full'}
         ]),
@@ -35,7 +36,9 @@ import {CourseService} from "./page/course.service";
         LoginModule,
         MainModule,
         AdminModule,
-        CardModule
+        CardModule,
+        CabinetModule,
+        StarRatingModule
     ],
     exports: [],
     declarations: [
@@ -43,7 +46,7 @@ import {CourseService} from "./page/course.service";
         NavbarFilterPipe
     ],
 
-    providers: [ORLPService, CourseService],
+    providers: [ORLPService, DeckService],
     bootstrap: [NavbarComponent]
 })
 export class NavbarModule {

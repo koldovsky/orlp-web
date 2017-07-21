@@ -1,51 +1,54 @@
-<!-- NAVBAR GUEST -->
+<!-- NAVBAR -->
 <nav>
     <ul class="navigation-bar">
-        <!-- LOGO -->
+        <!-- LOGO-GUEST -->
         <li *ngIf="false" class="nav-logo">
             <a id="nav-logo" [routerLink]="['/main']">ORLP</a>
         </li>
-        <!-- DROPDOWN -->
+        <!-- DROPDOWN-USER -->
         <li *ngIf="true" class="main-dropdown-menu">
             <ul>
                 <li class="main-menu">
-                    <a href>Main Menu</a>
+                    <a [routerLink]="['/main']">Main Menu</a>
                     <div class="link">
-                        <a href>My folder</a>
+                        <a [routerLink]="['/cabinet/folder']">Cabinet</a>
                     </div>
                     <div class="settings">
-                        <a href>Settings</a>
+                        <a href>Categories</a>
                     </div>
                     <div class="forum">
-                        <a href>Forum</a>
+                        <a href>Courses</a>
                     </div>
                 </li>
             </ul>
         </li>
-        <!-- CATEGORIES -->
-        <li class="nav-category">
+        <!-- CATEGORIES-GUEST -->
+        <li *ngIf="false" class="nav-category">
             <a id="nav-category" href="#">Categories</a>
         </li>
-        <!-- COURSES -->
-        <li class="nav-course">
+        <!-- COURSES-GUEST -->
+        <li *ngIf="false" class="nav-course">
             <a id="nav-course" href="#">Courses</a>
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
-                   (blur)="show=false"/>
+            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
         </li>
-        <!-- SIGN UP -->
+        <!-- SIGN UP-GUEST -->
         <li *ngIf="false" class="nav-signup">
             <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
         </li>
-        <!-- SIGN IN -->
+        <!-- SIGN IN-GUEST -->
         <li *ngIf="false" class="nav-signin">
             <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
         </li>
         <!-- USER-DETAILS -->
-        <li *ngIf="true" class="user-details">
-            <a id="user-details" href="#"><b>. . .</b></a>
+        <li *ngIf="true" class="user-details" style="cursor: pointer">
+            <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
+            <!-- SIGN-OUT-USER -->
+            <div class="signout" *ngIf="showLogOut">
+                <a>Sign out</a>
+            </div>
         </li>
         <!-- USER-IMAGE -->
         <li *ngIf="true" class="user-image">
@@ -60,13 +63,13 @@
         </li>
     </ul>
 </nav>
-
-<table class="table table-striped" style="background-color: white; width: 50%; position:absolute; z-index: 1;" *ngIf="show">
+<!-- SEARCH-RESULT -->
+<table *ngIf="show" class="table" style="margin-left: -10px; margin-top: 0px; background-color: white; width: 40%; position:absolute; z-index: 1;">
     <tbody>
-    <tr *ngFor="let course of courses | courseFilter: listFilter">
-        <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main" style="width: 50px; height: 50px"></td>
-        <td>{{course.name}}</td>
-        <td>{{course.description}}</td>
+    <tr *ngFor="let deck of decks | deckFilter: listFilter" style="cursor: pointer">
+        <td>{{deck.name}}</td>
+        <td>{{deck.description}}</td>
+        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
     </tr>
     </tbody>
 </table>
