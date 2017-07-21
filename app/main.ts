@@ -1,5 +1,5 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NavbarModule } from './navbar.module';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import {NavbarModule} from './page/navbar/navbar.module';
 import {enableProdMode} from '@angular/core';
 
 enableProdMode();
