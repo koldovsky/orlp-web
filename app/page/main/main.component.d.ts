@@ -5,12 +5,12 @@ import { Link } from "../../classes/link";
 import { CategoryTop } from "../../classes/top.category.DTO";
 import { CourseTop } from "../../classes/top.course.DTO";
 export declare class MainComponent implements OnInit {
-    private MainService;
+    private mainService;
     private orlp;
     categories: CategoryTop[];
     courses: CourseTop[];
     errorMessage: string;
-    constructor(MainService: MainService, orlp: ORLPService);
+    constructor(mainService: MainService, orlp: ORLPService);
     ngOnInit(): void;
     getCategoryLink(link: Link): string;
     getCourseLink(link: Link): string;

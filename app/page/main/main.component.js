@@ -13,15 +13,15 @@ var core_1 = require("@angular/core");
 var main_service_1 = require("./main.service");
 var orlp_service_1 = require("../../orlp.service");
 var MainComponent = (function () {
-    function MainComponent(MainService, orlp) {
-        this.MainService = MainService;
+    function MainComponent(mainService, orlp) {
+        this.mainService = mainService;
         this.orlp = orlp;
     }
     MainComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.MainService.getCategories()
+        this.mainService.getCategories()
             .subscribe(function (category) { return _this.categories = category; }, function (error) { return _this.errorMessage = error; });
-        this.MainService.getCourses()
+        this.mainService.getCourses()
             .subscribe(function (course) { return _this.courses = course; }, function (error) { return _this.errorMessage = error; });
     };
     MainComponent.prototype.getCategoryLink = function (link) {

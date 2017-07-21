@@ -14,6 +14,7 @@ import {AdminModule} from "./page/admin/admin.module";
 import {CardModule} from "./page/card/card.module";
 import {LoginModule} from "./page/login/login.module";
 import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
+import {CookieService} from "angular2-cookie/core";
 
 
 @NgModule({
@@ -43,7 +44,10 @@ import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
         /*AdminComponent*/],
 
 
-    providers: [ORLPService],
+    providers: [
+        ORLPService,
+        CookieService
+    ],
     bootstrap: [PageComponent, ]
 })
 export class PageModule {
