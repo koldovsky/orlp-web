@@ -2,8 +2,9 @@ import { OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { LoginService } from "./login.service";
 import { AuthService } from "angular2-social-login";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 export declare class LoginComponent implements OnInit {
+    private activatedRoute;
     private fb;
     private loginService;
     auth: AuthService;
@@ -13,7 +14,8 @@ export declare class LoginComponent implements OnInit {
     error: boolean;
     wrongDetails: boolean;
     user: any;
-    constructor(fb: FormBuilder, loginService: LoginService, auth: AuthService, router: Router);
+    verificationError: boolean;
+    constructor(activatedRoute: ActivatedRoute, fb: FormBuilder, loginService: LoginService, auth: AuthService, router: Router);
     ngOnInit(): void;
     login: () => void;
     private processError(response);

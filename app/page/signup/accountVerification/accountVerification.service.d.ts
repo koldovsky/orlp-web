@@ -1,8 +1,9 @@
-import { Http, Response } from "@angular/http";
+import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
+import { ORLPService } from "../../../orlp.service";
 export declare class AccountVerificationService {
-    private http;
+    private orlp;
     private _controllerUrl;
-    constructor(http: Http);
+    constructor(orlp: ORLPService);
     accountVerificate(token: string): Observable<Response>;
 }

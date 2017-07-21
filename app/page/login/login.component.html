@@ -1,4 +1,3 @@
-
 <div class="container">
     <br/>
     <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
@@ -85,10 +84,9 @@
                     <div class="alert alert-success" *ngIf="success">
                         <span>Authorization <b>successful!</b></span>
                     </div>
-                    <div class="alert alert-success" *ngIf="{verificationError}">
-                        <span>Authorization <b>successful!</b></span>
+                    <div class="alert alert-success" *ngIf="verificationError">
+                        <span>Account activation successful.</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -99,4 +97,5 @@
     <div class="alert">Success :{{success}}</div>
     <div class="alert">Error :{{error}}</div>
     <div class="alert">wrongDetails :{{wrongDetails}}</div>
+    <div class="alert">verificationError :{{verificationError}}</div>
 </div>

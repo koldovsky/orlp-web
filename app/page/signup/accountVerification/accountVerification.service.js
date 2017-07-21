@@ -9,22 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var http_1 = require("@angular/http");
 var core_1 = require("@angular/core");
+var orlp_service_1 = require("../../../orlp.service");
 var AccountVerificationService = (function () {
-    function AccountVerificationService(http) {
-        this.http = http;
-        this._controllerUrl = 'http://localhost:8080/api/registrationConfirm';
+    function AccountVerificationService(orlp) {
+        this.orlp = orlp;
+        this._controllerUrl = 'api/registrationConfirm';
     }
     ;
     AccountVerificationService.prototype.accountVerificate = function (token) {
-        return this.http.post(this._controllerUrl, token);
+        return this.orlp.post(this._controllerUrl, token);
     };
     return AccountVerificationService;
 }());
 AccountVerificationService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [orlp_service_1.ORLPService])
 ], AccountVerificationService);
 exports.AccountVerificationService = AccountVerificationService;
 //# sourceMappingURL=accountVerification.service.js.map
