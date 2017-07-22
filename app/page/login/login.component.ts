@@ -3,8 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {error} from "util";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     template: require('app/page/login/login.component.html!text')
