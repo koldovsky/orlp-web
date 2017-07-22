@@ -12,23 +12,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
+var accountVerification_service_1 = require("./accountVerification.service");
 var AccountVerificationComponent = (function () {
-    function AccountVerificationComponent(activatedRoute, http, router) {
+    function AccountVerificationComponent(accVerify, http, router, activatedRoute) {
         var _this = this;
-        this.activatedRoute = activatedRoute;
+        this.accVerify = accVerify;
         this.http = http;
         this.router = router;
-        this._url = "dfse";
-        this.sendTokenToController = function () {
-            _this.
-            ;
-        };
+        this.activatedRoute = activatedRoute;
+        this.activatedRoute.queryParams.subscribe(function (params) {
+            _this.token = params['token'];
+        });
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activatedRoute.queryParams.subscribe(function (params) {
-            _this.token = params['token'];
-            console.log('token= ' + _this.token);
+        this.error = false;
+        this.accVerify.accountVerificate(this.token).subscribe(function (success) {
+            console.log(success);
+            _this.router.navigate(['login']);
+        }, function (error) {
+            _this.error = true;
+            console.log(error);
             _this.router.navigate(['registr']);
         });
     };
@@ -36,9 +40,9 @@ var AccountVerificationComponent = (function () {
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
-        template: "\n        <html>\n        <head></head>\n        <body>\n        <div>Hello</div>\n        <br/>\n        <span>your token = {{token}}</span>\n        </body>\n        </html>\n    "
+        template: "\n        <html>\n        <head></head>\n        <body>\n        </body>\n        </html>\n    "
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute, http_1.Http, router_1.Router])
+    __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, http_1.Http, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);
 exports.AccountVerificationComponent = AccountVerificationComponent;
 //# sourceMappingURL=accountVerification.component.js.map

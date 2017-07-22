@@ -15,24 +15,26 @@ var login_service_1 = require("./login.service");
 var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService, auth, router) {
+    function LoginComponent(fb, loginService, auth, router, activatedRoute) {
         var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
         this.router = router;
+        this.activatedRoute = activatedRoute;
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
+        this.verificationStat = false;
         this.login = function () {
             _this.success = false;
             _this.error = false;
             _this.wrongDetails = false;
-            _this.loginService.loginServ(_this.loginForm.value)
+            _this.loginService.signIn(_this.loginForm.value)
                 .subscribe(function (response) {
                 _this.success = true;
                 console.log(response.status);
-                _this.router.navigate(['registr']);
+                _this.router.navigate(['main']);
             }, function (error) {
                 _this.processError(error);
             });
@@ -55,17 +57,29 @@ var LoginComponent = (function () {
             console.log(response.status);
         }
     };
-    LoginComponent.prototype.signIn = function (provider) {
+    LoginComponent.prototype.signInGoogle = function (provider) {
         var _this = this;
         this.auth.login(provider).subscribe(function (data) {
             _this.user = data;
             console.log(_this.user.idToken);
             console.log(_this.user.email);
-            _this.sendToken();
+            _this.sendGoogleToken();
         });
     };
-    LoginComponent.prototype.sendToken = function () {
-        this.loginService.sendIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
+    LoginComponent.prototype.signInFacebook = function (provider) {
+        var _this = this;
+        this.auth.login(provider).subscribe(function (data) {
+            _this.user = data;
+            console.log(_this.user.token);
+            console.log(_this.user.email);
+            _this.sendFacebookToken();
+        });
+    };
+    LoginComponent.prototype.sendFacebookToken = function () {
+        this.loginService.sendFacebookToken(this.user.token).subscribe(function (error) { return console.log(error); });
+    };
+    LoginComponent.prototype.sendGoogleToken = function () {
+        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
     };
     return LoginComponent;
 }());
@@ -73,7 +87,7 @@ LoginComponent = __decorate([
     core_1.Component({
         template: require('app/page/login/login.component.html!text')
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router, router_1.ActivatedRoute])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

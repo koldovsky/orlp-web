@@ -1,12 +1,20 @@
 import { OnInit } from "@angular/core";
 import { AdminUserService } from "./admin.user.service";
-import { IUser } from "../../../../interfaces/user";
+import { UsersPublic } from "../../../../classes/public.users.DTO";
+import { ORLPService } from "../../../../orlp.service";
+import { Link } from "../../../../classes/link";
+import { ActivatedRoute } from "@angular/router";
 export declare class AdminUserComponent implements OnInit {
-    private adminUserService;
-    users: IUser[];
+    private route;
+    private orlp;
+    private adminUserSevice;
+    user: UsersPublic;
     errorMessage: string;
-    listFilter: string;
-    showTable: boolean;
-    constructor(adminUserService: AdminUserService);
+    private sub;
+    private url;
+    constructor(route: ActivatedRoute, orlp: ORLPService, adminUserSevice: AdminUserService);
     ngOnInit(): void;
+    private takeUser();
+    private decodeLink();
+    getUserLink(link: Link): string;
 }

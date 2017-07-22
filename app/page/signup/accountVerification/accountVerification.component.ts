@@ -9,9 +9,6 @@ import {AccountVerificationService} from "./accountVerification.service";
         <html>
         <head></head>
         <body>
-        <div>Hello</div>
-        <br/>
-        <span>your token = {{token}}</span>
         </body>
         </html>
     `
@@ -20,30 +17,28 @@ import {AccountVerificationService} from "./accountVerification.service";
 })
 export class AccountVerificationComponent implements OnInit {
     token: string;
-    _url: string = "dfse";
+    error: boolean;
+    verificationStat: boolean;
 
     constructor(private accVerify: AccountVerificationService, private http: Http, private router: Router, private activatedRoute: ActivatedRoute) {
+
+        this.activatedRoute.queryParams.subscribe((params: Params) => {
+            this.token = params['token'];
+        });
+
     }
 
     ngOnInit() {
-        this.activatedRoute.queryParams.subscribe((params: Params) => {
-            this.token = params['token'];
-            this.accVerify.accountVerificate(this.token).subscribe((success) => {
+        this.error = false;
+        this.accVerify.accountVerificate(this.token).subscribe((success) => {
                 console.log(success);
-                (error) => {
-                    console.log(error)
-                }
+                this.router.navigate(['login']);
+            },
+            (error) => {
+                this.error = true;
+                console.log(error);
+                this.router.navigate(['registr']);
             })
 
-
-            console.log('token= ' + this.token);
-            this.router.navigate(['registr']);
-        });
-    }
-
-    sendTokenToController = () => {
-        this.accVerify.accountVerificate(this.token).subscribe((response) => {
-
-        })
     }
 }

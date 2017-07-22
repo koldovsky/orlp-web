@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {DeckPublic} from "../../../classes/public.deck.DTO";
+import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()

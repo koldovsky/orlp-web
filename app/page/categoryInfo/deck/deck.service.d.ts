@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { IDeck } from "../../../interfaces/deck";
-import { DeckPublic } from "../../../classes/public.deck.DTO";
+import { DeckPublic } from "../../../classes/DeckDTO/public.deck.DTO";
 export declare class DeckService {
     private orlp;
     constructor(orlp: ORLPService);

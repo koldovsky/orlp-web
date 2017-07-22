@@ -28,7 +28,8 @@
       'rxjs': 'npm:rxjs',
       'text': './plugin-text.js',
       'zone':'npm:zone.js/dist/zone.js',
-      'reflect':'npm:reflect-metadata/Reflect.js'
+      'reflect':'npm:reflect-metadata/Reflect.js',
+        'angular2-cookie': 'npm:angular2-cookie'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -38,7 +39,15 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+        'angular2-in-memory-web-api': {
+            main: './index.js',
+            defaultExtension: 'js'
+        },
+        'angular2-cookie': {
+            main: './core.js',
+            defaultExtension: 'js'
+        }
     }
   });
 })(this);

@@ -1,11 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
-import {Router} from "@angular/router";
-
-declare const gapi: any;
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {error} from "util";
 
 @Component({
     template: require('app/page/login/login.component.html!text')
@@ -18,9 +17,9 @@ export class LoginComponent implements OnInit {
     error: boolean = false;
     wrongDetails: boolean = false;
     public user;
+    verificationStat: boolean = false;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router) {
-
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -34,11 +33,11 @@ export class LoginComponent implements OnInit {
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
-        this.loginService.loginServ(this.loginForm.value)
+        this.loginService.signIn(this.loginForm.value)
             .subscribe((response) => {
                 this.success = true;
                 console.log(response.status);
-                this.router.navigate(['registr']);
+                this.router.navigate(['main']);
             }, (error) => {
                 this.processError(error);
             });
@@ -55,19 +54,36 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    signIn(provider: string) {
+    signInGoogle(provider: string) {
         this.auth.login(provider).subscribe(
             (data) => {
                 this.user = data;
                 console.log(this.user.idToken);
                 console.log(this.user.email);
-                this.sendToken();
+                this.sendGoogleToken();
             }
         )
     }
 
-    sendToken() {
-        this.loginService.sendIdToken(this.user.idToken).subscribe(
+    signInFacebook(provider: string) {
+        this.auth.login(provider).subscribe(
+            (data) => {
+                this.user = data;
+                console.log(this.user.token);
+                console.log(this.user.email);
+                this.sendFacebookToken();
+            }
+        )
+    }
+
+    sendFacebookToken() {
+        this.loginService.sendFacebookToken(this.user.token).subscribe(
+            error => console.log(error)
+        )
+    }
+
+    sendGoogleToken() {
+        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(
             error => console.log(error)
         );
     }

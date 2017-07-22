@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var signup_service_1 = require("./signup.service");
 var forms_1 = require("@angular/forms");
-var User_1 = require("./User");
+var User_1 = require("../../classes/User");
 function passwordMatcher(c) {
     var passwordControl = c.get('password');
     var confirmPassword = c.get('confirmPassword');
@@ -46,6 +46,7 @@ var SignUpComponent = (function () {
         this.error = false;
         this.success = false;
         this.errorEmailExists = false;
+        this.mailNotSended = false;
         this.transferingDataFromFormToUserObj();
         console.log(this.user);
         this.signupService.registerUser(this.user)
@@ -69,8 +70,12 @@ var SignUpComponent = (function () {
             this.success = true;
             console.log(response.status);
         }
-        else
+        else if (response.status === 404) {
+            this.mailNotSended = true;
+        }
+        else {
             this.error = true;
+        }
     };
     return SignUpComponent;
 }());

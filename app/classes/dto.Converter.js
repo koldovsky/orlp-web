@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var top_category_DTO_1 = require("./top.category.DTO");
+var top_category_DTO_1 = require("./CategoryDTO/top.category.DTO");
 var link_1 = require("./link");
-var link_category_DTO_1 = require("./link.category.DTO");
-var public_deck_DTO_1 = require("./public.deck.DTO");
-var public_course_DTO_1 = require("./public.course.DTO");
-var public_categories_1 = require("./public.categories");
-var top_course_DTO_1 = require("./top.course.DTO");
+var link_category_DTO_1 = require("./CategoryDTO/link.category.DTO");
+var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
+var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
+var public_categories_1 = require("./CategoryDTO/public.categories");
+var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
+var public_users_DTO_1 = require("./public.users.DTO");
 var DTOConverter = (function () {
     function DTOConverter() {
     }
@@ -35,6 +36,10 @@ var DTOConverter = (function () {
         var courses = DTOConverter.jsonToLink("courses", data._links.courses);
         var decks = DTOConverter.jsonToLink("decks", data._links.decks);
         return new link_category_DTO_1.CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
+    };
+    DTOConverter.jsonToPublicUsers = function (data) {
+        var self = DTOConverter.jsonToLink("self", data._links.self);
+        return new public_users_DTO_1.UsersPublic(data.firstName, data.lastName, data.email, data.accountStatus, self);
     };
     DTOConverter.jsonToLink = function (rel, data) {
         return new link_1.Link(rel, data.href);

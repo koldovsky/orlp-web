@@ -2,8 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "./User";
-
+import {User} from "../../classes/User";
 
 function passwordMatcher(c: AbstractControl) {
     let passwordControl = c.get('password');
@@ -14,17 +13,14 @@ function passwordMatcher(c: AbstractControl) {
     return {'match': true};
 }
 
-
 @Component({
-
     template: require('app/page/signup/signup.component.html!text')
-
 })
 
 export class SignUpComponent implements OnInit {
     userForm: FormGroup;
     user: User = new User();
-    errorMessage: String;
+    mailNotSended: boolean;
     success: boolean;
     error: boolean;
     errorEmailExists: boolean;
@@ -33,8 +29,6 @@ export class SignUpComponent implements OnInit {
     constructor(private router: Router,
                 private signupService: SignupService,
                 private formBuilder: FormBuilder) {
-
-
     }
 
     ngOnInit() {
@@ -53,6 +47,7 @@ export class SignUpComponent implements OnInit {
         this.error = false;
         this.success = false;
         this.errorEmailExists = false;
+        this.mailNotSended = false;
         this.transferingDataFromFormToUserObj();
         console.log(this.user);
         this.signupService.registerUser(this.user)
@@ -60,8 +55,6 @@ export class SignUpComponent implements OnInit {
                     this.success = true;
                 },
                 (response) => this.processError(response));
-
-
     }
 
     transferingDataFromFormToUserObj() {
@@ -80,8 +73,11 @@ export class SignUpComponent implements OnInit {
         } else if (response.status === 201) {
             this.success = true;
             console.log(response.status);
-        } else
+        } else if (response.status === 404) {
+            this.mailNotSended = true;
+        } else {
             this.error = true;
+        }
     }
 
 }

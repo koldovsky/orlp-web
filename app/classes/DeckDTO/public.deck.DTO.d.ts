@@ -1,4 +1,4 @@
-import { Link } from "./link";
+import { Link } from "../link";
 export declare class DeckPublic {
     name: string;
     description: string;

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {DeckService} from "./deck.service";
 import {ORLPService} from "../../../orlp.service";
-import {DeckPublic} from "../../../classes/public.deck.DTO";
+import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 
 @Component({
     selector: 'deck-table',

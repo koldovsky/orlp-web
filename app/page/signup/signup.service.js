@@ -17,10 +17,10 @@ var SignupService = (function () {
     function SignupService(_orlp, http) {
         this._orlp = _orlp;
         this.http = http;
-        this._controllerUrl = 'http://localhost:8080/api/registration';
+        this._controllerUrl = 'api/registration';
     }
     SignupService.prototype.registerUser = function (newUser) {
-        return this.http.post(this._controllerUrl, newUser).map(this.extractData)
+        return this._orlp.post(this._controllerUrl, newUser).map(this.extractData)
             .catch(this.handleErrorObservable);
     };
     SignupService.prototype.extractData = function (res) {

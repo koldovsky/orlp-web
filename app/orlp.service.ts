@@ -2,17 +2,17 @@ import {Injectable} from '@angular/core';
 import {Http, RequestMethod, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Link} from "./classes/link";
+import {CookieService} from "angular2-cookie/core";
 
 @Injectable()
 export class ORLPService {
 
     private SERVER_ADDRESS: string = "http://localhost:8080/";
 
-    constructor(private http: Http) {
-    }
+    constructor(private http: Http) {}
 
     get(url: string): Observable<Response> {
-        return this.http.get(this.SERVER_ADDRESS + url, RequestMethod.Get);
+        return this.http.get(this.SERVER_ADDRESS + url);
     }
 
     post(url: string, body: any) {
@@ -33,5 +33,4 @@ export class ORLPService {
 
         return url;
     }
-
 }

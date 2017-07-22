@@ -17,7 +17,7 @@ var ORLPService = (function () {
         this.SERVER_ADDRESS = "http://localhost:8080/";
     }
     ORLPService.prototype.get = function (url) {
-        return this.http.get(this.SERVER_ADDRESS + url, http_1.RequestMethod.Get);
+        return this.http.get(this.SERVER_ADDRESS + url);
     };
     ORLPService.prototype.post = function (url, body) {
         return this.http.post(this.SERVER_ADDRESS + url, body, {});

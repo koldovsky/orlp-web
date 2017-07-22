@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {ORLPService} from "../../orlp.service";
-import {CategoryLink} from "../../classes/link.category.DTO";
+import {CategoryLink} from "../../classes/CategoryDTO/link.category.DTO";
 import {CategoryInfoService} from "./categoryInfo.service";
 
 @Component({

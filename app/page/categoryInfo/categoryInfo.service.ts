@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../orlp.service";
-import {CategoryLink} from "../../classes/link.category.DTO";
+import {CategoryLink} from "../../classes/CategoryDTO/link.category.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
 
 @Injectable()
