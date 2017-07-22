@@ -7,13 +7,13 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {ORLPService} from "./orlp.service";
 import {MainModule} from "./page/main/main.module";
-import {SignUpModule} from "./page/signup/signup.module";
 import {AdminModule} from "./page/admin/admin.module";
 import {CardModule} from "./page/card/card.module";
 import {LoginModule} from "./page/login/login.module";
 import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
 import {CookieService} from "angular2-cookie/core";
 import {LogoutService} from "./page/logout/logout.service";
+import {SignUpModule} from "./page/signup/SignUpModule";
 
 
 @NgModule({

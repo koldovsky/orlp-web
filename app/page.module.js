@@ -15,13 +15,13 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var orlp_service_1 = require("./orlp.service");
 var main_module_1 = require("./page/main/main.module");
-var signup_module_1 = require("./page/signup/signup.module");
 var admin_module_1 = require("./page/admin/admin.module");
 var card_module_1 = require("./page/card/card.module");
 var login_module_1 = require("./page/login/login.module");
 var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
 var core_2 = require("angular2-cookie/core");
 var logout_service_1 = require("./page/logout/logout.service");
+var SignUpModule_1 = require("./page/signup/SignUpModule");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -42,7 +42,7 @@ PageModule = __decorate([
             ]),
             categoryInfo_module_1.CategoryInfoModule,
             main_module_1.MainModule,
-            signup_module_1.SignUpModule,
+            SignUpModule_1.SignUpModule,
             login_module_1.LoginModule,
             main_module_1.MainModule,
             admin_module_1.AdminModule,
