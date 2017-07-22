@@ -11,15 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var http_1 = require("@angular/http");
 var accountVerification_service_1 = require("./accountVerification.service");
 var AccountVerificationComponent = (function () {
-    function AccountVerificationComponent(accVerify, router, activatedRoute) {
+    function AccountVerificationComponent(accVerify, http, router, activatedRoute) {
         var _this = this;
         this.accVerify = accVerify;
+        this.http = http;
         this.router = router;
         this.activatedRoute = activatedRoute;
         this.activatedRoute.queryParams.subscribe(function (params) {
             _this.token = params['token'];
+            console.log('token= ' + _this.token);
         });
     }
     AccountVerificationComponent.prototype.ngOnInit = function () {
@@ -41,13 +44,9 @@ var AccountVerificationComponent = (function () {
 }());
 AccountVerificationComponent = __decorate([
     core_1.Component({
-<<<<<<< HEAD
         template: "",
-=======
-        template: "\n        <html>\n        <head></head>\n        <body>\n        </body>\n        </html>\n    "
->>>>>>> 03b95e6b153f6db3cb2eba3fede5eeeae0e758a5
     }),
-    __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, router_1.Router, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [accountVerification_service_1.AccountVerificationService, http_1.Http, router_1.Router, router_1.ActivatedRoute])
 ], AccountVerificationComponent);
 exports.AccountVerificationComponent = AccountVerificationComponent;
 //# sourceMappingURL=accountVerification.component.js.map

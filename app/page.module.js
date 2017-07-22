@@ -21,6 +21,7 @@ var card_module_1 = require("./page/card/card.module");
 var login_module_1 = require("./page/login/login.module");
 var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
 var core_2 = require("angular2-cookie/core");
+var logout_service_1 = require("./page/logout/logout.service");
 var PageModule = (function () {
     function PageModule() {
     }
@@ -45,7 +46,7 @@ PageModule = __decorate([
             login_module_1.LoginModule,
             main_module_1.MainModule,
             admin_module_1.AdminModule,
-            card_module_1.CardModule
+            card_module_1.CardModule,
         ],
         exports: [],
         declarations: [
@@ -53,7 +54,8 @@ PageModule = __decorate([
         ],
         providers: [
             orlp_service_1.ORLPService,
-            core_2.CookieService
+            core_2.CookieService,
+            logout_service_1.LogoutService
         ],
         bootstrap: [navbar_component_1.PageComponent,]
     })

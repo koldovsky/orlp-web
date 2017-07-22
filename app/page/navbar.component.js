@@ -10,11 +10,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var logout_service_1 = require("./logout/logout.service");
+var router_1 = require("@angular/router");
 var PageComponent = (function () {
-    function PageComponent() {
+    function PageComponent(logoutService, router) {
+        this.logoutService = logoutService;
+        this.router = router;
         this.pageTitle = 'Spaced Repetition';
     }
-    PageComponent.prototype.ngOnInit = function () { };
+    PageComponent.prototype.ngOnInit = function () {
+        this.isAuthorized = this.ifUserIsAuthorized();
+    };
+    PageComponent.prototype.ifUserIsAuthorized = function () {
+        return this.logoutService.isAuthorized();
+    };
+    PageComponent.prototype.logoutUser = function () {
+        if (this.logoutService.logout()) {
+            this.isAuthorized = false;
+            // this.router.navigate(['main']);
+        }
+        ;
+    };
     return PageComponent;
 }());
 PageComponent = __decorate([
@@ -23,7 +39,7 @@ PageComponent = __decorate([
         template: require('./navbar.component.html!text'),
         styleUrls: ['app/page/navbar.css']
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [logout_service_1.LogoutService, router_1.Router])
 ], PageComponent);
 exports.PageComponent = PageComponent;
 //# sourceMappingURL=navbar.component.js.map
