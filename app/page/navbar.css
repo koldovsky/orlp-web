@@ -10,7 +10,7 @@ ul {
     float: left;
 }
 
-#nav-logo, #nav-category, #nav-course, #nav-signin, #nav-signup {
+#nav-logo, #nav-category, #nav-course, #nav-signin, #nav-signup, #nav-logout {
     display: block;
     color: white;
     text-align: center;
@@ -18,7 +18,7 @@ ul {
     text-decoration: none;
 }
 
-#nav-logo:hover, #nav-category:hover, #nav-course:hover, #nav-signin:hover, #nav-signup:hover {
+#nav-logo:hover, #nav-category:hover, #nav-course:hover, #nav-signin:hover, #nav-signup:hover, #nav-logout:hover  {
     background-color: #111;
 }
 
@@ -43,6 +43,6 @@ ul {
 }
 
 /*RIGHT SIDE*/
-.nav-signin, .nav-signup {
+.nav-signin, .nav-signup, .nav-logout {
     float: right;
 }
