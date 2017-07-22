@@ -19,11 +19,15 @@
         </li>
         <!-- SIGN UP -->
         <li class="nav-signup">
-            <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
+            <a id="nav-signup" [routerLink]="['/registr']" *ngIf="!isAuthorized">SIGN UP</a>
         </li>
         <!-- SIGN IN -->
         <li class="nav-signin">
-            <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
+        <a id="nav-signin" [routerLink]="['/login']" *ngIf="!isAuthorized">SIGN IN</a>
+    </li>
+        <!-- LOG OUT -->
+        <li class="nav-logout">
+            <a id="nav-logout" [routerLink]="['/main']" (click)="logoutUser()" *ngIf="isAuthorized">LOG OUT</a>
         </li>
     </ul>
 </nav>

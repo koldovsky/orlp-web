@@ -1,8 +1,6 @@
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
-
 import {CommonModule} from "@angular/common";
 import {PageComponent} from "./page/navbar.component";
 import {RouterModule} from "@angular/router";
@@ -15,6 +13,7 @@ import {CardModule} from "./page/card/card.module";
 import {LoginModule} from "./page/login/login.module";
 import {CategoryInfoModule} from "./page/categoryInfo/categoryInfo.module";
 import {CookieService} from "angular2-cookie/core";
+import {LogoutService} from "./page/logout/logout.service";
 
 
 @NgModule({
@@ -36,17 +35,20 @@ import {CookieService} from "angular2-cookie/core";
         LoginModule,
         MainModule,
         AdminModule,
-        CardModule
+        CardModule,
+
     ],
     exports: [],
     declarations: [
         PageComponent,
+
         /*AdminComponent*/],
 
 
     providers: [
         ORLPService,
-        CookieService
+        CookieService,
+        LogoutService
     ],
     bootstrap: [PageComponent, ]
 })

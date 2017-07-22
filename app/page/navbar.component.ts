@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
+import {LogoutService} from "./logout/logout.service";
+import {Route, Router} from "@angular/router";
 
 @Component({
     selector: 'page',
@@ -8,8 +10,24 @@ import { Component, OnInit } from '@angular/core';
 
 export class PageComponent implements OnInit {
     pageTitle: string = 'Spaced Repetition';
+    isAuthorized: boolean;
 
-    constructor() { }
+    constructor(private logoutService: LogoutService, private router: Router) {
+    }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.isAuthorized = this.ifUserIsAuthorized();
+    }
+
+    ifUserIsAuthorized(): boolean {
+        return this.logoutService.isAuthorized();
+    }
+
+    logoutUser() {
+       if(this.logoutService.logout()){
+           this.isAuthorized = false;
+          // this.router.navigate(['main']);
+       };
+
+    }
 }
