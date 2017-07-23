@@ -4,12 +4,12 @@ import {ORLPService} from "../../../orlp.service";
 import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
 import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 
-
 @Component({
     selector: 'course-table',
     template: require('./course.component.html!text'),
     styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
+
 export class CourseComponent implements OnInit {
     public courses: CourseLink[];
     public decks: DeckPublic[];
@@ -28,22 +28,9 @@ export class CourseComponent implements OnInit {
                 error => this.errorMessage = <any>error);
     }
 
-    // getDecks(course: CourseLink) {
-    //     this.courseService.getDecks()
-    //         .subscribe(decks => this.decks = decks,
-    //             error => this.errorMessage = <any>error);
-    // }
-
     getDecks(course: CourseLink) {
         this.courseService.getDecks(course.decks.href)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
-    }
-
-    addCourse(value: CourseLink) {
-        this.courseService.addCourse(value, this.url).subscribe(
-            data => this.courses.push(data),
-            error => console.log(error)
-        );
     }
 }
