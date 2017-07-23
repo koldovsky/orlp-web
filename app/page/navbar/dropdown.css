@@ -1,5 +1,3 @@
-/********** Dropdown menu**********/
-/*TODO*/
 .main-dropdown-menu ul {
     position: absolute;
     padding: 0px;
@@ -71,13 +69,13 @@
 }
 
 .settings a::before {
-    background: url(../../../image/settings.png) center no-repeat;
+    background: url(../../../image/categories.png) center no-repeat;
 }
 
 .link a::before {
-    background: url(../../../image/link.png) center no-repeat;
+    background: url(../../../image/cabinet.png) center no-repeat;
 }
 
 .forum a::before {
-    background: url(../../../image/nav-search.png) center no-repeat;
+    background: url(../../../image/courses.png) center no-repeat;
 }

@@ -17,6 +17,7 @@ import {NavbarFilterPipe} from "./navbar.filter.pipe";
 import {DeckService} from "./deck.service";
 import {CabinetModule} from "../cabinet/cabinet.module";
 import {StarRatingModule} from "angular-star-rating";
+import {CookieService} from "angular2-cookie/core";
 
 @NgModule({
     imports: [
@@ -31,7 +32,6 @@ import {StarRatingModule} from "angular-star-rating";
         ]),
 
         CategoryInfoModule,
-        MainModule,
         SignUpModule,
         LoginModule,
         MainModule,
@@ -43,10 +43,10 @@ import {StarRatingModule} from "angular-star-rating";
     exports: [],
     declarations: [
         NavbarComponent,
-        NavbarFilterPipe
+        NavbarFilterPipe,
     ],
 
-    providers: [ORLPService, DeckService],
+    providers: [ORLPService, DeckService, CookieService],
     bootstrap: [NavbarComponent]
 })
 export class NavbarModule {

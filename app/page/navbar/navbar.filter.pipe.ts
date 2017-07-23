@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {DeckPublic} from "../../classes/public.deck.DTO";
+import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
 
 @Pipe ({
     name: "deckFilter"
