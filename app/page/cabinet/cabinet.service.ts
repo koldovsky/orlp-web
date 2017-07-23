@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
 import {ORLPService} from "../../orlp.service";
-import {DeckPublic} from "../../classes/public.deck.DTO";
+import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
 
 @Injectable()

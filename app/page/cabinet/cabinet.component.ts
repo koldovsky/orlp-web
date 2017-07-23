@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {CabinetService} from "./cabinet.service";
-import {DeckPublic} from "../../classes/public.deck.DTO";
+import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
 
 @Component({
     providers: [CabinetService],
@@ -16,6 +16,10 @@ export class CabinetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+    }
+
+    getUserDecks(): void {
         this.cabinetService.getUserDecks()
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
