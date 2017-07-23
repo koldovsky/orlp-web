@@ -1,7 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from "./course.service";
 import {ORLPService} from "../../../orlp.service";
-import {CoursePublic} from "../../../classes/CourseDTO/public.course.DTO";
+import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
+import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
+
 
 @Component({
     selector: 'course-table',
@@ -9,7 +11,8 @@ import {CoursePublic} from "../../../classes/CourseDTO/public.course.DTO";
     styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
 export class CourseComponent implements OnInit {
-    public courses: CoursePublic[];
+    public courses: CourseLink[];
+    public decks: DeckPublic[];
     public errorMessage: string;
     @Input() url: string;
 
@@ -25,7 +28,19 @@ export class CourseComponent implements OnInit {
                 error => this.errorMessage = <any>error);
     }
 
-    addCourse(value: CoursePublic) {
+    // getDecks(course: CourseLink) {
+    //     this.courseService.getDecks()
+    //         .subscribe(decks => this.decks = decks,
+    //             error => this.errorMessage = <any>error);
+    // }
+
+    getDecks(course: CourseLink) {
+        this.courseService.getDecks(course.decks.href)
+            .subscribe(decks => this.decks = decks,
+                error => this.errorMessage = <any>error);
+    }
+
+    addCourse(value: CourseLink) {
         this.courseService.addCourse(value, this.url).subscribe(
             data => this.courses.push(data),
             error => console.log(error)

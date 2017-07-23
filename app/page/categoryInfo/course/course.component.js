@@ -23,6 +23,16 @@ var CourseComponent = (function () {
         this.courseService.getCourse(this.url)
             .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
     };
+    // getDecks(course: CourseLink) {
+    //     this.courseService.getDecks()
+    //         .subscribe(decks => this.decks = decks,
+    //             error => this.errorMessage = <any>error);
+    // }
+    CourseComponent.prototype.getDecks = function (course) {
+        var _this = this;
+        this.courseService.getDecks(course.decks.href)
+            .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
+    };
     CourseComponent.prototype.addCourse = function (value) {
         var _this = this;
         this.courseService.addCourse(value, this.url).subscribe(function (data) { return _this.courses.push(data); }, function (error) { return console.log(error); });

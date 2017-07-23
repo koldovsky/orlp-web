@@ -26,9 +26,18 @@ var CourseService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
             .catch(this.handleError);
     };
+    CourseService.prototype.getDecks = function (url) {
+        url = url.replace("http://localhost:8080/", "");
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
+            .catch(this.handleError);
+    };
+    // getDecks(): Observable<DeckPublic[]> {
+    //     return this.orlp.get('api/decks/ordered')
+    //         .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
+    //         .catch(this.handleError);
+    // }
     CourseService.prototype.addCourse = function (body, url) {
-        // let headers = new Headers({'Content-Type': 'application/json'});
-        // let options = new RequestOptions({headers : headers});
         return this.orlp.post(url, body)
             .map(function (res) { return res.json(); })
             .catch(this.handleError);
