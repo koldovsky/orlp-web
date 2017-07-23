@@ -8,7 +8,9 @@ import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {SignUpComponent} from "./signup.component";
 import {SignupService} from "./signup.service";
-import {AccountVerificationComponent} from "./AccountVerification.component";
+import {AccountVerificationComponent} from "./accountVerification/accountVerification.component";
+
+
 
 
 @NgModule({

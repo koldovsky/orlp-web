@@ -5,25 +5,18 @@ import {AccountVerificationService} from "./accountVerification.service";
 
 
 @Component({
-    template: `
-        <html>
-        <head></head>
-        <body>
-        </body>
-        </html>
-    `
-
-
+    template: ``,
 })
 export class AccountVerificationComponent implements OnInit {
     token: string;
     error: boolean;
-    verificationStat: boolean;
+    verificationError: boolean;
 
     constructor(private accVerify: AccountVerificationService, private http: Http, private router: Router, private activatedRoute: ActivatedRoute) {
 
         this.activatedRoute.queryParams.subscribe((params: Params) => {
             this.token = params['token'];
+            console.log('token= ' + this.token);
         });
 
     }
@@ -32,11 +25,14 @@ export class AccountVerificationComponent implements OnInit {
         this.error = false;
         this.accVerify.accountVerificate(this.token).subscribe((success) => {
                 console.log(success);
+                console.log(this.verificationError);
                 this.router.navigate(['login']);
             },
             (error) => {
                 this.error = true;
                 console.log(error);
+                this.verificationError = true;
+                console.log(this.verificationError);
                 this.router.navigate(['registr']);
             })
 

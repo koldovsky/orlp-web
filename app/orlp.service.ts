@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, RequestMethod, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Link} from "./classes/link";
-import {CookieService} from "angular2-cookie/core";
+
 
 @Injectable()
 export class ORLPService {
