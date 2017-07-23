@@ -13,7 +13,7 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var signup_component_1 = require("./signup.component");
 var signup_service_1 = require("./signup.service");
-var accountVerification_component_1 = require("./accountVerification/accountVerification.component");
+var AccountVerification_component_1 = require("./AccountVerification.component");
 var SignUpModule = (function () {
     function SignUpModule() {
     }
@@ -28,15 +28,15 @@ SignUpModule = __decorate([
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
                 { path: 'registr', component: signup_component_1.SignUpComponent },
-                { path: 'registrationConfirm', component: accountVerification_component_1.AccountVerificationComponent },
+                { path: 'registrationConfirm', component: AccountVerification_component_1.AccountVerificationComponent },
             ]),
         ],
         exports: [],
         declarations: [
-            signup_component_1.SignUpComponent, accountVerification_component_1.AccountVerificationComponent
+            signup_component_1.SignUpComponent, AccountVerification_component_1.AccountVerificationComponent
         ],
         providers: [signup_service_1.SignupService],
     })
 ], SignUpModule);
 exports.SignUpModule = SignUpModule;
-//# sourceMappingURL=signup.module.js.map
+//# sourceMappingURL=SignUp.module.js.map
