@@ -28,7 +28,7 @@ var LoginService = (function () {
             .catch(this.handleErrorObservable);
     };
     LoginService.prototype.signIn = function (account) {
-        return this.orlp.post("api/auth", account);
+        return this.orlp.post("api/auth", account).map(function (response) { return console.log(response); });
     };
     LoginService.prototype.extractData = function (res) {
         var body = res.json();

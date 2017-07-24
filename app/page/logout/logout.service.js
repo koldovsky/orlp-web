@@ -14,7 +14,7 @@ var core_2 = require("angular2-cookie/core");
 var LogoutService = (function () {
     function LogoutService(cookie) {
         this.cookie = cookie;
-        this.cookieWithToken = "TESTCOOKIE";
+        this.cookieWithToken = 'Authentication';
     }
     LogoutService.prototype.isAuthorized = function () {
         console.log(this.cookie.get(this.cookieWithToken));

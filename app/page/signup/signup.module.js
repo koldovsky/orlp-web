@@ -9,11 +9,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var router_1 = require("@angular/router");
-var http_1 = require("@angular/http");
 var signup_component_1 = require("./signup.component");
+var router_1 = require("@angular/router");
 var signup_service_1 = require("./signup.service");
 var accountVerification_component_1 = require("./accountVerification/accountVerification.component");
+var accountVerification_service_1 = require("./accountVerification/accountVerification.service");
 var SignUpModule = (function () {
     function SignUpModule() {
     }
@@ -22,20 +22,21 @@ var SignUpModule = (function () {
 SignUpModule = __decorate([
     core_1.NgModule({
         imports: [
-            http_1.HttpModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forRoot([
                 { path: 'registr', component: signup_component_1.SignUpComponent },
-                { path: 'registrationConfirm', component: accountVerification_component_1.AccountVerificationComponent },
-            ]),
+                { path: 'registrationConfirm', component: accountVerification_component_1.AccountVerificationComponent }
+            ])
         ],
         exports: [],
         declarations: [
             signup_component_1.SignUpComponent, accountVerification_component_1.AccountVerificationComponent
         ],
-        providers: [signup_service_1.SignupService],
+        providers: [
+            signup_service_1.SignupService, accountVerification_service_1.AccountVerificationService
+        ],
     })
 ], SignUpModule);
 exports.SignUpModule = SignUpModule;
