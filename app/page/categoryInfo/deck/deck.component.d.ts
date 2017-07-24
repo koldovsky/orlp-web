@@ -11,6 +11,5 @@ export declare class DeckComponent implements OnInit {
     url: string;
     constructor(deckService: DeckService, orlpService: ORLPService);
     ngOnInit(): void;
-    addDeck(value: DeckLinkByCategory): void;
     getCardsLink(link: Link): string;
 }

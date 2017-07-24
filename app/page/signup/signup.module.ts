@@ -1,15 +1,12 @@
+
 import {NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
-
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {HttpModule} from "@angular/http";
 import {SignUpComponent} from "./signup.component";
 import {SignupService} from "./signup.service";
-import {AccountVerificationComponent} from "./AccountVerification.component";
-
+import {AccountVerificationComponent} from "./accountVerification/accountVerification.component";
 
 @NgModule({
     imports: [
@@ -25,7 +22,7 @@ import {AccountVerificationComponent} from "./AccountVerification.component";
     ],
     exports: [],
     declarations: [
-        SignUpComponent,AccountVerificationComponent],
+        SignUpComponent, AccountVerificationComponent],
 
     providers: [SignupService],
 })

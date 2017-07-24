@@ -9,6 +9,5 @@ export declare class DeckService {
     private orlp;
     constructor(orlp: ORLPService);
     getDecks(url: string): Observable<DeckLinkByCategory[]>;
-    addDeck(body: DeckLinkByCategory, url: string): Observable<DeckLinkByCategory>;
     private handleError(error);
 }

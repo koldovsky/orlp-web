@@ -23,6 +23,7 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
         'angular2-social-login': 'node_modules/angular2-social-login/dist/bundles/angular2-social-login.min.js',
+        'angular-star-rating': 'node_modules/angular-star-rating/angular-star-rating.umd.js',
         // other libraries
       'rxjs': 'npm:rxjs',
       'text': './plugin-text.js',

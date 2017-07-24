@@ -23,13 +23,6 @@ export class DeckService {
             .catch(this.handleError);
     }
 
-    addDeck(body: DeckLinkByCategory, url: string): Observable<DeckLinkByCategory> {
-
-        return this.orlp.post(url, body)
-            .map((res: Response) =>  res.json())
-            .catch(this.handleError);
-    }
-
     private handleError(error: Response) {
         console.error(error);
 

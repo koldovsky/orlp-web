@@ -9,7 +9,8 @@ import {Link} from "../../../classes/link";
 
 @Component({
     selector: 'deck-table',
-    template: require('./deck.component.html!text')
+    template: require('./deck.component.html!text'),
+    styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
 export class DeckComponent implements OnInit {
 
@@ -27,13 +28,6 @@ export class DeckComponent implements OnInit {
         this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
-    }
-
-    addDeck(value: DeckLinkByCategory) {
-        this.deckService.addDeck(value, this.url).subscribe(
-            data => this.decks.push(data),
-            error => console.log(error)
-        );
     }
 
     getCardsLink(link: Link): string {

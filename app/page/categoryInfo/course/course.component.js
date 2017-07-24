@@ -23,9 +23,10 @@ var CourseComponent = (function () {
         this.courseService.getCourse(this.url)
             .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
     };
-    CourseComponent.prototype.addCourse = function (value) {
+    CourseComponent.prototype.getDecks = function (course) {
         var _this = this;
-        this.courseService.addCourse(value, this.url).subscribe(function (data) { return _this.courses.push(data); }, function (error) { return console.log(error); });
+        this.courseService.getDecks(course.decks.href)
+            .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     return CourseComponent;
 }());
@@ -36,7 +37,8 @@ __decorate([
 CourseComponent = __decorate([
     core_1.Component({
         selector: 'course-table',
-        template: require('./course.component.html!text')
+        template: require('./course.component.html!text'),
+        styleUrls: ['app/page/categoryInfo/categoryInfo.css']
     }),
     __metadata("design:paramtypes", [course_service_1.CourseService,
         orlp_service_1.ORLPService])
