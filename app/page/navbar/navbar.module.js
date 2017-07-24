@@ -13,18 +13,19 @@ var common_1 = require("@angular/common");
 var navbar_component_1 = require("./navbar.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
-var orlp_service_1 = require("./orlp.service");
-var main_module_1 = require("./page/main/main.module");
-var admin_module_1 = require("./page/admin/admin.module");
-var card_module_1 = require("./page/card/card.module");
-var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
-var signup_module_1 = require("../signup/signup.module");
-var login_module_1 = require("../login/login.module");
 var navbar_filter_pipe_1 = require("./navbar.filter.pipe");
 var deck_service_1 = require("./deck.service");
 var cabinet_module_1 = require("../cabinet/cabinet.module");
-var angular_star_rating_1 = require("angular-star-rating");
+var categoryInfo_module_1 = require("../categoryInfo/categoryInfo.module");
+var signup_module_1 = require("../signup/signup.module");
+var main_module_1 = require("../main/main.module");
+var login_module_1 = require("../login/login.module");
+var admin_module_1 = require("../admin/admin.module");
+var card_module_1 = require("../card/card.module");
 var core_2 = require("angular2-cookie/core");
+var orlp_service_1 = require("../../orlp.service");
+var angular_star_rating_1 = require("angular-star-rating");
+var logout_service_1 = require("../logout/logout.service");
 var NavbarModule = (function () {
     function NavbarModule() {
     }
@@ -56,7 +57,7 @@ NavbarModule = __decorate([
             navbar_component_1.NavbarComponent,
             navbar_filter_pipe_1.NavbarFilterPipe,
         ],
-        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService, core_2.CookieService],
+        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService, core_2.CookieService, logout_service_1.LogoutService],
         bootstrap: [navbar_component_1.NavbarComponent]
     })
 ], NavbarModule);

@@ -16,6 +16,8 @@ import {AdminModule} from "../admin/admin.module";
 import {CardModule} from "../card/card.module";
 import {CookieService} from "angular2-cookie/core";
 import {ORLPService} from "../../orlp.service";
+import {StarRatingModule} from "angular-star-rating";
+import {LogoutService} from "../logout/logout.service";
 
 @NgModule({
     imports: [
@@ -36,7 +38,7 @@ import {ORLPService} from "../../orlp.service";
         AdminModule,
         CardModule,
         CabinetModule,
-        this.StarRatingModule
+        StarRatingModule
     ],
     exports: [],
     declarations: [
@@ -44,7 +46,7 @@ import {ORLPService} from "../../orlp.service";
         NavbarFilterPipe,
     ],
 
-    providers: [ORLPService, DeckService, CookieService],
+    providers: [ORLPService, DeckService, CookieService, LogoutService],
     bootstrap: [NavbarComponent]
 })
 export class NavbarModule {

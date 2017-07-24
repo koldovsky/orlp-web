@@ -2,11 +2,11 @@
 <nav>
     <ul class="navigation-bar">
         <!-- LOGO-GUEST -->
-        <li *ngIf="false" class="nav-logo">
+        <li *ngIf="!isAuthorized" class="nav-logo">
             <a id="nav-logo" [routerLink]="['/main']">ORLP</a>
         </li>
         <!-- DROPDOWN-USER -->
-        <li *ngIf="true" class="main-dropdown-menu">
+        <li *ngIf="isAuthorized" class="main-dropdown-menu">
             <ul>
                 <li class="main-menu">
                     <a [routerLink]="['/main']">Main Menu</a>
@@ -35,15 +35,15 @@
             <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
-        <li *ngIf="false" class="nav-signup">
+        <li *ngIf="!isAuthorized" class="nav-signup">
             <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
         </li>
         <!-- SIGN IN-GUEST -->
-        <li *ngIf="false" class="nav-signin">
+        <li *ngIf="!isAuthorized" class="nav-signin">
             <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
         </li>
         <!-- USER-DETAILS -->
-        <li *ngIf="true" class="user-details" style="cursor: pointer">
+        <li *ngIf="isAuthorized" class="user-details" style="cursor: pointer">
             <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
             <!-- SIGN-OUT-USER -->
             <div class="signout" *ngIf="showLogOut">
@@ -51,13 +51,13 @@
             </div>
         </li>
         <!-- USER-IMAGE -->
-        <li *ngIf="true" class="user-image">
+        <li *ngIf="isAuthorized" class="user-image">
             <a [routerLink]="['/login']">
                 <img id="user-image" src="../../../image/avatar.png">
             </a>
         </li>
         <!-- USER-INFORMATION -->
-        <li *ngIf="true" class="user-information">
+        <li *ngIf="isAuthorized" class="user-information">
             <div class="username">Username</div>
             <div class="email">user@gmail.com</div>
         </li>
