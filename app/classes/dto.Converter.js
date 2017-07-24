@@ -8,9 +8,15 @@ var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
 var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var public_users_DTO_1 = require("./public.users.DTO");
+var linkByCategory_deck_DTO_1 = require("./DeckDTO/linkByCategory.deck.DTO");
+var public_card_DTO_1 = require("./CardsDTO/public.card.DTO");
 var DTOConverter = (function () {
     function DTOConverter() {
     }
+    DTOConverter.jsonToPublicCards = function (data) {
+        var self = DTOConverter.jsonToLink("self", data._links.self);
+        return new public_card_DTO_1.CardPublic(data.answer, data.question, self);
+    };
     DTOConverter.jsonToPublicCourse = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new public_course_DTO_1.CoursePublic(data.name, data.description, data.imagebase64, self);
@@ -18,6 +24,11 @@ var DTOConverter = (function () {
     DTOConverter.jsonToPublicDeck = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new public_deck_DTO_1.DeckPublic(data.name, data.description, self);
+    };
+    DTOConverter.jsonToDeckLinkByCategory = function (data) {
+        var self = DTOConverter.jsonToLink("self", data._links.self);
+        var cards = DTOConverter.jsonToLink("cards", data._links.cards);
+        return new linkByCategory_deck_DTO_1.DeckLinkByCategory(data.name, data.description, self, cards);
     };
     DTOConverter.jsonToTopCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);

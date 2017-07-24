@@ -27,6 +27,9 @@ var DeckComponent = (function () {
         var _this = this;
         this.deckService.addDeck(value, this.url).subscribe(function (data) { return _this.decks.push(data); }, function (error) { return console.log(error); });
     };
+    DeckComponent.prototype.getCardsLink = function (link) {
+        return this.orlpService.getShortLink(link);
+    };
     return DeckComponent;
 }());
 __decorate([

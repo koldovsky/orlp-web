@@ -9,5 +9,5 @@ export class DeckPublic {
         this.name = name;
         this.description = description;
         this.self = self;
-    }
+     }
 }

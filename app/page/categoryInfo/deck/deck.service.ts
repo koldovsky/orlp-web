@@ -10,19 +10,20 @@ import {IDeck} from "../../../interfaces/deck";
 import {Template} from "../../../interfaces/templateUrl";
 import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
+import {DeckLinkByCategory} from "../../../classes/DeckDTO/linkByCategory.deck.DTO";
 
 @Injectable()
 export class DeckService {
 
     constructor(private orlp: ORLPService) { }
 
-    getDecks(url : string): Observable<DeckPublic[]> {
+    getDecks(url : string): Observable<DeckLinkByCategory[]> {
         return this.orlp.get(url)
-            .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
+            .map((response: Response) => <DeckLinkByCategory[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()))
             .catch(this.handleError);
     }
 
-    addDeck(body: IDeck, url: string): Observable<DeckPublic> {
+    addDeck(body: DeckLinkByCategory, url: string): Observable<DeckLinkByCategory> {
 
         return this.orlp.post(url, body)
             .map((res: Response) =>  res.json())

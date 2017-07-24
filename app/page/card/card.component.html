@@ -1,12 +1,11 @@
 
-
 <div class="container">
     <div class="card-container">
         <div class="card" [ngClass]="{'rotate' : routing == true}">
             <div class="front">
                 <div class="header">
                     <h1 class="motto">
-                        How to add two numbers in Java ?
+                        {{cards[questionNumber].question}}
                     </h1>
                 </div>
                 <div class="content">
@@ -20,7 +19,7 @@
             <div class="back">
                 <div class="header">
                     <h1 class="motto">
-                        How to add two numbers in Java ?
+                        {{cards[questionNumber].question}}
                     </h1>
                 </div>
                 <div class="content">
@@ -33,13 +32,13 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="card">
-                                    <textarea>int c = a + b;</textarea>
+                                    <textarea>{{cards[questionNumber].answer}}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <button class="btn btn-primary mt-3 mx-auto" (click)="onRotate()">Check</button>
+                    <button class="btn btn-primary mt-3 mx-auto" (click)="onRotateBack()">Next question</button>
                 </div>
             </div> <!-- end back panel -->
         </div> <!-- end card -->

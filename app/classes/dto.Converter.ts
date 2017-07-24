@@ -7,8 +7,16 @@ import {link} from "fs";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {UsersPublic} from "./public.users.DTO";
+import {DeckLinkByCategory} from "./DeckDTO/linkByCategory.deck.DTO";
+import {CardPublic} from "./CardsDTO/public.card.DTO";
 
 export class DTOConverter {
+
+    public static jsonToPublicCards(data: any): CardPublic {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+
+        return new CardPublic(data.answer, data.question, self);
+    }
 
     public static jsonToPublicCourse(data: any): CoursePublic {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
@@ -20,6 +28,13 @@ export class DTOConverter {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
 
         return new DeckPublic(data.name, data.description, self);
+    }
+
+    public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+        let cards: Link = DTOConverter.jsonToLink("cards", data._links.cards);
+
+        return new DeckLinkByCategory(data.name, data.description, self, cards);
     }
 
     public static jsonToTopCategory(data: any): CategoryTop {

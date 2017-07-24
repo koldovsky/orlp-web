@@ -10,36 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var orlp_service_1 = require("../../../orlp.service");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
-require("rxjs/add/observable/throw");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
-var DeckService = (function () {
-    function DeckService(orlp) {
+var orlp_service_1 = require("../../orlp.service");
+var dto_Converter_1 = require("../../classes/dto.Converter");
+var CardService = (function () {
+    function CardService(orlp) {
         this.orlp = orlp;
     }
-    DeckService.prototype.getDecks = function (url) {
+    CardService.prototype.getCards = function (url) {
         return this.orlp.get(url)
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToDeckLinkByCategory, response.json()); })
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCards, response.json()); })
             .catch(this.handleError);
     };
-    DeckService.prototype.addDeck = function (body, url) {
-        return this.orlp.post(url, body)
-            .map(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
-    DeckService.prototype.handleError = function (error) {
+    CardService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return DeckService;
+    return CardService;
 }());
-DeckService = __decorate([
+CardService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], DeckService);
-exports.DeckService = DeckService;
-//# sourceMappingURL=deck.service.js.map
+], CardService);
+exports.CardService = CardService;
+//# sourceMappingURL=card.service.js.map
