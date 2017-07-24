@@ -1,0 +1,27 @@
+<main>
+    <div class="vertical-menu" style="float:left">
+        <ul>
+            <li><a [routerLink]="['/cabinet/folder']">My folder</a></li>
+            <li><a [routerLink]="['/cabinet/calendar']">Calendar</a></li>
+        </ul>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <table class="table table-striped" style="background-color: white; width: 50%;">
+            <thead (click)="getUserDecks(); value = !value;" style="cursor:pointer">
+                <tr>
+                    <td><img src="../../../image/categories.png" class="mx-auto d-block rounded-main"></td>
+                    <td>Default folder</td>
+                </tr>
+            </thead>
+            <tbody *ngIf="value">
+                <tr *ngFor="let deck of decks">
+                    <td>{{deck.name}}</td>
+                    <td>{{deck.description}}</td>
+                    <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
+                    <td><button>START</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>

@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-
-import {IDeck} from "../../../interfaces/deck";
 import {DeckService} from "./deck.service";
 import {ORLPService} from "../../../orlp.service";
 import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 
 @Component({
     selector: 'deck-table',
-    template: require('./deck.component.html!text')
+    template: require('./deck.component.html!text'),
+    styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
+
 export class DeckComponent implements OnInit {
 
     public decks: DeckPublic[];
@@ -25,12 +25,5 @@ export class DeckComponent implements OnInit {
         this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
-    }
-
-    addDeck(value: DeckPublic) {
-        this.deckService.addDeck(value, this.url).subscribe(
-            data => this.decks.push(data),
-            error => console.log(error)
-        );
     }
 }

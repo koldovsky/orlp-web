@@ -16,6 +16,7 @@ var course_service_1 = require("./course/course.service");
 var deck_service_1 = require("./deck/deck.service");
 var categoryInfo_component_1 = require("./categoryInfo.component");
 var categoryInfo_service_1 = require("./categoryInfo.service");
+var angular_star_rating_1 = require("angular-star-rating");
 var CategoryInfoModule = (function () {
     function CategoryInfoModule() {
     }
@@ -26,6 +27,7 @@ CategoryInfoModule = __decorate([
         imports: [
             forms_1.FormsModule,
             common_1.CommonModule,
+            angular_star_rating_1.StarRatingModule,
             router_1.RouterModule.forChild([
                 { path: 'category/:url', component: categoryInfo_component_1.CategoryInfoComponent }
             ])

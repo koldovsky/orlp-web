@@ -26,11 +26,10 @@ var CourseService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
             .catch(this.handleError);
     };
-    CourseService.prototype.addCourse = function (body, url) {
-        // let headers = new Headers({'Content-Type': 'application/json'});
-        // let options = new RequestOptions({headers : headers});
-        return this.orlp.post(url, body)
-            .map(function (res) { return res.json(); })
+    CourseService.prototype.getDecks = function (url) {
+        url = url.replace("http://localhost:8080/", "");
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };
     CourseService.prototype.handleError = function (error) {

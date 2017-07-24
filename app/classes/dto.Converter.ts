@@ -7,19 +7,21 @@ import {link} from "fs";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {UsersPublic} from "./public.users.DTO";
+import {CourseLink} from "./CourseDTO/link.course.DTO";
 
 export class DTOConverter {
 
-    public static jsonToPublicCourse(data: any): CoursePublic {
+    public static jsonToPublicCourse(data: any): CourseLink {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+        let decks: Link = DTOConverter.jsonToLink("decks", data._links.decks);
 
-        return new CoursePublic(data.name, data.description, data.imagebase64, self);
+        return new CourseLink(data.name, data.description, data.imagebase64, self, decks);
     }
 
     public static jsonToPublicDeck(data: any): DeckPublic {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
 
-        return new DeckPublic(data.name, data.description, self);
+        return new DeckPublic(data.name, data.description, data.rating, self);
     }
 
     public static jsonToTopCategory(data: any): CategoryTop {

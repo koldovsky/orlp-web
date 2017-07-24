@@ -2,12 +2,12 @@ import { CategoryTop } from "./CategoryDTO/top.category.DTO";
 import { Link } from "./link";
 import { CategoryLink } from "./CategoryDTO/link.category.DTO";
 import { DeckPublic } from "./DeckDTO/public.deck.DTO";
-import { CoursePublic } from "./CourseDTO/public.course.DTO";
 import { CategoriesPublic } from "./CategoryDTO/public.categories";
 import { CourseTop } from "./CourseDTO/top.course.DTO";
 import { UsersPublic } from "./public.users.DTO";
+import { CourseLink } from "./CourseDTO/link.course.DTO";
 export declare class DTOConverter {
-    static jsonToPublicCourse(data: any): CoursePublic;
+    static jsonToPublicCourse(data: any): CourseLink;
     static jsonToPublicDeck(data: any): DeckPublic;
     static jsonToTopCategory(data: any): CategoryTop;
     static jsonToTopCourse(data: any): CourseTop;

@@ -1,0 +1,23 @@
+.vertical-menu ul {
+    list-style-type: none;
+    margin-right: 50px;
+    margin-left: 0px;
+    width: 300px;
+}
+
+.vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+}
+
+.vertical-menu a.active {
+    background-color: darkgreen;
+    color: white;
+}

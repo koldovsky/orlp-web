@@ -24,8 +24,7 @@ var CategoryInfoComponent = (function () {
     CategoryInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            var url = params['url'];
-            _this.url = url;
+            _this.url = params['url'];
         });
         this.takeCategory();
     };
