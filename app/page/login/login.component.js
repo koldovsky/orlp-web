@@ -34,6 +34,7 @@ var LoginComponent = (function () {
                 .subscribe(function (response) {
                 _this.success = true;
                 console.log(response.status);
+                console.log(response.json());
                 _this.router.navigate(['main']);
             }, function (error) {
                 _this.processError(error);
