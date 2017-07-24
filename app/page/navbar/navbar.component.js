@@ -23,7 +23,8 @@ var NavbarComponent = (function () {
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.ifUserIsAuthorized();
+        this.isAuthorized = this.ifUserIsAuthorized();
+        console.log(this.isAuthorized);
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };

@@ -17,7 +17,6 @@ var LogoutService = (function () {
         this.cookieWithToken = 'Authentication';
     }
     LogoutService.prototype.isAuthorized = function () {
-        console.log(this.cookie.get(this.cookieWithToken));
         if (this.cookie.get(this.cookieWithToken) != null) {
             return true;
         }

@@ -8,7 +8,6 @@ export class LogoutService {
     }
 
     isAuthorized(): boolean {
-        console.log(this.cookie.get(this.cookieWithToken));
         if (this.cookie.get(this.cookieWithToken) != null) {
             return true;
         }
