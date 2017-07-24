@@ -14,14 +14,16 @@ var forms_1 = require("@angular/forms");
 var login_service_1 = require("./login.service");
 var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
+var accountVerification_service_1 = require("../signup/accountVerification/accountVerification.service");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService, auth, router, activatedRoute) {
+    function LoginComponent(fb, loginService, auth, router, activatedRoute, accountVerify) {
         var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
         this.router = router;
         this.activatedRoute = activatedRoute;
+        this.accountVerify = accountVerify;
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
@@ -33,15 +35,18 @@ var LoginComponent = (function () {
             _this.loginService.signIn(_this.loginForm.value)
                 .subscribe(function (response) {
                 _this.success = true;
-                console.log(response.status);
-                console.log(response.json());
                 _this.router.navigate(['main']);
+                _this.reload();
             }, function (error) {
                 _this.processError(error);
             });
         };
     }
     LoginComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.accountVerify.getMessage().subscribe(function (verifStatus) {
+            _this.verificationStat = verifStatus;
+        });
         this.loginForm = this.fb.group({
             password: ['', [forms_1.Validators.required]],
             username: ['', [forms_1.Validators.required]],
@@ -82,13 +87,16 @@ var LoginComponent = (function () {
     LoginComponent.prototype.sendGoogleToken = function () {
         this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
     };
+    LoginComponent.prototype.reload = function () {
+        window.location.reload();
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
     core_1.Component({
         template: require('app/page/login/login.component.html!text')
     }),
-    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router, router_1.ActivatedRoute, accountVerification_service_1.AccountVerificationService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

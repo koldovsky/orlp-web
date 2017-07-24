@@ -81,14 +81,14 @@
                     <div class="alert alert-danger" *ngIf="error">
                         <span><b>Authorization failed!</b> Try again.</span>
                     </div>
-                    <div class="alert alert-success" *ngIf="success">
-                        <span>Authorization <b>successful!</b></span>
+                    <div class="alert alert-success" *ngIf="verificationStat">
+                        <span>Your account successfully activated</span>
                     </div>
                 </div>
             </div>
         </div>
 
     </form>
-    <button (click)="signInGoogle('google')" class="btn-google">google</button>
+    <button (click)="signInGoogle('google') ; reload()" class="btn-google">google</button>
     <button (click)="signInFacebook('facebook') " class="btn-facebook">facebook</button>
 </div>

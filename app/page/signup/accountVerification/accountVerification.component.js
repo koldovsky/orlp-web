@@ -29,14 +29,10 @@ var AccountVerificationComponent = (function () {
         var _this = this;
         this.error = false;
         this.accVerify.accountVerificate(this.token).subscribe(function (success) {
-            console.log(success);
-            console.log(_this.verificationError);
+            _this.verificationSuccess = true;
+            _this.accVerify.sendMessage();
             _this.router.navigate(['login']);
         }, function (error) {
-            _this.error = true;
-            console.log(error);
-            _this.verificationError = true;
-            console.log(_this.verificationError);
             _this.router.navigate(['registr']);
         });
     };

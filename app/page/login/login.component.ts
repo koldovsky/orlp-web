@@ -1,16 +1,14 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
 
 import {AuthService} from "angular2-social-login";
-import {ActivatedRoute, Params, Router} from "@angular/router";
-import {error} from "util";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AccountVerificationService} from "../signup/accountVerification/accountVerification.service";
 
 @Component({
     template: require('app/page/login/login.component.html!text')
 })
-
-
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     success: boolean = false;
@@ -19,10 +17,13 @@ export class LoginComponent implements OnInit {
     public user;
     verificationStat: boolean = false;
 
-    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
+    constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute, private accountVerify: AccountVerificationService) {
     }
 
     ngOnInit() {
+        this.accountVerify.getMessage().subscribe(verifStatus => {
+            this.verificationStat = verifStatus
+        });
         this.loginForm = this.fb.group({
             password: ['', [Validators.required]],
             username: ['', [Validators.required]],
@@ -36,9 +37,8 @@ export class LoginComponent implements OnInit {
         this.loginService.signIn(this.loginForm.value)
             .subscribe((response) => {
                 this.success = true;
-                console.log(response.status);
-                console.log(response.json());
                 this.router.navigate(['main']);
+                this.reload();
             }, (error) => {
                 this.processError(error);
             });
@@ -87,5 +87,10 @@ export class LoginComponent implements OnInit {
         this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(
             error => console.log(error)
         );
+
+    }
+
+    reload() {
+        window.location.reload();
     }
 }
