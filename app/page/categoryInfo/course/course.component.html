@@ -4,7 +4,7 @@
     <table class="table table-striped" *ngFor="let course of courses">
         <thead (click)="getDecks(course); value = (value === course.name) ? false : value = course.name" style="cursor:pointer">
             <tr>
-                <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main"></td>
+                <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main course-img"></td>
                 <td>{{course.name}}</td>
                 <td>{{course.description}}</td>
             </tr>
