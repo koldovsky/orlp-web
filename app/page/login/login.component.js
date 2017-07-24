@@ -30,15 +30,15 @@ var LoginComponent = (function () {
             _this.success = false;
             _this.error = false;
             _this.wrongDetails = false;
-            _this.loginService.signIn(_this.loginForm.value);
-            // .subscribe((response) => {
-            //     this.success = true;
-            //     console.log(response.status);
-            //     console.log(response.headers);
-            //     this.router.navigate(['main']);
-            // }, (error) => {
-            //     this.processError(error);
-            // });
+            _this.loginService.signIn(_this.loginForm.value)
+                .subscribe(function (response) {
+                _this.success = true;
+                console.log(response.status);
+                console.log(response.json());
+                _this.router.navigate(['main']);
+            }, function (error) {
+                _this.processError(error);
+            });
         };
     }
     LoginComponent.prototype.ngOnInit = function () {

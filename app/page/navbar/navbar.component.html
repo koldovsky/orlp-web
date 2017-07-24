@@ -2,8 +2,8 @@
 <nav>
     <ul class="navigation-bar">
         <!-- LOGO-GUEST -->
-        <li *ngIf="!isAuthorized" class="nav-logo">
-            <a id="nav-logo" [routerLink]="['/main']">ORLP</a>
+        <li class="nav-logo">
+            <a id="nav-logo" [routerLink]="['/main']" *ngIf="!isAuthorized" >ORLP</a>
         </li>
         <!-- DROPDOWN-USER -->
         <li *ngIf="isAuthorized" class="main-dropdown-menu">
@@ -35,18 +35,18 @@
             <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
-        <li *ngIf="!isAuthorized" class="nav-signup">
-            <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
+        <li class="nav-signup">
+            <a id="nav-signup" [routerLink]="['/registr']" *ngIf="!isAuthorized" >SIGN UP</a>
         </li>
         <!-- SIGN IN-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signin">
-            <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
+            <a id="nav-signin" [routerLink]="['/login']" *ngIf="!isAuthorized" >SIGN IN</a>
         </li>
         <!-- USER-DETAILS -->
         <li *ngIf="isAuthorized" class="user-details" style="cursor: pointer">
             <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
             <!-- SIGN-OUT-USER -->
-            <div class="signout" *ngIf="showLogOut">
+            <div class="signout" *ngIf="showLogOut" (click)="logoutUser()">
                 <a>Sign out</a>
             </div>
         </li>

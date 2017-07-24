@@ -23,7 +23,8 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ifUserIsAuthorized();
+        this.isAuthorized = this.ifUserIsAuthorized();
+        console.log(this.isAuthorized);
         this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
