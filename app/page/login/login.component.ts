@@ -7,7 +7,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AccountVerificationService} from "../signup/accountVerification/accountVerification.service";
 
 @Component({
-    template: require('app/page/login/login.component.html!text')
+    template: require('app/page/login/login.component.html!text'),
+    styleUrls: ['app/page/login/login.component.css', ]
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;

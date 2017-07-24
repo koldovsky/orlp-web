@@ -94,7 +94,8 @@ var LoginComponent = (function () {
 }());
 LoginComponent = __decorate([
     core_1.Component({
-        template: require('app/page/login/login.component.html!text')
+        template: require('app/page/login/login.component.html!text'),
+        styleUrls: ['app/page/login/login.component.css',]
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, login_service_1.LoginService, angular2_social_login_1.AuthService, router_1.Router, router_1.ActivatedRoute, accountVerification_service_1.AccountVerificationService])
 ], LoginComponent);
