@@ -22,20 +22,8 @@
                 <td>{{user.email}}</td>
                 <td>{{user.accountStatus}}</td>
                 <td>
-                    <div class="btn-group open">
-                        <a class="btn btn-secondary"><i class="fa fa-cog"></i> More</a>
-                        <a class="btn btn-secondary " data-toggle="dropdown">
-                            <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <div [routerLink]="['/admin/users', getUserLink(user.self)]">
-                                <li>
-                                    <button class="btn btn-secondary"> View Details</button>
-                                </li>
-                            </div>
-                            <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
-                            <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
-                        </ul>
+                    <div [routerLink]="['/admin/users', getUserLink(user.self)]">
+                        <button class="btn btn-secondary"><i class="fa fa-cog"></i> More</button>
                     </div>
                 </td>
             </tr>

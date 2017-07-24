@@ -19,6 +19,15 @@ export class ORLPService {
         return this.http.post(this.SERVER_ADDRESS + url, body, {});
     }
 
+    put(url: string, body: any) {
+        return this.http.put(this.SERVER_ADDRESS + url, body, {});
+    }
+
+    delete(url: string, body: any) {
+        // return this.http.delete(this.SERVER_ADDRESS + url, body, {});
+        return this.http.delete(this.SERVER_ADDRESS + url, body);
+    }
+
     public getShortLink(link: Link) {
         let url: string = link.href;
         url = url.replace(this.SERVER_ADDRESS, "");

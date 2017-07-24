@@ -32,16 +32,6 @@ var CourseService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };
-    // getDecks(): Observable<DeckPublic[]> {
-    //     return this.orlp.get('api/decks/ordered')
-    //         .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
-    //         .catch(this.handleError);
-    // }
-    CourseService.prototype.addCourse = function (body, url) {
-        return this.orlp.post(url, body)
-            .map(function (res) { return res.json(); })
-            .catch(this.handleError);
-    };
     CourseService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

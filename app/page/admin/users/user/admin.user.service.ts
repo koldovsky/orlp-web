@@ -22,6 +22,18 @@ export class AdminUserService {
             .catch(this.handleError);
     }
 
+    updateAccountState(body: UsersPublic, url: string): Observable<UsersPublic> {
+        return this.orlp.put(url, body)
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
+    deleteAccountState(body: UsersPublic, url: string): Observable<UsersPublic> {
+        return this.orlp.delete(url, body)
+            .map((res: Response) => res.json())
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

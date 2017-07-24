@@ -13,5 +13,4 @@ export declare class CourseComponent implements OnInit {
     constructor(courseService: CourseService, orlpService: ORLPService);
     ngOnInit(): void;
     getDecks(course: CourseLink): void;
-    addCourse(value: CourseLink): void;
 }

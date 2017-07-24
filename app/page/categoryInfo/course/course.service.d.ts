@@ -11,6 +11,5 @@ export declare class CourseService {
     constructor(orlp: ORLPService);
     getCourse(url: string): Observable<CourseLink[]>;
     getDecks(url: string): Observable<DeckPublic[]>;
-    addCourse(body: CourseLink, url: string): Observable<CourseLink>;
     private handleError(error);
 }

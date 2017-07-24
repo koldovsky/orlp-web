@@ -15,6 +15,7 @@ import {userInfo} from "os";
 })
 
 export class AdminUserComponent implements OnInit {
+    AdminUserService: any;
     user: UsersPublic;
     errorMessage: string;
     private sub: Subscription;
@@ -49,5 +50,38 @@ export class AdminUserComponent implements OnInit {
 
     public getUserLink(link: Link): string {
         return this.orlp.getShortLink(link);
+    }
+
+    updateAccountState(currentUser: UsersPublic) {
+        this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
+            user => this.user = user,
+            error => console.log(error)
+        );
+        console.log(currentUser);
+    }
+
+    deleteAccountState(currentUser: UsersPublic) {
+        this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(
+            user => this.user = user,
+            error => console.log(error)
+        );
+        console.log(currentUser);
+    }
+
+    clickMe(currentUsersStatus: string) {
+        switch (currentUsersStatus) {
+            case "ACTIVE":
+                document.getElementById('updateButton')[0].disabled = false;
+                document.getElementById('deleteButton')[0].disabled = false;
+                break;
+            case "BLOCKED":
+                document.getElementById('updateButton')[0].disabled = false;
+                document.getElementById('deleteButton')[0].disabled = true;
+                break;
+            case "DELETED":
+                document.getElementById('updateButton')[0].disabled = true;
+                document.getElementById('deleteButton')[0].disabled = false;
+                break;
+        }
     }
 }

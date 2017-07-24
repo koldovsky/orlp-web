@@ -23,10 +23,6 @@ var DeckComponent = (function () {
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
-    DeckComponent.prototype.addDeck = function (value) {
-        var _this = this;
-        this.deckService.addDeck(value, this.url).subscribe(function (data) { return _this.decks.push(data); }, function (error) { return console.log(error); });
-    };
     return DeckComponent;
 }());
 __decorate([

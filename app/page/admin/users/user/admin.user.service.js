@@ -27,6 +27,16 @@ var AdminUserService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonToPublicUsers(response.json()); })
             .catch(this.handleError);
     };
+    AdminUserService.prototype.updateAccountState = function (body, url) {
+        return this.orlp.put(url, body)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    AdminUserService.prototype.deleteAccountState = function (body, url) {
+        return this.orlp.delete(url, body)
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
     AdminUserService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
