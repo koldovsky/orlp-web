@@ -26,7 +26,6 @@ var ORLPService = (function () {
         return this.http.put(this.SERVER_ADDRESS + url, body, {});
     };
     ORLPService.prototype.delete = function (url, body) {
-        // return this.http.delete(this.SERVER_ADDRESS + url, body, {});
         return this.http.delete(this.SERVER_ADDRESS + url, body);
     };
     ORLPService.prototype.getShortLink = function (link) {

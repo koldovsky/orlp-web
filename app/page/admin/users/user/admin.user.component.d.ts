@@ -8,7 +8,6 @@ export declare class AdminUserComponent implements OnInit {
     private route;
     private orlp;
     private adminUserSevice;
-    AdminUserService: any;
     user: UsersPublic;
     errorMessage: string;
     private sub;
@@ -20,5 +19,4 @@ export declare class AdminUserComponent implements OnInit {
     getUserLink(link: Link): string;
     updateAccountState(currentUser: UsersPublic): void;
     deleteAccountState(currentUser: UsersPublic): void;
-    clickMe(currentUsersStatus: string): void;
 }

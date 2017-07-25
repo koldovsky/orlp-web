@@ -32,7 +32,8 @@ AdminCategoryComponent = __decorate([
     core_1.Component({
         selector: "admin-all-category",
         providers: [admin_category_service_1.AdminCategoryService],
-        template: require('app/page/admin/categories/admin.category.component.html!text')
+        template: require('app/page/admin/categories/admin.category.component.html!text'),
+        styleUrls: ['app/page/admin/styles-for-admin-page.css']
     }),
     __metadata("design:paramtypes", [admin_category_service_1.AdminCategoryService, orlp_service_1.ORLPService])
 ], AdminCategoryComponent);
