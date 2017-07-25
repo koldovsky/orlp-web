@@ -10,5 +10,6 @@ export declare class AdminCategoryService {
     private orlp;
     constructor(orlp: ORLPService);
     getCatalogs(): Observable<CategoriesPublic[]>;
+    addCategory(body: CategoriesPublic, url: string): Observable<CategoriesPublic>;
     private handleError(error);
 }

@@ -55,7 +55,7 @@ AdminUserComponent = __decorate([
         selector: 'one-user',
         providers: [admin_user_service_1.AdminUserService],
         template: require('app/page/admin/users/user/admin.user.component.html!text'),
-        styleUrls: ['app/page/admin/styles-for-admin-page.css']
+        styleUrls: ['app/page/admin/admin.style.css']
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         orlp_service_1.ORLPService,

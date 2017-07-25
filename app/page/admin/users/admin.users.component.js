@@ -34,7 +34,7 @@ AdminUsersComponent = __decorate([
         selector: "admin-all-users",
         providers: [admin_users_service_1.AdminUsersService],
         template: require('app/page/admin/users/admin.users.component.html!text'),
-        styleUrls: ['app/page/admin/styles-for-admin-page.css']
+        styleUrls: ['app/page/admin/admin.style.css']
     }),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService,
         admin_users_service_1.AdminUsersService])

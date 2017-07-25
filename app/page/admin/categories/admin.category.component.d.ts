@@ -12,4 +12,5 @@ export declare class AdminCategoryComponent implements OnInit {
     constructor(adminCategoryService: AdminCategoryService, orlpService: ORLPService);
     ngOnInit(): void;
     toggleTable(): void;
+    addCategory(value: CategoriesPublic): void;
 }

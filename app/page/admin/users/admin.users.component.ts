@@ -12,7 +12,7 @@ import {AdminUserService} from "./user/admin.user.service";
     selector: "admin-all-users",
     providers: [AdminUsersService],
     template: require('app/page/admin/users/admin.users.component.html!text'),
-    styleUrls: ['app/page/admin/styles-for-admin-page.css']
+    styleUrls: ['app/page/admin/admin.style.css']
 })
 
 export class AdminUsersComponent implements OnInit {

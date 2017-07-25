@@ -8,7 +8,7 @@ import {ORLPService} from "../../../orlp.service";
     selector: "admin-all-category",
     providers: [AdminCategoryService],
     template: require('app/page/admin/categories/admin.category.component.html!text'),
-    styleUrls: ['app/page/admin/styles-for-admin-page.css']
+    styleUrls: ['app/page/admin/admin.style.css']
 })
 
 export class AdminCategoryComponent implements OnInit {
@@ -28,5 +28,12 @@ export class AdminCategoryComponent implements OnInit {
 
     toggleTable(): void {
         this.showTable = !this.showTable;
+    }
+
+    addCategory(value: CategoriesPublic) {
+        this.adminCategoryService.addCategory(value, 'api/admin/add/category').subscribe(
+            data => this.categories.push(data),
+            error => console.log(error)
+        );
     }
 }

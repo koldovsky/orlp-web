@@ -22,6 +22,12 @@ export class AdminCategoryService {
             .catch(this.handleError);
     }
 
+    addCategory(body: CategoriesPublic, url: string): Observable<CategoriesPublic> {
+        return this.orlp.post(url, body)
+            .map((res: Response) =>  res.json())
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');

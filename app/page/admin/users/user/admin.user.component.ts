@@ -10,7 +10,7 @@ import {Subscription} from "rxjs/Subscription";
     selector: 'one-user',
     providers: [AdminUserService],
     template: require('app/page/admin/users/user/admin.user.component.html!text'),
-    styleUrls: ['app/page/admin/styles-for-admin-page.css']
+    styleUrls: ['app/page/admin/admin.style.css']
 })
 
 export class AdminUserComponent implements OnInit {

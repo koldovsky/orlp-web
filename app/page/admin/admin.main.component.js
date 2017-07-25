@@ -23,7 +23,6 @@ AdminMainComponent = __decorate([
     core_1.Component({
         providers: [admin_main_service_1.AdminMainService],
         template: require('app/page/admin/admin.main.component.html!text'),
-        styleUrls: ["bootstrap/styles-for-card-page.css"]
     }),
     __metadata("design:paramtypes", [admin_main_service_1.AdminMainService])
 ], AdminMainComponent);

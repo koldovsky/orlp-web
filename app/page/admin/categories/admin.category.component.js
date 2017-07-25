@@ -26,6 +26,10 @@ var AdminCategoryComponent = (function () {
     AdminCategoryComponent.prototype.toggleTable = function () {
         this.showTable = !this.showTable;
     };
+    AdminCategoryComponent.prototype.addCategory = function (value) {
+        var _this = this;
+        this.adminCategoryService.addCategory(value, 'api/admin/add/category').subscribe(function (data) { return _this.categories.push(data); }, function (error) { return console.log(error); });
+    };
     return AdminCategoryComponent;
 }());
 AdminCategoryComponent = __decorate([
@@ -33,7 +37,7 @@ AdminCategoryComponent = __decorate([
         selector: "admin-all-category",
         providers: [admin_category_service_1.AdminCategoryService],
         template: require('app/page/admin/categories/admin.category.component.html!text'),
-        styleUrls: ['app/page/admin/styles-for-admin-page.css']
+        styleUrls: ['app/page/admin/admin.style.css']
     }),
     __metadata("design:paramtypes", [admin_category_service_1.AdminCategoryService, orlp_service_1.ORLPService])
 ], AdminCategoryComponent);

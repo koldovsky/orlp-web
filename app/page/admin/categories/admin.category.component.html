@@ -4,7 +4,7 @@
             <h1 class="font-color-white header-text">All Categories</h1>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h2 class="font-color-white header-text">Filter by Name:</h2>
+            <h2 class="font-color-white header-text">Search by Name:</h2>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
             <input type="text" [(ngModel)]="listFilter"/>
@@ -14,13 +14,18 @@
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-secondary button-create-category">CREATE CATEGORY</button>
+        <button class="btn btn-secondary element-margin">CREATE CATEGORY</button>
+    </div>
+    <div class="row element-margin">
+        <form class="form-inline" method="post" #form="ngForm" (submit)="addCategory(form.value)" autocomplete="off">
+            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category name">
 
-        <div>
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                <textarea type="text" class="form-control" id="inlineFormInputGroup" placeholder="Category description"></textarea>
+            </div>
 
-        </div>
-
-
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
     </div>
     <div class="row">
         <div *ngIf="categories">
