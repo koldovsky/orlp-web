@@ -4,6 +4,8 @@ import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
 import {DeckService} from "./deck.service";
 import {LogoutService} from "../logout/logout.service";
 import {Router} from "@angular/router";
+import {UserDetailsDto} from "../../classes/UserDetailsDto";
+import {NavbarService} from "./navbar.service";
 
 @Component({
     selector: 'page',
@@ -12,6 +14,7 @@ import {Router} from "@angular/router";
 })
 
 export class NavbarComponent implements OnInit {
+    userDetails: UserDetailsDto;
     decks: DeckPublic[];
     listFilter: string;
     @Input() url: string;
@@ -19,12 +22,19 @@ export class NavbarComponent implements OnInit {
     isAuthorized: boolean;
 
     constructor(private deckService: DeckService,
-                private orlpService: ORLPService, private logoutService: LogoutService, private router: Router) {
+                private orlpService: ORLPService,
+                private logoutService: LogoutService,
+                private router: Router,
+                private navbarService: NavbarService) {
     }
 
     ngOnInit(): void {
         this.isAuthorized = this.ifUserIsAuthorized();
         console.log(this.isAuthorized);
+        if(this.isAuthorized){
+            this.navbarService.getUserDetails()
+                .subscribe(user => this.userDetails = user);
+        }
         this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);

@@ -8,6 +8,7 @@ import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {AdminUsers} from "./admin.users.DTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
+import {UserDetailsDto} from "./UserDetailsDto";
 
 export class DTOConverter {
 
@@ -54,6 +55,11 @@ export class DTOConverter {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
 
         return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
+    }
+
+    public static jsonToUserDetails(data:any): UserDetailsDto{
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+        return new UserDetailsDto(data.firstName, data.lastName, data.email, self);
     }
 
     public static jsonToLink(rel: string, data: any): Link {

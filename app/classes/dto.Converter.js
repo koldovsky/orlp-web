@@ -8,6 +8,7 @@ var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var admin_users_DTO_1 = require("./admin.users.DTO");
 var link_course_DTO_1 = require("./CourseDTO/link.course.DTO");
+var UserDetailsDto_1 = require("./UserDetailsDto");
 var DTOConverter = (function () {
     function DTOConverter() {
     }
@@ -41,6 +42,10 @@ var DTOConverter = (function () {
     DTOConverter.jsonToPublicUsers = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new admin_users_DTO_1.AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
+    };
+    DTOConverter.jsonToUserDetails = function (data) {
+        var self = DTOConverter.jsonToLink("self", data._links.self);
+        return new UserDetailsDto_1.UserDetailsDto(data.firstName, data.lastName, data.email, self);
     };
     DTOConverter.jsonToLink = function (rel, data) {
         return new link_1.Link(rel, data.href);
