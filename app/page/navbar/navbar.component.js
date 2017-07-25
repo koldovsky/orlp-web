@@ -14,17 +14,23 @@ var orlp_service_1 = require("../../orlp.service");
 var deck_service_1 = require("./deck.service");
 var logout_service_1 = require("../logout/logout.service");
 var router_1 = require("@angular/router");
+var navbar_service_1 = require("./navbar.service");
 var NavbarComponent = (function () {
-    function NavbarComponent(deckService, orlpService, logoutService, router) {
+    function NavbarComponent(deckService, orlpService, logoutService, router, navbarService) {
         this.deckService = deckService;
         this.orlpService = orlpService;
         this.logoutService = logoutService;
         this.router = router;
+        this.navbarService = navbarService;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isAuthorized = this.ifUserIsAuthorized();
         console.log(this.isAuthorized);
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(function (user) { return _this.userDetails = user; });
+        }
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
@@ -50,7 +56,10 @@ NavbarComponent = __decorate([
         styleUrls: ['app/page/navbar/navbar.css', 'app/page/navbar/dropdown.css']
     }),
     __metadata("design:paramtypes", [deck_service_1.DeckService,
-        orlp_service_1.ORLPService, logout_service_1.LogoutService, router_1.Router])
+        orlp_service_1.ORLPService,
+        logout_service_1.LogoutService,
+        router_1.Router,
+        navbar_service_1.NavbarService])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

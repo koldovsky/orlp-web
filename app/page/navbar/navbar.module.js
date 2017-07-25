@@ -26,6 +26,7 @@ var core_2 = require("angular2-cookie/core");
 var orlp_service_1 = require("../../orlp.service");
 var angular_star_rating_1 = require("angular-star-rating");
 var logout_service_1 = require("../logout/logout.service");
+var navbar_service_1 = require("./navbar.service");
 var NavbarModule = (function () {
     function NavbarModule() {
     }
@@ -57,7 +58,7 @@ NavbarModule = __decorate([
             navbar_component_1.NavbarComponent,
             navbar_filter_pipe_1.NavbarFilterPipe,
         ],
-        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService, core_2.CookieService, logout_service_1.LogoutService],
+        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService, core_2.CookieService, logout_service_1.LogoutService, navbar_service_1.NavbarService],
         bootstrap: [navbar_component_1.NavbarComponent]
     })
 ], NavbarModule);

@@ -18,6 +18,7 @@ import {CookieService} from "angular2-cookie/core";
 import {ORLPService} from "../../orlp.service";
 import {StarRatingModule} from "angular-star-rating";
 import {LogoutService} from "../logout/logout.service";
+import {NavbarService} from "./navbar.service";
 
 @NgModule({
     imports: [
@@ -46,7 +47,7 @@ import {LogoutService} from "../logout/logout.service";
         NavbarFilterPipe,
     ],
 
-    providers: [ORLPService, DeckService, CookieService, LogoutService],
+    providers: [ORLPService, DeckService, CookieService, LogoutService, NavbarService],
     bootstrap: [NavbarComponent]
 })
 export class NavbarModule {
