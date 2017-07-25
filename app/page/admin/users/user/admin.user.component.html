@@ -1,42 +1,49 @@
 <div class="container">
     <div class="row">
-        <h1 class="font-color-white header-text">User info: </h1>
-        <button class="btn btn-secondary" [routerLink]="['/admin/users']">Back</button>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <h1 class="font-color-white header-text">User info: </h1>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <button class="btn btn-secondary button-size float-right" [routerLink]="['/admin/users']">Back</button>
+        </div>
+
     </div>
-    <div class="row">
+    <div class="row" *ngIf="user">
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
             <table class="table table-striped admins-tables">
                 <tbody>
                 <tr>
                     <th>First Name</th>
-                    <td>{{user?.firstName}}</td>
+                    <td>{{user.firstName}}</td>
                 </tr>
                 <tr>
                     <th>Second Name</th>
-                    <td>{{user?.lastName}}</td>
+                    <td>{{user.lastName}}</td>
                 </tr>
                 <tr>
                     <th>e-mail</th>
-                    <td>{{user?.email}}</td>
+                    <td>{{user.email}}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>{{user?.accountStatus}}</td>
+                    <td>{{user.accountStatus}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <div class="row">
-
+                <img src="https://en.opensuse.org/images/0/0b/Icon-user.png">
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                    <button class="btn btn-secondary" id="updateButton"
-                            (click)="updateAccountState(user)">Change to Status UPD
+                <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'BLOCKED') ">
+                    <button class="btn btn-secondary button-upate-size"
+                            (click)="updateAccountState(user)">BLOCK
                     </button>
-                    <button class="btn btn-secondary" id="deleteButton"
-                            (click)="deleteAccountState(user)">Change to Status DEL
+                </div>
+                <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'DELETED')">
+                    <button class="btn btn-secondary button-upate-size"
+                            (click)="deleteAccountState(user)">DELETE
                     </button>
                 </div>
             </div>

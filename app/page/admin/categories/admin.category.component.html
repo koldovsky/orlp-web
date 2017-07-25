@@ -1,19 +1,23 @@
 <div class="container">
     <div class="row">
-        <h1 class="col-xs-12 col-sm-4 col-md-4 col-lg-4 font-color-white header-text">All Categories</h1>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 font-color-white" align="right">
-            Filter by Name:
-            <input type="text" style="border-radius: 0.8rem" [(ngModel)]="listFilter"/>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 font-color-white header-text">
+            <h1 class="font-color-white header-text">All Categories</h1>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" align="right" [routerLink]="['/admin']">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <h2 class="font-color-white header-text">Filter by Name:</h2>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <input type="text" [(ngModel)]="listFilter"/>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" align="right" [routerLink]="['/admin']">
             <button class="btn btn-secondary">Back</button>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <table class="table table-striped" style="background-color: white; border-radius: 0.7rem">
+        <div>
+            <table class="table table-striped admins-tables">
                 <thead>
-                <tr style="border-top: hidden">
+                <tr class="admins-tables-header">
                     <th>#</th>
                     <th>Category Name</th>
                     <th>Category Description</th>
@@ -22,8 +26,7 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let category of categories | categoryFilter:listFilter">
-                    <td><img [src]="category.imagebase64" class="mx-auto d-block rounded-main"
-                             style="width: 50px; height: 50px">
+                    <td><img class="category-image" [src]="category.imagebase64">
                     </td>
                     <td>{{category.name}}</td>
                     <td>{{category.description}}</td>

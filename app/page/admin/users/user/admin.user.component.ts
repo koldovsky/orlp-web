@@ -1,11 +1,10 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
 import {UsersPublic} from "../../../../classes/public.users.DTO";
 import {ORLPService} from "../../../../orlp.service";
 import {Link} from "../../../../classes/link";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {userInfo} from "os";
 
 @Component({
     selector: 'one-user',
@@ -15,7 +14,6 @@ import {userInfo} from "os";
 })
 
 export class AdminUserComponent implements OnInit {
-    AdminUserService: any;
     user: UsersPublic;
     errorMessage: string;
     private sub: Subscription;
@@ -66,22 +64,5 @@ export class AdminUserComponent implements OnInit {
             error => console.log(error)
         );
         console.log(currentUser);
-    }
-
-    clickMe(currentUsersStatus: string) {
-        switch (currentUsersStatus) {
-            case "ACTIVE":
-                document.getElementById('updateButton')[0].disabled = false;
-                document.getElementById('deleteButton')[0].disabled = false;
-                break;
-            case "BLOCKED":
-                document.getElementById('updateButton')[0].disabled = false;
-                document.getElementById('deleteButton')[0].disabled = true;
-                break;
-            case "DELETED":
-                document.getElementById('updateButton')[0].disabled = true;
-                document.getElementById('deleteButton')[0].disabled = false;
-                break;
-        }
     }
 }

@@ -48,22 +48,6 @@ var AdminUserComponent = (function () {
         this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
         console.log(currentUser);
     };
-    // clickMe(currentUsersStatus: string) {
-    //     switch (currentUsersStatus) {
-    //         case "ACTIVE":
-    //             document.getElementById('updateButton')[0].disabled = false;
-    //             document.getElementById('deleteButton')[0].disabled = false;
-    //             break;
-    //         case "BLOCKED":
-    //             document.getElementById('updateButton')[0].disabled = false;
-    //             document.getElementById('deleteButton')[0].disabled = true;
-    //             break;
-    //         case "DELETED":
-    //             document.getElementById('updateButton')[0].disabled = true;
-    //             document.getElementById('deleteButton')[0].disabled = false;
-    //             break;
-    //     }
-    // }
     AdminUserComponent.prototype.clickMe = function (currentUsersStatus) {
         switch (currentUsersStatus) {
             case "ACTIVE":

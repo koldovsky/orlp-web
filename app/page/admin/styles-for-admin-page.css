@@ -1,4 +1,16 @@
 .admins-tables{
     background: white;
+    border-radius: 0.8rem;
+}
+.admins-tables-header{
+    border-top: hidden
 }
 
+img{
+    width: 50px;
+    height: 50px
+}
+
+.button-upate-size{
+    width: 20rem;
+}
