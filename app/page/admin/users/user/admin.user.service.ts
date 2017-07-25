@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../../../orlp.service";
-import {UsersPublic} from "../../../../classes/public.users.DTO";
+import {AdminUsers} from "../../../../classes/admin.users.DTO";
 import {DTOConverter} from "../../../../classes/dto.Converter";
 
 @Injectable()
@@ -16,19 +16,19 @@ export class AdminUserService {
     constructor(private orlp: ORLPService) {
     }
 
-    public getUser(url: string): Observable<UsersPublic> {
+    public getUser(url: string): Observable<AdminUsers> {
         return this.orlp.get(url)
-            .map((response: Response) => <UsersPublic> DTOConverter.jsonToPublicUsers(response.json()))
+            .map((response: Response) => <AdminUsers> DTOConverter.jsonToPublicUsers(response.json()))
             .catch(this.handleError);
     }
 
-    updateAccountState(body: UsersPublic, url: string): Observable<UsersPublic> {
+    updateAccountState(body: AdminUsers, url: string): Observable<AdminUsers> {
         return this.orlp.put(url, body)
             .map((res: Response) => res.json())
             .catch(this.handleError);
     }
 
-    deleteAccountState(body: UsersPublic, url: string): Observable<UsersPublic> {
+    deleteAccountState(body: AdminUsers, url: string): Observable<AdminUsers> {
         return this.orlp.delete(url, body)
             .map((res: Response) => res.json())
             .catch(this.handleError);

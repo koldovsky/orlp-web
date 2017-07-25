@@ -6,7 +6,6 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
             <button class="btn btn-secondary button-size float-right" [routerLink]="['/admin/users']">Back</button>
         </div>
-
     </div>
     <div class="row" *ngIf="user">
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
@@ -37,12 +36,12 @@
             </div>
             <div class="row">
                 <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'BLOCKED') ">
-                    <button class="btn btn-secondary button-upate-size"
+                    <button class="btn btn-secondary button-size"
                             (click)="updateAccountState(user)">BLOCK
                     </button>
                 </div>
                 <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'DELETED')">
-                    <button class="btn btn-secondary button-upate-size"
+                    <button class="btn btn-secondary button-size"
                             (click)="deleteAccountState(user)">DELETE
                     </button>
                 </div>

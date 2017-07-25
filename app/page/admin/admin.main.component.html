@@ -5,94 +5,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-5 col-lg-3">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <!--<button type="button" class="btn btn-primary btn-lg dropdown-toggle nav-btn"-->
-                                    <!--data-toggle="collapse"-->
-                                    <!--data-target="#collapseView" aria-controls="collapseView" aria-expanded="false">-->
-                                <!--View-->
-                            <!--</button>-->
-                            <div style="padding: .35rem">
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem" [routerLink]="['/admin/users']">
-                                    <button type="submit" class="btn-secondary btn-lg" data-toggle="collapse"
-                                            data-target="#collapseUsersView" style="width: 14.6rem"> Show All
-                                        Users
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem"
-                                     [routerLink]="['/admin/categories']">
-                                    <button type="submit" class="btn-secondary btn-lg" data-toggle="collapse"
-                                            data-target="#collapseCategoriesView" aria-controls="collapseCategoriesView"
-                                            aria-expanded="false" style="width: 14.6rem"> Show
-                                        All Categories
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Show
-                                        Courses
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn bbtn-secondaryy btn-lg" style="width: 14.6rem">
-                                        Show
-                                        Decks
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="collapse"
-                                    data-target="#collapseAdd" aria-controls="collapseAdd" aria-expanded="false"
-                                    style="width: 10rem">
-                                Create
-                            </button>
-                            <div class="collapse" id="collapseAdd" style="padding: .35rem">
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
-                                        Category
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
-                                        Course to
-                                        Category
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
-                                        Deck to
-                                        Course
-                                    </button>
-                                </div>
-                                <div class="col-xs-12 col-sm-6 col-md-3" style="padding: .15rem">
-                                    <button type="submit" class="btn btn-secondary btn-lg" style="width: 14.6rem"> Add
-                                        Card to
-                                        Deck
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class="col-xs-12 col-sm-6 col-md-3" [routerLink]="['/admin/users']">
+                <button class="btn btn-secondary button-size element-margin">
+                    Show All Users
+                </button>
             </div>
         </div>
-        <!--<div>-->
-        <!--<div class="collapse" id="collapseCategoriesView" style="padding: .35rem">-->
-        <!--<admin-all-category>Loaging...</admin-all-category>-->
-        <!--</div>-->
-        <!--<div class="collapse" id="collapseUsersView" style="padding: .35rem">-->
-        <!--<admin-all-users>Loaging...</admin-all-users>-->
-        <!--</div>-->
-        <!--</div>-->
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3" [routerLink]="['/admin/categories']">
+            <button type="submit" class="btn btn-secondary button-size element-margin">
+                Show All Categories
+            </button>
+        </div>
     </div>
 </div>

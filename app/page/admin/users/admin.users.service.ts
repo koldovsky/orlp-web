@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from "../../../orlp.service";
-import {UsersPublic} from "../../../classes/public.users.DTO";
+import {AdminUsers} from "../../../classes/admin.users.DTO";
 import {DTOConverter} from "../../../classes/dto.Converter";
 
 @Injectable()
@@ -15,9 +15,9 @@ export class AdminUsersService {
     constructor(private orlp: ORLPService) {
     }
 
-    getUsers(): Observable<UsersPublic[]> {
+    getUsers(): Observable<AdminUsers[]> {
         return this.orlp.get('api/admin/users')
-            .map((response: Response) => <UsersPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicUsers, response.json()))
+            .map((response: Response) => <AdminUsers[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicUsers, response.json()))
             .catch(this.handleError);
     }
 

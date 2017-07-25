@@ -12,7 +12,6 @@ import {AdminUserComponent} from "./users/user/admin.user.component";
 import {AdminUserService} from "./users/user/admin.user.service";
 
 import {AdminMainComponent} from "./admin.main.component";
-import {AdminMainService} from "./admin.main.service";
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import {AdminMainService} from "./admin.main.service";
         FormsModule,
         CommonModule,
         RouterModule.forChild([
-            // {path: 'admin', component: AdminCategoryComponent},
             {path: 'admin', component: AdminMainComponent},
             {path: 'admin/categories', component: AdminCategoryComponent},
             {path: 'admin/users', component: AdminUsersComponent},
@@ -38,7 +36,6 @@ import {AdminMainService} from "./admin.main.service";
         AdminCategoryService,
         AdminUsersService,
         AdminUserService,
-        AdminMainService
     ],
 })
 

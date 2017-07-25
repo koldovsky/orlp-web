@@ -26,10 +26,6 @@ var AdminCategoryComponent = (function () {
     AdminCategoryComponent.prototype.toggleTable = function () {
         this.showTable = !this.showTable;
     };
-    AdminCategoryComponent.prototype.addCategory = function (value) {
-        var _this = this;
-        this.adminCategoryService.addCategory(value, 'api/admin/add/category').subscribe(function (data) { return _this.categories.push(data); }, function (error) { return console.log(error); });
-    };
     return AdminCategoryComponent;
 }());
 AdminCategoryComponent = __decorate([
