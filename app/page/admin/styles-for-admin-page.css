@@ -6,11 +6,13 @@
     border-top: hidden
 }
 
-img{
-    width: 50px;
-    height: 50px
+.category-image{
+    height: 50px;
 }
-
+.user-image{
+    height: 8rem;
+    margin: auto;
+}
 .button-upate-size{
     width: 20rem;
 }

@@ -14,7 +14,14 @@
         </div>
     </div>
     <div class="row">
-        <div>
+        <button class="btn btn-secondary" style="margin: 10px">CREATE CATEGORY</button>
+
+
+
+
+    </div>
+    <div class="row">
+        <div *ngIf="categories">
             <table class="table table-striped admins-tables">
                 <thead>
                 <tr class="admins-tables-header">
@@ -26,22 +33,15 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let category of categories | categoryFilter:listFilter">
-                    <td><img class="category-image" [src]="category.imagebase64">
+                    <td>
+                        <div>
+                            <img [src]="category.imagebase64" style="height: 50px">
+                        </div>
                     </td>
                     <td>{{category.name}}</td>
                     <td>{{category.description}}</td>
                     <td>
-                        <div class="btn-group open">
-                            <a class="btn btn-secondary"><i class="fa fa-cog"></i> More</a>
-                            <a class="btn btn-secondary " data-toggle="dropdown">
-                                <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#"><i class="fa fa-eye"></i> View Details</a></li>
-                                <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
-                                <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
-                            </ul>
-                        </div>
+                        <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
                     </td>
                 </tr>
                 </tbody>

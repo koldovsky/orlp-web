@@ -12,11 +12,11 @@ export class ORLPService {
     constructor(private http: Http) {}
 
     get(url: string): Observable<Response> {
-        return this.http.get(this.SERVER_ADDRESS + url);
+        return this.http.get(this.SERVER_ADDRESS + url, {withCredentials: true});
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body , {withCredentials: true});
     }
 
     put(url: string, body: any) {
@@ -24,7 +24,6 @@ export class ORLPService {
     }
 
     delete(url: string, body: any) {
-        // return this.http.delete(this.SERVER_ADDRESS + url, body, {});
         return this.http.delete(this.SERVER_ADDRESS + url, body);
     }
 
@@ -39,7 +38,6 @@ export class ORLPService {
     public decodeLink(url: string) {
         url = decodeURI(url);
         url = atob(url);
-
         return url;
     }
 }
