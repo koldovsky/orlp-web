@@ -18,7 +18,7 @@ export class AdminUserService {
 
     public getUser(url: string): Observable<AdminUsers> {
         return this.orlp.get(url)
-            .map((response: Response) => <AdminUsers> DTOConverter.jsonToPublicUsers(response.json()))
+            .map((response: Response) => <AdminUsers> DTOConverter.jsonToAdminUsers(response.json()))
             .catch(this.handleError);
     }
 

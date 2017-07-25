@@ -39,7 +39,7 @@ var DTOConverter = (function () {
         var decks = DTOConverter.jsonToLink("decks", data._links.decks);
         return new link_category_DTO_1.CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
     };
-    DTOConverter.jsonToPublicUsers = function (data) {
+    DTOConverter.jsonToAdminUsers = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new admin_users_DTO_1.AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
     };

@@ -51,9 +51,8 @@ export class DTOConverter {
         return new CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
     }
 
-    public static jsonToPublicUsers(data: any): AdminUsers {
+    public static jsonToAdminUsers(data: any): AdminUsers {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-
         return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
 

@@ -14,7 +14,7 @@ export declare class DTOConverter {
     static jsonToTopCourse(data: any): CourseTop;
     static jsonToPublicCategories(data: any): CategoriesPublic;
     static jsonToPublicCategory(data: any): CategoryLink;
-    static jsonToPublicUsers(data: any): AdminUsers;
+    static jsonToAdminUsers(data: any): AdminUsers;
     static jsonToUserDetails(data: any): UserDetailsDto;
     static jsonToLink(rel: string, data: any): Link;
     static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any>;
