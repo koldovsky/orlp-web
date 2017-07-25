@@ -20,7 +20,7 @@ var ORLPService = (function () {
         return this.http.get(this.SERVER_ADDRESS + url);
     };
     ORLPService.prototype.post = function (url, body) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body, { withCredentials: true });
     };
     ORLPService.prototype.getShortLink = function (link) {
         var url = link.href;

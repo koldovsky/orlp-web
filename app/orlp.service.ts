@@ -16,7 +16,7 @@ export class ORLPService {
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {});
+        return this.http.post(this.SERVER_ADDRESS + url, body, {withCredentials: true});
     }
 
     public getShortLink(link: Link) {
