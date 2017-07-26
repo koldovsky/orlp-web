@@ -40,5 +40,4 @@ let providers = {
 export class LoginModule {
     constructor(){}
 }
-
 Angular2SocialLoginModule.loadProvidersScripts(providers);
