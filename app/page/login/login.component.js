@@ -16,13 +16,12 @@ var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
 var accountVerification_service_1 = require("../signup/accountVerification/accountVerification.service");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService, auth, router, activatedRoute, accountVerify) {
+    function LoginComponent(fb, loginService, auth, router, accountVerify) {
         var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
         this.router = router;
-        this.activatedRoute = activatedRoute;
         this.accountVerify = accountVerify;
         this.success = false;
         this.error = false;
@@ -117,7 +116,6 @@ LoginComponent = __decorate([
         login_service_1.LoginService,
         angular2_social_login_1.AuthService,
         router_1.Router,
-        router_1.ActivatedRoute,
         accountVerification_service_1.AccountVerificationService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
