@@ -19,6 +19,7 @@ import {ORLPService} from "../../orlp.service";
 import {StarRatingModule} from "angular-star-rating";
 import {LogoutService} from "../logout/logout.service";
 import {NavbarService} from "./navbar.service";
+import {UserModule} from "../user/user.module";
 
 @NgModule({
     imports: [
@@ -39,7 +40,8 @@ import {NavbarService} from "./navbar.service";
         AdminModule,
         CardModule,
         CabinetModule,
-        StarRatingModule
+        StarRatingModule,
+        UserModule
     ],
     exports: [],
     declarations: [

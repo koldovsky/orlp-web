@@ -16,7 +16,8 @@ import {StarRatingModule} from "angular-star-rating";
         CommonModule,
         StarRatingModule,
         RouterModule.forChild([
-            {path: 'category/:url', component: CategoryInfoComponent}
+            {path: 'category/:url', component: CategoryInfoComponent},
+            {path: 'course/:url', component: CourseComponent}
         ])],
     exports: [],
     declarations: [

@@ -27,6 +27,7 @@ var orlp_service_1 = require("../../orlp.service");
 var angular_star_rating_1 = require("angular-star-rating");
 var logout_service_1 = require("../logout/logout.service");
 var navbar_service_1 = require("./navbar.service");
+var user_module_1 = require("../user/user.module");
 var NavbarModule = (function () {
     function NavbarModule() {
     }
@@ -51,7 +52,8 @@ NavbarModule = __decorate([
             admin_module_1.AdminModule,
             card_module_1.CardModule,
             cabinet_module_1.CabinetModule,
-            angular_star_rating_1.StarRatingModule
+            angular_star_rating_1.StarRatingModule,
+            user_module_1.UserModule
         ],
         exports: [],
         declarations: [
