@@ -11,10 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var login_service_1 = require("./login.service");
 var login_component_1 = require("./login.component");
+var login_service_1 = require("./login.service");
 var angular2_social_login_1 = require("angular2-social-login");
 var providers = {
     "google": {
@@ -33,13 +34,14 @@ var LoginModule = (function () {
 LoginModule = __decorate([
     core_1.NgModule({
         imports: [
+            http_1.HttpModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
             angular2_social_login_1.Angular2SocialLoginModule,
             router_1.RouterModule.forRoot([
-                { path: 'login', component: login_component_1.LoginComponent }
-            ])
+                { path: 'login', component: login_component_1.LoginComponent },
+            ]),
         ],
         exports: [],
         declarations: [
