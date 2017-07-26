@@ -18,6 +18,7 @@ var AdminUserComponent = (function () {
         this.route = route;
         this.orlp = orlp;
         this.adminUserSevice = adminUserSevice;
+        this.ok = new core_1.EventEmitter();
     }
     AdminUserComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -41,15 +42,44 @@ var AdminUserComponent = (function () {
     AdminUserComponent.prototype.updateAccountState = function (currentUser) {
         var _this = this;
         this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
-        console.log(currentUser);
     };
     AdminUserComponent.prototype.deleteAccountState = function (currentUser) {
         var _this = this;
         this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
-        console.log(currentUser);
+    };
+    AdminUserComponent.prototype.toggleDelete = function () {
+        this.ckickedButton = true;
+    };
+    AdminUserComponent.prototype.toggleUp = function () {
+        this.ckickedButton = false;
+    };
+    AdminUserComponent.prototype.onOK = function (currentUser) {
+        switch (currentUser.accountStatus) {
+            case "ACTIVE": {
+                if (this.ckickedButton) {
+                    this.deleteAccountState(currentUser);
+                }
+                else {
+                    this.updateAccountState(currentUser);
+                }
+                break;
+            }
+            case "DELETED": {
+                this.deleteAccountState(currentUser);
+                break;
+            }
+            case "BLOCKED": {
+                this.updateAccountState(currentUser);
+                break;
+            }
+        }
     };
     return AdminUserComponent;
 }());
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], AdminUserComponent.prototype, "ok", void 0);
 AdminUserComponent = __decorate([
     core_1.Component({
         selector: 'one-user',

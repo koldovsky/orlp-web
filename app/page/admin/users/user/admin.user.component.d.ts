@@ -1,4 +1,4 @@
-import { OnInit } from "@angular/core";
+import { EventEmitter, OnInit } from "@angular/core";
 import { AdminUserService } from "./admin.user.service";
 import { AdminUsers } from "../../../../classes/admin.users.DTO";
 import { ORLPService } from "../../../../orlp.service";
@@ -8,10 +8,12 @@ export declare class AdminUserComponent implements OnInit {
     private route;
     private orlp;
     private adminUserSevice;
-    user: AdminUsers;
-    errorMessage: string;
+    private user;
+    private errorMessage;
     private sub;
     private url;
+    private ckickedButton;
+    ok: EventEmitter<any>;
     constructor(route: ActivatedRoute, orlp: ORLPService, adminUserSevice: AdminUserService);
     ngOnInit(): void;
     private takeUser();
@@ -19,4 +21,7 @@ export declare class AdminUserComponent implements OnInit {
     getUserLink(link: Link): string;
     updateAccountState(currentUser: AdminUsers): void;
     deleteAccountState(currentUser: AdminUsers): void;
+    toggleDelete(): void;
+    toggleUp(): void;
+    onOK(currentUser: AdminUsers): void;
 }

@@ -4,7 +4,7 @@
             <h1 class="font-color-white header-text">User info: </h1>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <button class="btn btn-secondary button-size float-right" [routerLink]="['/admin/users']">Back</button>
+            <button class="btn btn-secondary btn-wide float-right" [routerLink]="['/admin/users']">Back</button>
         </div>
     </div>
 
@@ -37,12 +37,12 @@
             </div>
             <div class="row">
                 <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'BLOCKED') ">
-                    <button class="btn btn-secondary button-size" id="updateButton" data-toggle="modal" data-target="#confirmModal" (click)="toggleUp()">
+                    <button class="btn btn-secondary btn-wide" id="updateButton" data-toggle="modal" data-target="#confirmModal" (click)="toggleUp()">
                         {{user.accountStatus == 'BLOCKED' ? 'UNBLOCK' : 'BLOCK'}}
                     </button>
                 </div>
                 <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'DELETED')">
-                    <button class="btn btn-secondary button-size" id="deleteButton" data-toggle="modal" data-target="#confirmModal" (click)="toggleDelete()">
+                    <button class="btn btn-secondary btn-wide" id="deleteButton" data-toggle="modal" data-target="#confirmModal" (click)="toggleDelete()">
                         {{user.accountStatus == 'DELETED' ? 'ACTIVATE' : 'DELETE'}}
                     </button>
                 </div>

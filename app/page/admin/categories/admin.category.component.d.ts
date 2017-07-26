@@ -8,8 +8,6 @@ export declare class AdminCategoryComponent implements OnInit {
     categories: CategoriesPublic[];
     errorMessage: string;
     listFilter: string;
-    showTable: boolean;
     constructor(adminCategoryService: AdminCategoryService, orlpService: ORLPService);
     ngOnInit(): void;
-    toggleTable(): void;
 }
