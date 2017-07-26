@@ -1,7 +1,7 @@
 
 
 import {Link} from "./link";
-export class UsersPublic {
+export class AdminUsers {
     firstName: string;
     lastName: string;
     email: string;

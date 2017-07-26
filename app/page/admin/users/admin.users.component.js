@@ -23,8 +23,6 @@ var AdminUsersComponent = (function () {
             .subscribe(function (users) { return _this.users = users; }, function (error) { return _this.errorMessage = error; });
     };
     AdminUsersComponent.prototype.getUserLink = function (link) {
-        console.log('LINK : ' + link.href);
-        console.log('Code : ' + this.orlp.getShortLink(link));
         return this.orlp.getShortLink(link);
     };
     return AdminUsersComponent;

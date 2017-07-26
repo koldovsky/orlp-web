@@ -23,7 +23,7 @@ var AdminUsersService = (function () {
     }
     AdminUsersService.prototype.getUsers = function () {
         return this.orlp.get('api/admin/users')
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicUsers, response.json()); })
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToAdminUsers, response.json()); })
             .catch(this.handleError);
     };
     AdminUsersService.prototype.handleError = function (error) {

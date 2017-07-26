@@ -1,12 +1,8 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {AdminUsersService} from "./admin.users.service";
-import {IUser} from "../../../interfaces/user";
-import {UsersPublic} from "../../../classes/public.users.DTO";
-import {Subscription} from "rxjs/Subscription";
-import {ActivatedRoute} from "@angular/router";
+import {AdminUsers} from "../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../orlp.service";
 import {Link} from "../../../classes/link";
-import {AdminUserService} from "./user/admin.user.service";
 
 @Component({
     selector: "admin-all-users",
@@ -16,7 +12,7 @@ import {AdminUserService} from "./user/admin.user.service";
 })
 
 export class AdminUsersComponent implements OnInit {
-    users: UsersPublic[];
+    users: AdminUsers[];
     errorMessage: string;
 
     constructor(private orlp: ORLPService,
@@ -29,8 +25,6 @@ export class AdminUsersComponent implements OnInit {
     }
 
     public getUserLink(link: Link): string {
-        console.log('LINK : ' + link.href);
-        console.log('Code : ' + this.orlp.getShortLink(link));
         return this.orlp.getShortLink(link);
     }
 }

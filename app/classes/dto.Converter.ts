@@ -4,7 +4,7 @@ import {CategoryLink} from "./CategoryDTO/link.category.DTO";
 import {DeckPublic} from "./DeckDTO/public.deck.DTO";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
-import {UsersPublic} from "./public.users.DTO";
+import {AdminUsers} from "./admin.users.DTO";
 import {UsersDTO} from "./UserDTO/UserDTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
 import {UserDetailsDto} from "./UserDetailsDto";
@@ -57,10 +57,9 @@ export class DTOConverter {
         return new CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
     }
 
-    public static jsonToPublicUsers(data: any): UsersPublic {
+    public static jsonToAdminUsers(data: any): AdminUsers {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-
-        return new UsersPublic (data.firstName, data.lastName, data.email, data.accountStatus, self);
+        return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
 
     public static jsonToUserDetails(data:any): UserDetailsDto{

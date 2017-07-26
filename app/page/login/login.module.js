@@ -37,4 +37,4 @@ LoginModule = __decorate([
     })
 ], LoginModule);
 exports.LoginModule = LoginModule;
-//# sourceMappingURL=Login.module.js.map
+//# sourceMappingURL=login.module.js.map
