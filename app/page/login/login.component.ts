@@ -4,6 +4,7 @@ import {LoginService} from "./login.service";
 import {AuthService} from "angular2-social-login";
 import {Router} from "@angular/router";
 import {AccountVerificationService} from "../signup/accountVerification/accountVerification.service";
+import {LoginAccount} from "../../classes/LoginAccount";
 
 @Component({
     template: require('app/page/login/login.component.html!text'),
@@ -16,6 +17,8 @@ export class LoginComponent implements OnInit {
     wrongDetails: boolean = false;
     public user;
     verificationStat: boolean = false;
+    account: LoginAccount;
+    captcha: string;
 
     constructor(private fb: FormBuilder,
                 private loginService: LoginService,
@@ -38,7 +41,9 @@ export class LoginComponent implements OnInit {
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
-        this.loginService.signIn(this.loginForm.value)
+        this.account = this.loginForm.value;
+        this.account.captcha = this.captcha;
+        this.loginService.signIn(this.account)
             .subscribe((response) => {
                 this.success = true;
                 this.router.navigate(['main']);
@@ -106,5 +111,12 @@ export class LoginComponent implements OnInit {
 
     reload() {
         window.location.reload();
+    }
+
+    handleCorrectCaptcha($event){
+        this.captcha = $event;
+    }
+    validLogin(): boolean{
+        return this.loginForm.valid && (this.captcha != null);
     }
 }

@@ -37,13 +37,8 @@ export class NavbarComponent implements OnInit {
                     this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
                 });
         }
-
-        this.deckService.getDecks(this.url)
-            .subscribe(decks => this.decks = decks,
+        this.deckService.getDecks(this.url).subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
-
-        this.navbarService.getUserDetails()
-            .subscribe(user => this.userDetails = user);
     }
 
     logoutUser() {

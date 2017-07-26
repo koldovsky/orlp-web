@@ -17,6 +17,7 @@ var router_1 = require("@angular/router");
 var login_service_1 = require("./login.service");
 var login_component_1 = require("./login.component");
 var angular2_social_login_1 = require("angular2-social-login");
+var angular2_recaptcha_1 = require("angular2-recaptcha");
 var providers = {
     "google": {
         "clientId": "109414995516-fftdn22fnpfdh80fgfsvpq1ht97hdkl5.apps.googleusercontent.com"
@@ -35,6 +36,7 @@ LoginModule = __decorate([
     core_1.NgModule({
         imports: [
             http_1.HttpModule,
+            angular2_recaptcha_1.ReCaptchaModule,
             forms_1.FormsModule,
             forms_1.ReactiveFormsModule,
             common_1.CommonModule,
