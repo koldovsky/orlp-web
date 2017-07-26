@@ -16,10 +16,15 @@ var CabinetComponent = (function () {
         this.cabinetService = cabinetService;
     }
     CabinetComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.cabinetService.getUser()
+            .subscribe(function (user) { return _this.user = user; }, function (error) { return _this.errorMessage = error; });
     };
     CabinetComponent.prototype.getUserDecks = function () {
         var _this = this;
-        this.cabinetService.getUserDecks()
+        var folderUrl = this.user.folder.href;
+        folderUrl = folderUrl.replace("http://localhost:8080/", "");
+        this.cabinetService.getUserDecks(folderUrl)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     return CabinetComponent;

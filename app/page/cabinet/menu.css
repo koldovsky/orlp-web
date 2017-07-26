@@ -1,3 +1,7 @@
+.vertical-menu {
+    float: left;
+}
+
 .vertical-menu ul {
     list-style-type: none;
     margin-right: 50px;
