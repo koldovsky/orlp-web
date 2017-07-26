@@ -7,11 +7,17 @@ var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
 var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var public_users_DTO_1 = require("./public.users.DTO");
+var UserDTO_1 = require("./UserDTO/UserDTO");
 var link_course_DTO_1 = require("./CourseDTO/link.course.DTO");
 var UserDetailsDto_1 = require("./UserDetailsDto");
 var DTOConverter = (function () {
     function DTOConverter() {
     }
+    DTOConverter.jsonToUserDTO = function (data) {
+        var self = DTOConverter.jsonToLink("self", data._links.self);
+        var folder = DTOConverter.jsonToLink("folder", data._links.folder);
+        return new UserDTO_1.UsersDTO(data.firstName, data.lastName, data.email, self, folder);
+    };
     DTOConverter.jsonToPublicCourse = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         var decks = DTOConverter.jsonToLink("decks", data._links.decks);

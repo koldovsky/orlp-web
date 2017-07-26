@@ -5,9 +5,11 @@ import { DeckPublic } from "./DeckDTO/public.deck.DTO";
 import { CategoriesPublic } from "./CategoryDTO/public.categories";
 import { CourseTop } from "./CourseDTO/top.course.DTO";
 import { UsersPublic } from "./public.users.DTO";
+import { UsersDTO } from "./UserDTO/UserDTO";
 import { CourseLink } from "./CourseDTO/link.course.DTO";
 import { UserDetailsDto } from "./UserDetailsDto";
 export declare class DTOConverter {
+    static jsonToUserDTO(data: any): UsersDTO;
     static jsonToPublicCourse(data: any): CourseLink;
     static jsonToPublicDeck(data: any): DeckPublic;
     static jsonToTopCategory(data: any): CategoryTop;
