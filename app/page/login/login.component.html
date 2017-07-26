@@ -1,7 +1,6 @@
 <div class="container">
     <br/>
     <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
-
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -62,9 +61,8 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
-
-                <button type="button" (click)="signInGoogle('google')" class="btn-google"></button>
-                <button type="button" (click)="signInFacebook('facebook') " class="btn-facebook"></button>
+                <button (click)="signInGoogle('google')" class="btn-google"></button>
+                <button (click)="signInFacebook('facebook') " class="btn-facebook"></button>
             </div>
 
         </div>

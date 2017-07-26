@@ -82,22 +82,10 @@ var LoginComponent = (function () {
         });
     };
     LoginComponent.prototype.sendFacebookToken = function () {
-        var _this = this;
-        this.loginService.sendFacebookToken(this.user.token).subscribe(function (response) {
-            _this.router.navigate(['main']);
-            _this.reload();
-        }, function (error) {
-            _this.processError(error);
-        });
+        this.loginService.sendFacebookToken(this.user.token).subscribe(function (error) { return console.log(error); });
     };
     LoginComponent.prototype.sendGoogleToken = function () {
-        var _this = this;
-        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(function (response) {
-            _this.router.navigate(['main']);
-            _this.reload();
-        }, function (error) {
-            _this.processError(error);
-        });
+        this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(function (error) { return console.log(error); });
     };
     LoginComponent.prototype.reload = function () {
         window.location.reload();

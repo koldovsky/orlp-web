@@ -8,7 +8,7 @@ import {AccountVerificationService} from "../signup/accountVerification/accountV
 
 @Component({
     template: require('app/page/login/login.component.html!text'),
-    styleUrls: ['app/page/login/login.component.css',]
+    styleUrls: ['app/page/login/login.component.css', ]
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -80,22 +80,14 @@ export class LoginComponent implements OnInit {
 
     sendFacebookToken() {
         this.loginService.sendFacebookToken(this.user.token).subscribe(
-            (response) => {
-                this.router.navigate(['main']);
-                this.reload();
-            }, (error) => {
-                this.processError(error);
-            });
+            error => console.log(error)
+        )
     }
 
     sendGoogleToken() {
         this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(
-            (response) => {
-                this.router.navigate(['main']);
-                this.reload();
-            }, (error) => {
-                this.processError(error);
-            });
+            error => console.log(error)
+        );
 
     }
 
