@@ -1,17 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminMainService} from "./admin.main.service";
+import {Component} from '@angular/core';
 
 @Component({
-    providers: [AdminMainService],
     template: require('app/page/admin/admin.main.component.html!text'),
+    styleUrls: ['app/page/admin/admin.style.css']
 })
-
-export class AdminMainComponent implements OnInit {
-
-    constructor(private adminMainService: AdminMainService) {
-    }
-
-    ngOnInit(): void {
-    }
-
-}
+export class AdminMainComponent {}

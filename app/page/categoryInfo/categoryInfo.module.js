@@ -29,7 +29,8 @@ CategoryInfoModule = __decorate([
             common_1.CommonModule,
             angular_star_rating_1.StarRatingModule,
             router_1.RouterModule.forChild([
-                { path: 'category/:url', component: categoryInfo_component_1.CategoryInfoComponent }
+                { path: 'category/:url', component: categoryInfo_component_1.CategoryInfoComponent },
+                { path: 'course/:url', component: course_component_1.CourseComponent }
             ])
         ],
         exports: [],

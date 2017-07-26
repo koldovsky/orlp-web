@@ -2,21 +2,34 @@ import {CategoryTop} from "./CategoryDTO/top.category.DTO";
 import {Link} from "./link";
 import {CategoryLink} from "./CategoryDTO/link.category.DTO";
 import {DeckPublic} from "./DeckDTO/public.deck.DTO";
-import {CoursePublic} from "./CourseDTO/public.course.DTO";
-import {link} from "fs";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
-import {UsersPublic} from "./public.users.DTO";
+import {AdminUsers} from "./admin.users.DTO";
+import {UsersDTO} from "./UserDTO/UserDTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
 import {UserDetailsDto} from "./UserDetailsDto";
+import {CoursePublic} from "./CourseDTO/public.course.DTO";
 
 export class DTOConverter {
 
-    public static jsonToPublicCourse(data: any): CourseLink {
+    public static jsonToUserDTO(data: any): UsersDTO {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+        let folder: Link = DTOConverter.jsonToLink("folder", data._links.folder);
+
+        return new UsersDTO(data.firstName, data.lastName, data.email, self, folder);
+    }
+
+    public static jsonToPublicLinkCourse(data: any): CourseLink {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
         let decks: Link = DTOConverter.jsonToLink("decks", data._links.decks);
 
         return new CourseLink(data.name, data.description, data.imagebase64, self, decks);
+    }
+
+    public static jsonToPublicCourse(data: any): CoursePublic {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+
+        return new CoursePublic(data.name, data.description, data.imagebase64, self);
     }
 
     public static jsonToPublicDeck(data: any): DeckPublic {
@@ -51,10 +64,9 @@ export class DTOConverter {
         return new CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
     }
 
-    public static jsonToPublicUsers(data: any): UsersPublic {
+    public static jsonToAdminUsers(data: any): AdminUsers {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-
-        return new UsersPublic (data.firstName, data.lastName, data.email, data.accountStatus, self);
+        return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
 
     public static jsonToUserDetails(data:any): UserDetailsDto{

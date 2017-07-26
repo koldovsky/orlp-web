@@ -37,7 +37,7 @@
 
 .nav-search {
     margin-top: 10px;
-    margin-left: 525px;
+    margin-left: 50px;
 }
 
 #nav-search {
@@ -104,4 +104,14 @@
 .signout:hover {
     color: black;
     background: url(../../../image/signoutblack.png) white no-repeat right center;
+}
+
+/*SEARCH RESULT*/
+.table {
+    margin-left: -10px;
+    margin-top: 0px;
+    background-color: white;
+    width: 40%;
+    position:absolute;
+    z-index: 1;
 }

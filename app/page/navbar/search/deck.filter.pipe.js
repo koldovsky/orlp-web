@@ -7,21 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var NavbarFilterPipe = (function () {
-    function NavbarFilterPipe() {
+var DeckFilterPipe = (function () {
+    function DeckFilterPipe() {
     }
-    NavbarFilterPipe.prototype.transform = function (value, filterBy) {
+    DeckFilterPipe.prototype.transform = function (value, filterBy) {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
         return filterBy ? value.filter(function (deck) {
             return deck.name.toLocaleLowerCase().indexOf(filterBy) !== -1;
         }) : value;
     };
-    return NavbarFilterPipe;
+    return DeckFilterPipe;
 }());
-NavbarFilterPipe = __decorate([
+DeckFilterPipe = __decorate([
     core_1.Pipe({
         name: "deckFilter"
     })
-], NavbarFilterPipe);
-exports.NavbarFilterPipe = NavbarFilterPipe;
-//# sourceMappingURL=navbar.filter.pipe.js.map
+], DeckFilterPipe);
+exports.DeckFilterPipe = DeckFilterPipe;
+//# sourceMappingURL=deck.filter.pipe.js.map

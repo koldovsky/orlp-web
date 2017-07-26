@@ -1,6 +1,6 @@
 import {Component,  OnInit} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
-import {UsersPublic} from "../../../../classes/public.users.DTO";
+import {AdminUsers} from "../../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../../orlp.service";
 import {Link} from "../../../../classes/link";
 import {ActivatedRoute} from "@angular/router";
@@ -14,7 +14,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 
 export class AdminUserComponent implements OnInit {
-    user: UsersPublic;
+    user: AdminUsers;
     errorMessage: string;
     private sub: Subscription;
     private url: string;
@@ -50,7 +50,7 @@ export class AdminUserComponent implements OnInit {
         return this.orlp.getShortLink(link);
     }
 
-    updateAccountState(currentUser: UsersPublic) {
+    updateAccountState(currentUser: AdminUsers) {
         this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
             user => this.user = user,
             error => console.log(error)
@@ -58,7 +58,7 @@ export class AdminUserComponent implements OnInit {
         console.log(currentUser);
     }
 
-    deleteAccountState(currentUser: UsersPublic) {
+    deleteAccountState(currentUser: AdminUsers) {
         this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(
             user => this.user = user,
             error => console.log(error)

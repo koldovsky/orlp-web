@@ -17,8 +17,13 @@ var CabinetService = (function () {
     function CabinetService(orlp) {
         this.orlp = orlp;
     }
-    CabinetService.prototype.getUserDecks = function () {
-        return this.orlp.get('api/decks/ordered')
+    CabinetService.prototype.getUser = function () {
+        return this.orlp.get('api/user')
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToUserDTO(response.json()); })
+            .catch(this.handleError);
+    };
+    CabinetService.prototype.getUserDecks = function (url) {
+        return this.orlp.get(url)
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };

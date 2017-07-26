@@ -20,13 +20,14 @@ let providers = {
 
 @NgModule({
     imports: [
+        HttpModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
         Angular2SocialLoginModule,
         RouterModule.forRoot([
-            {path: 'login', component: LoginComponent}
-        ])
+            {path: 'login', component: LoginComponent},
+        ]),
     ],
     exports: [],
     declarations: [
@@ -35,8 +36,6 @@ let providers = {
     providers: [LoginService],
 })
 export class LoginModule {
-    constructor() {
-    }
+    constructor(){}
 }
-
 Angular2SocialLoginModule.loadProvidersScripts(providers);

@@ -1,5 +1,5 @@
 import { Link } from "./link";
-export declare class UsersPublic {
+export declare class AdminUsers {
     firstName: string;
     lastName: string;
     email: string;

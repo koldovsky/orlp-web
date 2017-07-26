@@ -13,20 +13,7 @@
             <button class="btn btn-secondary">Back</button>
         </div>
     </div>
-    <div class="row">
-        <button class="btn btn-secondary element-margin">CREATE CATEGORY</button>
-    </div>
-    <div class="row element-margin">
-        <form class="form-inline" method="post" #form="ngForm" (submit)="addCategory(form.value)" autocomplete="off">
-            <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Category name">
 
-            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <textarea type="text" class="form-control" id="inlineFormInputGroup" placeholder="Category description"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Create</button>
-        </form>
-    </div>
     <div class="row">
         <div *ngIf="categories">
             <table class="table table-striped admins-tables">
@@ -35,7 +22,6 @@
                     <th>#</th>
                     <th>Category Name</th>
                     <th>Category Description</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,9 +33,6 @@
                     </td>
                     <td>{{category.name}}</td>
                     <td>{{category.description}}</td>
-                    <td>
-                        <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
-                    </td>
                 </tr>
                 </tbody>
             </table>

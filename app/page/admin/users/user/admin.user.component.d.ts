@@ -1,6 +1,6 @@
 import { OnInit } from "@angular/core";
 import { AdminUserService } from "./admin.user.service";
-import { UsersPublic } from "../../../../classes/public.users.DTO";
+import { AdminUsers } from "../../../../classes/admin.users.DTO";
 import { ORLPService } from "../../../../orlp.service";
 import { Link } from "../../../../classes/link";
 import { ActivatedRoute } from "@angular/router";
@@ -8,7 +8,7 @@ export declare class AdminUserComponent implements OnInit {
     private route;
     private orlp;
     private adminUserSevice;
-    user: UsersPublic;
+    user: AdminUsers;
     errorMessage: string;
     private sub;
     private url;
@@ -17,6 +17,6 @@ export declare class AdminUserComponent implements OnInit {
     private takeUser();
     private decodeLink();
     getUserLink(link: Link): string;
-    updateAccountState(currentUser: UsersPublic): void;
-    deleteAccountState(currentUser: UsersPublic): void;
+    updateAccountState(currentUser: AdminUsers): void;
+    deleteAccountState(currentUser: AdminUsers): void;
 }
