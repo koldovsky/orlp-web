@@ -23,25 +23,24 @@
             </ul>
         </li>
         <!-- CATEGORIES-GUEST -->
-        <li *ngIf="false" class="nav-category">
+        <li *ngIf="!isAuthorized" class="nav-category">
             <a id="nav-category" href="#">Categories</a>
         </li>
         <!-- COURSES-GUEST -->
-        <li *ngIf="false" class="nav-course">
+        <li *ngIf="!isAuthorized" class="nav-course">
             <a id="nav-course" href="#">Courses</a>
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
-                   (blur)="show=false"/>
+            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" [(ngModel)]="listFilter2" (keypress)="show=true" (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
-        <li class="nav-signup">
-            <a id="nav-signup" [routerLink]="['/registr']" *ngIf="!isAuthorized">SIGN UP</a>
+        <li *ngIf="!isAuthorized" class="nav-signup">
+            <a id="nav-signup" [routerLink]="['/registr']" >SIGN UP</a>
         </li>
         <!-- SIGN IN-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signin">
-            <a id="nav-signin" [routerLink]="['/login']" *ngIf="!isAuthorized">SIGN IN</a>
+            <a id="nav-signin" [routerLink]="['/login']" >SIGN IN</a>
         </li>
         <!-- USER-DETAILS -->
         <li *ngIf="isAuthorized" class="user-details" style="cursor: pointer">
@@ -58,23 +57,19 @@
             </a>
         </li>
         <!-- USER-INFORMATION -->
-        <li *ngIf="(isAuthorized && userDetails)" class="user-information">
-            <div class="username">{{userDetails.firstName + " " + userDetails.lastName}}</div>
+        <li *ngIf="isAuthorized" class="user-information">
+            <div class="username">{{userDetails.firstName}}</div>
             <div class="email">{{userDetails.email}}</div>
         </li>
     </ul>
 </nav>
 <!-- SEARCH-RESULT -->
-<table *ngIf="show" class="table"
-       style="margin-left: -10px; margin-top: 0px; background-color: white; width: 40%; position:absolute; z-index: 1;">
+<table *ngIf="show" class="table">
     <tbody>
     <tr *ngFor="let deck of decks | deckFilter: listFilter">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
-        <td>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                              [rating]="deck.rating"></star-rating-comp>
-        </td>
+        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
     </tr>
     </tbody>
 </table>
