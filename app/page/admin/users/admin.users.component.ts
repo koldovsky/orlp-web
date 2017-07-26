@@ -25,8 +25,6 @@ export class AdminUsersComponent implements OnInit {
     }
 
     public getUserLink(link: Link): string {
-        console.log('LINK : ' + link.href);
-        console.log('Code : ' + this.orlp.getShortLink(link));
         return this.orlp.getShortLink(link);
     }
 }
