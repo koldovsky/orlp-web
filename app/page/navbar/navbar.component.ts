@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
     @Input() url: string;
     public errorMessage: string;
     isAuthorized: boolean;
+    isAuthorizedAdmin: boolean;
     userDetails: UserDetailsDto;
 
     constructor(private deckService: DeckService,
@@ -29,9 +30,12 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.isAuthorized = this.logoutService.isAuthorized();
-        if (this.isAuthorized){
-           this.navbarService.getUserDetails()
-               .subscribe(user => this.userDetails = user);
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(user => {
+                    this.userDetails = user;
+                    this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
+                });
         }
 
         this.deckService.getDecks(this.url)
@@ -45,7 +49,9 @@ export class NavbarComponent implements OnInit {
     logoutUser() {
         if (this.logoutService.logout()) {
             this.isAuthorized = false;
+            this.isAuthorizedAdmin = false;
             this.router.navigate(['main']);
         }
     }
+
 }

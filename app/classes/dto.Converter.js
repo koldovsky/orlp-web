@@ -56,7 +56,7 @@ var DTOConverter = (function () {
     };
     DTOConverter.jsonToUserDetails = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
-        return new UserDetailsDto_1.UserDetailsDto(data.firstName, data.lastName, data.email, self);
+        return new UserDetailsDto_1.UserDetailsDto(data.firstName, data.lastName, data.email, data.authorities, self);
     };
     DTOConverter.jsonToLink = function (rel, data) {
         return new link_1.Link(rel, data.href);

@@ -26,7 +26,10 @@ var NavbarComponent = (function () {
         this.isAuthorized = this.logoutService.isAuthorized();
         if (this.isAuthorized) {
             this.navbarService.getUserDetails()
-                .subscribe(function (user) { return _this.userDetails = user; });
+                .subscribe(function (user) {
+                _this.userDetails = user;
+                _this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
+            });
         }
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
@@ -36,6 +39,7 @@ var NavbarComponent = (function () {
     NavbarComponent.prototype.logoutUser = function () {
         if (this.logoutService.logout()) {
             this.isAuthorized = false;
+            this.isAuthorizedAdmin = false;
             this.router.navigate(['main']);
         }
     };
