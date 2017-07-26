@@ -29,6 +29,10 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.isAuthorized = this.logoutService.isAuthorized();
+        if (this.isAuthorized){
+           this.navbarService.getUserDetails()
+               .subscribe(user => this.userDetails = user);
+        }
 
         this.deckService.getDecks(this.url)
             .subscribe(decks => this.decks = decks,

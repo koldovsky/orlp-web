@@ -24,6 +24,10 @@ var NavbarComponent = (function () {
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.isAuthorized = this.logoutService.isAuthorized();
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(function (user) { return _this.userDetails = user; });
+        }
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
         this.navbarService.getUserDetails()

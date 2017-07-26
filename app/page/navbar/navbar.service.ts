@@ -16,7 +16,7 @@ export class NavbarService {
     }
 
     getUserDetails(): Observable<UserDetailsDto> {
-        return this.orlp.get('api/user/public')
+        return this.orlp.get('api/private/user/details')
             .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
             .catch(this.handleError);
     }

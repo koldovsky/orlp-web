@@ -57,7 +57,7 @@
             </a>
         </li>
         <!-- USER-INFORMATION -->
-        <li *ngIf="isAuthorized" class="user-information">
+        <li *ngIf="(isAuthorized && userDetails)" class="user-information">
             <div class="username">{{userDetails.firstName}}</div>
             <div class="email">{{userDetails.email}}</div>
         </li>
