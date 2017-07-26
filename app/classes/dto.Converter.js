@@ -29,7 +29,7 @@ var DTOConverter = (function () {
     DTOConverter.jsonToDeckLinkByCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         var cards = DTOConverter.jsonToLink("cards", data._links.cards);
-        return new linkByCategory_deck_DTO_1.DeckLinkByCategory(data.name, data.description, self, cards);
+        return new linkByCategory_deck_DTO_1.DeckLinkByCategory(data.name, data.description, self, cards, data.deckId);
     };
     DTOConverter.jsonToTopCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);

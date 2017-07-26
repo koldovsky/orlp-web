@@ -52,3 +52,7 @@
     width: 20px;
     height: 20px;
 }
+
+.alignCenter {
+    vertical-align: middle;
+}

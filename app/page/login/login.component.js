@@ -36,6 +36,7 @@ var LoginComponent = (function () {
                 console.log(response.status);
                 console.log(response.json());
                 _this.router.navigate(['main']);
+                window.location.reload();
             }, function (error) {
                 _this.processError(error);
             });

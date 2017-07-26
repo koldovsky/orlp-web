@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
                 console.log(response.status);
                 console.log(response.json());
                 this.router.navigate(['main']);
+                window.location.reload();
             }, (error) => {
                 this.processError(error);
             });

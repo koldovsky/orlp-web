@@ -26,6 +26,19 @@ var DeckService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToDeckLinkByCategory, response.json()); })
             .catch(this.handleError);
     };
+    DeckService.prototype.addDeckToFolder = function (deckId) {
+        return this.orlp.put("api/user/folder/add/deck/" + deckId, {})
+            .map(function (response) {
+            response.json();
+            console.log(JSON.stringify(response));
+        })
+            .catch(this.handleError);
+    };
+    DeckService.prototype.getIdDecksInYourFolder = function () {
+        return this.orlp.get("api/user/folder/decks/id")
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     DeckService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');

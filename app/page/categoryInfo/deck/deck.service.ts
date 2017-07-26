@@ -23,6 +23,21 @@ export class DeckService {
             .catch(this.handleError);
     }
 
+    addDeckToFolder(deckId: number): Observable<DeckPublic> {
+        return this.orlp.put("api/user/folder/add/deck/" +  deckId, {})
+            .map((response: Response) => {
+            response.json();
+            console.log(JSON.stringify(response));
+            })
+            .catch(this.handleError);
+    }
+
+    getIdDecksInYourFolder(): Observable<number[]> {
+        return this.orlp.get("api/user/folder/decks/id")
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         console.error(error);
 

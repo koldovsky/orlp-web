@@ -4,5 +4,6 @@ export declare class DeckLinkByCategory {
     description: String;
     self: Link;
     cards: Link;
-    constructor(name: String, description: String, self: Link, cards: Link);
+    deckId: number;
+    constructor(name: String, description: String, self: Link, cards: Link, deckid: number);
 }

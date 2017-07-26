@@ -36,7 +36,7 @@ export class DTOConverter {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
         let cards: Link = DTOConverter.jsonToLink("cards", data._links.cards);
 
-        return new DeckLinkByCategory(data.name, data.description, self, cards);
+        return new DeckLinkByCategory(data.name, data.description, self, cards, data.deckId);
     }
 
     public static jsonToTopCategory(data: any): CategoryTop {
