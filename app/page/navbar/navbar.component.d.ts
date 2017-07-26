@@ -16,6 +16,7 @@ export declare class NavbarComponent implements OnInit {
     url: string;
     errorMessage: string;
     isAuthorized: boolean;
+    isAuthorizedAdmin: boolean;
     userDetails: UserDetailsDto;
     constructor(deckService: DeckService, logoutService: LogoutService, router: Router, navbarService: NavbarService);
     ngOnInit(): void;

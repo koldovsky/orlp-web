@@ -63,6 +63,12 @@
     font-size: 14px;
 }
 
+.admin{
+    color: gray;
+    text-align: center;
+    font-size: 25px;
+}
+
 #user-image {
     width: 39px;
 }

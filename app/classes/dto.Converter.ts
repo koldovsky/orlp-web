@@ -71,7 +71,7 @@ export class DTOConverter {
 
     public static jsonToUserDetails(data:any): UserDetailsDto{
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-        return new UserDetailsDto(data.firstName, data.lastName, data.email, self);
+        return new UserDetailsDto(data.firstName, data.lastName, data.email, data.authorities, self);
     }
 
     public static jsonToLink(rel: string, data: any): Link {
