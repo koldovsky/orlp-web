@@ -10,34 +10,30 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
-var navbar_component_1 = require("./page/navbar/navbar.component");
+var navbar_component_1 = require("./navbar.component");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
-var cabinet_module_1 = require("./page/cabinet/cabinet.module");
-var categoryInfo_module_1 = require("./page/categoryInfo/categoryInfo.module");
-var signup_module_1 = require("./page/signup/signup.module");
-var main_module_1 = require("./page/main/main.module");
-var login_module_1 = require("./page/login/login.module");
-var admin_module_1 = require("./page/admin/admin.module");
-var card_module_1 = require("./page/card/card.module");
+var navbar_filter_pipe_1 = require("./navbar.filter.pipe");
+var deck_service_1 = require("./deck.service");
+var cabinet_module_1 = require("../cabinet/cabinet.module");
+var categoryInfo_module_1 = require("../categoryInfo/categoryInfo.module");
+var signup_module_1 = require("../signup/signup.module");
+var main_module_1 = require("../main/main.module");
+var login_module_1 = require("../login/login.module");
+var admin_module_1 = require("../admin/admin.module");
+var card_module_1 = require("../card/card.module");
 var core_2 = require("angular2-cookie/core");
-var orlp_service_1 = require("./orlp.service");
+var orlp_service_1 = require("../../orlp.service");
 var angular_star_rating_1 = require("angular-star-rating");
-var logout_service_1 = require("./page/logout/logout.service");
-var cabinet_service_1 = require("./page/cabinet/cabinet.service");
-var navbar_service_1 = require("./page/navbar/navbar.service");
-var deck_service_1 = require("./page/navbar/search/deck.service");
-var deck_filter_pipe_1 = require("./page/navbar/search/deck.filter.pipe");
-var category_service_1 = require("./page/navbar/search/category.service");
-var category_filter_pipe_1 = require("./page/navbar/search/category.filter.pipe");
-var course_service_1 = require("./page/navbar/search/course.service");
-var course_filter_pipe_1 = require("./page/navbar/search/course.filter.pipe");
-var AppModule = (function () {
-    function AppModule() {
+var logout_service_1 = require("../logout/logout.service");
+var navbar_service_1 = require("./navbar.service");
+var user_module_1 = require("../user/user.module");
+var NavbarModule = (function () {
+    function NavbarModule() {
     }
-    return AppModule;
+    return NavbarModule;
 }());
-AppModule = __decorate([
+NavbarModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
@@ -57,17 +53,16 @@ AppModule = __decorate([
             card_module_1.CardModule,
             cabinet_module_1.CabinetModule,
             angular_star_rating_1.StarRatingModule,
+            user_module_1.UserModule
         ],
         exports: [],
         declarations: [
             navbar_component_1.NavbarComponent,
-            category_filter_pipe_1.CategoryFilterPipe,
-            course_filter_pipe_1.CourseFilterPipe,
-            deck_filter_pipe_1.DeckFilterPipe,
+            navbar_filter_pipe_1.NavbarFilterPipe,
         ],
-        providers: [orlp_service_1.ORLPService, category_service_1.CategoryService, course_service_1.CourseService, deck_service_1.DeckService, core_2.CookieService, logout_service_1.LogoutService, navbar_service_1.NavbarService, cabinet_service_1.CabinetService],
+        providers: [orlp_service_1.ORLPService, deck_service_1.DeckService, core_2.CookieService, logout_service_1.LogoutService, navbar_service_1.NavbarService],
         bootstrap: [navbar_component_1.NavbarComponent]
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], NavbarModule);
+exports.NavbarModule = NavbarModule;
+//# sourceMappingURL=navbar.module.js.map
