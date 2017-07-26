@@ -10,8 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var login_service_1 = require("./login.service");
@@ -40,8 +40,8 @@ LoginModule = __decorate([
             common_1.CommonModule,
             angular2_social_login_1.Angular2SocialLoginModule,
             router_1.RouterModule.forRoot([
-                { path: 'login', component: login_component_1.LoginComponent }
-            ])
+                { path: 'login', component: login_component_1.LoginComponent },
+            ]),
         ],
         exports: [],
         declarations: [
