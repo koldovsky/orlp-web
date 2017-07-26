@@ -29,11 +29,4 @@ export class AdminCategoryComponent implements OnInit {
     toggleTable(): void {
         this.showTable = !this.showTable;
     }
-
-    addCategory(value: CategoriesPublic) {
-        this.adminCategoryService.addCategory(value, 'api/admin/add/category').subscribe(
-            data => this.categories.push(data),
-            error => console.log(error)
-        );
-    }
 }

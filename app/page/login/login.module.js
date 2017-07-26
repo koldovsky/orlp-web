@@ -14,8 +14,8 @@ var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var login_component_1 = require("./login.component");
 var login_service_1 = require("./login.service");
+var login_component_1 = require("./login.component");
 var angular2_social_login_1 = require("angular2-social-login");
 var providers = {
     "google": {
@@ -40,8 +40,8 @@ LoginModule = __decorate([
             common_1.CommonModule,
             angular2_social_login_1.Angular2SocialLoginModule,
             router_1.RouterModule.forRoot([
-                { path: 'login', component: login_component_1.LoginComponent },
-            ]),
+                { path: 'login', component: login_component_1.LoginComponent }
+            ])
         ],
         exports: [],
         declarations: [

@@ -7,7 +7,7 @@ var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
 var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
 var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
-var public_users_DTO_1 = require("./public.users.DTO");
+var admin_users_DTO_1 = require("./admin.users.DTO");
 var link_course_DTO_1 = require("./CourseDTO/link.course.DTO");
 var UserDetailsDto_1 = require("./UserDetailsDto");
 var DTOConverter = (function () {
@@ -44,9 +44,9 @@ var DTOConverter = (function () {
         var decks = DTOConverter.jsonToLink("decks", data._links.decks);
         return new link_category_DTO_1.CategoryLink(data.name, data.description, data.imagebase64, self, decks, courses);
     };
-    DTOConverter.jsonToPublicUsers = function (data) {
+    DTOConverter.jsonToAdminUsers = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
-        return new public_users_DTO_1.UsersPublic(data.firstName, data.lastName, data.email, data.accountStatus, self);
+        return new admin_users_DTO_1.AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
     };
     DTOConverter.jsonToUserDetails = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);

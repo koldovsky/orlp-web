@@ -24,7 +24,7 @@ var AdminUserService = (function () {
     }
     AdminUserService.prototype.getUser = function (url) {
         return this.orlp.get(url)
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToPublicUsers(response.json()); })
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToAdminUsers(response.json()); })
             .catch(this.handleError);
     };
     AdminUserService.prototype.updateAccountState = function (body, url) {
