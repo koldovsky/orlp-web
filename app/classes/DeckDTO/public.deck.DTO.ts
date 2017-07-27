@@ -11,5 +11,5 @@ export class DeckPublic {
         this.description = description;
         this.rating = rating;
         this.self = self;
-    }
+     }
 }

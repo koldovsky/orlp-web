@@ -36,6 +36,4 @@ export class LoginService {
     private handleErrorObservable(error: Response | any) {
         return Observable.throw(error.message || error);
     }
-
-
 }

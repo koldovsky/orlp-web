@@ -11,6 +11,7 @@ var forms_1 = require("@angular/forms");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
 var card_component_1 = require("./card.component");
+var card_service_1 = require("./card.service");
 var CardModule = (function () {
     function CardModule() {
     }
@@ -22,14 +23,14 @@ CardModule = __decorate([
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                { path: 'card', component: card_component_1.CardComponent }
+                { path: 'cards/:url', component: card_component_1.CardComponent }
             ])
         ],
         exports: [],
         declarations: [
             card_component_1.CardComponent
         ],
-        providers: [],
+        providers: [card_service_1.CardService],
     })
 ], CardModule);
 exports.CardModule = CardModule;

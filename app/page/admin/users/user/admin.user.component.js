@@ -18,7 +18,6 @@ var AdminUserComponent = (function () {
         this.route = route;
         this.orlp = orlp;
         this.adminUserSevice = adminUserSevice;
-        this.ok = new core_1.EventEmitter();
     }
     AdminUserComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -76,10 +75,6 @@ var AdminUserComponent = (function () {
     };
     return AdminUserComponent;
 }());
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], AdminUserComponent.prototype, "ok", void 0);
 AdminUserComponent = __decorate([
     core_1.Component({
         selector: 'one-user',
