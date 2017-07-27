@@ -23,7 +23,7 @@ var CourseService = (function () {
     }
     CourseService.prototype.getCourse = function (url) {
         return this.orlp.get(url)
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicLinkCourse, response.json()); })
             .catch(this.handleError);
     };
     CourseService.prototype.getDecks = function (url) {

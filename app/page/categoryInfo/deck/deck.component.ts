@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {CardPublic} from "../../../classes/CardsDTO/public.card.DTO";
 import {CookieService} from "angular2-cookie/core";
 import {error} from "util";
+import {DeckLinkByFolderWithStatus} from "../../../classes/DeckDTO/linkByFolderWithStatus.deck.DTO";
+import {tokenName} from "@angular/compiler";
 
 @Component({
     selector: 'deck-table',
@@ -19,9 +21,10 @@ import {error} from "util";
 export class DeckComponent implements OnInit {
 
     public decks: DeckLinkByCategory[];
+    public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
     public errorMessage: string;
     public cookie: string;
-    public decksIdInYourFolder: number[];
+    public decksIdInYourFolder: number[] = [];
     @Input() url: string;
 
     constructor(private deckService: DeckService,
@@ -35,32 +38,30 @@ export class DeckComponent implements OnInit {
             data => console.log(data),
             error => console.log(error)
         );
+
+        this.changeDeckStatus(deckId);
     }
 
     ngOnInit(): void {
         this.url = this.orlpService.decodeLink(this.url);
 
         this.deckService.getDecks(this.url)
-            .subscribe(decks => this.decks = decks,
-                error => this.errorMessage = <any>error);
+            .subscribe(decks => {
+                    this.decks = decks;
+                    this.getIdDecksInYourFolder();
+                    this.createDecksWithStatus();
+                },
+                error => this.errorMessage = <any>error
+            );
 
         this.cookie = this.cookieService.get("Authentication");
-
-        this.getIdDecksInYourFolder();
-    }
-
-    deckIsInYourFolder(id: number) {
-        if (this.decksIdInYourFolder.includes(id)) {
-            return true;
-        }
-        return false;
     }
 
     getIdDecksInYourFolder() {
         this.deckService.getIdDecksInYourFolder().subscribe(
             id => {
                 this.decksIdInYourFolder = id;
-                console.log(this.decksIdInYourFolder)
+                this.setStatusForDecksThatInFolder();
             },
             error => this.errorMessage = <any>error);
     }
@@ -71,5 +72,30 @@ export class DeckComponent implements OnInit {
 
     startLearning(cards: Link): void {
         this.router.navigate(['/cards', this.getCardsLink(cards)]);
+    }
+
+    private createDecksWithStatus() {
+        for (let entry of this.decks) {
+            this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name, entry.description, entry.self, entry.cards, entry.deckId, false))
+        }
+    }
+
+    private setStatusForDecksThatInFolder() {
+        for (let entry of this.decksWithStatus) {
+            for (let id of this.decksIdInYourFolder) {
+                if (entry.deckId === id) {
+                    entry.status = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    private changeDeckStatus(deckId: number) {
+        for (let entry of this.decksWithStatus) {
+            if (entry.deckId === deckId) {
+                entry.status = true;
+            }
+        }
     }
 }

@@ -7,7 +7,8 @@ import {ORLPService} from "../../../orlp.service";
 @Component({
     selector: "admin-all-category",
     providers: [AdminCategoryService],
-    template: require('app/page/admin/categories/admin.category.component.html!text')
+    template: require('app/page/admin/categories/admin.category.component.html!text'),
+    styleUrls: ['app/page/admin/admin.style.css']
 })
 
 export class AdminCategoryComponent implements OnInit {

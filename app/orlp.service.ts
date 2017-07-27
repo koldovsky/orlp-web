@@ -21,6 +21,10 @@ export class ORLPService {
 
     put(url: string, body: any) {
         return this.http.put(this.SERVER_ADDRESS + url, body, {withCredentials: true});
+        }
+
+    delete(url: string, body: any) {
+        return this.http.delete(this.SERVER_ADDRESS + url, body);
     }
 
     public getShortLink(link: Link) {

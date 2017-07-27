@@ -1,5 +1,5 @@
 <main>
-    <div class="vertical-menu" style="float:left">
+    <div class="vertical-menu">
         <ul>
             <li><a [routerLink]="['/cabinet/folder']">My folder</a></li>
             <li><a [routerLink]="['/cabinet/calendar']">Calendar</a></li>
@@ -19,7 +19,7 @@
                     <td>{{deck.name}}</td>
                     <td>{{deck.description}}</td>
                     <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
-                    <td><button>START</button></td>
+                    <td><button (click)="startLearning(deck.cards)">START</button></td>
                 </tr>
             </tbody>
         </table>

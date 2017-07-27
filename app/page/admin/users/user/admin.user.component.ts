@@ -1,21 +1,20 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component,  OnInit} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
-import {UsersPublic} from "../../../../classes/public.users.DTO";
+import {AdminUsers} from "../../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../../orlp.service";
 import {Link} from "../../../../classes/link";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {userInfo} from "os";
 
 @Component({
     selector: 'one-user',
     providers: [AdminUserService],
     template: require('app/page/admin/users/user/admin.user.component.html!text'),
-    styleUrls: ['app/page/admin/styles-for-admin-page.css']
+    styleUrls: ['app/page/admin/admin.style.css']
 })
 
 export class AdminUserComponent implements OnInit {
-    user: UsersPublic;
+    user: AdminUsers;
     errorMessage: string;
     private sub: Subscription;
     private url: string;
@@ -49,5 +48,21 @@ export class AdminUserComponent implements OnInit {
 
     public getUserLink(link: Link): string {
         return this.orlp.getShortLink(link);
+    }
+
+    updateAccountState(currentUser: AdminUsers) {
+        this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
+            user => this.user = user,
+            error => console.log(error)
+        );
+        console.log(currentUser);
+    }
+
+    deleteAccountState(currentUser: AdminUsers) {
+        this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(
+            user => this.user = user,
+            error => console.log(error)
+        );
+        console.log(currentUser);
     }
 }

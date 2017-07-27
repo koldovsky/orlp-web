@@ -11,14 +11,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var orlp_service_1 = require("../../../orlp.service");
+var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
 var AccountVerificationService = (function () {
     function AccountVerificationService(orlp) {
         this.orlp = orlp;
+        this.subject = new BehaviorSubject_1.BehaviorSubject(false);
         this._controllerUrl = 'api/registrationConfirm';
     }
     ;
     AccountVerificationService.prototype.accountVerificate = function (token) {
         return this.orlp.post(this._controllerUrl, token);
+    };
+    AccountVerificationService.prototype.sendMessage = function () {
+        this.subject.next(!this.subject.getValue());
+    };
+    AccountVerificationService.prototype.getMessage = function () {
+        return this.subject.asObservable();
     };
     return AccountVerificationService;
 }());

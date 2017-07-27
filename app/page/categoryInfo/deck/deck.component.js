@@ -14,35 +14,36 @@ var deck_service_1 = require("./deck.service");
 var orlp_service_1 = require("../../../orlp.service");
 var router_1 = require("@angular/router");
 var core_2 = require("angular2-cookie/core");
+var linkByFolderWithStatus_deck_DTO_1 = require("../../../classes/DeckDTO/linkByFolderWithStatus.deck.DTO");
 var DeckComponent = (function () {
     function DeckComponent(deckService, orlpService, router, cookieService) {
         this.deckService = deckService;
         this.orlpService = orlpService;
         this.router = router;
         this.cookieService = cookieService;
+        this.decksWithStatus = [];
+        this.decksIdInYourFolder = [];
     }
     DeckComponent.prototype.addDeckToFolder = function (deckId) {
         this.deckService.addDeckToFolder(deckId).subscribe(function (data) { return console.log(data); }, function (error) { return console.log(error); });
+        this.changeDeckStatus(deckId);
     };
     DeckComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.url = this.orlpService.decodeLink(this.url);
         this.deckService.getDecks(this.url)
-            .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (decks) {
+            _this.decks = decks;
+            _this.getIdDecksInYourFolder();
+            _this.createDecksWithStatus();
+        }, function (error) { return _this.errorMessage = error; });
         this.cookie = this.cookieService.get("Authentication");
-        this.getIdDecksInYourFolder();
-    };
-    DeckComponent.prototype.deckIsInYourFolder = function (id) {
-        if (this.decksIdInYourFolder.includes(id)) {
-            return true;
-        }
-        return false;
     };
     DeckComponent.prototype.getIdDecksInYourFolder = function () {
         var _this = this;
         this.deckService.getIdDecksInYourFolder().subscribe(function (id) {
             _this.decksIdInYourFolder = id;
-            console.log(_this.decksIdInYourFolder);
+            _this.setStatusForDecksThatInFolder();
         }, function (error) { return _this.errorMessage = error; });
     };
     DeckComponent.prototype.getCardsLink = function (link) {
@@ -50,6 +51,32 @@ var DeckComponent = (function () {
     };
     DeckComponent.prototype.startLearning = function (cards) {
         this.router.navigate(['/cards', this.getCardsLink(cards)]);
+    };
+    DeckComponent.prototype.createDecksWithStatus = function () {
+        for (var _i = 0, _a = this.decks; _i < _a.length; _i++) {
+            var entry = _a[_i];
+            this.decksWithStatus.push(new linkByFolderWithStatus_deck_DTO_1.DeckLinkByFolderWithStatus(entry.name, entry.description, entry.self, entry.cards, entry.deckId, false));
+        }
+    };
+    DeckComponent.prototype.setStatusForDecksThatInFolder = function () {
+        for (var _i = 0, _a = this.decksWithStatus; _i < _a.length; _i++) {
+            var entry = _a[_i];
+            for (var _b = 0, _c = this.decksIdInYourFolder; _b < _c.length; _b++) {
+                var id = _c[_b];
+                if (entry.deckId === id) {
+                    entry.status = true;
+                    break;
+                }
+            }
+        }
+    };
+    DeckComponent.prototype.changeDeckStatus = function (deckId) {
+        for (var _i = 0, _a = this.decksWithStatus; _i < _a.length; _i++) {
+            var entry = _a[_i];
+            if (entry.deckId === deckId) {
+                entry.status = true;
+            }
+        }
     };
     return DeckComponent;
 }());

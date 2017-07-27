@@ -18,7 +18,6 @@ var admin_users_service_1 = require("./users/admin.users.service");
 var admin_user_component_1 = require("./users/user/admin.user.component");
 var admin_user_service_1 = require("./users/user/admin.user.service");
 var admin_main_component_1 = require("./admin.main.component");
-var admin_main_service_1 = require("./admin.main.service");
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -30,7 +29,6 @@ AdminModule = __decorate([
             forms_1.FormsModule,
             common_1.CommonModule,
             router_1.RouterModule.forChild([
-                // {path: 'admin', component: AdminCategoryComponent},
                 { path: 'admin', component: admin_main_component_1.AdminMainComponent },
                 { path: 'admin/categories', component: admin_category_component_1.AdminCategoryComponent },
                 { path: 'admin/users', component: admin_users_component_1.AdminUsersComponent },
@@ -49,7 +47,6 @@ AdminModule = __decorate([
             admin_category_service_1.AdminCategoryService,
             admin_users_service_1.AdminUsersService,
             admin_user_service_1.AdminUserService,
-            admin_main_service_1.AdminMainService
         ],
     })
 ], AdminModule);

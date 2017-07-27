@@ -8,6 +8,7 @@ export declare class ORLPService {
     get(url: string): Observable<Response>;
     post(url: string, body: any): Observable<Response>;
     put(url: string, body: any): Observable<Response>;
+    delete(url: string, body: any): Observable<Response>;
     getShortLink(link: Link): string;
     decodeLink(url: string): string;
 }

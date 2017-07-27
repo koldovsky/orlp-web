@@ -23,8 +23,6 @@ var AdminUsersComponent = (function () {
             .subscribe(function (users) { return _this.users = users; }, function (error) { return _this.errorMessage = error; });
     };
     AdminUsersComponent.prototype.getUserLink = function (link) {
-        console.log('LINK : ' + link.href);
-        console.log('Code : ' + this.orlp.getShortLink(link));
         return this.orlp.getShortLink(link);
     };
     return AdminUsersComponent;
@@ -34,7 +32,7 @@ AdminUsersComponent = __decorate([
         selector: "admin-all-users",
         providers: [admin_users_service_1.AdminUsersService],
         template: require('app/page/admin/users/admin.users.component.html!text'),
-        styleUrls: ['app/page/admin/styles-for-admin-page.css']
+        styleUrls: ['app/page/admin/admin.style.css']
     }),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService,
         admin_users_service_1.AdminUsersService])

@@ -54,11 +54,6 @@
             <div class="col-md-3"></div>
             <div class="col-md-6" style="padding-top: .35rem">
                 <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-                    <label class="form-check-label">
-                        <input class="form-check-input" name="remember"
-                               type="checkbox">
-                        <span style="padding-bottom: .15rem; color: white">Remember me</span>
-                    </label>
                 </div>
             </div>
         </div>
@@ -66,7 +61,8 @@
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
-                <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+                <button type="button" (click)="signInGoogle('google')" class="btn-google"></button>
+                <button type="button" (click)="signInFacebook('facebook') " class="btn-facebook"></button>
             </div>
 
         </div>
@@ -81,14 +77,13 @@
                     <div class="alert alert-danger" *ngIf="error">
                         <span><b>Authorization failed!</b> Try again.</span>
                     </div>
-                    <div class="alert alert-success" *ngIf="success">
-                        <span>Authorization <b>successful!</b></span>
+                    <div class="alert alert-success" *ngIf="verificationStat">
+                        <span>Your account successfully activated</span>
                     </div>
                 </div>
             </div>
         </div>
 
     </form>
-    <button (click)="signInGoogle('google')" class="btn-google">google</button>
-    <button (click)="signInFacebook('facebook') " class="btn-facebook">facebook</button>
+
 </div>

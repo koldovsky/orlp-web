@@ -30,7 +30,6 @@ var DeckService = (function () {
         return this.orlp.put("api/user/folder/add/deck/" + deckId, {})
             .map(function (response) {
             response.json();
-            console.log(JSON.stringify(response));
         })
             .catch(this.handleError);
     };

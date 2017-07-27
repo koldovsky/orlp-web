@@ -27,7 +27,6 @@ export class DeckService {
         return this.orlp.put("api/user/folder/add/deck/" +  deckId, {})
             .map((response: Response) => {
             response.json();
-            console.log(JSON.stringify(response));
             })
             .catch(this.handleError);
     }
