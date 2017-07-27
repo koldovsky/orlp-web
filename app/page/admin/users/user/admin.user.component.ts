@@ -18,7 +18,7 @@ export class AdminUserComponent implements OnInit {
     private errorMessage: string;
     private sub: Subscription;
     private url: string;
-    private ckickedButton: boolean;
+    private clickedButton: boolean;
 
     @Output() ok: EventEmitter<any> = new EventEmitter();
 
@@ -68,17 +68,17 @@ export class AdminUserComponent implements OnInit {
     }
 
     toggleDelete(){
-        this.ckickedButton = true;
+        this.clickedButton = true;
     }
 
     toggleUp(){
-        this.ckickedButton = false;
+        this.clickedButton = false;
     }
 
     onOK(currentUser: AdminUsers) {
         switch (currentUser.accountStatus) {
             case "ACTIVE": {
-                if (this.ckickedButton){
+                if (this.clickedButton){
                     this.deleteAccountState(currentUser);
                 }else{
                     this.updateAccountState(currentUser);
