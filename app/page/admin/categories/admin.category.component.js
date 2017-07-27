@@ -16,15 +16,11 @@ var AdminCategoryComponent = (function () {
     function AdminCategoryComponent(adminCategoryService, orlpService) {
         this.adminCategoryService = adminCategoryService;
         this.orlpService = orlpService;
-        this.showTable = false;
     }
     AdminCategoryComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.adminCategoryService.getCatalogs()
             .subscribe(function (categories) { return _this.categories = categories; }, function (error) { return _this.errorMessage = error; });
-    };
-    AdminCategoryComponent.prototype.toggleTable = function () {
-        this.showTable = !this.showTable;
     };
     return AdminCategoryComponent;
 }());

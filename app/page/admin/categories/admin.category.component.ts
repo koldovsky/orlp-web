@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminCategoryService} from "./admin.category.service";
-import {ICategory} from "../../../interfaces/category";
 import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
 import {ORLPService} from "../../../orlp.service";
 
@@ -15,7 +14,6 @@ export class AdminCategoryComponent implements OnInit {
     categories: CategoriesPublic[];
     errorMessage: string;
     listFilter: string;
-    showTable: boolean = false;
 
     constructor(private adminCategoryService: AdminCategoryService, private orlpService: ORLPService) {
     }
@@ -24,9 +22,5 @@ export class AdminCategoryComponent implements OnInit {
         this.adminCategoryService.getCatalogs()
             .subscribe(categories => this.categories = categories,
                 error => this.errorMessage = <any>error);
-    }
-
-    toggleTable(): void {
-        this.showTable = !this.showTable;
     }
 }

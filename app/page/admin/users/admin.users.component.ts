@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {AdminUsersService} from "./admin.users.service";
 import {AdminUsers} from "../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../orlp.service";
