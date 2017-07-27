@@ -1,5 +1,5 @@
 import { PipeTransform } from "@angular/core";
-import { ICategory } from "../../../interfaces/category";
+import { CategoriesPublic } from "../../../classes/CategoryDTO/public.categories";
 export declare class AdminCategoryPipe implements PipeTransform {
-    transform(value: ICategory[], filterBy: string): ICategory[];
+    transform(value: CategoriesPublic[], filterBy: string): CategoriesPublic[];
 }
