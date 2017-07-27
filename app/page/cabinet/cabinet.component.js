@@ -22,9 +22,7 @@ var CabinetComponent = (function () {
     };
     CabinetComponent.prototype.getUserDecks = function () {
         var _this = this;
-        var folderUrl = this.user.folder.href;
-        folderUrl = folderUrl.replace("http://localhost:8080/", "");
-        this.cabinetService.getUserDecks(folderUrl)
+        this.cabinetService.getUserDecks(this.user.folder)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     return CabinetComponent;
