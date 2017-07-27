@@ -31,7 +31,7 @@ var NavbarComponent = (function () {
                 _this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
             });
         }
-        this.deckService.getDecks(this.url).subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
+        this.deckService.getDecks().subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     NavbarComponent.prototype.logoutUser = function () {
         if (this.logoutService.logout()) {
@@ -42,10 +42,6 @@ var NavbarComponent = (function () {
     };
     return NavbarComponent;
 }());
-__decorate([
-    core_1.Input(),
-    __metadata("design:type", String)
-], NavbarComponent.prototype, "url", void 0);
 NavbarComponent = __decorate([
     core_1.Component({
         selector: 'page',

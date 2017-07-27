@@ -6,10 +6,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import { CourseLink } from "../../../classes/CourseDTO/link.course.DTO";
 import { DeckPublic } from "../../../classes/DeckDTO/public.deck.DTO";
+import { Link } from "../../../classes/link";
 export declare class CourseService {
     private orlp;
     constructor(orlp: ORLPService);
     getCourse(url: string): Observable<CourseLink[]>;
-    getDecks(url: string): Observable<DeckPublic[]>;
+    getDecks(link: Link): Observable<DeckPublic[]>;
     private handleError(error);
 }

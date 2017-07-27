@@ -9,6 +9,7 @@ import 'rxjs/add/observable/throw';
 import {DTOConverter} from "../../../classes/dto.Converter";
 import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
 import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
+import {Link} from "../../../classes/link";
 
 @Injectable()
 export class CourseService {
@@ -21,9 +22,11 @@ export class CourseService {
             .catch(this.handleError);
     }
 
-    getDecks(url: string): Observable<DeckPublic[]> {
-        url = url.replace("http://localhost:8080/", "");
-        return this.orlp.get(url)
+    getDecks(link: Link): Observable<DeckPublic[]> {
+        let shortLink: string = this.orlp.getShortLink(link);
+        shortLink = this.orlp.decodeLink(shortLink);
+
+        return this.orlp.get(shortLink)
             .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
             .catch(this.handleError);
     }

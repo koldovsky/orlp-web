@@ -26,9 +26,10 @@ var CourseService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicLinkCourse, response.json()); })
             .catch(this.handleError);
     };
-    CourseService.prototype.getDecks = function (url) {
-        url = url.replace("http://localhost:8080/", "");
-        return this.orlp.get(url)
+    CourseService.prototype.getDecks = function (link) {
+        var shortLink = this.orlp.getShortLink(link);
+        shortLink = this.orlp.decodeLink(shortLink);
+        return this.orlp.get(shortLink)
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };

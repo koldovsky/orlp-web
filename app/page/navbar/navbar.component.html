@@ -32,7 +32,7 @@
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" [(ngModel)]="listFilter2" (keypress)="show=true" (blur)="show=false"/>
+            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signup">

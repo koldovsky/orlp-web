@@ -25,7 +25,7 @@ var CourseComponent = (function () {
     };
     CourseComponent.prototype.getDecks = function (course) {
         var _this = this;
-        this.courseService.getDecks(course.decks.href)
+        this.courseService.getDecks(course.decks)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     return CourseComponent;

@@ -14,7 +14,7 @@ export class DeckService {
     constructor(private orlp: ORLPService) {
     }
 
-    getDecks(url: string): Observable<DeckPublic[]> {
+    getDecks(): Observable<DeckPublic[]> {
         return this.orlp.get('api/decks/ordered')
             .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
             .catch(this.handleError);
