@@ -1,17 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-
-import {IDeck} from "../../../interfaces/deck";
+import {Component, Input, OnInit} from "@angular/core";
 import {DeckService} from "./deck.service";
 import {ORLPService} from "../../../orlp.service";
-import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 import {DeckLinkByCategory} from "../../../classes/DeckDTO/linkByCategory.deck.DTO";
 import {Link} from "../../../classes/link";
 import {Router} from "@angular/router";
-import {CardPublic} from "../../../classes/CardsDTO/public.card.DTO";
 import {CookieService} from "angular2-cookie/core";
-import {error} from "util";
 import {DeckLinkByFolderWithStatus} from "../../../classes/DeckDTO/linkByFolderWithStatus.deck.DTO";
-import {tokenName} from "@angular/compiler";
 
 @Component({
     selector: 'deck-table',
