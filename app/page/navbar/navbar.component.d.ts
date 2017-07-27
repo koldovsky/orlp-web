@@ -12,8 +12,6 @@ export declare class NavbarComponent implements OnInit {
     private navbarService;
     decks: DeckPublic[];
     listFilter: string;
-    listFilter2: string;
-    url: string;
     errorMessage: string;
     isAuthorized: boolean;
     isAuthorizedAdmin: boolean;

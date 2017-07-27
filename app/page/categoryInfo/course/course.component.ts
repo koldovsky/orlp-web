@@ -29,7 +29,7 @@ export class CourseComponent implements OnInit {
     }
 
     getDecks(course: CourseLink) {
-        this.courseService.getDecks(course.decks.href)
+        this.courseService.getDecks(course.decks)
             .subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
     }

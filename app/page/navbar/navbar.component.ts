@@ -15,8 +15,6 @@ import {UserDetailsDto} from "../../classes/UserDetailsDto";
 export class NavbarComponent implements OnInit {
     decks: DeckPublic[];
     listFilter: string;
-    listFilter2: string;
-    @Input() url: string;
     public errorMessage: string;
     isAuthorized: boolean;
     isAuthorizedAdmin: boolean;
@@ -37,7 +35,7 @@ export class NavbarComponent implements OnInit {
                     this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
                 });
         }
-        this.deckService.getDecks(this.url).subscribe(decks => this.decks = decks,
+        this.deckService.getDecks().subscribe(decks => this.decks = decks,
                 error => this.errorMessage = <any>error);
     }
 
@@ -48,5 +46,4 @@ export class NavbarComponent implements OnInit {
             this.router.navigate(['main']);
         }
     }
-
 }

@@ -21,7 +21,7 @@ var DeckService = (function () {
     function DeckService(orlp) {
         this.orlp = orlp;
     }
-    DeckService.prototype.getDecks = function (url) {
+    DeckService.prototype.getDecks = function () {
         return this.orlp.get('api/decks/ordered')
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);

@@ -8,6 +8,6 @@ import { DeckPublic } from "../../../classes/DeckDTO/public.deck.DTO";
 export declare class DeckService {
     private orlp;
     constructor(orlp: ORLPService);
-    getDecks(url: string): Observable<DeckPublic[]>;
+    getDecks(): Observable<DeckPublic[]>;
     private handleError(error);
 }
