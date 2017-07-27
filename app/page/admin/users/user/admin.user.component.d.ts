@@ -12,7 +12,7 @@ export declare class AdminUserComponent implements OnInit {
     private errorMessage;
     private sub;
     private url;
-    private ckickedButton;
+    private clickedButton;
     ok: EventEmitter<any>;
     constructor(route: ActivatedRoute, orlp: ORLPService, adminUserSevice: AdminUserService);
     ngOnInit(): void;

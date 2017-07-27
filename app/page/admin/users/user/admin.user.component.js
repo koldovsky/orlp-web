@@ -48,15 +48,15 @@ var AdminUserComponent = (function () {
         this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
     };
     AdminUserComponent.prototype.toggleDelete = function () {
-        this.ckickedButton = true;
+        this.clickedButton = true;
     };
     AdminUserComponent.prototype.toggleUp = function () {
-        this.ckickedButton = false;
+        this.clickedButton = false;
     };
     AdminUserComponent.prototype.onOK = function (currentUser) {
         switch (currentUser.accountStatus) {
             case "ACTIVE": {
-                if (this.ckickedButton) {
+                if (this.clickedButton) {
                     this.deleteAccountState(currentUser);
                 }
                 else {
