@@ -29,11 +29,9 @@ var NavbarComponent = (function () {
                 .subscribe(function (user) {
                 _this.userDetails = user;
                 _this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
-                console.log(_this.userDetails);
             });
         }
-        // this.deckService.getDecks().subscribe(decks => this.decks = decks,
-        //         error => this.errorMessage = <any>error);
+        this.deckService.getDecks().subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
     NavbarComponent.prototype.logoutUser = function () {
         if (this.logoutService.logout()) {

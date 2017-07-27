@@ -4,6 +4,7 @@ var top_category_DTO_1 = require("./CategoryDTO/top.category.DTO");
 var link_1 = require("./link");
 var link_category_DTO_1 = require("./CategoryDTO/link.category.DTO");
 var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
+var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
 var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var linkByCategory_deck_DTO_1 = require("./DeckDTO/linkByCategory.deck.DTO");
@@ -12,7 +13,6 @@ var admin_users_DTO_1 = require("./admin.users.DTO");
 var UserDTO_1 = require("./UserDTO/UserDTO");
 var link_course_DTO_1 = require("./CourseDTO/link.course.DTO");
 var UserDetailsDto_1 = require("./UserDetailsDto");
-var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
 var linkByFolder_deck_DTO_1 = require("./DeckDTO/linkByFolder.deck.DTO");
 var DTOConverter = (function () {
     function DTOConverter() {

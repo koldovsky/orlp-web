@@ -17,7 +17,7 @@ export class ORLPService {
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {withCredentials: true});
+        return this.http.post(this.SERVER_ADDRESS + url, body , {withCredentials: true});
     }
 
     put(url: string, body: any) {

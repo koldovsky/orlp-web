@@ -33,11 +33,10 @@ export class NavbarComponent implements OnInit {
                 .subscribe(user => {
                     this.userDetails = user;
                     this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
-                    console.log(this.userDetails);
                 });
         }
-        // this.deckService.getDecks().subscribe(decks => this.decks = decks,
-        //         error => this.errorMessage = <any>error);
+        this.deckService.getDecks().subscribe(decks => this.decks = decks,
+            error => this.errorMessage = <any>error);
     }
 
     logoutUser() {

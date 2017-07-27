@@ -2,6 +2,7 @@ import { CategoryTop } from "./CategoryDTO/top.category.DTO";
 import { Link } from "./link";
 import { CategoryLink } from "./CategoryDTO/link.category.DTO";
 import { DeckPublic } from "./DeckDTO/public.deck.DTO";
+import { CoursePublic } from "./CourseDTO/public.course.DTO";
 import { CategoriesPublic } from "./CategoryDTO/public.categories";
 import { CourseTop } from "./CourseDTO/top.course.DTO";
 import { DeckLinkByCategory } from "./DeckDTO/linkByCategory.deck.DTO";
@@ -10,7 +11,6 @@ import { AdminUsers } from "./admin.users.DTO";
 import { UsersDTO } from "./UserDTO/UserDTO";
 import { CourseLink } from "./CourseDTO/link.course.DTO";
 import { UserDetailsDto } from "./UserDetailsDto";
-import { CoursePublic } from "./CourseDTO/public.course.DTO";
 import { DeckLinkByFolder } from "./DeckDTO/linkByFolder.deck.DTO";
 export declare class DTOConverter {
     static jsonToPublicCards(data: any): CardPublic;
