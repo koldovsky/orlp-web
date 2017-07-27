@@ -35,6 +35,7 @@ var course_filter_pipe_1 = require("./page/navbar/search/course.filter.pipe");
 var user_module_1 = require("./page/user/user.module");
 var user_categories_service_1 = require("./page/user/categories/user.categories.service");
 var user_courses_service_1 = require("./page/user/courses/user.courses.service");
+var courseInfo_module_1 = require("./page/courseInfo/courseInfo.module");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -53,6 +54,7 @@ AppModule = __decorate([
                 { path: '**', redirectTo: 'main', pathMatch: 'full' }
             ]),
             categoryInfo_module_1.CategoryInfoModule,
+            courseInfo_module_1.CourseInfoModule,
             signup_module_1.SignUpModule,
             login_module_1.LoginModule,
             main_module_1.MainModule,

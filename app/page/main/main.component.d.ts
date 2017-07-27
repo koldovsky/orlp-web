@@ -1,4 +1,4 @@
-import { OnInit } from '@angular/core';
+import { OnInit } from "@angular/core";
 import { MainService } from "./main.service";
 import { ORLPService } from "../../orlp.service";
 import { Link } from "../../classes/link";

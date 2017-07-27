@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
@@ -23,11 +23,12 @@ import {StarRatingModule} from "angular-star-rating";
     declarations: [
         CategoryInfoComponent,
         CourseComponent,
-        DeckComponent ],
+        DeckComponent],
     providers: [
         CourseService,
         DeckService,
         CategoryInfoService
     ],
 })
-export class CategoryInfoModule { }
+export class CategoryInfoModule {
+}
