@@ -22,8 +22,10 @@ var CabinetService = (function () {
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonToUserDTO(response.json()); })
             .catch(this.handleError);
     };
-    CabinetService.prototype.getUserDecks = function (url) {
-        return this.orlp.get(url)
+    CabinetService.prototype.getUserDecks = function (link) {
+        var shortLink = this.orlp.getShortLink(link);
+        shortLink = this.orlp.decodeLink(shortLink);
+        return this.orlp.get(shortLink)
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
             .catch(this.handleError);
     };

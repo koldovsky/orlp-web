@@ -5,6 +5,7 @@ import {ORLPService} from "../../orlp.service";
 import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
 import {DTOConverter} from "../../classes/dto.Converter";
 import {UsersDTO} from "../../classes/UserDTO/UserDTO";
+import {Link} from "../../classes/link";
 
 @Injectable()
 export class CabinetService {
@@ -18,8 +19,11 @@ export class CabinetService {
             .catch(this.handleError);
     }
 
-    public getUserDecks(url: string): Observable<DeckPublic[]> {
-        return this.orlp.get(url)
+    public getUserDecks(link: Link): Observable<DeckPublic[]> {
+        let shortLink: string = this.orlp.getShortLink(link);
+        shortLink = this.orlp.decodeLink(shortLink);
+
+        return this.orlp.get(shortLink)
             .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
             .catch(this.handleError);
     }
