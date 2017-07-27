@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {LoginService} from "./login.service";
 import {LoginComponent} from "./login.component";
 import {Angular2SocialLoginModule} from "angular2-social-login";
+import {ReCaptchaModule} from "angular2-recaptcha";
 
 let providers = {
     "google": {
@@ -20,6 +21,7 @@ let providers = {
 @NgModule({
     imports: [
         HttpModule,
+        ReCaptchaModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,

@@ -16,13 +16,12 @@ var angular2_social_login_1 = require("angular2-social-login");
 var router_1 = require("@angular/router");
 var accountVerification_service_1 = require("../signup/accountVerification/accountVerification.service");
 var LoginComponent = (function () {
-    function LoginComponent(fb, loginService, auth, router, activatedRoute, accountVerify) {
+    function LoginComponent(fb, loginService, auth, router, accountVerify) {
         var _this = this;
         this.fb = fb;
         this.loginService = loginService;
         this.auth = auth;
         this.router = router;
-        this.activatedRoute = activatedRoute;
         this.accountVerify = accountVerify;
         this.success = false;
         this.error = false;
@@ -32,7 +31,9 @@ var LoginComponent = (function () {
             _this.success = false;
             _this.error = false;
             _this.wrongDetails = false;
-            _this.loginService.signIn(_this.loginForm.value)
+            _this.account = _this.loginForm.value;
+            _this.account.captcha = _this.captcha;
+            _this.loginService.signIn(_this.account)
                 .subscribe(function (response) {
                 _this.success = true;
                 _this.router.navigate(['main']);
@@ -106,6 +107,12 @@ var LoginComponent = (function () {
     LoginComponent.prototype.reload = function () {
         window.location.reload();
     };
+    LoginComponent.prototype.handleCorrectCaptcha = function ($event) {
+        this.captcha = $event;
+    };
+    LoginComponent.prototype.validLogin = function () {
+        return this.loginForm.valid && (this.captcha != null);
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([
@@ -117,7 +124,6 @@ LoginComponent = __decorate([
         login_service_1.LoginService,
         angular2_social_login_1.AuthService,
         router_1.Router,
-        router_1.ActivatedRoute,
         accountVerification_service_1.AccountVerificationService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
