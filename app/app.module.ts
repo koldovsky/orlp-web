@@ -27,6 +27,7 @@ import {CourseFilterPipe} from "./page/navbar/search/course.filter.pipe";
 import {UserModule} from "./page/user/user.module";
 import {UserCategoriesService} from "./page/user/categories/user.categories.service";
 import {UserCoursesService} from "./page/user/courses/user.courses.service";
+import {CourseInfoModule} from "./page/courseInfo/courseInfo.module";
 
 @NgModule({
     imports: [
@@ -41,6 +42,7 @@ import {UserCoursesService} from "./page/user/courses/user.courses.service";
         ]),
 
         CategoryInfoModule,
+        CourseInfoModule,
         SignUpModule,
         LoginModule,
         MainModule,
@@ -58,7 +60,7 @@ import {UserCoursesService} from "./page/user/courses/user.courses.service";
         DeckFilterPipe,
     ],
 
-    providers: [ORLPService, CategoryService, CourseService, DeckService,  CookieService, LogoutService, NavbarService, CabinetService, UserCategoriesService, UserCoursesService],
+    providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, NavbarService, CabinetService, UserCategoriesService, UserCoursesService],
     bootstrap: [NavbarComponent]
 })
 export class AppModule {

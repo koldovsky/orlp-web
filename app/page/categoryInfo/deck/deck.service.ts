@@ -32,7 +32,7 @@ export class DeckService {
     }
 
     getIdDecksInYourFolder(): Observable<number[]> {
-        return this.orlp.get("api/user/folder/decks/id")
+        return this.orlp.get("api/private/user/folder/decks/id")
             .map((response: Response) => response.json())
             .catch(this.handleError);
     }

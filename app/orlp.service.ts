@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Http, RequestMethod, Response} from "@angular/http";
+import {Injectable} from "@angular/core";
+import {Http, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Link} from "./classes/link";
 
@@ -9,7 +9,8 @@ export class ORLPService {
 
     private SERVER_ADDRESS: string = "http://localhost:8080/";
 
-    constructor(private http: Http) {}
+    constructor(private http: Http) {
+    }
 
     get(url: string): Observable<Response> {
         return this.http.get(this.SERVER_ADDRESS + url, {withCredentials: true});
@@ -21,7 +22,7 @@ export class ORLPService {
 
     put(url: string, body: any) {
         return this.http.put(this.SERVER_ADDRESS + url, body, {withCredentials: true});
-        }
+    }
 
     delete(url: string, body: any) {
         return this.http.delete(this.SERVER_ADDRESS + url, body);
@@ -38,7 +39,6 @@ export class ORLPService {
     public decodeLink(url: string) {
         url = decodeURI(url);
         url = atob(url);
-
         return url;
     }
 }

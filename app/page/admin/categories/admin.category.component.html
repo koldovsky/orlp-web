@@ -4,10 +4,7 @@
             <h1 class="font-color-white header-text">All Categories</h1>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <h2 class="font-color-white header-text">Search by Name:</h2>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <input type="text" [(ngModel)]="listFilter"/>
+            <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" align="right" [routerLink]="['/admin']">
             <button class="btn btn-secondary">Back</button>
@@ -28,7 +25,7 @@
                 <tr *ngFor="let category of categories | categoryFilter:listFilter">
                     <td>
                         <div>
-                            <img [src]="category.imagebase64" style="height: 50px">
+                            <img [src]="category.imagebase64" class="category-image">
                         </div>
                     </td>
                     <td>{{category.name}}</td>

@@ -30,16 +30,11 @@ export class CabinetComponent implements OnInit {
     }
 
     getUserDecks(): void {
-        let folderUrl: string = this.user.folder.href;
-        folderUrl = folderUrl.replace("http://localhost:8080/", "");
-
-        this.cabinetService.getUserDecks(folderUrl)
-            .subscribe(decks => {
-                    this.decks = decks;
-                },
-                    error => this.errorMessage = <any>error
-            );
+        this.cabinetService.getUserDecks(this.user.folder)
+            .subscribe(decks => this.decks = decks,
+                error => this.errorMessage = <any>error);
     }
+
 
     getCardsLink(link: Link): string {
         return this.orlpService.getShortLink(link);

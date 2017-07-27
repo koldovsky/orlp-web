@@ -5,6 +5,9 @@ import {ORLPService} from "../../orlp.service";
 import {DTOConverter} from "../../classes/dto.Converter";
 import {UsersDTO} from "../../classes/UserDTO/UserDTO";
 import {DeckLinkByFolder} from "../../classes/DeckDTO/linkByFolder.deck.DTO";
+import {Link} from "../../classes/link";
+import {DeckLinkByCategory} from "../../classes/DeckDTO/linkByCategory.deck.DTO";
+import {link} from "fs";
 
 @Injectable()
 export class CabinetService {
@@ -13,13 +16,17 @@ export class CabinetService {
     }
 
     public getUser(): Observable<UsersDTO> {
-        return this.orlp.get('api/user')
+        return this.orlp.get('api/private/user')
             .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()))
             .catch(this.handleError);
     }
 
-    public getUserDecks(url: string): Observable<DeckLinkByFolder[]> {
-        return this.orlp.get(url)
+    public getUserDecks(link: Link): Observable<DeckLinkByFolder[]> {
+
+        let shortLink: string = this.orlp.getShortLink(link);
+        shortLink = this.orlp.decodeLink(shortLink);
+
+        return this.orlp.get(shortLink)
             .map((response: Response) => <DeckLinkByFolder[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()))
             .catch(this.handleError);
     }

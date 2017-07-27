@@ -29,11 +29,11 @@ export class DeckComponent implements OnInit {
 
     addDeckToFolder(deckId: number): void {
         this.deckService.addDeckToFolder(deckId).subscribe(
-            data => console.log(data),
+            data => {
+                this.changeDeckStatus(deckId);
+            },
             error => console.log(error)
         );
-
-        this.changeDeckStatus(deckId);
     }
 
     ngOnInit(): void {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {MainService} from "./main.service";
 
 import {ORLPService} from "../../orlp.service";
@@ -17,7 +17,8 @@ export class MainComponent implements OnInit {
     errorMessage: string;
 
     constructor(private mainService: MainService,
-                private orlp: ORLPService){}
+                private orlp: ORLPService) {
+    }
 
     ngOnInit(): void {
         this.mainService.getCategories()

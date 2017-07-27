@@ -1,14 +1,14 @@
 import {PipeTransform, Pipe} from "@angular/core"
-import {ICategory} from "../../../interfaces/category";
+import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
 
 @Pipe({
     name: "categoryFilter"
 })
 export class AdminCategoryPipe implements PipeTransform {
 
-    transform(value: ICategory[], filterBy: string): ICategory[] {
+    transform(value: CategoriesPublic[], filterBy: string): CategoriesPublic[] {
         filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
-        return filterBy ? value.filter((category: ICategory) =>
+        return filterBy ? value.filter((category: CategoriesPublic) =>
         category.name.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
     }
 }

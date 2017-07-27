@@ -13,8 +13,9 @@
     height: 8rem;
     margin: auto;
 }
-.button-size{
+.btn-wide{
     width: 20rem;
+    margin-bottom: 0.5rem;
 }
 
 .element-margin{

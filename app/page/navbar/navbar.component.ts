@@ -15,10 +15,9 @@ import {UserDetailsDto} from "../../classes/UserDetailsDto";
 export class NavbarComponent implements OnInit {
     decks: DeckPublic[];
     listFilter: string;
-    listFilter2: string;
-    @Input() url: string;
     public errorMessage: string;
     isAuthorized: boolean;
+    isAuthorizedAdmin: boolean;
     userDetails: UserDetailsDto;
 
     constructor(private deckService: DeckService,
@@ -29,22 +28,22 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(): void {
         this.isAuthorized = this.logoutService.isAuthorized();
-        if (this.isAuthorized){
-           this.navbarService.getUserDetails()
-               .subscribe(user => this.userDetails = user);
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(user => {
+                    this.userDetails = user;
+                    this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
+                    console.log(this.userDetails);
+                });
         }
-
-        this.deckService.getDecks(this.url)
-            .subscribe(decks => this.decks = decks,
-                error => this.errorMessage = <any>error);
-
-        this.navbarService.getUserDetails()
-            .subscribe(user => this.userDetails = user);
+        // this.deckService.getDecks().subscribe(decks => this.decks = decks,
+        //         error => this.errorMessage = <any>error);
     }
 
     logoutUser() {
         if (this.logoutService.logout()) {
             this.isAuthorized = false;
+            this.isAuthorizedAdmin = false;
             this.router.navigate(['main']);
         }
     }

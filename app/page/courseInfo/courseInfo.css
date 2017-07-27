@@ -1,0 +1,45 @@
+/* CATEGORY PAGE CSS */
+.table {
+    margin: 25px;
+    background-color: white;
+}
+
+td img {
+    width: 50px;
+    height: 50px;
+}
+
+.star-rating {
+    width: 100px;
+}
+
+.catalogPage-nav-borders {
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.catalogPage-item-right:hover, .catalogPage-item-left:hover {
+    cursor: pointer;
+}
+
+.catalogPage-item-right, .catalogPage-item-left {
+    background-color: #c8c8c8;
+}
+
+.catalogPage-items {
+    background-color: #c8c8c8;
+
+}
+
+.catalogPage-active-element {
+    color: white;
+    background-color: #3f5b5c;
+}
+
+.catalogPage-button {
+    background-color: #3f5b5c;
+    color: white;
+    border: none;
+}

@@ -1,4 +1,4 @@
-import {Component,  OnInit} from "@angular/core";
+import {Component, OnInit, Output} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
 import {AdminUsers} from "../../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../../orlp.service";
@@ -14,10 +14,11 @@ import {Subscription} from "rxjs/Subscription";
 })
 
 export class AdminUserComponent implements OnInit {
-    user: AdminUsers;
-    errorMessage: string;
+    private user: AdminUsers;
+    private errorMessage: string;
     private sub: Subscription;
     private url: string;
+    private clickedButton: boolean;
 
     constructor(private route: ActivatedRoute,
                 private orlp: ORLPService,
@@ -55,7 +56,6 @@ export class AdminUserComponent implements OnInit {
             user => this.user = user,
             error => console.log(error)
         );
-        console.log(currentUser);
     }
 
     deleteAccountState(currentUser: AdminUsers) {
@@ -63,6 +63,36 @@ export class AdminUserComponent implements OnInit {
             user => this.user = user,
             error => console.log(error)
         );
-        console.log(currentUser);
+    }
+
+    toggleDelete(){
+        this.clickedButton = true;
+    }
+
+    toggleUp(){
+        this.clickedButton = false;
+    }
+
+    onOK(currentUser: AdminUsers) {
+        switch (currentUser.accountStatus) {
+            case "ACTIVE": {
+                if (this.clickedButton){
+                    this.deleteAccountState(currentUser);
+                }else{
+                    this.updateAccountState(currentUser);
+                }
+                break;
+            }
+
+            case "DELETED": {
+                this.deleteAccountState(currentUser);
+                break;
+            }
+
+            case "BLOCKED": {
+                this.updateAccountState(currentUser);
+                break;
+            }
+        }
     }
 }

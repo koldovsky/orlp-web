@@ -27,7 +27,7 @@
     </div>
 
     <div class="row" >
-        <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/course', getCourseLink(course.self)]">
+        <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/course/top', getCourseLink(course.self)]">
             <div class="card mp-card">
                 <img [src]="course.imagebase64" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
                 <div class="card-block text-center">

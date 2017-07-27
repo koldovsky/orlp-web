@@ -32,7 +32,7 @@
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" [(ngModel)]="listFilter2" (keypress)="show=true" (blur)="show=false"/>
+            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signup">
@@ -60,6 +60,9 @@
         <li *ngIf="(isAuthorized && userDetails)" class="user-information">
             <div class="username">{{userDetails.firstName}}</div>
             <div class="email">{{userDetails.email}}</div>
+        </li>
+        <li *ngIf="isAuthorizedAdmin">
+            <div class="admin">Admin</div>
         </li>
     </ul>
 </nav>
