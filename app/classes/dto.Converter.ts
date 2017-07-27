@@ -2,11 +2,19 @@ import {CategoryTop} from "./CategoryDTO/top.category.DTO";
 import {Link} from "./link";
 import {CategoryLink} from "./CategoryDTO/link.category.DTO";
 import {DeckPublic} from "./DeckDTO/public.deck.DTO";
+<<<<<<< Updated upstream
 import {CoursePublic} from "./CourseDTO/public.course.DTO";
 import {link} from "fs";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {UsersPublic} from "./public.users.DTO";
+=======
+import {link} from "fs";
+import {CategoriesPublic} from "./CategoryDTO/public.categories";
+import {CourseTop} from "./CourseDTO/top.course.DTO";
+import {AdminUsers} from "./admin.users.DTO";
+import {UsersDTO} from "./UserDTO/UserDTO";
+>>>>>>> Stashed changes
 import {DeckLinkByCategory} from "./DeckDTO/linkByCategory.deck.DTO";
 import {CardPublic} from "./CardsDTO/public.card.DTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
@@ -67,10 +75,17 @@ export class DTOConverter {
 
     public static jsonToPublicUsers(data: any): UsersPublic {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+<<<<<<< Updated upstream
 
         return new UsersPublic (data.firstName, data.lastName, data.email, data.accountStatus, self);
+=======
+        return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
-
+    public static jsonToUserDetails(data:any): UserDetailsDto {
+        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+        return new UserDetailsDto(data.firstName, data.lastName, data.email, self);
+>>>>>>> Stashed changes
+    }
     public static jsonToLink(rel: string, data: any): Link {
         return new Link(rel, data.href);
     }

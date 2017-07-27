@@ -12,6 +12,7 @@ import {LoginService} from "./login.service";
 @NgModule({
     imports: [
         HttpModule,
+        ReCaptchaModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
@@ -29,3 +30,8 @@ import {LoginService} from "./login.service";
 })
 export class LoginModule {
 }
+<<<<<<< Updated upstream
+=======
+
+Angular2SocialLoginModule.loadProvidersScripts(providers);
+>>>>>>> Stashed changes

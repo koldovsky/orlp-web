@@ -61,6 +61,9 @@
             <div class="username">Username</div>
             <div class="email">user@gmail.com</div>
         </li>
+        <li *ngIf="isAuthorizedAdmin">
+            <div class="admin">Admin</div>
+        </li>
     </ul>
 </nav>
 <!-- SEARCH-RESULT -->

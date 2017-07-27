@@ -51,6 +51,7 @@
             </div>
         </div>
         <div class="row">
+<<<<<<< Updated upstream
             <div class="col-md-3"></div>
             <div class="col-md-6" style="padding-top: .35rem">
                 <div class="form-check mb-2 mr-sm-2 mb-sm-0">
@@ -60,13 +61,30 @@
                         <span style="padding-bottom: .15rem; color: white">Remember me</span>
                     </label>
                 </div>
+=======
+            <div class="col-md-6 offset-3">
+                <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="<6LeS2ykUAAAAAMB0_bP2UKSJgI1U5TU9r_al9ESP>"></re-captcha>
+>>>>>>> Stashed changes
             </div>
         </div>
         <div class="row" style="padding-top: 1rem">
             <div class="col-md-3"></div>
+<<<<<<< Updated upstream
             <div class="col-md-6">
                 <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login</button>
                 <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+=======
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-success btn-login" [disabled]="!validLogin()"><i class="fa fa-sign-in "></i> Login</button>
+                <div (click)="signInGoogle('google')" class="btn-google">
+                    <span class="googleIcon"></span>
+                    <span class="buttonText">Google</span>
+                </div>
+                <div (click)="signInFacebook('facebook') " class="btn-facebook">
+                    <span class="facebookIcon"></span>
+                    <span class="buttonText">Facebook</span>
+                </div>
+>>>>>>> Stashed changes
             </div>
 
         </div>

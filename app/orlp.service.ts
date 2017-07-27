@@ -16,11 +16,19 @@ export class ORLPService {
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {withCredentials: true});
+        return this.http.post(this.SERVER_ADDRESS + url, body , {withCredentials: true});
     }
 
     put(url: string, body: any) {
+<<<<<<< Updated upstream
         return this.http.put(this.SERVER_ADDRESS + url, body, {withCredentials: true});
+=======
+        return this.http.put(this.SERVER_ADDRESS + url, body, {});
+    }
+
+    delete(url: string, body: any) {
+        return this.http.delete(this.SERVER_ADDRESS + url, body);
+>>>>>>> Stashed changes
     }
 
     public getShortLink(link: Link) {

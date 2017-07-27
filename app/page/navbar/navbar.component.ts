@@ -17,12 +17,18 @@ export class NavbarComponent implements OnInit {
     @Input() url: string;
     public errorMessage: string;
     isAuthorized: boolean;
+<<<<<<< Updated upstream
+=======
+    isAuthorizedAdmin: boolean;
+    userDetails: UserDetailsDto;
+>>>>>>> Stashed changes
 
     constructor(private deckService: DeckService,
                 private orlpService: ORLPService, private logoutService: LogoutService, private router: Router) {
     }
 
     ngOnInit(): void {
+<<<<<<< Updated upstream
         this.isAuthorized = this.ifUserIsAuthorized();
         console.log(this.isAuthorized);
         this.deckService.getDecks(this.url)
@@ -32,12 +38,26 @@ export class NavbarComponent implements OnInit {
 
     ifUserIsAuthorized(): boolean {
         return this.logoutService.isAuthorized();
+=======
+        this.isAuthorized = this.logoutService.isAuthorized();
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(user => {
+                    this.userDetails = user;
+                    this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
+                });
+        }
+        this.deckService.getDecks(this.url).subscribe(decks => this.decks = decks,
+                error => this.errorMessage = <any>error);
+>>>>>>> Stashed changes
     }
 
     logoutUser() {
         if (this.logoutService.logout()) {
             this.isAuthorized = false;
+            this.isAuthorizedAdmin = false;
             this.router.navigate(['main']);
         }
     }
+
 }

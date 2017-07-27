@@ -1,16 +1,19 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {LoginService} from "./login.service";
-
 import {AuthService} from "angular2-social-login";
+<<<<<<< Updated upstream
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {error} from "util";
+=======
+import {Router} from "@angular/router";
+import {AccountVerificationService} from "../signup/accountVerification/accountVerification.service";
+import {LoginAccount} from "../../classes/LoginAccount";
+>>>>>>> Stashed changes
 
 @Component({
     template: require('app/page/login/login.component.html!text')
 })
-
-
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     success: boolean = false;
@@ -18,8 +21,18 @@ export class LoginComponent implements OnInit {
     wrongDetails: boolean = false;
     public user;
     verificationStat: boolean = false;
+    account: LoginAccount;
+    captcha: string;
 
+<<<<<<< Updated upstream
     constructor(private fb: FormBuilder, private loginService: LoginService, public auth: AuthService, private router: Router, private activatedRoute: ActivatedRoute) {
+=======
+    constructor(private fb: FormBuilder,
+                private loginService: LoginService,
+                public auth: AuthService,
+                private router: Router,
+                private accountVerify: AccountVerificationService) {
+>>>>>>> Stashed changes
     }
 
     ngOnInit() {
@@ -33,7 +46,9 @@ export class LoginComponent implements OnInit {
         this.success = false;
         this.error = false;
         this.wrongDetails = false;
-        this.loginService.signIn(this.loginForm.value)
+        this.account = this.loginForm.value;
+        this.account.captcha = this.captcha;
+        this.loginService.signIn(this.account)
             .subscribe((response) => {
                 this.success = true;
                 console.log(response.status);
@@ -88,5 +103,12 @@ export class LoginComponent implements OnInit {
         this.loginService.sendGoogleIdToken(this.user.idToken).subscribe(
             error => console.log(error)
         );
+    }
+
+    handleCorrectCaptcha($event){
+        this.captcha = $event;
+    }
+    validLogin(): boolean{
+        return this.loginForm.valid && (this.captcha != null);
     }
 }

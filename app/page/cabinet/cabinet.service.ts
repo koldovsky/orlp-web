@@ -11,9 +11,21 @@ export class CabinetService {
     constructor(private orlp: ORLPService) {
     }
 
+<<<<<<< Updated upstream
     public getUserDecks(): Observable<DeckPublic[]> {
         return this.orlp.get('api/decks/ordered')
             .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
+=======
+    public getUser(): Observable<UsersDTO> {
+        return this.orlp.get('api/private/user')
+            .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()))
+            .catch(this.handleError);
+    }
+
+    public getUserDecks(url: string): Observable<DeckLinkByFolder[]> {
+        return this.orlp.get(url)
+            .map((response: Response) => <DeckLinkByFolder[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()))
+>>>>>>> Stashed changes
             .catch(this.handleError);
     }
 
