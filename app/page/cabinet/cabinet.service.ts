@@ -13,7 +13,7 @@ export class CabinetService {
     }
 
     public getUser(): Observable<UsersDTO> {
-        return this.orlp.get('api/user')
+        return this.orlp.get('api/private/user')
             .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()))
             .catch(this.handleError);
     }

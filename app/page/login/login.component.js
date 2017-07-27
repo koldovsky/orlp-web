@@ -31,7 +31,9 @@ var LoginComponent = (function () {
             _this.success = false;
             _this.error = false;
             _this.wrongDetails = false;
-            _this.loginService.signIn(_this.loginForm.value)
+            _this.account = _this.loginForm.value;
+            _this.account.captcha = _this.captcha;
+            _this.loginService.signIn(_this.account)
                 .subscribe(function (response) {
                 _this.success = true;
                 _this.router.navigate(['main']);
@@ -104,6 +106,12 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.reload = function () {
         window.location.reload();
+    };
+    LoginComponent.prototype.handleCorrectCaptcha = function ($event) {
+        this.captcha = $event;
+    };
+    LoginComponent.prototype.validLogin = function () {
+        return this.loginForm.valid && (this.captcha != null);
     };
     return LoginComponent;
 }());

@@ -18,7 +18,7 @@ var CabinetService = (function () {
         this.orlp = orlp;
     }
     CabinetService.prototype.getUser = function () {
-        return this.orlp.get('api/user')
+        return this.orlp.get('api/private/user')
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonToUserDTO(response.json()); })
             .catch(this.handleError);
     };
