@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from "@angular/core";
+import {Component, OnInit, Output} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
 import {AdminUsers} from "../../../../classes/admin.users.DTO";
 import {ORLPService} from "../../../../orlp.service";
@@ -19,8 +19,6 @@ export class AdminUserComponent implements OnInit {
     private sub: Subscription;
     private url: string;
     private clickedButton: boolean;
-
-    @Output() ok: EventEmitter<any> = new EventEmitter();
 
     constructor(private route: ActivatedRoute,
                 private orlp: ORLPService,
