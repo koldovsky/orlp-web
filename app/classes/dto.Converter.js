@@ -4,21 +4,15 @@ var top_category_DTO_1 = require("./CategoryDTO/top.category.DTO");
 var link_1 = require("./link");
 var link_category_DTO_1 = require("./CategoryDTO/link.category.DTO");
 var public_deck_DTO_1 = require("./DeckDTO/public.deck.DTO");
-<<<<<<< HEAD
 var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
 var public_categories_1 = require("./CategoryDTO/public.categories");
 var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
 var linkByCategory_deck_DTO_1 = require("./DeckDTO/linkByCategory.deck.DTO");
 var public_card_DTO_1 = require("./CardsDTO/public.card.DTO");
-=======
-var public_categories_1 = require("./CategoryDTO/public.categories");
-var top_course_DTO_1 = require("./CourseDTO/top.course.DTO");
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
 var admin_users_DTO_1 = require("./admin.users.DTO");
 var UserDTO_1 = require("./UserDTO/UserDTO");
 var link_course_DTO_1 = require("./CourseDTO/link.course.DTO");
 var UserDetailsDto_1 = require("./UserDetailsDto");
-<<<<<<< HEAD
 var linkByFolder_deck_DTO_1 = require("./DeckDTO/linkByFolder.deck.DTO");
 var DTOConverter = (function () {
     function DTOConverter() {
@@ -27,12 +21,6 @@ var DTOConverter = (function () {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new public_card_DTO_1.CardPublic(data.answer, data.question, self);
     };
-=======
-var public_course_DTO_1 = require("./CourseDTO/public.course.DTO");
-var DTOConverter = (function () {
-    function DTOConverter() {
-    }
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     DTOConverter.jsonToUserDTO = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         var folder = DTOConverter.jsonToLink("folder", data._links.folder);
@@ -43,14 +31,11 @@ var DTOConverter = (function () {
         var decks = DTOConverter.jsonToLink("decks", data._links.decks);
         return new link_course_DTO_1.CourseLink(data.name, data.description, data.imagebase64, self, decks);
     };
-<<<<<<< HEAD
     DTOConverter.jsonToDeckLinkByFolder = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         var cards = DTOConverter.jsonToLink("cards", data._links.cards);
         return new linkByFolder_deck_DTO_1.DeckLinkByFolder(data.name, data.description, self, cards);
     };
-=======
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     DTOConverter.jsonToPublicCourse = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new public_course_DTO_1.CoursePublic(data.name, data.description, data.imagebase64, self);
@@ -59,14 +44,11 @@ var DTOConverter = (function () {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new public_deck_DTO_1.DeckPublic(data.name, data.description, data.rating, self);
     };
-<<<<<<< HEAD
     DTOConverter.jsonToDeckLinkByCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         var cards = DTOConverter.jsonToLink("cards", data._links.cards);
         return new linkByCategory_deck_DTO_1.DeckLinkByCategory(data.name, data.description, self, cards, data.deckId);
     };
-=======
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     DTOConverter.jsonToTopCategory = function (data) {
         var self = DTOConverter.jsonToLink("self", data._links.self);
         return new top_category_DTO_1.CategoryTop(data.name, data.imagebase64, self);

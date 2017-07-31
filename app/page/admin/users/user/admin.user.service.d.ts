@@ -11,10 +11,6 @@ export declare class AdminUserService {
     constructor(orlp: ORLPService);
     getUser(url: string): Observable<AdminUsers>;
     updateAccountState(body: AdminUsers, url: string): Observable<AdminUsers>;
-<<<<<<< HEAD
     deleteAccountState(url: string): Observable<AdminUsers>;
-=======
-    deleteAccountState(body: AdminUsers, url: string): Observable<AdminUsers>;
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     private handleError(error);
 }

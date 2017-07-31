@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-<<<<<<< HEAD
 var router_1 = require("@angular/router");
 var orlp_service_1 = require("../../orlp.service");
 var card_service_1 = require("./card.service");
@@ -51,22 +50,10 @@ var CardComponent = (function () {
             this.router.navigate(['/main']);
         }
     };
-=======
-var CardComponent = (function () {
-    function CardComponent() {
-        this.routing = false;
-        this.answer = "";
-    }
-    CardComponent.prototype.onRotate = function () {
-        this.routing = true;
-    };
-    CardComponent.prototype.ngOnInit = function () { };
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     return CardComponent;
 }());
 CardComponent = __decorate([
     core_1.Component({
-<<<<<<< HEAD
         template: require('./card.component.html!text'),
         styleUrls: ['app/page/card/card.component.css']
     }),
@@ -74,11 +61,6 @@ CardComponent = __decorate([
         router_1.Router,
         orlp_service_1.ORLPService,
         card_service_1.CardService])
-=======
-        template: require('./card.component.html!text')
-    }),
-    __metadata("design:paramtypes", [])
->>>>>>> 67379e59dc6f496bc59512745304868f74b77250
 ], CardComponent);
 exports.CardComponent = CardComponent;
 //# sourceMappingURL=card.component.js.map
