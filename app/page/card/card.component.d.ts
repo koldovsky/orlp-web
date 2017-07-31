@@ -1,4 +1,5 @@
 import { OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { ActivatedRoute, Router } from "@angular/router";
 import { ORLPService } from "../../orlp.service";
 import { CardPublic } from "../../classes/CardsDTO/public.card.DTO";
@@ -18,4 +19,12 @@ export declare class CardComponent implements OnInit {
     onRotate(): void;
     onRotateBack(): void;
     getNextQuestion(): void;
+=======
+export declare class CardComponent implements OnInit {
+    routing: boolean;
+    answer: string;
+    onRotate(): void;
+    constructor();
+    ngOnInit(): void;
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
 }

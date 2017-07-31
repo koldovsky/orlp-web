@@ -26,7 +26,11 @@ var CabinetService = (function () {
         var shortLink = this.orlp.getShortLink(link);
         shortLink = this.orlp.decodeLink(shortLink);
         return this.orlp.get(shortLink)
+<<<<<<< HEAD
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToDeckLinkByFolder, response.json()); })
+=======
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
             .catch(this.handleError);
     };
     CabinetService.prototype.handleError = function (error) {

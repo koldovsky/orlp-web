@@ -1,5 +1,4 @@
 import {Link} from "./link";
-
 export class AdminUsers {
     firstName: string;
     lastName: string;

@@ -29,12 +29,21 @@ var AdminUserService = (function () {
     };
     AdminUserService.prototype.updateAccountState = function (body, url) {
         return this.orlp.put(url, body)
+<<<<<<< HEAD
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonToAdminUsers(response.json()); })
             .catch(this.handleError);
     };
     AdminUserService.prototype.deleteAccountState = function (url) {
         return this.orlp.delete(url)
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonToAdminUsers(response.json()); })
+=======
+            .map(function (res) { return res.json(); })
+            .catch(this.handleError);
+    };
+    AdminUserService.prototype.deleteAccountState = function (body, url) {
+        return this.orlp.delete(url, body)
+            .map(function (res) { return res.json(); })
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
             .catch(this.handleError);
     };
     AdminUserService.prototype.handleError = function (error) {

@@ -23,10 +23,17 @@ var ORLPService = (function () {
         return this.http.post(this.SERVER_ADDRESS + url, body, { withCredentials: true });
     };
     ORLPService.prototype.put = function (url, body) {
+<<<<<<< HEAD
         return this.http.put(this.SERVER_ADDRESS + url, body, { withCredentials: true });
     };
     ORLPService.prototype.delete = function (url) {
         return this.http.delete(this.SERVER_ADDRESS + url, { withCredentials: true });
+=======
+        return this.http.put(this.SERVER_ADDRESS + url, body, {});
+    };
+    ORLPService.prototype.delete = function (url, body) {
+        return this.http.delete(this.SERVER_ADDRESS + url, body);
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     };
     ORLPService.prototype.getShortLink = function (link) {
         var url = link.href;

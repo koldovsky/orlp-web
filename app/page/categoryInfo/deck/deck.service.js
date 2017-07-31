@@ -23,6 +23,7 @@ var DeckService = (function () {
     }
     DeckService.prototype.getDecks = function (url) {
         return this.orlp.get(url)
+<<<<<<< HEAD
             .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToDeckLinkByCategory, response.json()); })
             .catch(this.handleError);
     };
@@ -36,6 +37,9 @@ var DeckService = (function () {
     DeckService.prototype.getIdDecksInYourFolder = function () {
         return this.orlp.get("api/private/user/folder/decks/id")
             .map(function (response) { return response.json(); })
+=======
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicDeck, response.json()); })
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
             .catch(this.handleError);
     };
     DeckService.prototype.handleError = function (error) {

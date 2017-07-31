@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 {"version":3,"file":"User.js","sourceRoot":"","sources":["User.ts"],"names":[],"mappings":";;AAAA,mCAAgC;AAChC,qCAAkC;AAElC;IAII;QACI,IAAI,CAAC,MAAM,GAAG,IAAI,eAAM,EAAE,CAAC;QAC3B,IAAI,CAAC,OAAO,GAAG,IAAI,iBAAO,CAAC;IAC/B,CAAC;IACL,WAAC;AAAD,CAAC,AARD,IAQC;AARY,oBAAI"}
+=======
+{"version":3,"file":"User.js","sourceRoot":"","sources":["User.ts"],"names":[],"mappings":";;AAAA,mCAAgC;AAChC,qCAAkC;AAElC;IAIA;QAEI,IAAI,CAAC,MAAM,GAAG,IAAI,eAAM,EAAE,CAAC;QAC3B,IAAI,CAAC,OAAO,GAAG,IAAI,iBAAO,CAAC;IAC/B,CAAC;IACD,WAAC;AAAD,CAAC,AATD,IASC;AATY,oBAAI"}
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250

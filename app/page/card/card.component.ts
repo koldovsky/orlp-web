@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ORLPService} from "../../orlp.service";
@@ -57,4 +58,22 @@ export class CardComponent implements OnInit {
             this.router.navigate(['/main']);
         }
     }
+=======
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    template: require('./card.component.html!text')
+})
+export class CardComponent implements OnInit {
+    public routing: boolean = false;
+    public answer: string = "";
+
+    onRotate() {
+        this.routing = true;
+    }
+    constructor() { }
+
+    ngOnInit() { }
+
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
 }

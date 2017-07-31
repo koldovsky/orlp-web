@@ -3,7 +3,6 @@ import {Link} from "./link";
 import {CategoryLink} from "./CategoryDTO/link.category.DTO";
 import {DeckPublic} from "./DeckDTO/public.deck.DTO";
 import {CoursePublic} from "./CourseDTO/public.course.DTO";
-import {link} from "fs";
 import {CategoriesPublic} from "./CategoryDTO/public.categories";
 import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {DeckLinkByCategory} from "./DeckDTO/linkByCategory.deck.DTO";
@@ -90,10 +89,11 @@ export class DTOConverter {
 
     public static jsonToAdminUsers(data: any): AdminUsers {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-        return new AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
+
+        return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
 
-    public static jsonToUserDetails(data: any): UserDetailsDto {
+    public static jsonToUserDetails(data:any): UserDetailsDto{
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
         return new UserDetailsDto(data.firstName, data.lastName, data.email, data.authorities, self);
     }

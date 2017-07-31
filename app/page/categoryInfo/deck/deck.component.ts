@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {Component, Input, OnInit} from "@angular/core";
 import {DeckService} from "./deck.service";
 import {ORLPService} from "../../../orlp.service";
@@ -6,12 +7,19 @@ import {Link} from "../../../classes/link";
 import {Router} from "@angular/router";
 import {CookieService} from "angular2-cookie/core";
 import {DeckLinkByFolderWithStatus} from "../../../classes/DeckDTO/linkByFolderWithStatus.deck.DTO";
+=======
+import {Component, Input, OnInit} from '@angular/core';
+import {DeckService} from "./deck.service";
+import {ORLPService} from "../../../orlp.service";
+import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
 
 @Component({
     selector: 'deck-table',
     template: require('./deck.component.html!text'),
     styleUrls: ['app/page/categoryInfo/categoryInfo.css']
 })
+<<<<<<< HEAD
 export class DeckComponent implements OnInit {
 
     public decks: DeckLinkByCategory[];
@@ -34,12 +42,24 @@ export class DeckComponent implements OnInit {
             },
             error => console.log(error)
         );
+=======
+
+export class DeckComponent implements OnInit {
+
+    public decks: DeckPublic[];
+    public errorMessage: string;
+    @Input() url: string;
+
+    constructor(private deckService: DeckService,
+                private orlpService: ORLPService) {
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
     }
 
     ngOnInit(): void {
         this.url = this.orlpService.decodeLink(this.url);
 
         this.deckService.getDecks(this.url)
+<<<<<<< HEAD
             .subscribe(decks => {
                     this.decks = decks;
                     this.getIdDecksInYourFolder();
@@ -93,3 +113,9 @@ export class DeckComponent implements OnInit {
         }
     }
 }
+=======
+            .subscribe(decks => this.decks = decks,
+                error => this.errorMessage = <any>error);
+    }
+}
+>>>>>>> 67379e59dc6f496bc59512745304868f74b77250
