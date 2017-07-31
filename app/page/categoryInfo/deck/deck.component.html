@@ -1,0 +1,33 @@
+<div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let deck of decksWithStatus" class="tr-deck">
+            <td (click)="startLearning(deck.cards)">{{deck.name}}</td>
+            <td (click)="startLearning(deck.cards)">{{deck.description}}</td>
+            <td class="alignCenter">
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                  [rating]="deck.rating"></star-rating-comp>
+            </td>
+            <td *ngIf="cookie" class="alignCenter">
+                <div (click)="addDeckToFolder(deck.deckId)"
+                     *ngIf="!deck.status; else other_content">
+                    <img src="image/add.png" title="Add deck to folder" class="addToFolderImg">
+                </div>
+
+                <ng-template #other_content>
+                    <img src="image/checked.png" title="Deck is in your folder" class="addToFolderImg">
+                </ng-template>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

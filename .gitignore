@@ -1,0 +1,5 @@
+node_modules/*
+/.idea/
+/node_modules/
+/app/page/catalogInfo/table1/
+/app/page/catalogInfo/table2/

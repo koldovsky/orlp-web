@@ -1,0 +1,23 @@
+.admins-tables{
+    background: white;
+    border-radius: 0.8rem;
+}
+.admins-tables-header{
+    border-top: hidden
+}
+
+.category-image{
+    height: 50px;
+}
+.user-image{
+    height: 8rem;
+    margin: auto;
+}
+.btn-wide{
+    width: 20rem;
+    margin-bottom: 0.5rem;
+}
+
+.element-margin{
+    margin: 10px;
+}

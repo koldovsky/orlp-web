@@ -1,0 +1,13 @@
+.nav-btn {
+    width: 10rem;
+}
+
+.admins-tables {
+    background-color: white;
+    border-radius: 0.7rem;
+    border-top: hidden;
+}
+
+.fa-user-inactive-state{
+    color: red;
+}
