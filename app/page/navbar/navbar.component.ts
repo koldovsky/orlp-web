@@ -46,4 +46,8 @@ export class NavbarComponent implements OnInit {
             this.router.navigate(['main']);
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 66f07b09b5508f695e1eeb6e4d3b593cac444434
