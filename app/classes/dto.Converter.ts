@@ -89,11 +89,10 @@ export class DTOConverter {
 
     public static jsonToAdminUsers(data: any): AdminUsers {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-
-        return new AdminUsers (data.firstName, data.lastName, data.email, data.accountStatus, self);
+        return new AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
     }
 
-    public static jsonToUserDetails(data:any): UserDetailsDto{
+    public static jsonToUserDetails(data: any): UserDetailsDto {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
         return new UserDetailsDto(data.firstName, data.lastName, data.email, data.authorities, self);
     }
