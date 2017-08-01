@@ -84,7 +84,7 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-angular-star-rating@^3.0.3:
+angular-star-rating@3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/angular-star-rating/-/angular-star-rating-3.0.3.tgz#394c6149ccf4c9b148fe3cae817ca66b78ade324"
 
