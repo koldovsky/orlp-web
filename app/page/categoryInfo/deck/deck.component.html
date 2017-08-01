@@ -28,18 +28,6 @@
                 </ng-template>
             </td>
         </tr>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Rating</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let deck of decks" class="tr-deck">
-                <td>{{deck.name}}</td>
-                <td>{{deck.description}}</td>
-                <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
-            </tr>
         </tbody>
     </table>
 </div>

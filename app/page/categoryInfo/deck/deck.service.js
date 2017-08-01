@@ -9,14 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var dto_Converter_1 = require("../../../classes/dto.Converter");
 var core_1 = require("@angular/core");
 var orlp_service_1 = require("../../../orlp.service");
-var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
+var Observable_1 = require("rxjs/Observable");
 var DeckService = (function () {
     function DeckService(orlp) {
         this.orlp = orlp;
@@ -35,8 +35,7 @@ var DeckService = (function () {
     };
     DeckService.prototype.getIdDecksInYourFolder = function () {
         return this.orlp.get("api/private/user/folder/decks/id")
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError);
+            .map(function (response) { return response.json(); });
     };
     DeckService.prototype.handleError = function (error) {
         console.error(error);
