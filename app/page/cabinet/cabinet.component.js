@@ -11,9 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var cabinet_service_1 = require("./cabinet.service");
+var orlp_service_1 = require("../../orlp.service");
+var router_1 = require("@angular/router");
 var CabinetComponent = (function () {
-    function CabinetComponent(cabinetService) {
+    function CabinetComponent(cabinetService, orlpService, router) {
         this.cabinetService = cabinetService;
+        this.orlpService = orlpService;
+        this.router = router;
     }
     CabinetComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -25,6 +29,12 @@ var CabinetComponent = (function () {
         this.cabinetService.getUserDecks(this.user.folder)
             .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
     };
+    CabinetComponent.prototype.getCardsLink = function (link) {
+        return this.orlpService.getShortLink(link);
+    };
+    CabinetComponent.prototype.startLearning = function (cards) {
+        this.router.navigate(['/cards', this.getCardsLink(cards)]);
+    };
     return CabinetComponent;
 }());
 CabinetComponent = __decorate([
@@ -33,7 +43,9 @@ CabinetComponent = __decorate([
         template: require('app/page/cabinet/cabinet.component.html!text'),
         styleUrls: ['app/page/cabinet/menu.css']
     }),
-    __metadata("design:paramtypes", [cabinet_service_1.CabinetService])
+    __metadata("design:paramtypes", [cabinet_service_1.CabinetService,
+        orlp_service_1.ORLPService,
+        router_1.Router])
 ], CabinetComponent);
 exports.CabinetComponent = CabinetComponent;
 //# sourceMappingURL=cabinet.component.js.map

@@ -58,13 +58,13 @@
 }
 
 .username, .email {
-    color: gray;
+    color: white;
     text-align: center;
     font-size: 14px;
 }
 
 .admin{
-    color: gray;
+    color: white;
     text-align: center;
     font-size: 25px;
 }

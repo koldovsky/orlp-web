@@ -24,13 +24,13 @@ export class AdminUserService {
 
     updateAccountState(body: AdminUsers, url: string): Observable<AdminUsers> {
         return this.orlp.put(url, body)
-            .map((res: Response) => res.json())
+            .map((response: Response) => <AdminUsers> DTOConverter.jsonToAdminUsers(response.json()))
             .catch(this.handleError);
     }
 
-    deleteAccountState(body: AdminUsers, url: string): Observable<AdminUsers> {
-        return this.orlp.delete(url, body)
-            .map((res: Response) => res.json())
+    deleteAccountState(url: string): Observable<AdminUsers> {
+        return this.orlp.delete(url)
+            .map((response: Response) => <AdminUsers> DTOConverter.jsonToAdminUsers(response.json()))
             .catch(this.handleError);
     }
 

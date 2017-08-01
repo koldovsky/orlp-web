@@ -19,7 +19,7 @@
                     <td>{{deck.name}}</td>
                     <td>{{deck.description}}</td>
                     <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
-                    <td><button>START</button></td>
+                    <td><button (click)="startLearning(deck.cards)">START</button></td>
                 </tr>
             </tbody>
         </table>

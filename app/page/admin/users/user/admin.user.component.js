@@ -18,7 +18,6 @@ var AdminUserComponent = (function () {
         this.route = route;
         this.orlp = orlp;
         this.adminUserSevice = adminUserSevice;
-        this.ok = new core_1.EventEmitter();
     }
     AdminUserComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -36,16 +35,13 @@ var AdminUserComponent = (function () {
     AdminUserComponent.prototype.decodeLink = function () {
         this.url = this.orlp.decodeLink(this.url);
     };
-    AdminUserComponent.prototype.getUserLink = function (link) {
-        return this.orlp.getShortLink(link);
-    };
     AdminUserComponent.prototype.updateAccountState = function (currentUser) {
         var _this = this;
         this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
     };
-    AdminUserComponent.prototype.deleteAccountState = function (currentUser) {
+    AdminUserComponent.prototype.deleteAccountState = function () {
         var _this = this;
-        this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
+        this.adminUserSevice.deleteAccountState(this.url).subscribe(function (user) { return _this.user = user; }, function (error) { return console.log(error); });
     };
     AdminUserComponent.prototype.toggleDelete = function () {
         this.clickedButton = true;
@@ -57,7 +53,7 @@ var AdminUserComponent = (function () {
         switch (currentUser.accountStatus) {
             case "ACTIVE": {
                 if (this.clickedButton) {
-                    this.deleteAccountState(currentUser);
+                    this.deleteAccountState();
                 }
                 else {
                     this.updateAccountState(currentUser);
@@ -65,7 +61,7 @@ var AdminUserComponent = (function () {
                 break;
             }
             case "DELETED": {
-                this.deleteAccountState(currentUser);
+                this.deleteAccountState();
                 break;
             }
             case "BLOCKED": {
@@ -76,10 +72,6 @@ var AdminUserComponent = (function () {
     };
     return AdminUserComponent;
 }());
-__decorate([
-    core_1.Output(),
-    __metadata("design:type", core_1.EventEmitter)
-], AdminUserComponent.prototype, "ok", void 0);
 AdminUserComponent = __decorate([
     core_1.Component({
         selector: 'one-user',

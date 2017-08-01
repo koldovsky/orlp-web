@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
                 });
         }
         this.deckService.getDecks().subscribe(decks => this.decks = decks,
-                error => this.errorMessage = <any>error);
+            error => this.errorMessage = <any>error);
     }
 
     logoutUser() {

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
+import {Http, RequestOptions, Response} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {Link} from "./classes/link";
 
@@ -17,15 +17,15 @@ export class ORLPService {
     }
 
     post(url: string, body: any) {
-        return this.http.post(this.SERVER_ADDRESS + url, body, {withCredentials: true});
+        return this.http.post(this.SERVER_ADDRESS + url, body , {withCredentials: true});
     }
 
     put(url: string, body: any) {
-        return this.http.put(this.SERVER_ADDRESS + url, body, {});
+        return this.http.put(this.SERVER_ADDRESS + url, body, {withCredentials: true});
     }
 
-    delete(url: string, body: any) {
-        return this.http.delete(this.SERVER_ADDRESS + url, body);
+    delete(url: string) {
+        return this.http.delete(this.SERVER_ADDRESS + url, {withCredentials: true})
     }
 
     public getShortLink(link: Link) {

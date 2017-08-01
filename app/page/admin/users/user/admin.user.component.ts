@@ -47,10 +47,6 @@ export class AdminUserComponent implements OnInit {
         this.url = this.orlp.decodeLink(this.url);
     }
 
-    public getUserLink(link: Link): string {
-        return this.orlp.getShortLink(link);
-    }
-
     updateAccountState(currentUser: AdminUsers) {
         this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
             user => this.user = user,
@@ -58,34 +54,34 @@ export class AdminUserComponent implements OnInit {
         );
     }
 
-    deleteAccountState(currentUser: AdminUsers) {
-        this.adminUserSevice.deleteAccountState(currentUser, this.url).subscribe(
+    deleteAccountState() {
+        this.adminUserSevice.deleteAccountState(this.url).subscribe(
             user => this.user = user,
             error => console.log(error)
         );
     }
 
-    toggleDelete(){
+    toggleDelete() {
         this.clickedButton = true;
     }
 
-    toggleUp(){
+    toggleUp() {
         this.clickedButton = false;
     }
 
     onOK(currentUser: AdminUsers) {
         switch (currentUser.accountStatus) {
             case "ACTIVE": {
-                if (this.clickedButton){
-                    this.deleteAccountState(currentUser);
-                }else{
+                if (this.clickedButton) {
+                    this.deleteAccountState();
+                } else {
                     this.updateAccountState(currentUser);
                 }
                 break;
             }
 
             case "DELETED": {
-                this.deleteAccountState(currentUser);
+                this.deleteAccountState();
                 break;
             }
 
