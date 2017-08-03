@@ -1,5 +1,3 @@
-<div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
-
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <table class="table table-striped" *ngFor="let course of courses">
         <thead (click)="getDecks(course); value = (value === course.name) ? false : value = course.name" style="cursor:pointer">
