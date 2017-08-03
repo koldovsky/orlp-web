@@ -13,7 +13,6 @@ import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
 export class CourseComponent implements OnInit {
     public courses: CourseLink[];
     public decks: DeckPublic[];
-    public errorMessage: string;
     @Input() url: string;
 
     constructor(private courseService: CourseService,
@@ -24,13 +23,11 @@ export class CourseComponent implements OnInit {
         this.url = this.orlpService.decodeLink(this.url);
 
         this.courseService.getCourse(this.url)
-            .subscribe(courses => this.courses = courses,
-                error => this.errorMessage = <any>error);
+            .subscribe(courses => this.courses = courses);
     }
 
     getDecks(course: CourseLink) {
         this.courseService.getDecks(course.decks)
-            .subscribe(decks => this.decks = decks,
-                error => this.errorMessage = <any>error);
+            .subscribe(decks => this.decks = decks);
     }
 }
