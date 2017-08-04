@@ -16,7 +16,6 @@ export class DeckComponent implements OnInit {
 
     public decks: DeckLinkByCategory[];
     public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
-    public errorMessage: string;
     public cookie: string;
     public decksIdInYourFolder: number[] = [];
     @Input() url: string;
@@ -42,13 +41,14 @@ export class DeckComponent implements OnInit {
         this.deckService.getDecks(this.url)
             .subscribe(decks => {
                     this.decks = decks;
-                    this.getIdDecksInYourFolder();
                     this.createDecksWithStatus();
                 },
-                error => this.errorMessage = <any>error
             );
 
         this.cookie = this.cookieService.get("Authentication");
+
+        if (this.cookie !== undefined)
+            this.getIdDecksInYourFolder();
     }
 
     getIdDecksInYourFolder() {
@@ -56,8 +56,7 @@ export class DeckComponent implements OnInit {
             id => {
                 this.decksIdInYourFolder = id;
                 this.setStatusForDecksThatInFolder();
-            },
-            error => this.errorMessage = <any>error);
+            })
     }
 
     getCardsLink(link: Link): string {

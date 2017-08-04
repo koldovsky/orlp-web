@@ -21,12 +21,12 @@ var CourseComponent = (function () {
         var _this = this;
         this.url = this.orlpService.decodeLink(this.url);
         this.courseService.getCourse(this.url)
-            .subscribe(function (courses) { return _this.courses = courses; }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (courses) { return _this.courses = courses; });
     };
     CourseComponent.prototype.getDecks = function (course) {
         var _this = this;
         this.courseService.getDecks(course.decks)
-            .subscribe(function (decks) { return _this.decks = decks; }, function (error) { return _this.errorMessage = error; });
+            .subscribe(function (decks) { return _this.decks = decks; });
     };
     return CourseComponent;
 }());

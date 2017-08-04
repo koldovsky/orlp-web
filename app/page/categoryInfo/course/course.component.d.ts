@@ -8,7 +8,6 @@ export declare class CourseComponent implements OnInit {
     private orlpService;
     courses: CourseLink[];
     decks: DeckPublic[];
-    errorMessage: string;
     url: string;
     constructor(courseService: CourseService, orlpService: ORLPService);
     ngOnInit(): void;

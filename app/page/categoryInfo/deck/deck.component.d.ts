@@ -13,7 +13,6 @@ export declare class DeckComponent implements OnInit {
     private cookieService;
     decks: DeckLinkByCategory[];
     decksWithStatus: DeckLinkByFolderWithStatus[];
-    errorMessage: string;
     cookie: string;
     decksIdInYourFolder: number[];
     url: string;

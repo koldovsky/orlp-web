@@ -36,17 +36,18 @@ var DeckComponent = (function () {
         this.deckService.getDecks(this.url)
             .subscribe(function (decks) {
             _this.decks = decks;
-            _this.getIdDecksInYourFolder();
             _this.createDecksWithStatus();
-        }, function (error) { return _this.errorMessage = error; });
+        });
         this.cookie = this.cookieService.get("Authentication");
+        if (this.cookie !== undefined)
+            this.getIdDecksInYourFolder();
     };
     DeckComponent.prototype.getIdDecksInYourFolder = function () {
         var _this = this;
         this.deckService.getIdDecksInYourFolder().subscribe(function (id) {
             _this.decksIdInYourFolder = id;
             _this.setStatusForDecksThatInFolder();
-        }, function (error) { return _this.errorMessage = error; });
+        });
     };
     DeckComponent.prototype.getCardsLink = function (link) {
         return this.orlpService.getShortLink(link);
