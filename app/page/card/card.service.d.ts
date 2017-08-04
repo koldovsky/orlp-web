@@ -2,8 +2,8 @@ import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { ORLPService } from "../../orlp.service";
-import { CardPublic } from "../../classes/CardsDTO/public.card.DTO";
+import { ORLPService } from "../../services/orlp.service";
+import { CardPublic } from "../../dto/CardsDTO/public.card.DTO";
 export declare class CardService {
     private orlp;
     constructor(orlp: ORLPService);

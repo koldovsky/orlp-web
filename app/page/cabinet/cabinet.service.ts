@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {Observable} from "rxjs/Observable";
-import {ORLPService} from "../../orlp.service";
-import {DTOConverter} from "../../classes/dto.Converter";
-import {UsersDTO} from "../../classes/UserDTO/UserDTO";
-import {DeckLinkByFolder} from "../../classes/DeckDTO/linkByFolder.deck.DTO";
-import {Link} from "../../classes/link";
-import {DeckLinkByCategory} from "../../classes/DeckDTO/linkByCategory.deck.DTO";
+import {ORLPService} from "../../services/orlp.service";
+import {DTOConverter} from "../../dto/dto.Converter";
+import {UsersDTO} from "../../dto/UserDTO/UserDTO";
+import {DeckLinkByFolder} from "../../dto/DeckDTO/linkByFolder.deck.DTO";
+import {Link} from "../../dto/link";
+import {DeckLinkByCategory} from "../../dto/DeckDTO/linkByCategory.deck.DTO";
 import {link} from "fs";
 
 @Injectable()

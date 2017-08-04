@@ -1,7 +1,7 @@
 import { OnInit } from "@angular/core";
 import { AdminUserService } from "./admin.user.service";
-import { AdminUsers } from "../../../../classes/admin.users.DTO";
-import { ORLPService } from "../../../../orlp.service";
+import { AdminUsers } from "../../../../dto/admin.users.DTO";
+import { ORLPService } from "../../../../services/orlp.service";
 import { ActivatedRoute } from "@angular/router";
 export declare class AdminUserComponent implements OnInit {
     private route;

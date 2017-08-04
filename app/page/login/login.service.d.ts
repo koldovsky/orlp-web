@@ -1,8 +1,8 @@
 import { Observable } from "rxjs/Observable";
 import { Response } from "@angular/http";
 import "rxjs/add/operator/map";
-import { LoginAccount } from "../../classes/LoginAccount";
-import { ORLPService } from "../../orlp.service";
+import { LoginAccount } from "../../dto/LoginAccount";
+import { ORLPService } from "../../services/orlp.service";
 export declare class LoginService {
     private orlp;
     constructor(orlp: ORLPService);

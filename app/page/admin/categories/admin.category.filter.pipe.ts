@@ -1,5 +1,5 @@
 import {PipeTransform, Pipe} from "@angular/core"
-import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
+import {CategoriesPublic} from "../../../dto/CategoryDTO/public.categories";
 
 @Pipe({
     name: "categoryFilter"

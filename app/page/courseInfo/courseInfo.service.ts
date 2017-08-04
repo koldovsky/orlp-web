@@ -5,10 +5,10 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/observable/throw";
-import {ORLPService} from "../../orlp.service";
-import {DTOConverter} from "../../classes/dto.Converter";
-import {CourseLink} from "../../classes/CourseDTO/link.course.DTO";
-import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
+import {ORLPService} from "../../services/orlp.service";
+import {DTOConverter} from "../../dto/dto.Converter";
+import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
 
 
 @Injectable()

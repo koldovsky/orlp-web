@@ -1,10 +1,10 @@
 import {Component, OnInit} from "@angular/core";
 import {MainService} from "./main.service";
 
-import {ORLPService} from "../../orlp.service";
-import {Link} from "../../classes/link";
-import {CategoryTop} from "../../classes/CategoryDTO/top.category.DTO";
-import {CourseTop} from "../../classes/CourseDTO/top.course.DTO";
+import {ORLPService} from "../../services/orlp.service";
+import {Link} from "../../dto/link";
+import {CategoryTop} from "../../dto/CategoryDTO/top.category.DTO";
+import {CourseTop} from "../../dto/CourseDTO/top.course.DTO";
 
 @Component({
     template: require('app/page/main/main.component.html!text'),

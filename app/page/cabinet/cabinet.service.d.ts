@@ -1,8 +1,8 @@
 import { Observable } from "rxjs/Observable";
-import { ORLPService } from "../../orlp.service";
-import { UsersDTO } from "../../classes/UserDTO/UserDTO";
-import { DeckLinkByFolder } from "../../classes/DeckDTO/linkByFolder.deck.DTO";
-import { Link } from "../../classes/link";
+import { ORLPService } from "../../services/orlp.service";
+import { UsersDTO } from "../../dto/UserDTO/UserDTO";
+import { DeckLinkByFolder } from "../../dto/DeckDTO/linkByFolder.deck.DTO";
+import { Link } from "../../dto/link";
 export declare class CabinetService {
     private orlp;
     constructor(orlp: ORLPService);

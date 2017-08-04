@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {ORLPService} from "../../../orlp.service";
+import {ORLPService} from "../../../services/orlp.service";
 import {Observable} from "rxjs/Observable";
 import {Response} from "@angular/http";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {DTOConverter} from "../../../classes/dto.Converter";
-import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
-import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
-import {Link} from "../../../classes/link";
+import {DTOConverter} from "../../../dto/dto.Converter";
+import {CourseLink} from "../../../dto/CourseDTO/link.course.DTO";
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {Link} from "../../../dto/link";
 
 @Injectable()
 export class CourseService {

@@ -4,8 +4,8 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import { ORLPService } from "../../../../orlp.service";
-import { AdminUsers } from "../../../../classes/admin.users.DTO";
+import { ORLPService } from "../../../../services/orlp.service";
+import { AdminUsers } from "../../../../dto/admin.users.DTO";
 export declare class AdminUserService {
     private orlp;
     constructor(orlp: ORLPService);

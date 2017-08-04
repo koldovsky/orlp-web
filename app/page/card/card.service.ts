@@ -4,9 +4,9 @@ import {Response} from "@angular/http";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import {ORLPService} from "../../orlp.service";
-import {CardPublic} from "../../classes/CardsDTO/public.card.DTO";
-import {DTOConverter} from "../../classes/dto.Converter";
+import {ORLPService} from "../../services/orlp.service";
+import {CardPublic} from "../../dto/CardsDTO/public.card.DTO";
+import {DTOConverter} from "../../dto/dto.Converter";
 
 @Injectable()
 export class CardService {

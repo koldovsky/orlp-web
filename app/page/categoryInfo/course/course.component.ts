@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from "./course.service";
-import {ORLPService} from "../../../orlp.service";
-import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
-import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
+import {ORLPService} from "../../../services/orlp.service";
+import {CourseLink} from "../../../dto/CourseDTO/link.course.DTO";
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
 
 @Component({
     selector: 'course-table',

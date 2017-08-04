@@ -16,26 +16,26 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var orlp_service_1 = require("../../orlp.service");
-var dto_Converter_1 = require("../../classes/dto.Converter");
-var NavbarService = (function () {
-    function NavbarService(orlp) {
+var orlp_service_1 = require("../../../services/orlp.service");
+var dto_Converter_1 = require("../../../dto/dto.Converter");
+var CategoryService = (function () {
+    function CategoryService(orlp) {
         this.orlp = orlp;
     }
-    NavbarService.prototype.getUserDetails = function () {
-        return this.orlp.get('api/private/user/details')
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToUserDetails(response.json()); })
+    CategoryService.prototype.getCatalogs = function () {
+        return this.orlp.get('api/category')
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCategories, response.json()); })
             .catch(this.handleError);
     };
-    NavbarService.prototype.handleError = function (error) {
+    CategoryService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return NavbarService;
+    return CategoryService;
 }());
-NavbarService = __decorate([
+CategoryService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], NavbarService);
-exports.NavbarService = NavbarService;
-//# sourceMappingURL=navbar.service.js.map
+], CategoryService);
+exports.CategoryService = CategoryService;
+//# sourceMappingURL=category.service.js.map

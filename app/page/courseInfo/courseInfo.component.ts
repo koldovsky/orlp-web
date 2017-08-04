@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {CourseInfoService} from "./courseInfo.service";
 import {Subscription} from "rxjs/Subscription";
 import {ActivatedRoute} from "@angular/router";
-import {ORLPService} from "../../orlp.service";
-import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
-import {CourseLink} from "../../classes/CourseDTO/link.course.DTO";
+import {ORLPService} from "../../services/orlp.service";
+import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
+import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
 @Component({
     templateUrl: ('app/page/courseInfo/courseInfo.component.html'),
     styleUrls: ['app/page/courseInfo/courseInfo.css']

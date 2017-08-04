@@ -10,13 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var orlp_service_1 = require("../../../orlp.service");
+var orlp_service_1 = require("../../../services/orlp.service");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
+var dto_Converter_1 = require("../../../dto/dto.Converter");
 var DeckService = (function () {
     function DeckService(orlp) {
         this.orlp = orlp;

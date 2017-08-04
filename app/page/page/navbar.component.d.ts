@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
-import { DeckPublic } from "../../classes/DeckDTO/public.deck.DTO";
+import { DeckPublic } from "../../dto/DeckDTO/public.deck.DTO";
 import { DeckService } from "./search/deck.service";
 import { LogoutService } from "../logout/logout.service";
 import { Router } from "@angular/router";
-import { NavbarService } from "./navbar.service";
-import { UserDetailsDto } from "../../classes/UserDetailsDto";
+import { NavbarService } from "./page.service";
+import { UserDetailsDto } from "../../dto/UserDetailsDto";
 export declare class NavbarComponent implements OnInit {
     private deckService;
     private logoutService;

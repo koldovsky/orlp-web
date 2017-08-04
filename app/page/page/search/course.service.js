@@ -10,32 +10,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var orlp_service_1 = require("../../../services/orlp.service");
 var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var orlp_service_1 = require("../../../orlp.service");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
-var CategoryService = (function () {
-    function CategoryService(orlp) {
+var dto_Converter_1 = require("../../../dto/dto.Converter");
+var CourseService = (function () {
+    function CourseService(orlp) {
         this.orlp = orlp;
     }
-    CategoryService.prototype.getCatalogs = function () {
-        return this.orlp.get('api/category')
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCategories, response.json()); })
+    CourseService.prototype.getCourses = function (url) {
+        return this.orlp.get(url)
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
             .catch(this.handleError);
     };
-    CategoryService.prototype.handleError = function (error) {
+    CourseService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return CategoryService;
+    return CourseService;
 }());
-CategoryService = __decorate([
+CourseService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], CategoryService);
-exports.CategoryService = CategoryService;
-//# sourceMappingURL=category.service.js.map
+], CourseService);
+exports.CourseService = CourseService;
+//# sourceMappingURL=course.service.js.map

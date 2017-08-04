@@ -4,7 +4,7 @@ import { LoginService } from "./login.service";
 import { AuthService } from "angular2-social-login";
 import { Router } from "@angular/router";
 import { AccountVerificationService } from "../signup/accountVerification/accountVerification.service";
-import { LoginAccount } from "../../classes/LoginAccount";
+import { LoginAccount } from "../../dto/LoginAccount";
 export declare class LoginComponent implements OnInit {
     private fb;
     private loginService;

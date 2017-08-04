@@ -1,6 +1,6 @@
 import {PipeTransform, Pipe} from "@angular/core"
 import {ICategory} from "../../../interfaces/category";
-import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
+import {CourseLink} from "../../../dto/CourseDTO/link.course.DTO";
 
 @Pipe({
     name: "courseFilter"

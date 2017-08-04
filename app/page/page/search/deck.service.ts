@@ -1,22 +1,22 @@
 import {Injectable} from '@angular/core';
-import {ORLPService} from "../../../orlp.service";
+import {ORLPService} from "../../../services/orlp.service";
 import {Observable} from "rxjs/Observable";
 import {Response} from "@angular/http";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {DTOConverter} from "../../../classes/dto.Converter";
-import {CourseLink} from "../../../classes/CourseDTO/link.course.DTO";
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {DTOConverter} from "../../../dto/dto.Converter";
 
 @Injectable()
-export class CourseService {
+export class DeckService {
     constructor(private orlp: ORLPService) {
     }
 
-    getCourses(url: string): Observable<CourseLink[]> {
-        return this.orlp.get(url)
-            .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
+    getDecks(): Observable<DeckPublic[]> {
+        return this.orlp.get('api/decks/ordered')
+            .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
             .catch(this.handleError);
     }
 

@@ -1,8 +1,8 @@
 import {Component, OnInit, Output} from "@angular/core";
 import {AdminUserService} from "./admin.user.service";
-import {AdminUsers} from "../../../../classes/admin.users.DTO";
-import {ORLPService} from "../../../../orlp.service";
-import {Link} from "../../../../classes/link";
+import {AdminUsers} from "../../../../dto/admin.users.DTO";
+import {ORLPService} from "../../../../services/orlp.service";
+import {Link} from "../../../../dto/link";
 import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 

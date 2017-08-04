@@ -1,7 +1,7 @@
 import { Observable } from "rxjs/Observable";
 import { Http } from '@angular/http';
-import { ORLPService } from "../../orlp.service";
-import { User } from "../../classes/User";
+import { ORLPService } from "../../services/orlp.service";
+import { User } from "../../dto/User";
 export declare class SignupService {
     private _orlp;
     private http;

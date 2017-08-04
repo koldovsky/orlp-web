@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
-import {CoursePublic} from "../../../classes/CourseDTO/public.course.DTO";
+import {CoursePublic} from "../../../dto/CourseDTO/public.course.DTO";
 import {UserCoursesService} from "./user.courses.service";
-import {ORLPService} from "../../../orlp.service";
-import {Link} from "../../../classes/link";
+import {ORLPService} from "../../../services/orlp.service";
+import {Link} from "../../../dto/link";
 
 @Component({template: require('app/page/user/courses/user.courses.component.html!text')})
 export class UserCoursesComponent implements OnInit{

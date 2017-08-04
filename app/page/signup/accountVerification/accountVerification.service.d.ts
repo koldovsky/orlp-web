@@ -1,6 +1,6 @@
 import { Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { ORLPService } from "../../../orlp.service";
+import { ORLPService } from "../../../services/orlp.service";
 export declare class AccountVerificationService {
     private orlp;
     private subject;

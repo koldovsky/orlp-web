@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { AdminCategoryService } from "./admin.category.service";
-import { CategoriesPublic } from "../../../classes/CategoryDTO/public.categories";
-import { ORLPService } from "../../../orlp.service";
+import { CategoriesPublic } from "../../../dto/CategoryDTO/public.categories";
+import { ORLPService } from "../../../services/orlp.service";
 export declare class AdminCategoryComponent implements OnInit {
     private adminCategoryService;
     private orlpService;

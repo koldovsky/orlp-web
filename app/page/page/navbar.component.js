@@ -13,7 +13,7 @@ var core_1 = require("@angular/core");
 var deck_service_1 = require("./search/deck.service");
 var logout_service_1 = require("../logout/logout.service");
 var router_1 = require("@angular/router");
-var navbar_service_1 = require("./navbar.service");
+var navbar_service_1 = require("./page.service");
 var NavbarComponent = (function () {
     function NavbarComponent(deckService, logoutService, router, navbarService) {
         this.deckService = deckService;
@@ -45,8 +45,8 @@ var NavbarComponent = (function () {
 NavbarComponent = __decorate([
     core_1.Component({
         selector: 'page',
-        template: require('./navbar.component.html!text'),
-        styleUrls: ['app/page/navbar/navbar.css', 'app/page/navbar/dropdown.css']
+        template: require('./page.component.html!text'),
+        styleUrls: ['app/page/navbar/page.css', 'app/page/navbar/dropdown.css']
     }),
     __metadata("design:paramtypes", [deck_service_1.DeckService,
         logout_service_1.LogoutService,

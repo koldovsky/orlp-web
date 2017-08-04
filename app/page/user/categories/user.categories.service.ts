@@ -1,9 +1,9 @@
 import {Injectable} from "@angular/core";
-import {ORLPService} from "../../../orlp.service";
+import {ORLPService} from "../../../services/orlp.service";
 import {Observable} from "rxjs/Observable";
 import {Http, Response} from '@angular/http';
-import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
-import {DTOConverter} from "../../../classes/dto.Converter";
+import {CategoriesPublic} from "../../../dto/CategoryDTO/public.categories";
+import {DTOConverter} from "../../../dto/dto.Converter";
 
 @Injectable()
 export class UserCategoriesService {

@@ -1,8 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {AdminUsersService} from "./admin.users.service";
-import {AdminUsers} from "../../../classes/admin.users.DTO";
-import {ORLPService} from "../../../orlp.service";
-import {Link} from "../../../classes/link";
+import {AdminUsers} from "../../../dto/admin.users.DTO";
+import {ORLPService} from "../../../services/orlp.service";
+import {Link} from "../../../dto/link";
 
 @Component({
     selector: "admin-all-users",

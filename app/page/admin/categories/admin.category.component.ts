@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminCategoryService} from "./admin.category.service";
-import {CategoriesPublic} from "../../../classes/CategoryDTO/public.categories";
-import {ORLPService} from "../../../orlp.service";
+import {CategoriesPublic} from "../../../dto/CategoryDTO/public.categories";
+import {ORLPService} from "../../../services/orlp.service";
 
 @Component({
     selector: "admin-all-category",

@@ -1,6 +1,6 @@
 import { Http, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
-import { Link } from "./classes/link";
+import { Link } from "../dto/link";
 export declare class ORLPService {
     private http;
     private SERVER_ADDRESS;

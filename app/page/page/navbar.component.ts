@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DeckPublic} from "../../classes/DeckDTO/public.deck.DTO";
+import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
 import {DeckService} from "./search/deck.service";
 import {LogoutService} from "../logout/logout.service";
 import {Router} from "@angular/router";
-import {NavbarService} from "./navbar.service";
-import {UserDetailsDto} from "../../classes/UserDetailsDto";
+import {NavbarService} from "./page.service";
+import {UserDetailsDto} from "../../dto/UserDetailsDto";
 
 @Component({
     selector: 'page',
-    template: require('./navbar.component.html!text'),
-    styleUrls: ['app/page/navbar/navbar.css', 'app/page/navbar/dropdown.css']
+    template: require('./page.component.html!text'),
+    styleUrls: ['app/page/page/page.css', 'app/page/page/dropdown.css']
 })
 
 export class NavbarComponent implements OnInit {

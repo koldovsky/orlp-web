@@ -1,7 +1,7 @@
 import { OnInit } from "@angular/core";
 import { CourseInfoService } from "./courseInfo.service";
 import { ActivatedRoute } from "@angular/router";
-import { ORLPService } from "../../orlp.service";
+import { ORLPService } from "../../services/orlp.service";
 export declare class CourseInfoComponent implements OnInit {
     private route;
     private orlp;

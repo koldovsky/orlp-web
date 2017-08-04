@@ -1,7 +1,7 @@
-import {DeckPublic} from "../../../classes/DeckDTO/public.deck.DTO";
-import {DTOConverter} from "../../../classes/dto.Converter";
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {DTOConverter} from "../../../dto/dto.Converter";
 import {Injectable} from "@angular/core";
-import {ORLPService} from "../../../orlp.service";
+import {ORLPService} from "../../../services/orlp.service";
 import {Response} from "@angular/http";
 
 import 'rxjs/add/operator/do';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {Observable} from "rxjs/Observable";
-import {DeckLinkByCategory} from "../../../classes/DeckDTO/linkByCategory.deck.DTO";
+import {DeckLinkByCategory} from "../../../dto/DeckDTO/linkByCategory.deck.DTO";
 
 @Injectable()
 export class DeckService {

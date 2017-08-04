@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../classes/User";
+import {User} from "../../dto/User";
 
 function passwordMatcher(c: AbstractControl) {
     let passwordControl = c.get('password');

@@ -10,31 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var orlp_service_1 = require("../../../orlp.service");
 var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/toPromise");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 require("rxjs/add/observable/throw");
-var dto_Converter_1 = require("../../../classes/dto.Converter");
-var CourseService = (function () {
-    function CourseService(orlp) {
+var orlp_service_1 = require("../../services/orlp.service");
+var dto_Converter_1 = require("../../dto/dto.Converter");
+var NavbarService = (function () {
+    function NavbarService(orlp) {
         this.orlp = orlp;
     }
-    CourseService.prototype.getCourses = function (url) {
-        return this.orlp.get(url)
-            .map(function (response) { return dto_Converter_1.DTOConverter.jsonArrayToCollection(dto_Converter_1.DTOConverter.jsonToPublicCourse, response.json()); })
+    NavbarService.prototype.getUserDetails = function () {
+        return this.orlp.get('api/private/user/details')
+            .map(function (response) { return dto_Converter_1.DTOConverter.jsonToUserDetails(response.json()); })
             .catch(this.handleError);
     };
-    CourseService.prototype.handleError = function (error) {
+    NavbarService.prototype.handleError = function (error) {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    return CourseService;
+    return NavbarService;
 }());
-CourseService = __decorate([
+NavbarService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [orlp_service_1.ORLPService])
-], CourseService);
-exports.CourseService = CourseService;
-//# sourceMappingURL=course.service.js.map
+], NavbarService);
+exports.NavbarService = NavbarService;
+//# sourceMappingURL=page.service.js.map
