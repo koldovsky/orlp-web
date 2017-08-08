@@ -2,14 +2,16 @@
 <nav>
     <ul class="navigation-bar">
         <!-- LOGO-GUEST -->
-        <li class="nav-logo">
-            <a id="nav-logo" [routerLink]="['/main']" *ngIf="!isAuthorized">ORLP</a>
+        <li *ngIf="!isAuthorized" class="nav-logo" >
+            <a id="nav-logo" [routerLink]="['/home']">ORLP</a>
         </li>
         <!-- DROPDOWN-USER -->
         <li *ngIf="isAuthorized" class="main-dropdown-menu">
             <ul>
-                <li class="main-menu">
-                    <a [routerLink]="['/main']">Main Menu</a>
+                <li>
+                    <div class="home">
+                        <a [routerLink]="['/home']">Home</a>
+                    </div>
                     <div class="link">
                         <a [routerLink]="['/cabinet/folder']">Cabinet</a>
                     </div>
@@ -32,18 +34,19 @@
         </li>
         <!-- SEARCH -->
         <li class="nav-search">
-            <input id="nav-search" type="text" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true" (blur)="show=false"/>
+            <input id="nav-search" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
+                   (blur)="show=false"/>
         </li>
         <!-- SIGN UP-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signup">
-            <a id="nav-signup" [routerLink]="['/registr']" >SIGN UP</a>
+            <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
         </li>
         <!-- SIGN IN-GUEST -->
         <li *ngIf="!isAuthorized" class="nav-signin">
-            <a id="nav-signin" [routerLink]="['/login']" >SIGN IN</a>
+            <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
         </li>
         <!-- USER-DETAILS -->
-        <li *ngIf="isAuthorized" class="user-details" style="cursor: pointer">
+        <li *ngIf="isAuthorized" class="user-details">
             <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
             <!-- SIGN-OUT-USER -->
             <div class="signout" *ngIf="showLogOut" (click)="logoutUser()">
@@ -61,19 +64,19 @@
             <div class="username">{{userDetails.firstName}}</div>
             <div class="email">{{userDetails.email}}</div>
         </li>
-        <li *ngIf="isAuthorizedAdmin">
-            <div class="admin">Admin</div>
-        </li>
     </ul>
 </nav>
 <!-- SEARCH-RESULT -->
 <table *ngIf="show" class="table">
     <tbody>
-    <tr *ngFor="let deck of decks | deckFilter: listFilter">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true" [rating]="deck.rating"></star-rating-comp></td>
-    </tr>
+        <tr *ngFor="let deck of decks | deckFilter: listFilter">
+            <td>{{deck.name}}</td>
+            <td>{{deck.description}}</td>
+            <td>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                  [rating]="deck.rating"></star-rating-comp>
+            </td>
+        </tr>
     </tbody>
 </table>
 <router-outlet></router-outlet>
