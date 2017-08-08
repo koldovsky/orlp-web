@@ -6,16 +6,48 @@
     </ul>
   </div>
 
+  <!--FOLDER-->
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <table class="table table-striped" style="background-color: white; width: 50%;">
-      <thead (click)="getUserDecks(); value = !value;" style="cursor:pointer">
-        <tr>
-          <td><img src="../../../assets/images/categories.png" class="mx-auto d-block rounded-main"></td>
-          <td>Default folder</td>
-        </tr>
+    <table class="table table-striped">
+      <thead (click)="getUserDecks(); getUserCourses(); show = !show; clickedCourse = false;">
+      <tr>
+        <td><img src="../../../image/categories.png" class="mx-auto d-block rounded-main"></td>
+        <td>Default folder</td>
+      </tr>
       </thead>
-      <tbody *ngIf="value">
-        <tr *ngFor="let deck of decks">
+      <tbody *ngIf="show">
+      <tr *ngFor="let deck of decks">
+        <td>{{deck.name}}</td>
+        <td>{{deck.description}}</td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                            [rating]="deck.rating"></star-rating-comp>
+        </td>
+        <td>
+          <button (click)="startLearning(deck.cards)">START</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--COURSES-->
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <table class="table table-striped" *ngFor="let course of courses">
+      <thead class="course-head"
+             (click)="getCourseDecks(course); show = false; clickedCourse = (clickedCourse === course.name) ? false : course.name">
+      <tr>
+        <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main course-img"></td>
+        <td>{{course.name}}</td>
+        <td>{{course.description}}</td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                            [rating]="course.rating"></star-rating-comp>
+        </td>
+      </tr>
+      </thead>
+      <tbody *ngIf="course.name === clickedCourse">
+      <tr *ngFor="let deck of decks">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
         <td>

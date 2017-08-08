@@ -1,3 +1,4 @@
+/*MENU*/
 .vertical-menu {
   float: left;
 }
@@ -24,4 +25,9 @@
 .vertical-menu a.active {
   background-color: darkgreen;
   color: white;
+}
+/*FOLDER*/
+table {
+  background-color: white;
+  width: 50%;
 }
