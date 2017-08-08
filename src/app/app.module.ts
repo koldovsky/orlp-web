@@ -8,7 +8,7 @@ import {HttpModule} from '@angular/http';
 import {CabinetModule} from './page/cabinet/cabinet.module';
 import {CategoryInfoModule} from './page/categoryInfo/categoryInfo.module';
 import {SignUpModule} from './page/signup/signup.module';
-import {MainModule} from './page/main/main.module';
+import {HomeModule} from './page/home/home.module';
 import {LoginModule} from './page/login/login.module';
 import {AdminModule} from './page/admin/admin.module';
 import {CardModule} from './page/card/card.module';
@@ -37,15 +37,15 @@ import {PageService} from './page/page/page.service';
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forRoot([
-      {path: '', redirectTo: 'main', pathMatch: 'full'},
-      {path: '**', redirectTo: 'main', pathMatch: 'full'}
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: '**', redirectTo: 'home', pathMatch: 'full'}
     ]),
 
     CategoryInfoModule,
     CourseInfoModule,
     SignUpModule,
     LoginModule,
-    MainModule,
+    HomeModule,
     AdminModule,
     CardModule,
     CabinetModule,

@@ -11,27 +11,26 @@ import {DTOConverter} from '../../dto/dto.Converter';
 import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 
 @Injectable()
-export class MainService {
+export class HomeService {
 
   constructor(private orlp: ORLPService) {
   }
 
   getCategories(): Observable<CategoryTop[]> {
     return this.orlp.get('api/category/top/')
-      .map((response: Response) => <CategoryTop[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
+      .map((response: Response) => <CategoryTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
       .catch(this.handleError);
   }
 
   getCourses(): Observable<CourseTop[]> {
     return this.orlp.get('api/course/top/')
-      .map((response: Response) => <CourseTop[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToTopCourse, response.json()))
+      .map((response: Response) => <CourseTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCourse, response.json()))
       .catch(this.handleError);
   }
 
   private handleError(error: Response) {
     console.error(error);
+
     return Observable.throw(error.json().error || 'Server error');
   }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MainService} from './main.service';
+import {HomeService} from './home.service';
 
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
@@ -7,16 +7,16 @@ import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 
 @Component({
-  templateUrl: ('./main.component.html'),
-  styleUrls: ['./main.css']
+  templateUrl: ('./home.component.html'),
+  styleUrls: ['./home.css']
 })
 
-export class MainComponent implements OnInit {
+export class HomeComponent implements OnInit {
   public categories: CategoryTop[];
   public courses: CourseTop[];
   errorMessage: string;
 
-  constructor(private mainService: MainService,
+  constructor(private mainService: HomeService,
               private orlp: ORLPService) {
   }
 
@@ -38,4 +38,3 @@ export class MainComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 }
-
