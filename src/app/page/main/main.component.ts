@@ -1,41 +1,49 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
+import {DeckService} from './search/deck.service';
+import {LogoutService} from '../logout/logout.service';
+import {Router} from '@angular/router';
 import {MainService} from './main.service';
-
-import {ORLPService} from '../../services/orlp.service';
-import {Link} from '../../dto/link';
-import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
-import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
+import {UserDetailsDto} from '../../dto/UserDetailsDto';
 
 @Component({
+  selector: 'app-page',
   templateUrl: ('./main.component.html'),
-  styleUrls: ['./main.css']
+  styleUrls: ['./main.css', './dropdown.css']
 })
 
 export class MainComponent implements OnInit {
-  public categories: CategoryTop[];
-  public courses: CourseTop[];
-  errorMessage: string;
+    decks: DeckPublic[];
+    listFilter: string;
+    public errorMessage: string;
+    isAuthorized: boolean;
+    isAuthorizedAdmin: boolean;
+    userDetails: UserDetailsDto;
 
-  constructor(private mainService: MainService,
-              private orlp: ORLPService) {
-  }
+    constructor(private deckService: DeckService,
+                private logoutService: LogoutService,
+                private router: Router,
+                private navbarService: MainService) {
+    }
 
-  ngOnInit(): void {
-    this.mainService.getCategories()
-      .subscribe(category => this.categories = category,
-        error => this.errorMessage = <any>error);
+    ngOnInit(): void {
+        this.isAuthorized = this.logoutService.isAuthorized();
+        if (this.isAuthorized) {
+            this.navbarService.getUserDetails()
+                .subscribe(user => {
+                    this.userDetails = user;
+                    this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
+                });
+        }
+        this.deckService.getDecks().subscribe(decks => this.decks = decks,
+            error => this.errorMessage = <any>error);
+    }
 
-    this.mainService.getCourses()
-      .subscribe(course => this.courses = course,
-        error => this.errorMessage = <any>error);
-  }
-
-  getCategoryLink(link: Link): string {
-    return this.orlp.getShortLink(link);
-  }
-
-  getCourseLink(link: Link): string {
-    return this.orlp.getShortLink(link);
-  }
+    logoutUser() {
+        if (this.logoutService.logout()) {
+            this.isAuthorized = false;
+            this.isAuthorizedAdmin = false;
+            this.router.navigate(['main']);
+        }
+    }
 }
-

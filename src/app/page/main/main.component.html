@@ -1,49 +1,82 @@
-<div class="container">
-    <div class="row mt-4 mb-4">
-        <div class="col-md-12 mt-4 font-color-white text-center">
-            <h2 class="header-text">Categories</h2>
-        </div>
-        <br/>
-    </div>
-
-    <div class="row" >
-        <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/category', getCategoryLink(category.self)]">
-            <div class="card mp-card">
-                <img [src]="category.imagebase64" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
-                <div class="card-block text-center">
-                    <h4>
-                        <p class="card-text">{{category.name}}</p>
-                    </h4>
-                </div>
+<!-- NAVBAR -->
+<nav>
+    <ul class="navigation-bar">
+        <!-- LOGO-GUEST -->
+        <li *ngIf="!isAuthorized" class="nav-logo" >
+            <a id="nav-logo" [routerLink]="['/home']">ORLP</a>
+        </li>
+        <!-- DROPDOWN-USER -->
+        <li *ngIf="isAuthorized" class="main-dropdown-menu">
+            <ul>
+                <li>
+                    <div class="home">
+                        <a [routerLink]="['/home']">Home</a>
+                    </div>
+                    <div class="link">
+                        <a [routerLink]="['/cabinet/folder']">Cabinet</a>
+                    </div>
+                    <div class="settings">
+                        <a [routerLink]="['/user/categories']">Categories</a>
+                    </div>
+                    <div class="forum">
+                        <a [routerLink]="['/user/courses']">Courses</a>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <!-- CATEGORIES-GUEST -->
+        <li *ngIf="!isAuthorized" class="nav-category">
+            <a id="nav-category" href="#">Categories</a>
+        </li>
+        <!-- COURSES-GUEST -->
+        <li *ngIf="!isAuthorized" class="nav-course">
+            <a id="nav-course" href="#">Courses</a>
+        </li>
+        <!-- SEARCH -->
+        <li class="nav-search">
+            <input id="nav-search" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
+                   (blur)="show=false"/>
+        </li>
+        <!-- SIGN UP-GUEST -->
+        <li *ngIf="!isAuthorized" class="nav-signup">
+            <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
+        </li>
+        <!-- SIGN IN-GUEST -->
+        <li *ngIf="!isAuthorized" class="nav-signin">
+            <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
+        </li>
+        <!-- USER-DETAILS -->
+        <li *ngIf="isAuthorized" class="user-details">
+            <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
+            <!-- SIGN-OUT-USER -->
+            <div class="signout" *ngIf="showLogOut" (click)="logoutUser()">
+                <a>Sign out</a>
             </div>
-            <br/>
-        </div>
-    </div>
-    <!--Cources-->
-    <div class="row mt-5 mb-4">
-        <div class="col-md-12 font-color-white text-center">
-            <h2 class="header-text">Top Courses</h2>
-        </div>
-    </div>
-
-    <div class="row" >
-        <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-12 mp-deck" [routerLink]="['/course/top', getCourseLink(course.self)]">
-            <div class="card mp-card">
-                <img [src]="course.imagebase64" class="mx-auto d-block rounded-main card-img-top" style="width: 100%">
-                <div class="card-block text-center">
-                    <h4>
-                        <p class="card-text">{{course.name}}</p>
-                    </h4>
-                </div>
-            </div>
-            <br/>
-        </div>
-    </div>
-
-    <div class="row ml-xl-5 mt-5">
-        <h1 style="color: white">What is Spaced Repetition?</h1>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-6" style="color: darkgray">Spaced Repetition this is the best site!</div>
-    </div>
-</div>
+        </li>
+        <!-- USER-IMAGE -->
+        <li *ngIf="isAuthorized" class="user-image">
+            <a [routerLink]="['/login']">
+                <img id="user-image" src="../../../assets/images/avatar.png">
+            </a>
+        </li>
+        <!-- USER-INFORMATION -->
+        <li *ngIf="(isAuthorized && userDetails)" class="user-information">
+            <div class="username">{{userDetails.firstName}}</div>
+            <div class="email">{{userDetails.email}}</div>
+        </li>
+    </ul>
+</nav>
+<!-- SEARCH-RESULT -->
+<table *ngIf="show" class="table">
+    <tbody>
+        <tr *ngFor="let deck of decks | deckFilter: listFilter">
+            <td>{{deck.name}}</td>
+            <td>{{deck.description}}</td>
+            <td>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                  [rating]="deck.rating"></star-rating-comp>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<router-outlet></router-outlet>
