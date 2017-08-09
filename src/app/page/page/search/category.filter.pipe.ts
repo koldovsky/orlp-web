@@ -1,14 +1,14 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {ICategory} from '../../../interfaces/category';
+import {PipeTransform, Pipe} from '@angular/core';
+import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 
 @Pipe({
   name: 'categoryFilter'
 })
 
 export class CategoryFilterPipe implements PipeTransform {
-  transform(value: ICategory[], filterBy: string): ICategory[] {
+  transform(value: CategoryLink[], filterBy: string): CategoryLink[] {
     filterBy = filterBy ? filterBy.toLocaleLowerCase() : null;
-    return filterBy ? value.filter((category: ICategory) =>
+    return filterBy ? value.filter((category: CategoryLink) =>
     category.name.toLocaleLowerCase().indexOf(filterBy) !== -1) : value;
   }
 }

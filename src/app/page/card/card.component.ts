@@ -12,7 +12,6 @@ export class CardComponent implements OnInit {
     public routing = false;
     public questionNumber = 1;
     public answer = '';
-
     public url: string;
     public cards: CardPublic[];
 
@@ -34,7 +33,7 @@ export class CardComponent implements OnInit {
         this.cardService.getCards(this.url).subscribe(
             cards => {
                 this.cards = cards;
-                console.log(JSON.stringify(cards));
+                console.log(cards);
             }
         );
     }
