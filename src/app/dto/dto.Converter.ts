@@ -12,6 +12,7 @@ import {UsersDTO} from "./UserDTO/UserDTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
 import {UserDetailsDto} from "./UserDetailsDto";
 import {DeckLinkByFolder} from "./DeckDTO/linkByFolder.deck.DTO";
+import {CourseLinkWithId} from "./CourseDTO/linkWithId.course.DTO";
 
 export class DTOConverter {
 
@@ -34,6 +35,13 @@ export class DTOConverter {
 
         return new CourseLink(data.name, data.description, data.imagebase64, self, decks);
     }
+
+  public static jsonToPublicLinkCourseWithId(data: any): CourseLinkWithId {
+    let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+    let decks: Link = DTOConverter.jsonToLink("decks", data._links.decks);
+
+    return new CourseLinkWithId(data.courseId, data.name, data.description, data.imagebase64, self, decks);
+  }
 
     public static jsonToDeckLinkByFolder(data: any): DeckLinkByFolder {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
