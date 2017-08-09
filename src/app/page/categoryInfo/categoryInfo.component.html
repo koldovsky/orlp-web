@@ -1,0 +1,15 @@
+<div class="container mt-4">
+    <div class="catalogPage-nav-borders">
+        <ul class="nav nav-pills nav-fill catInf-rad-top">
+            <li class="nav-item catalogPage-item-left" [ngClass]="{'catalogPage-active-element' : table1 == true}">
+                <a class="nav-link" (click)="tabClick(0)">Courses</a>
+            </li>
+            <li class="nav-item catalogPage-item-right" [ngClass]="{'catalogPage-active-element' : table2 == true}">
+                <a class="nav-link" (click)="tabClick(1)">Decks</a>
+            </li>
+        </ul>
+    </div>
+
+    <app-course-table [url]="getLinkForCourses()" *ngIf="table1 && category"></app-course-table>
+    <app-deck-table [url]="getLinkForDecks()" *ngIf="table2 && category"></app-deck-table>
+</div>

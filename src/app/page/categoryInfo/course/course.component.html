@@ -1,0 +1,27 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <table class="table table-striped" *ngFor="let course of courses">
+    <thead class="course-head"
+           (click)="getDecks(course); clickedCourse = (clickedCourse === course.name) ? false : course.name">
+      <tr>
+        <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main course-img"></td>
+        <td>{{course.name}}</td>
+        <td>{{course.description}}</td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                            [rating]="course.rating"></star-rating-comp>
+        </td>
+      </tr>
+    </thead>
+    <tbody *ngIf="course.name === clickedCourse">
+      <tr *ngFor="let deck of decks">
+        <td></td>
+        <td>{{deck.name}}</td>
+        <td>{{deck.description}}</td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                            [rating]="deck.rating"></star-rating-comp>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
