@@ -1,19 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminUsersService} from './admin.users.service';
-import {AdminUsers} from '../../../dto/admin.users.DTO';
-import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
+import {ORLPService} from '../../../services/orlp.service';
+import {AdminUsers} from '../../../dto/admin.users.DTO';
 
 @Component({
-  selector: 'app-admin-all-users',
   providers: [AdminUsersService],
   templateUrl: ('./admin.users.component.html'),
-  styleUrls: ['../admin.style.css']
+  styleUrls: ['./admin.all.users.style.css']
 })
 
 export class AdminUsersComponent implements OnInit {
-  users: AdminUsers[];
-  errorMessage: string;
+  public users: AdminUsers[];
 
   constructor(private orlp: ORLPService,
               private adminUsersSevice: AdminUsersService) {
@@ -21,8 +19,7 @@ export class AdminUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.adminUsersSevice.getUsers()
-      .subscribe(users => this.users = users,
-        error => this.errorMessage = <any>error);
+      .subscribe(users => this.users = users);
   }
 
   public getUserLink(link: Link): string {

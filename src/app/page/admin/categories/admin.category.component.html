@@ -1,38 +1,33 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 font-color-white header-text">
-            <h1 class="font-color-white header-text">All Categories</h1>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-            <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" align="right" [routerLink]="['/admin']">
-            <button class="btn btn-secondary">Back</button>
-        </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-5 font-color-white header-text">
+      <h1 class="font-color-white header-text">All Categories</h1>
     </div>
-
-    <div class="row">
-        <div *ngIf="categories">
-            <table class="table table-striped admins-tables">
-                <thead>
-                <tr class="admins-tables-header">
-                    <th>#</th>
-                    <th>Category Name</th>
-                    <th>Category Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let category of categories | categoryFilter:listFilter">
-                    <td>
-                        <div>
-                            <img [src]="category.imagebase64" class="category-image">
-                        </div>
-                    </td>
-                    <td>{{category.name}}</td>
-                    <td>{{category.description}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="col-xs-12 col-sm-5">
+      <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
     </div>
+    <div class="col-xs-12 col-sm-2" [routerLink]="['/admin']">
+      <button class="btn btn-secondary">Back</button>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="categories">
+      <table class="table table-striped admins-tables">
+        <tr class="admins-tables-header">
+          <th>#</th>
+          <th>Category Name</th>
+          <th>Category Description</th>
+        </tr>
+        <tr *ngFor="let category of categories | categoryFilter:listFilter">
+          <td>
+            <div>
+              <img [src]="category.imagebase64" class="category-image">
+            </div>
+          </td>
+          <td>{{category.name}}</td>
+          <td>{{category.description}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
