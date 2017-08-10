@@ -74,8 +74,9 @@
   font-size: 25px;
 }
 
-#user-image {
-  width: 39px;
+.user-image {
+    width: 39px;
+    border-radius: 50%;
 }
 
 .user-information, .user-image, .user-details {

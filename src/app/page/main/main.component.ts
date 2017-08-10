@@ -17,6 +17,7 @@ import {CategoryService} from "./search/category.service";
 })
 
 export class MainComponent implements OnInit {
+  private static DEFAULT_IMAGE: string = '../../../assets/images/avatar.png';
   public categories: CategoriesPublic[];
   public courses: CourseTop[];
   public decks: DeckPublic[];
