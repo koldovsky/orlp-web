@@ -1,0 +1,12 @@
+.admins-tables {
+  background: white;
+  border-radius: 0.8rem;
+}
+
+.admins-tables-header {
+  border-top: hidden
+}
+
+.category-image {
+  height: 50px;
+}
