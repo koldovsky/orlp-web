@@ -1,8 +1,8 @@
-import {Pipe, PipeTransform} from "@angular/core";
-import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {Pipe, PipeTransform} from '@angular/core';
+import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 
 @Pipe({
-  name: "deckFilter"
+  name: 'deckFilter'
 })
 
 export class DeckFilterPipe implements PipeTransform {

@@ -1,11 +1,11 @@
-import {Component, OnInit} from "@angular/core";
-import {CabinetService} from "./cabinet.service";
-import {UsersDTO} from "../../dto/UsersDTO/UserDTO";
-import {Link} from "../../dto/link";
-import {ORLPService} from "../../services/orlp.service";
-import {Router} from "@angular/router";
-import {DeckDTO} from "../../dto/DeckDTO/DeckDTO";
-import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {Component, OnInit} from '@angular/core';
+import {CabinetService} from './cabinet.service';
+import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
+import {Link} from '../../dto/link';
+import {ORLPService} from '../../services/orlp.service';
+import {Router} from '@angular/router';
+import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
+import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Component({
   providers: [CabinetService],

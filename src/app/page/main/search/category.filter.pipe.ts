@@ -1,8 +1,8 @@
-import {PipeTransform, Pipe} from "@angular/core"
-import {CategoryLink} from "../../../dto/CategoryDTO/link.category.DTO";
+import {PipeTransform, Pipe} from '@angular/core';
+import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 
 @Pipe({
-  name: "categoryFilter"
+  name: 'categoryFilter'
 })
 
 export class CategoryFilterPipe implements PipeTransform {

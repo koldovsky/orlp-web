@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
-import {DeckService} from "./search/deck.service";
-import {LogoutService} from "../logout/logout.service";
-import {Router} from "@angular/router";
-import {MainService} from "./main.service";
-import {UserDetailsDto} from "../../dto/UserDetailsDto";
-import {CourseService} from "./search/course.service";
-import {CourseTop} from "../../dto/CourseDTO/top.course.DTO";
-import {CategoriesPublic} from "../../dto/CategoryDTO/public.categories";
-import {CategoryService} from "./search/category.service";
+import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
+import {DeckService} from './search/deck.service';
+import {LogoutService} from '../logout/logout.service';
+import {Router} from '@angular/router';
+import {MainService} from './main.service';
+import {UserDetailsDto} from '../../dto/UserDetailsDto';
+import {CourseService} from './search/course.service';
+import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
+import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
+import {CategoryService} from './search/category.service';
 
 @Component({
   selector: 'app-page',

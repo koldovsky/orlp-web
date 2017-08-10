@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
-import {Observable} from "rxjs/Observable";
-import {ORLPService} from "../../services/orlp.service";
-import {DTOConverter} from "../../dto/dto.Converter";
-import {UsersDTO} from "../../dto/UsersDTO/UserDTO";
-import {DeckDTO} from "../../dto/DeckDTO/DeckDTO";
-import {Link} from "../../dto/link";
-import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {Observable} from 'rxjs/Observable';
+import {ORLPService} from '../../services/orlp.service';
+import {DTOConverter} from '../../dto/dto.Converter';
+import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
+import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
+import {Link} from '../../dto/link';
+import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Injectable()
 export class CabinetService {
