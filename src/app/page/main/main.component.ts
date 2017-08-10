@@ -13,37 +13,39 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 })
 
 export class MainComponent implements OnInit {
-    decks: DeckPublic[];
-    listFilter: string;
-    public errorMessage: string;
-    isAuthorized: boolean;
-    isAuthorizedAdmin: boolean;
-    userDetails: UserDetailsDto;
+  private static DEFAULT_IMAGE: string = '../../../assets/images/avatar.png';
+  decks: DeckPublic[];
+  listFilter: string;
+  public errorMessage: string;
+  isAuthorized: boolean;
+  isAuthorizedAdmin: boolean;
+  userDetails: UserDetailsDto;
 
-    constructor(private deckService: DeckService,
-                private logoutService: LogoutService,
-                private router: Router,
-                private navbarService: MainService) {
-    }
+  constructor(private deckService: DeckService,
+              private logoutService: LogoutService,
+              private router: Router,
+              private navbarService: MainService) {
+  }
 
-    ngOnInit(): void {
-        this.isAuthorized = this.logoutService.isAuthorized();
-        if (this.isAuthorized) {
-            this.navbarService.getUserDetails()
-                .subscribe(user => {
-                    this.userDetails = user;
-                    this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
-                });
-        }
-        this.deckService.getDecks().subscribe(decks => this.decks = decks,
-            error => this.errorMessage = <any>error);
+  ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (this.isAuthorized) {
+      this.navbarService.getUserDetails()
+        .subscribe(user => {
+          this.userDetails = user;
+          console.log(user);
+          this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
+        });
     }
+    this.deckService.getDecks().subscribe(decks => this.decks = decks,
+      error => this.errorMessage = <any>error);
+  }
 
-    logoutUser() {
-        if (this.logoutService.logout()) {
-            this.isAuthorized = false;
-            this.isAuthorizedAdmin = false;
-            this.router.navigate(['main']);
-        }
+  logoutUser() {
+    if (this.logoutService.logout()) {
+      this.isAuthorized = false;
+      this.isAuthorizedAdmin = false;
+      this.router.navigate(['main']);
     }
+  }
 }
