@@ -1,0 +1,46 @@
+body {
+    background-color: #3a3345;
+}
+
+#category-img, #course-img {
+    width: 100%;
+}
+
+#site-description-head {
+    color: white;
+}
+
+#site-description-main {
+    color: darkgray;
+}
+
+.header-text {
+    color: white;
+    text-shadow: 0px 1px white;
+}
+
+.mp-card {
+    width: 100%;
+    border: 1px solid #f7f7f7;
+    box-shadow: 0px 1px 10px 1px white;
+}
+
+.mp-card:hover {
+    cursor: pointer;
+    background-color: #f7f7f7;
+}
+
+.mp-deck {
+    outline: none;
+}
+
+.alertMessage {
+    padding: 0.5rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-top: -12px;
+    color: #e8241e;
+    margin-top: 15px;
+    text-align: center;
+}

@@ -19,7 +19,8 @@ export class DeckService {
 
     getDecks(url: string): Observable<DeckLinkByCategory[]> {
         return this.orlp.get(url)
-            .map((response: Response) => <DeckLinkByCategory[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()))
+            .map((response: Response) => <DeckLinkByCategory[]> DTOConverter
+              .jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()))
             .catch(this.handleError);
     }
 
@@ -33,7 +34,7 @@ export class DeckService {
 
     getIdDecksInYourFolder(): Observable<number[]> {
         return this.orlp.get("api/private/user/folder/decks/id")
-            .map((response: Response) => response.json())
+            .map((response: Response) => response.json());
     }
 
     private handleError(error: Response) {

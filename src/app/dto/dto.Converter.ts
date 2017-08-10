@@ -8,10 +8,11 @@ import {CourseTop} from "./CourseDTO/top.course.DTO";
 import {DeckLinkByCategory} from "./DeckDTO/linkByCategory.deck.DTO";
 import {CardPublic} from "./CardsDTO/public.card.DTO";
 import {AdminUsers} from "./admin.users.DTO";
-import {UsersDTO} from "./UserDTO/UserDTO";
+import {UsersDTO} from "./UsersDTO/UserDTO";
 import {CourseLink} from "./CourseDTO/link.course.DTO";
 import {UserDetailsDto} from "./UserDetailsDto";
 import {DeckLinkByFolder} from "./DeckDTO/linkByFolder.deck.DTO";
+import {CourseLinkWithId} from "./CourseDTO/linkWithId.course.DTO";
 
 export class DTOConverter {
 
@@ -21,12 +22,13 @@ export class DTOConverter {
         return new CardPublic(data.answer, data.question, self);
     }
 
-    public static jsonToUserDTO(data: any): UsersDTO {
-        let self: Link = DTOConverter.jsonToLink("self", data._links.self);
-        let folder: Link = DTOConverter.jsonToLink("folder", data._links.folder);
+  public static jsonToUserDTO(data: any): UsersDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const folder: Link = DTOConverter.jsonToLink('folder', data._links.folder);
+    const courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
 
-        return new UsersDTO(data.firstName, data.lastName, data.email, self, folder);
-    }
+    return new UsersDTO(data.firstName, data.lastName, data.email, self, folder, courses);
+  }
 
     public static jsonToPublicLinkCourse(data: any): CourseLink {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);
@@ -34,6 +36,13 @@ export class DTOConverter {
 
         return new CourseLink(data.name, data.description, data.imagebase64, self, decks);
     }
+
+  public static jsonToPublicLinkCourseWithId(data: any): CourseLinkWithId {
+    let self: Link = DTOConverter.jsonToLink("self", data._links.self);
+    let decks: Link = DTOConverter.jsonToLink("decks", data._links.decks);
+
+    return new CourseLinkWithId(data.courseId, data.name, data.description, data.imagebase64, self, decks);
+  }
 
     public static jsonToDeckLinkByFolder(data: any): DeckLinkByFolder {
         let self: Link = DTOConverter.jsonToLink("self", data._links.self);

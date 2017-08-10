@@ -8,7 +8,7 @@ import { CourseTop } from "./CourseDTO/top.course.DTO";
 import { DeckLinkByCategory } from "./DeckDTO/linkByCategory.deck.DTO";
 import { CardPublic } from "./CardsDTO/public.card.DTO";
 import { AdminUsers } from "./admin.users.DTO";
-import { UsersDTO } from "./UserDTO/UserDTO";
+import { UsersDTO } from "./UsersDTO/UserDTO";
 import { CourseLink } from "./CourseDTO/link.course.DTO";
 import { UserDetailsDto } from "./UserDetailsDto";
 import { DeckLinkByFolder } from "./DeckDTO/linkByFolder.deck.DTO";

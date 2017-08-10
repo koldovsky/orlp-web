@@ -16,8 +16,7 @@ export class CourseService {
 
   getCourses(url: string): Observable<CourseLink[]> {
     return this.orlp.get(url)
-      .map((response: Response) => <CourseLink[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
+      .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
       .catch(this.handleError);
   }
 

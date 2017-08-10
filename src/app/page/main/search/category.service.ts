@@ -1,23 +1,26 @@
 import {Injectable} from '@angular/core';
-import {ORLPService} from '../../../services/orlp.service';
+import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {Response} from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
+
+import {ORLPService} from '../../../services/orlp.service';
+import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {DTOConverter} from '../../../dto/dto.Converter';
 
 @Injectable()
-export class DeckService {
+export class CategoryService {
+
   constructor(private orlp: ORLPService) {
   }
 
-  getDecks(): Observable<DeckPublic[]> {
-    return this.orlp.get('api/decks/ordered')
-      .map((response: Response) => <DeckPublic[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
+  getCatalogs(): Observable<CategoriesPublic[]> {
+    return this.orlp.get('api/category')
+      .map((response: Response) =>
+        <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()))
       .catch(this.handleError);
   }
 

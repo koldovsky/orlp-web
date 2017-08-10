@@ -18,15 +18,13 @@
         <td>{{course.name}}</td>
         <td>{{course.description}}</td>
         <td class="alignCenter">
-          <div >
+          <div>
             <button id="button" (click)="addCourseToUser()" [disabled]="!isAuthorized()"
                     [className]="addCourseToUserButton">
             </button>
           </div>
         </td>
       </tr>
-
-
       </tbody>
     </table>
   </div>
@@ -51,8 +49,6 @@
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
                             [rating]="deck.rating"></star-rating-comp>
         </td>
-
-
       </tr>
       </tbody>
     </table>
