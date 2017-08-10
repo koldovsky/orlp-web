@@ -55,8 +55,11 @@
     </li>
     <!-- USER-IMAGE -->
     <li *ngIf="isAuthorized" class="user-image">
-      <a href="#">
-        <img id="user-image" src="../../../assets/images/avatar.png">
+      <a [routerLink]="['/login']">
+        <img *ngIf="userDetails?.image; else default_image" class="user-image" src="{{userDetails?.image}}">
+        <ng-template #default_image>
+          <img class="user-image" src="../../../assets/images/avatar.png">
+        </ng-template>
       </a>
     </li>
     <!-- USER-INFORMATION -->
