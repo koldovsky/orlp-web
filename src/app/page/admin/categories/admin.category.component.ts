@@ -5,7 +5,7 @@ import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 @Component({
   providers: [AdminCategoryService],
   templateUrl: ('./admin.category.component.html'),
-  styleUrls: ['./admin.style.css']
+  styleUrls: ['./admin.category.style.css']
 })
 
 export class AdminCategoryComponent implements OnInit {
