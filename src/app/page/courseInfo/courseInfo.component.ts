@@ -4,8 +4,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
-import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {LogoutService} from '../logout/logout.service';
+import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 @Component({
   templateUrl: ('./courseInfo.component.html'),
   styleUrls: ['./courseInfo.css']
@@ -14,11 +14,11 @@ import {LogoutService} from '../logout/logout.service';
 export class CourseInfoComponent implements OnInit {
   private url: string;
   private decks: DeckPublic[];
-  private course: CourseLink;
   private sub: Subscription;
   private errorMessage: string;
+  private course: CourseLinkWithId;
   public addCourseToUserButton: string;
-  private userOwnCourse: boolean;
+  private coursesIdExistsInUser: number[] = [];
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
@@ -33,7 +33,6 @@ export class CourseInfoComponent implements OnInit {
       }
     );
     this.takeCourse();
-    this.buttonManege();
   }
 
   takeCourse() {
@@ -47,10 +46,14 @@ export class CourseInfoComponent implements OnInit {
     );
   }
 
-  private takeDecks(course: CourseLink) {
+  private takeDecks(course: CourseLinkWithId) {
     this.courseService.getDecks(course).subscribe(
       decks => {
         this.decks = decks;
+        if (this.isAuthorized()) {
+          this.getIdCoursesOwnByUser();
+        }
+        this.buttonManage();
       },
       error => {
         this.errorMessage = <any>error;
@@ -58,9 +61,45 @@ export class CourseInfoComponent implements OnInit {
     );
   }
 
+  getIdCoursesOwnByUser() {
+    this.courseService.getIdCoursesOfTheCurrentUser().subscribe(
+      id => {
+        this.coursesIdExistsInUser = id;
+        this.changeCourseStatus(this.course.courseId);
+      });
+  }
+
+  changeCourseStatus(id: number) {
+    for (const entry of this.coursesIdExistsInUser) {
+      if (entry === this.course.courseId) {
+        this.course.isUserOwnCourse = true;
+      }
+    }
+    this.buttonManage();
+  }
+
   addCourseToUser() {
-    this.courseService.addCourseToUser(this.geIdOfTheCourseFromUrl())
-      .subscribe(response => console.log(response));
+    console.log(this.course.courseId);
+    this.courseService.addCourseToUser(this.course.courseId)
+      .subscribe((response) => {
+        console.log(response);
+        this.course.isUserOwnCourse = this.toggleStatus(this.course.isUserOwnCourse);
+        this.getIdCoursesOwnByUser();
+      }, (error) => {
+        console.log(error);
+      });
+  }
+
+  buttonManage() {
+    if (this.isAuthorized() && !this.course.isUserOwnCourse) {
+      this.addCourseToUserButton = 'addCourseToUserButtonActive';
+    } else {
+      if (this.isAuthorized() && this.course.isUserOwnCourse) {
+        this.addCourseToUserButton = 'addCourseToUserButtonChecked';
+      } else{
+        this.addCourseToUserButton = 'addCourseToUserButtonInActive';
+      }
+    }
   }
 
   private decodeLink() {
@@ -71,17 +110,11 @@ export class CourseInfoComponent implements OnInit {
     return this.logoutService.isAuthorized();
   }
 
-  buttonManege() {
-    if (this.isAuthorized()) {
-      this.addCourseToUserButton = 'addCourseToUserButtonActive';
+  private toggleStatus(stat: boolean): boolean {
+    if (stat === true) {
+      return false;
     } else {
-      this.addCourseToUserButton = 'addCourseToUserButtonInActive';
+      return true;
     }
-  }
-
-  geIdOfTheCourseFromUrl(): number {
-    const courseId = Number(this.url.charAt(this.url.length - 1));
-    console.log(courseId);
-    return courseId;
   }
 }

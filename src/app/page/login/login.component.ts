@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       }, (error) => {
         this.processError(error);
       });
-  }
+  };
 
   private processError(response) {
     this.success = false;

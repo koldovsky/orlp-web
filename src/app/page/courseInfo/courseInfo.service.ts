@@ -9,18 +9,19 @@ import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.Converter';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
-import {CoursePublic} from '../../dto/CourseDTO/public.course.DTO';
+import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 
 @Injectable()
 export class CourseInfoService {
-  private url: string = 'api/user/courses/';
+  private urlAddCourseToUser: string = 'api/user/courses/';
+  private urlGettingListOfIdOfTheCourses: string = 'api/private/user/courses';
 
   constructor(private orlp: ORLPService) {
   }
 
-  getCourse(url: string): Observable<CourseLink> {
+  getCourse(url: string): Observable<CourseLinkWithId> {
     return this.orlp.get(url)
-      .map((response: Response) => DTOConverter.jsonToPublicLinkCourse(response.json()))
+      .map((response: Response) => DTOConverter.jsonToPublicLinkCourseWithId(response.json()))
       .catch(this.handleError);
   }
 
@@ -32,18 +33,23 @@ export class CourseInfoService {
       .catch(this.handleError);
   }
 
-  addCourseToUser(courseId: number): Observable<CoursePublic> {
-    return this.orlp.put(this.url + courseId, {})
-      .map((response: Response) => {
-        response.json();
-      })
+  addCourseToUser(courseId: number) {
+    return this.orlp.put(this.urlAddCourseToUser + courseId, {})
+      .map((response: Response) => console.log(response))
       .catch(this.handleError);
   }
+  getIdCoursesOfTheCurrentUser(): Observable<number[]> {
+    return this.orlp.get(this.urlGettingListOfIdOfTheCourses)
+      .map((response: Response) => response.json());
+  }
 
-  private handleError(error: Response) {
-    console.error(error);
+  private handleError(error: Response | any) {
+    return Observable.throw(error.message || error);
+  }
 
-    return Observable.throw(error.json().error || 'Server error');
+  private extractData(res: Response) {
+    const body = res.json();
+    return body.data || {};
   }
 
 }
