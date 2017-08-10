@@ -1,20 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {AdminUserService} from './admin.user.service';
-import {AdminUsers} from '../../../../dto/admin.users.DTO';
-import {ORLPService} from '../../../../services/orlp.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+import {AdminUsers} from '../../../../dto/admin.users.DTO';
+import {ORLPService} from '../../../../services/orlp.service';
 
 @Component({
-  selector: 'app-one-user',
   providers: [AdminUserService],
   templateUrl: ('./admin.user.component.html'),
-  styleUrls: ['../../admin.style.css']
+  styleUrls: ['./admin.one.user.style.css']
 })
 
 export class AdminUserComponent implements OnInit {
-  private user: AdminUsers;
-  private errorMessage: string;
+  public user: AdminUsers;
   private sub: Subscription;
   private url: string;
   private clickedButton: boolean;
@@ -37,9 +35,7 @@ export class AdminUserComponent implements OnInit {
   private takeUser() {
     this.decodeLink();
     this.adminUserSevice.getUser(this.url).subscribe(
-      user => this.user = user,
-      error => this.errorMessage = <any>error
-    );
+      user => this.user = user);
   }
 
   private decodeLink() {
@@ -78,15 +74,12 @@ export class AdminUserComponent implements OnInit {
         }
         break;
       }
-
       case 'DELETED': {
         this.deleteAccountState();
         break;
       }
-
       case 'BLOCKED': {
         this.updateAccountState(currentUser);
-        break;
       }
     }
   }

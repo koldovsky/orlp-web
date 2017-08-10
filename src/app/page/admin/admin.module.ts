@@ -14,28 +14,28 @@ import {AdminMainComponent} from './admin.main.component';
 
 
 @NgModule({
-    imports: [
-        FormsModule,
-        CommonModule,
-        RouterModule.forChild([
-            {path: 'admin', component: AdminMainComponent},
-            {path: 'admin/categories', component: AdminCategoryComponent},
-            {path: 'admin/users', component: AdminUsersComponent},
-            {path: 'admin/users/:url', component: AdminUserComponent}
-        ])],
-    exports: [],
-    declarations: [
-        AdminCategoryPipe,
-        AdminCategoryComponent,
-        AdminUsersComponent,
-        AdminMainComponent,
-        AdminUserComponent
-    ],
-    providers: [
-        AdminCategoryService,
-        AdminUsersService,
-        AdminUserService,
-    ],
+  imports: [
+    FormsModule,
+    CommonModule,
+    RouterModule.forChild([
+      {path: 'admin', component: AdminMainComponent},
+      {path: 'admin/categories', component: AdminCategoryComponent},
+      {path: 'admin/users', component: AdminUsersComponent},
+      {path: 'admin/users/:url', component: AdminUserComponent}
+    ])],
+  exports: [],
+  declarations: [
+    AdminCategoryPipe,
+    AdminCategoryComponent,
+    AdminUsersComponent,
+    AdminMainComponent,
+    AdminUserComponent
+  ],
+  providers: [
+    AdminCategoryService,
+    AdminUsersService,
+    AdminUserService,
+  ],
 })
 
 export class AdminModule {

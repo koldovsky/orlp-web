@@ -17,8 +17,8 @@ export class AdminUsersService {
 
   getUsers(): Observable<AdminUsers[]> {
     return this.orlp.get('api/admin/users')
-      .map((response: Response) => <AdminUsers[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToAdminUsers, response.json()))
+      .map((response: Response) => <AdminUsers[]>
+        DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminUsers, response.json()))
       .catch(this.handleError);
   }
 
