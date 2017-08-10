@@ -3,7 +3,7 @@ import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.Converter';
-import {UsersDTO} from '../../dto/UserDTO/UserDTO';
+import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
 import {DeckLinkByFolder} from '../../dto/DeckDTO/linkByFolder.deck.DTO';
 import {Link} from '../../dto/link';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';

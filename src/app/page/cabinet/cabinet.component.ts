@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CabinetService} from './cabinet.service';
-import {UsersDTO} from '../../dto/UserDTO/UserDTO';
+import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {ORLPService} from '../../services/orlp.service';
 import {Router} from '@angular/router';

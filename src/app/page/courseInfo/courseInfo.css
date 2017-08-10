@@ -51,6 +51,7 @@ td img {
   background-size: contain;
   width: 35px;
   height: 35px;
+  margin-left: 15%;
 }
 
 .addCourseToUserButtonActive {
@@ -63,4 +64,10 @@ td img {
 .addCourseToUserButtonInActive{
   background-image: url("../../../assets/images/add.png");
   opacity: 0.1;
+}
+.addCourseToUserButtonChecked{
+  background-image: url("../../../assets/images/checked.png");
+}
+.addCourseToUserButtonChecked:hover {
+  transform: scale(0.9);
 }
