@@ -5,6 +5,10 @@ import {LogoutService} from '../logout/logout.service';
 import {Router} from '@angular/router';
 import {MainService} from './main.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
+import {CourseService} from './search/course.service';
+import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
+import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
+import {CategoryService} from './search/category.service';
 
 @Component({
   selector: 'app-page',
@@ -14,31 +18,34 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 
 export class MainComponent implements OnInit {
   private static DEFAULT_IMAGE: string = '../../../assets/images/avatar.png';
-  decks: DeckPublic[];
-  listFilter: string;
-  public errorMessage: string;
-  isAuthorized: boolean;
-  isAuthorizedAdmin: boolean;
-  userDetails: UserDetailsDto;
+  public categories: CategoriesPublic[];
+  public courses: CourseTop[];
+  public decks: DeckPublic[];
+  public listFilter: string;
+  public isAuthorized: boolean;
+  public isAuthorizedAdmin: boolean;
+  public userDetails: UserDetailsDto;
 
-  constructor(private deckService: DeckService,
+  constructor(private categoryService: CategoryService,
+              private courseService: CourseService,
+              private deckService: DeckService,
               private logoutService: LogoutService,
               private router: Router,
-              private navbarService: MainService) {
+              private mainService: MainService) {
   }
 
   ngOnInit(): void {
     this.isAuthorized = this.logoutService.isAuthorized();
     if (this.isAuthorized) {
-      this.navbarService.getUserDetails()
+      this.mainService.getUserDetails()
         .subscribe(user => {
           this.userDetails = user;
-          console.log(user);
-          this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
+          this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
         });
     }
-    this.deckService.getDecks().subscribe(decks => this.decks = decks,
-      error => this.errorMessage = <any>error);
+    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    this.courseService.getCourses().subscribe(courses => this.courses = courses);
+    this.deckService.getDecks().subscribe(decks => this.decks = decks);
   }
 
   logoutUser() {

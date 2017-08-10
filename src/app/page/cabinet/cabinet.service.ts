@@ -4,9 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.Converter';
 import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
-import {DeckLinkByFolder} from '../../dto/DeckDTO/linkByFolder.deck.DTO';
+import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
 import {Link} from '../../dto/link';
-import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Injectable()
@@ -16,39 +15,24 @@ export class CabinetService {
   }
 
   public getUser(): Observable<UsersDTO> {
+
     return this.orlp.get('api/private/user')
       .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()))
-      .catch(this.handleError);
   }
 
-  public getUserDecks(link: Link): Observable<DeckLinkByFolder[]> {
-
+  public getDecks(link: Link): Observable<DeckDTO[]> {
     let shortLink: string = this.orlp.getShortLink(link);
     shortLink = this.orlp.decodeLink(shortLink);
 
     return this.orlp.get(shortLink)
-      .map((response: Response) =>
-        <DeckLinkByFolder[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()))
-      .catch(this.handleError);
+      .map((response: Response) => <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()))
   }
 
-  getCourse(url: string): Observable<CourseLink[]> {
-    return this.orlp.get(url)
+  public getCourse(link: Link): Observable<CourseLink[]> {
+    let shortLink: string = this.orlp.getShortLink(link);
+    shortLink = this.orlp.decodeLink(shortLink);
+
+    return this.orlp.get(shortLink)
       .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
-      .catch(this.handleError);
-  }
-
-  getCourseDecks(link: Link): Observable<DeckPublic[]> {
-    let shortLink: string = this.orlp.getShortLink(link);
-    shortLink = this.orlp.decodeLink(shortLink);
-
-    return this.orlp.get(shortLink)
-      .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
-      .catch(this.handleError);
-  }
-
-  private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
   }
 }

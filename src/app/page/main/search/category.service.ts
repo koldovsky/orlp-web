@@ -17,15 +17,8 @@ export class CategoryService {
   constructor(private orlp: ORLPService) {
   }
 
-  getCatalogs(): Observable<CategoriesPublic[]> {
+  getCategories(): Observable<CategoriesPublic[]> {
     return this.orlp.get('api/category')
-      .map((response: Response) =>
-        <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()))
-      .catch(this.handleError);
-  }
-
-  private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
+      .map((response: Response) => <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()))
   }
 }

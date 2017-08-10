@@ -13,7 +13,7 @@
             <a [routerLink]="['/home']">Home</a>
           </div>
           <div class="link">
-            <a [routerLink]="['/cabinet/folder']">Cabinet</a>
+            <a [routerLink]="['/user/cabinet']">Cabinet</a>
           </div>
           <div class="settings">
             <a [routerLink]="['/user/categories']">Categories</a>
@@ -26,16 +26,16 @@
     </li>
     <!-- CATEGORIES-GUEST -->
     <li *ngIf="!isAuthorized" class="nav-category">
-      <a id="nav-category" href="#">Categories</a>
+      <a id="nav-category" [routerLink]="['/user/categories']">Categories</a>
     </li>
     <!-- COURSES-GUEST -->
     <li *ngIf="!isAuthorized" class="nav-course">
-      <a id="nav-course" href="#">Courses</a>
+      <a id="nav-course" [routerLink]="['/user/courses']">Courses</a>
     </li>
     <!-- SEARCH -->
     <li class="nav-search">
-      <input id="nav-search" placeholder="Search" [(ngModel)]="listFilter" (keypress)="show=true"
-             (blur)="show=false"/>
+      <input id="nav-search" placeholder="Search" [(ngModel)]="listFilter" (keypress)="showSearchResult=true"
+             (blur)="showSearchResult=false"/>
     </li>
     <!-- SIGN UP-GUEST -->
     <li *ngIf="!isAuthorized" class="nav-signup">
@@ -70,8 +70,23 @@
   </ul>
 </nav>
 <!-- SEARCH-RESULT -->
-<table *ngIf="show" class="table">
+<table *ngIf="showSearchResult" class="table">
   <tbody>
+  <tr *ngFor="let category of categories | categoryFilter: listFilter">
+    <td><img id="category-img" [src]="category.imagebase64" class="mx-auto d-block rounded-main card-img-top"></td>
+    <td>{{category.name}}</td>
+    <td>{{category.description}}</td>
+
+  </tr>
+  <tr *ngFor="let course of courses | courseFilter: listFilter">
+    <td><img id="course-img" [src]="course.imagebase64" class="mx-auto d-block rounded-main card-img-top"></td>
+    <td>{{course.name}}</td>
+    <td>{{course.description}}</td>
+    <td>
+      <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                        [rating]="course.rating"></star-rating-comp>
+    </td>
+  </tr>
   <tr *ngFor="let deck of decks | deckFilter: listFilter">
     <td>{{deck.name}}</td>
     <td>{{deck.description}}</td>

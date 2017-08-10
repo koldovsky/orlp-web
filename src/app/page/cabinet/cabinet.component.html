@@ -1,21 +1,21 @@
 <main>
   <div class="vertical-menu">
     <ul>
-      <li><a [routerLink]="['/cabinet/folder']">My folder</a></li>
-      <li><a [routerLink]="['/cabinet/calendar']">Calendar</a></li>
+      <li><a [routerLink]="['/user/cabinet']">My learning</a></li>
+      <li><a [routerLink]="['/user/cabinet/calendar']">Calendar</a></li>
     </ul>
   </div>
 
   <!--FOLDER-->
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <table class="table table-striped">
-      <thead (click)="getUserDecks(); getUserCourses(); show = !show; clickedCourse = false;">
+      <thead class="folder-head" (click)="getDecks(this.user.folder); showFolderDecks = !showFolderDecks; clickedCourse = false;">
       <tr>
         <td><img src="../../../assets/images/categories.png" class="mx-auto d-block rounded-main"></td>
         <td>Default folder</td>
       </tr>
       </thead>
-      <tbody *ngIf="show">
+      <tbody *ngIf="showFolderDecks">
       <tr *ngFor="let deck of decks">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
@@ -35,7 +35,7 @@
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <table class="table table-striped" *ngFor="let course of courses">
       <thead class="course-head"
-             (click)="getCourseDecks(course); show = false; clickedCourse = (clickedCourse === course.name) ? false : course.name">
+             (click)="getDecks(course.decks); showFolderDecks = false; clickedCourse = (clickedCourse === course.name) ? false : course.name">
       <tr>
         <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main course-img"></td>
         <td>{{course.name}}</td>
