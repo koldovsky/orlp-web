@@ -4,9 +4,8 @@ import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {ORLPService} from '../../services/orlp.service';
 import {Router} from '@angular/router';
-import {DeckLinkByFolder} from '../../dto/DeckDTO/linkByFolder.deck.DTO';
+import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
-import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 
 @Component({
   providers: [CabinetService],
@@ -15,11 +14,9 @@ import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 })
 
 export class CabinetComponent implements OnInit {
-  public courses: CourseLink[];
-  public decks: DeckLinkByFolder[];
-  public deck: DeckPublic[];
   public user: UsersDTO;
-  errorMessage: string;
+  public courses: CourseLink[];
+  public decks: DeckDTO[];
 
   constructor(private cabinetService: CabinetService,
               private orlpService: ORLPService,
@@ -27,28 +24,26 @@ export class CabinetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getUser();
+  }
+
+  getUser(): void {
     this.cabinetService.getUser()
-      .subscribe(user => this.user = user,
-        error => this.errorMessage = <any>error);
+      .subscribe(user => {
+          this.user = user;
+          this.getUserCourses(user);
+        }
+      );
   }
 
-  getUserDecks(): void {
-    this.cabinetService.getUserDecks(this.user.folder)
-      .subscribe(decks => this.decks = decks,
-        error => this.errorMessage = <any>error);
-  }
-
-  getUserCourses(): void {
-    let url = this.user.courses.href;
-    url = url.replace('http://localhost:8080/', '');
-
-    this.cabinetService.getCourse(url)
+  getUserCourses(user: UsersDTO): void {
+    this.cabinetService.getCourse(user.courses)
       .subscribe(courses => this.courses = courses);
   }
 
-  getCourseDecks(course: CourseLink) {
-    this.cabinetService.getCourseDecks(course.decks)
-      .subscribe(decks => this.deck = decks);
+  getDecks(link: Link): void {
+    this.cabinetService.getDecks(link)
+      .subscribe(decks => this.decks = decks);
   }
 
   getCardsLink(link: Link): string {
@@ -59,4 +54,3 @@ export class CabinetComponent implements OnInit {
     this.router.navigate(['/cards', this.getCardsLink(cards)]);
   }
 }
-

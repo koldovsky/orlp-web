@@ -12,7 +12,7 @@ import {StarRatingModule} from 'angular-star-rating';
     CommonModule,
     StarRatingModule,
     RouterModule.forChild([
-      {path: 'cabinet/folder', component: CabinetComponent}
+      {path: 'user/cabinet', component: CabinetComponent}
     ])],
   exports: [],
   declarations: [CabinetComponent],

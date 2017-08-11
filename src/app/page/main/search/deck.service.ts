@@ -17,12 +17,5 @@ export class DeckService {
   getDecks(): Observable<DeckPublic[]> {
     return this.orlp.get('api/decks/ordered')
       .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
-      .catch(this.handleError);
-  }
-
-  private handleError(error: Response) {
-    console.error(error);
-
-    return Observable.throw(error.json().error || 'Server error');
   }
 }

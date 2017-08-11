@@ -1,123 +1,131 @@
 .navigation-bar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
 }
 
 .nav-logo, .nav-category, .nav-course, .nav-search {
-    float: left;
+  float: left;
 }
 
 .nav-logo {
-    position: absolute;
+  position: absolute;
 }
 
 .nav-category {
-    margin-left: 70px;
+  margin-left: 70px;
 }
 
 #nav-logo, #nav-category, #nav-course, #nav-signin, #nav-signup {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
 }
 
 #nav-logo:hover, #nav-category:hover, #nav-course:hover, #nav-signin:hover, #nav-signup:hover {
-    background-color: #111;
+  background-color: #111;
 }
 
 .nav-logo {
-    font-weight: bold;
-    background-color: black;
+  font-weight: bold;
+  background-color: black;
 }
 
 .nav-search {
-    margin-top: 10px;
-    margin-left: 50px;
+  margin-top: 10px;
+  margin-left: 50px;
 }
 
 #nav-search {
-    width: 250px;
-    background: url(../../../assets/images/search.png) no-repeat right center;
-    background-color: white;
-    font-size: 14px;
-    outline: none;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    z-index: 9999;
+  width: 250px;
+  background: url(../../../assets/images/search.png) no-repeat right center;
+  background-color: white;
+  font-size: 14px;
+  outline: none;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 9999;
+}
+
+#course-img, #category-img {
+  width: 50px;
+  height: 50px;
 }
 
 /*RIGHT SIDE*/
 .nav-signin, .nav-signup {
-    float: right;
+  float: right;
 }
 
 .username, .email {
-    color: white;
-    text-align: center;
-    font-size: 14px;
+  color: white;
+  text-align: center;
+  font-size: 14px;
 }
 
-.admin{
-    color: white;
-    text-align: center;
-    font-size: 25px;
+.admin {
+  color: white;
+  text-align: center;
+  font-size: 25px;
 }
 
-#user-image {
+.user-image {
     width: 39px;
+    border-radius: 50%;
 }
 
 .user-information, .user-image, .user-details {
-    float: right;
+  float: right;
 }
 
 .user-information, .user-image {
-    margin: 5px;
+  margin: 5px;
 }
 
 .user-details {
-    margin: 10px 20px;
+  margin: 10px 20px;
 }
 
 #user-details {
-    text-decoration: none;
-    color: grey;
+  text-decoration: none;
+  color: grey;
 }
 
 #user-details:hover {
-    color: white;
+  cursor: pointer;
+  color: white;
 }
 
 .signout {
-    text-align: center;
-    float:right;
-    position: absolute;
-    right: 0;
-    color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-    margin-top: 20px;
-    background: url(../../../assets/images/signoutwhite.png) #333 no-repeat right center;
+  text-align: center;
+  float: right;
+  position: absolute;
+  right: 0;
+  color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 20px;
+  background: url(../../../assets/images/signoutwhite.png) #333 no-repeat right center;
 }
 
 .signout:hover {
-    color: black;
-    background: url(../../../assets/images/signoutblack.png) white no-repeat right center;
+  cursor: pointer;
+  color: black;
+  background: url(../../../assets/images/signoutblack.png) white no-repeat right center;
 }
 
 /*SEARCH RESULT*/
 .table {
-    margin-left: -10px;
-    margin-top: 0px;
-    background-color: white;
-    width: 40%;
-    position:absolute;
-    z-index: 1;
+  margin-left: -10px;
+  margin-top: 0px;
+  background-color: white;
+  width: 40%;
+  position: absolute;
+  z-index: 1;
 }

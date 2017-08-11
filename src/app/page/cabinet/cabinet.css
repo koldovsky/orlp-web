@@ -26,13 +26,15 @@
   background-color: darkgreen;
   color: white;
 }
-/*FOLDER*/
+
+/*FOLDER AND COURSES*/
 table {
+  float: right;
+  margin-right: 200px;
   background-color: white;
   width: 50%;
 }
 
-.course-img {
-  width: 50px;
-  height: 50px;
+.folder-head, .course-head {
+  cursor: pointer;
 }
