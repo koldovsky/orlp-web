@@ -5,12 +5,16 @@ import {AuthService} from 'angular2-social-login';
 import {Router} from '@angular/router';
 import {AccountVerificationService} from '../signup/accountVerification/accountVerification.service';
 import {LoginAccount} from '../../dto/LoginAccount';
+import { ViewChild } from '@angular/core';
+import { ReCaptchaComponent } from 'angular2-recaptcha';
+import * as ORLPSettings from  '../../services/orlp.settings';
 
 @Component({
   templateUrl: ('./login.component.html'),
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild(ReCaptchaComponent) captchaComponent: ReCaptchaComponent;
   loginForm: FormGroup;
   success: boolean = false;
   error: boolean = false;
@@ -19,6 +23,7 @@ export class LoginComponent implements OnInit {
   verificationStat: boolean = false;
   account: LoginAccount;
   captcha: string;
+  siteKey = ORLPSettings.SITE_KEY;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
@@ -50,6 +55,7 @@ export class LoginComponent implements OnInit {
         this.reload();
       }, (error) => {
         this.processError(error);
+        this.captchaComponent.reset();
       });
   };
 
