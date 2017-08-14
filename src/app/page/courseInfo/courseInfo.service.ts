@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
-import {DTOConverter} from '../../dto/dto.Converter';
+import {DTOConverter} from '../../dto/dto.converter';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';

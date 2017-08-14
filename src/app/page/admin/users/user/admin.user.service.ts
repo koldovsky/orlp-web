@@ -6,8 +6,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../../services/orlp.service';
-import {AdminUsers} from '../../../../dto/admin.users.DTO';
-import {DTOConverter} from '../../../../dto/dto.Converter';
+import {AdminUsers} from '../../../../dto/AdminDTO/admin.user.DTO';
+import {DTOConverter} from '../../../../dto/dto.converter';
 
 @Injectable()
 export class AdminUserService {

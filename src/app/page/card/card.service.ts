@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
-import {DTOConverter} from '../../dto/dto.Converter';
+import {DTOConverter} from '../../dto/dto.converter';
 
 @Injectable()
 export class CardService {

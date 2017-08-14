@@ -9,7 +9,7 @@ import 'rxjs/add/observable/throw';
 
 import {ORLPService} from '../../../services/orlp.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
-import {DTOConverter} from '../../../dto/dto.Converter';
+import {DTOConverter} from '../../../dto/dto.converter';
 
 @Injectable()
 export class CategoryService {

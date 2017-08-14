@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
-import {DTOConverter} from '../../../dto/dto.Converter';
+import {DTOConverter} from '../../../dto/dto.converter';
 
 @Injectable()
 export class DeckService {

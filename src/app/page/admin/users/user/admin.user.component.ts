@@ -2,7 +2,7 @@ import {Component, OnInit, Output} from '@angular/core';
 import {AdminUserService} from './admin.user.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-import {AdminUsers} from '../../../../dto/admin.users.DTO';
+import {AdminUsers} from '../../../../dto/AdminDTO/admin.user.DTO';
 import {ORLPService} from '../../../../services/orlp.service';
 
 @Component({

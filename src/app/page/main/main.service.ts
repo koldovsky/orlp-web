@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
-import {DTOConverter} from '../../dto/dto.Converter';
+import {DTOConverter} from '../../dto/dto.converter';
 
 @Injectable()
 export class MainService {
