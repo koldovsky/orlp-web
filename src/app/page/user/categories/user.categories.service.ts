@@ -3,7 +3,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
-import {DTOConverter} from '../../../dto/dto.Converter';
+import {DTOConverter} from '../../../dto/dto.converter';
 
 @Injectable()
 export class UserCategoriesService {

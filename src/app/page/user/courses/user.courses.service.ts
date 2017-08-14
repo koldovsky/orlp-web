@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ORLPService} from '../../../services/orlp.service';
 import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
-import {DTOConverter} from '../../../dto/dto.Converter';
+import {DTOConverter} from '../../../dto/dto.converter';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 
 @Injectable()

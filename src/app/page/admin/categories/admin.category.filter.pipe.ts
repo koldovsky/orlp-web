@@ -1,4 +1,4 @@
-import {PipeTransform, Pipe} from '@angular/core'
+import {PipeTransform, Pipe} from '@angular/core';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 
 @Pipe({

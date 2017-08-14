@@ -11,6 +11,7 @@ import {AdminUserComponent} from './users/user/admin.user.component';
 import {AdminUserService} from './users/user/admin.user.service';
 
 import {AdminMainComponent} from './admin.main.component';
+import {AdminUsersPipe} from './users/admin.users.filter';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {AdminMainComponent} from './admin.main.component';
   exports: [],
   declarations: [
     AdminCategoryPipe,
+    AdminUsersPipe,
     AdminCategoryComponent,
     AdminUsersComponent,
     AdminMainComponent,

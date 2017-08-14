@@ -6,7 +6,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {DTOConverter} from '../../../dto/dto.Converter';
+import {DTOConverter} from '../../../dto/dto.converter';
 import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 
 @Injectable()

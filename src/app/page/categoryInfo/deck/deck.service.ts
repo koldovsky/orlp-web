@@ -1,5 +1,5 @@
 import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
-import {DTOConverter} from "../../../dto/dto.Converter";
+import {DTOConverter} from "../../../dto/dto.converter";
 import {Injectable} from "@angular/core";
 import {ORLPService} from "../../../services/orlp.service";
 import {Response} from "@angular/http";
