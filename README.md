@@ -1,31 +1,47 @@
-# orlp-web
+Open Repetition Learning Platform Web-Server (ORLP)
+==================================================
 
-If you want to switch on our project you have to put 2 commands:
+Thank you for choosing ORLP - a high-performance platform for spased repetition learning.
 
-npm install
-npm start
 
-## Development server
+INSTALLATION
+------------
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
+Please download & unpack zip-file under a Web-accessible directory. 
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+REQUIREMENTS
+------------
 
-## Build
+The minimum requirement by ORLP is that your Web server should be based on [Apache HTTP Server](https://httpd.apache.org/download.cgi) or [NGINX](https://nginx.org/en/download.html).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+QUICK START
+-----------
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Open this project in your IDE;
+2. Install [**Node.js®**](https://nodejs.org/en/download/) (JavaScript runtime built on Chrome's V8 JavaScript engine). 
 
-## Running end-to-end tests
+3. Install **npm** (the package manager for JavaScript) using the terminal of IDE by entering next command:
+```
+      npm install
+```
+4. Start the server by using the next command:
+```
+      npm start
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+Now you can work with the server. Last command will open the browser's window with running project.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+-----------
+
+***The ORLP Developer Team***
+- [**Petro Zadorovskyi**](https://github.com/zadorovskyi)
+- [**Yevhen Palamarchuk**](https://github.com/YevhenPalamarchuk/)
+- [**Sasha Verenka**](https://github.com/OleksandrVerenka)
+- [**Yaroslav Varshavskyj**](https://github.com/jarkinV)
+- [**Orest Potsiluiko**](https://github.com/OrestPotsiluiko)
+- [**Vlad Kuhivchak**](https://github.com/Vkiro)
+- [**Askold Baran**](https://github.com/askoldbaran)
+- [**Taras Predzymyrskyi**](https://github.com/tararas124)
