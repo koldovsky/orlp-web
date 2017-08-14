@@ -12,6 +12,7 @@ import {AdminUsers} from '../../../dto/AdminDTO/admin.user.DTO';
 
 export class AdminUsersComponent implements OnInit {
   public users: AdminUsers[];
+  public usersListFilter: string;
 
   constructor(private orlp: ORLPService,
               private adminUsersSevice: AdminUsersService) {

@@ -1,24 +1,21 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-11">
+    <div class="col-xs-12 col-sm-6">
       <h1 class="font-color-white header-text">All Users</h1>
     </div>
-    <div class="col-xs-12 col-sm-1" [routerLink]="['/admin']">
-      <button class="btn btn-secondary">Back</button>
+    <div class="col-xs-12 col-sm-6">
+      <input type="text" placeholder="Search by e-mail" [(ngModel)]="usersListFilter"/>
     </div>
   </div>
   <div class="row">
     <table class="table table-striped admins-tables">
-      <thead>
       <tr>
         <th>First Name</th>
         <th>Last Name</th>
         <th>e-mail</th>
         <th>Account Status</th>
       </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users | usersFilter:usersListFilter">
         <td>{{user.firstName}}</td>
         <td>{{user.lastName}}</td>
         <td>{{user.email}}</td>
@@ -29,7 +26,6 @@
           </div>
         </td>
       </tr>
-      </tbody>
     </table>
   </div>
 </div>

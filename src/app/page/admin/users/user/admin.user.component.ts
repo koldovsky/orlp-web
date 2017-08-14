@@ -1,4 +1,4 @@
-import {Component, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminUserService} from './admin.user.service';
 import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
@@ -32,55 +32,60 @@ export class AdminUserComponent implements OnInit {
     this.takeUser();
   }
 
-  private takeUser() {
+  private takeUser(): void {
     this.decodeLink();
     this.adminUserSevice.getUser(this.url).subscribe(
       user => this.user = user);
   }
 
-  private decodeLink() {
+  private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  updateAccountState(currentUser: AdminUsers) {
+  activeteAccountStatus(currentUser: AdminUsers): void {
+    this.adminUserSevice.activeteAccountState(currentUser, this.url).subscribe(
+      user => this.user = user,
+      error => console.log(error)
+    );
+  }
+
+  blockAccountStatus(currentUser: AdminUsers): void {
     this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
       user => this.user = user,
       error => console.log(error)
     );
   }
 
-  deleteAccountState() {
+  deleteAccountStatus(): void {
     this.adminUserSevice.deleteAccountState(this.url).subscribe(
       user => this.user = user,
       error => console.log(error)
     );
   }
 
-  toggleDelete() {
-    this.clickedButton = true;
+  toggleDelete(): void {
+    if (confirm('Are you sure?')) {
+      this.clickedButton = true;
+      this.onOK();
+    }
   }
 
-  toggleUp() {
-    this.clickedButton = false;
+  toggleUpdate(currentUser: AdminUsers): void {
+    if (confirm('Are you sure?')) {
+      this.clickedButton = false;
+      this.onOK();
+    }
   }
 
-  onOK(currentUser: AdminUsers) {
-    switch (currentUser.accountStatus) {
-      case 'ACTIVE': {
-        if (this.clickedButton) {
-          this.deleteAccountState();
-        } else {
-          this.updateAccountState(currentUser);
-        }
-        break;
+  onOK(): void {
+    if (this.user.accountStatus === 'ACTIVE') {
+      if (this.clickedButton) {
+        this.deleteAccountStatus();
+      } else {
+        this.blockAccountStatus(this.user);
       }
-      case 'DELETED': {
-        this.deleteAccountState();
-        break;
-      }
-      case 'BLOCKED': {
-        this.updateAccountState(currentUser);
-      }
+    } else {
+      this.activeteAccountStatus(this.user);
     }
   }
 }
