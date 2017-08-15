@@ -20,7 +20,7 @@
           <tr *ngFor="let category of categories | categoryFilter:listFilter">
             <td>
               <div>
-                <img [src]="category.imagebase64" class="category-image">
+                <img [src]="category.image" class="category-image">
               </div>
             </td>
             <td>{{category.name}}</td>

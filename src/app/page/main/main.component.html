@@ -73,13 +73,13 @@
 <table *ngIf="showSearchResult" class="table">
   <tbody>
   <tr *ngFor="let category of categories | categoryFilter: listFilter">
-    <td><img id="category-img" [src]="category.imagebase64" class="mx-auto d-block rounded-main card-img-top"></td>
+    <td><img id="category-img" src=category.image class="mx-auto d-block rounded-main card-img-top"></td>
     <td>{{category.name}}</td>
     <td>{{category.description}}</td>
 
   </tr>
   <tr *ngFor="let course of courses | courseFilter: listFilter">
-    <td><img id="course-img" [src]="course.imagebase64" class="mx-auto d-block rounded-main card-img-top"></td>
+    <td><img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top"></td>
     <td>{{course.name}}</td>
     <td>{{course.description}}</td>
     <td>
