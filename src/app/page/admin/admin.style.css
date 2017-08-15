@@ -24,3 +24,15 @@
 .element-margin {
   margin: 10px;
 }
+
+.btn-secondary {
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+}
+
+.btn-secondary:hover {
+  color: #000;
+  background-color: #f5f5ff;
+  border-color: #6c757d;
+}

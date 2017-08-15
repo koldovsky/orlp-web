@@ -64,17 +64,11 @@ export class AdminUserComponent implements OnInit {
   }
 
   toggleDelete(): void {
-    if (confirm('Are you sure?')) {
-      this.clickedButton = true;
-      this.onOK();
-    }
+    this.clickedButton = true;
   }
 
   toggleUpdate(currentUser: AdminUsers): void {
-    if (confirm('Are you sure?')) {
-      this.clickedButton = false;
-      this.onOK();
-    }
+    this.clickedButton = false;
   }
 
   onOK(): void {
