@@ -16,3 +16,15 @@
   width: 20rem;
   margin-bottom: 0.5rem;
 }
+
+.btn-secondary {
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+}
+
+.btn-secondary:hover {
+  color: #000;
+  background-color: #f5f5ff;
+  border-color: #6c757d;
+}
