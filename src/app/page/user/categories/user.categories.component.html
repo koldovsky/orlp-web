@@ -14,7 +14,7 @@
                 <tr *ngFor="let category of categories" [routerLink]="['/category', getCategoryLink(category.self)]">
                     <td>
                         <div>
-                            <img [src]="category.imagebase64" style="height: 50px">
+                            <img [src]="category.image" style="height: 50px">
                         </div>
                     </td>
                     <td>{{category.name}}</td>
