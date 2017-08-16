@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminUsersService} from './admin.users.service';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
-import {AdminUsers} from '../../../dto/admin.users.DTO';
+import {AdminUsers} from '../../../dto/AdminDTO/admin.user.DTO';
 
 @Component({
   providers: [AdminUsersService],
@@ -12,6 +12,7 @@ import {AdminUsers} from '../../../dto/admin.users.DTO';
 
 export class AdminUsersComponent implements OnInit {
   public users: AdminUsers[];
+  public usersListFilter: string;
 
   constructor(private orlp: ORLPService,
               private adminUsersSevice: AdminUsersService) {

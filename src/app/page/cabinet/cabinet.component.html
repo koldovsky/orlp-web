@@ -37,7 +37,7 @@
       <thead class="course-head"
              (click)="getDecks(course.decks); showFolderDecks = false; clickedCourse = (clickedCourse === course.name) ? false : course.name">
       <tr>
-        <td><img [src]="course.imagebase64" class="mx-auto d-block rounded-main course-img"></td>
+        <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
         <td>{{course.name}}</td>
         <td>{{course.description}}</td>
         <td>

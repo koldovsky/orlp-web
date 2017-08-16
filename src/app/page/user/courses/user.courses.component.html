@@ -14,7 +14,7 @@
                 <tr *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
                     <td>
                         <div>
-                            <img [src]="course.imagebase64" style="height: 50px">
+                            <img [src]="course.image" style="height: 50px">
                         </div>
                     </td>
                     <td>{{course.name}}</td>
