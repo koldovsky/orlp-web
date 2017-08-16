@@ -4,7 +4,7 @@ export class UserDetailsDto{
     firstName: string;
     lastName: string;
     email: string;
-    image: string
+    image: string;
     authorities: string[];
     public self: Link;
 

@@ -13,15 +13,15 @@
       </tr>
     </thead>
     <tbody *ngIf="course.name === clickedCourse">
-      <tr *ngFor="let deck of decks">
-        <td></td>
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="deck.rating"></star-rating-comp>
-        </td>
-      </tr>
+    <tr *ngFor="let deck of decks">
+      <td></td>
+      <td>{{deck.name}}</td>
+      <td>{{deck.description}}</td>
+      <td>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                          [rating]="deck.rating"></star-rating-comp>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>

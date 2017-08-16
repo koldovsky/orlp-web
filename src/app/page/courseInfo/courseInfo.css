@@ -45,13 +45,13 @@ td img {
 }
 
 .alignCenter {
-  vertical-align: middle;
+  text-align: center;
 }
 #button {
   background-size: contain;
-  width: 35px;
-  height: 35px;
-  margin-left: 15%;
+  width: 25px;
+  height: 25px;
+  margin-left: 40%;
 }
 
 .addCourseToUserButtonActive {
@@ -71,3 +71,4 @@ td img {
 .addCourseToUserButtonChecked:hover {
   transform: scale(0.9);
 }
+

@@ -4,7 +4,6 @@
   </div>
   <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
 
-
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
     <table class="table table-striped" *ngIf="course">
@@ -12,16 +11,21 @@
       <tr>
         <th>Course Name</th>
         <th>Coourse Description</th>
-        <th>Add Course</th>
+        <th class="alignCenter">Rating</th>
+        <th class="alignCenter">Subscribe</th>
       </tr>
       <tr>
         <td>{{course.name}}</td>
         <td>{{course.description}}</td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                            [rating]="course.rating"></star-rating-comp>
+        </td>
         <td class="alignCenter">
           <div>
-            <button id="button" (click)="addCourseToUser()" [disabled]="!isAuthorized()"
-                    [className]="addCourseToUserButton">
-            </button>
+            <div id="button" (click)="addCourseToUser()"
+                 [className]="addCourseToUserButton">
+            </div>
           </div>
         </td>
       </tr>
@@ -38,7 +42,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th>Rating</th>
+        <th class="alignCenter">Rating</th>
       </tr>
       </thead>
       <tbody>
