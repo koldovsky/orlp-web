@@ -13,6 +13,7 @@ import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 export class CourseComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckPublic[];
+  public clickedCourse: any;
   @Input() url: string;
 
   constructor(private courseService: CourseService,
@@ -28,5 +29,10 @@ export class CourseComponent implements OnInit {
   getDecks(course: CourseLink) {
     this.courseService.getDecks(course.decks)
       .subscribe(decks => this.decks = decks);
+  }
+
+  showDecks(course: CourseLink) {
+    this.getDecks(course);
+    this.clickedCourse = (this.clickedCourse === course.name) ? false : course.name;
   }
 }

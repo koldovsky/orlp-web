@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {DeckService} from './search/deck.service';
 import {LogoutService} from '../logout/logout.service';
@@ -17,7 +17,6 @@ import {CategoryService} from './search/category.service';
 })
 
 export class MainComponent implements OnInit {
-  private static DEFAULT_IMAGE: string = '../../../assets/images/avatar.png';
   public categories: CategoriesPublic[];
   public courses: CourseTop[];
   public decks: DeckPublic[];
@@ -40,7 +39,7 @@ export class MainComponent implements OnInit {
       this.mainService.getUserDetails()
         .subscribe(user => {
           this.userDetails = user;
-          this.isAuthorizedAdmin = user.authorities.includes("ROLE_ADMIN");
+          this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
         });
     }
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);

@@ -17,7 +17,7 @@ export class CabinetService {
   public getUser(): Observable<UsersDTO> {
 
     return this.orlp.get('api/private/user')
-      .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()))
+      .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()));
   }
 
   public getDecks(link: Link): Observable<DeckDTO[]> {
@@ -25,7 +25,8 @@ export class CabinetService {
     shortLink = this.orlp.decodeLink(shortLink);
 
     return this.orlp.get(shortLink)
-      .map((response: Response) => <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()))
+      .map((response: Response) =>
+        <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByFolder, response.json()));
   }
 
   public getCourse(link: Link): Observable<CourseLink[]> {
@@ -33,6 +34,7 @@ export class CabinetService {
     shortLink = this.orlp.decodeLink(shortLink);
 
     return this.orlp.get(shortLink)
-      .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
+      .map((response: Response) =>
+        <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()));
   }
 }
