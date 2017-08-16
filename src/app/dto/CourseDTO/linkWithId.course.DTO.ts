@@ -8,8 +8,9 @@ export class CourseLinkWithId {
   public self: Link;
   public decks: Link;
   public isUserOwnCourse: boolean;
+  public rating: number;
 
-  constructor( courseId: number, name: string, description: string, imagebase64: string, self: Link, decks: Link) {
+  constructor( courseId: number, name: string, description: string, rating: number, imagebase64: string, self: Link, decks: Link) {
     this.name = name;
     this.description = description;
     this.imagebase64 = imagebase64;
@@ -17,5 +18,6 @@ export class CourseLinkWithId {
     this.decks = decks;
     this.courseId = courseId;
     this.isUserOwnCourse = false;
+    this.rating = rating;
   }
 }
