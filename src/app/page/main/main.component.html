@@ -1,5 +1,5 @@
 <!-- NAVBAR -->
-<nav>
+<nav class="container">
   <ul class="navigation-bar">
     <!-- LOGO-GUEST -->
     <li *ngIf="!isAuthorized" class="nav-logo">
@@ -47,7 +47,7 @@
     </li>
     <!-- USER-DETAILS -->
     <li *ngIf="isAuthorized" class="user-details">
-      <a id="user-details" (click)="showLogOut=!showLogOut"><b>. . .</b></a>
+      <a id="user-details" (click)="showLogOut =! showLogOut"><b>. . .</b></a>
       <!-- SIGN-OUT-USER -->
       <div class="signout" *ngIf="showLogOut" (click)="logoutUser()">
         <a>Sign out</a>

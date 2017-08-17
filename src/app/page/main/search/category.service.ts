@@ -19,6 +19,7 @@ export class CategoryService {
 
   getCategories(): Observable<CategoriesPublic[]> {
     return this.orlp.get('api/category')
-      .map((response: Response) => <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()))
+      .map((response: Response) =>
+        <CategoriesPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, response.json()));
   }
 }

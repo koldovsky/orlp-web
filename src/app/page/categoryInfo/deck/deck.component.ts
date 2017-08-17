@@ -70,7 +70,7 @@ export class DeckComponent implements OnInit {
     private createDecksWithStatus() {
         for (const entry of this.decks) {
             this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name
-              , entry.description, entry.self, entry.cards, entry.deckId, false));
+              , entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
         }
     }
 
