@@ -13,10 +13,10 @@ import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 })
 export class CourseInfoComponent implements OnInit {
   private url: string;
-  private decks: DeckPublic[];
+  decks: DeckPublic[];
   private sub: Subscription;
-  private errorMessage: string;
-  private course: CourseLinkWithId;
+  errorMessage: string;
+  course: CourseLinkWithId;
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
 
