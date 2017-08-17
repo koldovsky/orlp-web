@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
+import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
 
 @Injectable()
 export class CardService {
@@ -21,9 +22,12 @@ export class CardService {
       .catch(this.handleError);
   }
 
+  public sendStatus(userCardQueue: UserCardQueuePublicDTO, card_id: number) {
+    return this.orlp.post('api/user/deck/1/card/' + card_id + '/queue', userCardQueue);
+  }
+
   private handleError(error: Response) {
     console.error(error);
-
     return Observable.throw(error.json().error || 'Server error');
   }
 }
