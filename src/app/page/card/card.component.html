@@ -1,48 +1,48 @@
 <div class="container" *ngIf="cards">
-    <div class="container">
-        <div class="card-container">
-            <div class="card" [ngClass]="{'rotate' : routing == true}">
-                <div class="front">
-                    <div class="header">
-                        <h1 class="motto">
-                            {{cards[questionNumber].question}}
-                        </h1>
-                    </div>
-                    <div class="content">
-                        <div class="main">
-                            <textarea [(ngModel)]="answer"></textarea>
-                        </div>
+  <div class="container">
+    <div class="card-container">
+      <div class="card" [ngClass]="{'rotate' : routing == true}">
+        <div class="front">
+          <div class="header">
+            <h1 class="motto">
+              {{cards[questionNumber].question}}
+            </h1>
+          </div>
+          <div class="content">
+            <div class="main">
+              <textarea [(ngModel)]="answer"></textarea>
+            </div>
 
-                        <button class="btn btn-primary mt-3 mx-auto" (click)="onRotate()">Check</button>
-                    </div>
-                </div> <!-- end front panel -->
-                <div class="back">
-                    <div class="header">
-                        <h1 class="motto">
-                            {{cards[questionNumber].question}}
-                        </h1>
-                    </div>
-                    <div class="content">
-                        <div class="main">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <textarea>{{answer}}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="card">
-                                        <textarea>{{cards[questionNumber].answer}}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                          <button class="btn btn-primary mt-3 mx-auto" (click)="onRotateBack()">Next question</button>
-                          <button class="btn btn-primary mt-3 mx-auto" (click)="onRotate()">Check</button>
-                    </div>
-                </div> <!-- end back panel -->
-            </div> <!-- end card -->
-        </div> <!-- end card-container -->
-    </div>
+            <button class="btn btn-primary mt-3 mx-auto" (click)="onRotate()">Check</button>
+          </div>
+        </div> <!-- end front panel -->
+        <div class="back">
+          <div class="header">
+            <h1 class="motto">
+              {{cards[questionNumber].question}}
+            </h1>
+          </div>
+          <div class="content">
+            <div class="main">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <textarea>{{answer}}</textarea>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <textarea>{{cards[questionNumber].answer}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('BAD')">BAD</button>
+            <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('NORMAL')">NORMAL</button>
+            <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('GOOD')">GOOD</button>
+          </div>
+        </div> <!-- end back panel -->
+      </div> <!-- end card -->
+    </div> <!-- end card-container -->
+  </div>
 </div>
