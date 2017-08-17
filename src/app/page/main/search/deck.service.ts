@@ -16,6 +16,7 @@ export class DeckService {
 
   getDecks(): Observable<DeckPublic[]> {
     return this.orlp.get('api/decks/ordered')
-      .map((response: Response) => <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()))
+      .map((response: Response) =>
+        <DeckPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json()));
   }
 }

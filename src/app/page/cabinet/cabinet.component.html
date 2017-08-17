@@ -1,15 +1,13 @@
-<main>
-  <div class="vertical-menu">
-    <ul>
-      <li><a [routerLink]="['/user/cabinet']">My learning</a></li>
-      <li><a [routerLink]="['/user/cabinet/calendar']">Calendar</a></li>
-    </ul>
-  </div>
+<main class="container">
+
+  <nav class="nav nav-pills">
+    <a class="nav-link active vertical-menu" [routerLink]="['/user/cabinet']">My learning</a>
+  </nav>
 
   <!--FOLDER-->
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div>
     <table class="table table-striped">
-      <thead class="folder-head" (click)="getDecks(this.user.folder); showFolderDecks = !showFolderDecks; clickedCourse = false;">
+      <thead class="folder-head" (click)="getFolderDecks()">
       <tr>
         <td><img src="../../../assets/images/categories.png" class="mx-auto d-block rounded-main"></td>
         <td>Default folder</td>
@@ -24,7 +22,7 @@
                             [rating]="deck.rating"></star-rating-comp>
         </td>
         <td>
-          <button (click)="startLearning(deck.cards)">START</button>
+          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button>
         </td>
       </tr>
       </tbody>
@@ -32,10 +30,9 @@
   </div>
 
   <!--COURSES-->
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <div>
     <table class="table table-striped" *ngFor="let course of courses">
-      <thead class="course-head"
-             (click)="getDecks(course.decks); showFolderDecks = false; clickedCourse = (clickedCourse === course.name) ? false : course.name">
+      <thead class="course-head" (click)="getCourseDecks(course)">
       <tr>
         <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
         <td>{{course.name}}</td>
@@ -46,7 +43,7 @@
         </td>
       </tr>
       </thead>
-      <tbody *ngIf="course.name === clickedCourse">
+      <tbody *ngIf="course.name === showCourseDecks">
       <tr *ngFor="let deck of decks">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
@@ -55,7 +52,7 @@
                             [rating]="deck.rating"></star-rating-comp>
         </td>
         <td>
-          <button (click)="startLearning(deck.cards)">START</button>
+          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button>
         </td>
       </tr>
       </tbody>

@@ -17,6 +17,8 @@ export class CabinetComponent implements OnInit {
   public user: UsersDTO;
   public courses: CourseLink[];
   public decks: DeckDTO[];
+  private showCourseDecks: any;
+  private showFolderDecks: any;
 
   constructor(private cabinetService: CabinetService,
               private orlpService: ORLPService,
@@ -52,5 +54,18 @@ export class CabinetComponent implements OnInit {
 
   startLearning(cards: Link): void {
     this.router.navigate(['/cards', this.getCardsLink(cards)]);
+  }
+
+  getFolderDecks() {
+    this.getDecks(this.user.folder);
+    this.showFolderDecks = !this.showFolderDecks;
+    this.showCourseDecks = false;
+  }
+
+
+  getCourseDecks(course: CourseLink) {
+    this.getDecks(course.decks);
+    this.showFolderDecks = false;
+    this.showCourseDecks = (this.showCourseDecks === course.name) ? false : course.name;
   }
 }

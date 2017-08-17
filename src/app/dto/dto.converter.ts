@@ -17,8 +17,8 @@ import {AdminAudit} from './AdminDTO/admin.audit.DTO';
 
 export class DTOConverter {
 
-  public static jsonToPublicCards(data: any): CardPublic {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToPublicCards(data: any): CardPublic {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new CardPublic(data.answer, data.question, self);
   }
@@ -32,95 +32,95 @@ export class DTOConverter {
   }
 
   public static jsonToPublicLinkCourse(data: any): CourseLink {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    let decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
 
     return new CourseLink(data.name, data.description, data.image, self, decks, data.rating);
   }
 
   public static jsonToPublicLinkCourseWithId(data: any): CourseLinkWithId {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    let decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
 
     return new CourseLinkWithId(data.courseId, data.name, data.description, data.rating, data.image, self, decks);
   }
 
-  public static jsonToDeckLinkByFolder(data: any): DeckLinkByFolder {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    let cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
+    public static jsonToDeckLinkByFolder(data: any): DeckLinkByFolder {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+        const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
 
-    return new DeckLinkByFolder(data.name, data.description, self, cards);
-  }
+        return new DeckLinkByFolder(data.name, data.description, data.rating, self, cards);
+    }
 
-  public static jsonToPublicCourse(data: any): CoursePublic {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToPublicCourse(data: any): CoursePublic {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new CoursePublic(data.name, data.description, data.image, self);
   }
 
-  public static jsonToPublicDeck(data: any): DeckPublic {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToPublicDeck(data: any): DeckPublic {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new DeckPublic(data.name, data.description, data.rating, self);
   }
 
-  public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    let cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
+    public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+        const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
 
-    return new DeckLinkByCategory(data.name, data.description, self, cards, data.deckId);
-  }
+        return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId);
+    }
 
-  public static jsonToTopCategory(data: any): CategoryTop {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToTopCategory(data: any): CategoryTop {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new CategoryTop(data.name, data.image, self);
   }
 
-  public static jsonToTopCourse(data: any): CourseTop {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToTopCourse(data: any): CourseTop {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new CourseTop(data.name, data.image, self);
   }
 
-  public static jsonToPublicCategories(data: any): CategoriesPublic {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    public static jsonToPublicCategories(data: any): CategoriesPublic {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
 
     return new CategoriesPublic(data.name, data.description, data.image, self);
   }
 
-  public static jsonToPublicCategory(data: any): CategoryLink {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    let courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
-    let decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
+    public static jsonToPublicCategory(data: any): CategoryLink {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+        const courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
+        const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
 
     return new CategoryLink(data.name, data.description, data.image, self, decks, courses);
   }
 
-  public static jsonToAdminUsers(data: any): AdminUsers {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
-  }
+    public static jsonToAdminUsers(data: any): AdminUsers {
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+        return new AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
+    }
 
   public static jsonToAdminAudit(data: any): AdminAudit {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AdminAudit(data.accountEmail, data.action, data.ipAddress, data.role, data.time, self);
   }
 
   public static jsonToUserDetails(data: any): UserDetailsDto {
-    let self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new UserDetailsDto(data.firstName, data.lastName, data.email, data.image, data.authorities, self);
-  }
+        const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+        return new UserDetailsDto(data.firstName, data.lastName, data.email, data.image, data.authorities, self);
+    }
 
   public static jsonToLink(rel: string, data: any): Link {
     return new Link(rel, data.href);
   }
 
-  public static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any> {
-    let array: Array<any> = [];
-    data.forEach(element => {
-      array.push(callback(element));
-    });
-    return array;
-  }
+    public static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any> {
+        const array: Array<any> = [];
+        data.forEach(element => {
+            array.push(callback(element));
+        });
+        return array;
+    }
 }

@@ -42,8 +42,7 @@
 
 #nav-search {
   width: 250px;
-  background: url(../../../assets/images/search.png) no-repeat right center;
-  background-color: white;
+  background: white url(../../../assets/images/search.png) no-repeat right center;
   font-size: 14px;
   outline: none;
   padding: 5px;
@@ -75,8 +74,8 @@
 }
 
 .user-image {
-    width: 39px;
-    border-radius: 50%;
+  width: 39px;
+  border-radius: 50%;
 }
 
 .user-information, .user-image, .user-details {
@@ -107,8 +106,8 @@
   position: absolute;
   right: 0;
   color: white;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  width: 100px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
   margin-top: 20px;
   background: url(../../../assets/images/signoutwhite.png) #333 no-repeat right center;
@@ -123,7 +122,7 @@
 /*SEARCH RESULT*/
 .table {
   margin-left: -10px;
-  margin-top: 0px;
+  margin-top: 0;
   background-color: white;
   width: 40%;
   position: absolute;
