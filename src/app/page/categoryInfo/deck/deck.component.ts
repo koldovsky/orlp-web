@@ -1,95 +1,101 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {DeckService} from './deck.service';
-import {ORLPService} from '../../../services/orlp.service';
-import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
-import {Link} from '../../../dto/link';
-import {Router} from '@angular/router';
-import {CookieService} from 'angular2-cookie/core';
-import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
+import {Component, Input, OnInit} from "@angular/core";
+import {DeckService} from "./deck.service";
+import {ORLPService} from "../../../services/orlp.service";
+import {DeckLinkByCategory} from "../../../dto/DeckDTO/linkByCategory.deck.DTO";
+import {Link} from "../../../dto/link";
+import {Router} from "@angular/router";
+import {DeckLinkByFolderWithStatus} from "../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO";
+import {LogoutService} from "../../logout/logout.service";
 
 @Component({
-    selector: 'app-deck-table',
-    templateUrl: ('./deck.component.html'),
-    styleUrls: ['../categoryInfo.css']
+  selector: 'app-deck-table',
+  templateUrl: ('./deck.component.html'),
+  styleUrls: ['../categoryInfo.css']
 })
 export class DeckComponent implements OnInit {
 
-    public decks: DeckLinkByCategory[];
-    public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
-    public cookie: string;
-    public decksIdInYourFolder: number[] = [];
-    @Input() url: string;
+  public decks: DeckLinkByCategory[];
+  private decksWithStatus: DeckLinkByFolderWithStatus[] = [];
+  public decksIdInYourFolder: number[] = [];
+  public decksOnPage: DeckLinkByFolderWithStatus[] = [];
+  @Input() url: string;
 
-    constructor(private deckService: DeckService,
-                private orlpService: ORLPService,
-                private router: Router,
-                private cookieService: CookieService) {
-    }
+  constructor(private deckService: DeckService,
+              private orlpService: ORLPService,
+              private router: Router,
+              private logoutService: LogoutService) {
+  }
 
-    addDeckToFolder(deckId: number): void {
-        this.deckService.addDeckToFolder(deckId).subscribe(
-            data => {
-                this.changeDeckStatus(deckId);
-            },
-            error => console.log(error)
-        );
-    }
+  addDeckToFolder(deckId: number): void {
+    this.deckService.addDeckToFolder(deckId).subscribe(
+      data => {
+        this.changeDeckStatus(deckId);
+      },
+      error => console.log(error)
+    );
+  }
 
-    ngOnInit(): void {
-        this.url = this.orlpService.decodeLink(this.url);
-        this.deckService.getDecks(this.url)
-            .subscribe(decks => {
-                    this.decks = decks;
-                    this.createDecksWithStatus();
-                },
-            );
-
-        this.cookie = this.cookieService.get('Authentication');
-
-        if (this.cookie !== undefined) {
+  ngOnInit(): void {
+    this.url = this.orlpService.decodeLink(this.url);
+    this.deckService.getDecks(this.url)
+      .subscribe(decks => {
+        this.decks = decks;
+        if (this.isAuthorized()) {
           this.getIdDecksInYourFolder();
+        } else {
+          this.createDecksWithStatus();
         }
-    }
+      });
+  }
 
-    getIdDecksInYourFolder() {
-        this.deckService.getIdDecksInYourFolder().subscribe(
-            id => {
-                this.decksIdInYourFolder = id;
-                this.setStatusForDecksThatInFolder();
-            });
-    }
+  getIdDecksInYourFolder() {
+    this.deckService.getIdDecksInYourFolder().subscribe(
+      id => {
+        this.decksIdInYourFolder = id;
+        this.createDecksWithStatus();
+      });
+  }
 
-    getCardsLink(link: Link): string {
-        return this.orlpService.getShortLink(link);
+  createDecksWithStatus() {
+    for (const entry of this.decks) {
+      this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name
+        , entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
     }
+    this.setStatusForDecksThatInFolder();
 
-    startLearning(cards: Link): void {
-        this.router.navigate(['/cards', this.getCardsLink(cards)]);
-    }
+  }
 
-    private createDecksWithStatus() {
-        for (const entry of this.decks) {
-            this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name
-              , entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
+  setStatusForDecksThatInFolder() {
+    for (const entry of this.decksWithStatus) {
+      for (const id of this.decksIdInYourFolder) {
+        if (entry.deckId === id) {
+          entry.status = true;
+          break;
         }
+      }
     }
 
-    private setStatusForDecksThatInFolder() {
-        for (const entry of this.decksWithStatus) {
-            for (const id of this.decksIdInYourFolder) {
-                if (entry.deckId === id) {
-                    entry.status = true;
-                    break;
-                }
-            }
-        }
-    }
 
-    private changeDeckStatus(deckId: number) {
-        for (const entry of this.decksWithStatus) {
-            if (entry.deckId === deckId) {
-                entry.status = true;
-            }
-        }
+  }
+
+  isAuthorized(): boolean {
+    return this.logoutService.isAuthorized();
+  }
+
+
+  getCardsLink(link: Link): string {
+    return this.orlpService.getShortLink(link);
+  }
+
+  startLearning(cards: Link): void {
+    this.router.navigate(['/cards', this.getCardsLink(cards)]);
+  }
+
+  changeDeckStatus(deckId: number) {
+    for (const entry of this.decksWithStatus) {
+      if (entry.deckId === deckId) {
+        entry.status = true;
+      }
     }
+  }
 }

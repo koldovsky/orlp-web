@@ -16,15 +16,14 @@
                 <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
                                   [rating]="deck.rating"></star-rating-comp>
             </td>
-            <td *ngIf="cookie" class="alignCenter">
-                <div (click)="addDeckToFolder(deck.deckId)"
-                     *ngIf="!deck.status; else other_content">
-                    <img src="../../../../assets/images/add.png" title="Add deck to folder" class="addToFolderImg">
-                </div>
-
-                <ng-template #other_content>
-                    <img src="../../../../assets/images/checked.png" title="Deck is in your folder" class="addToFolderImg">
-                </ng-template>
+            <td class="alignCenter">
+              <div (click)="addDeckToFolder(deck.deckId)" *ngIf="!deck.status; else other_content">
+                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonActive"></div>
+              </div>
+              <ng-template #other_content>
+                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonChecked"></div>
+              </ng-template>
+              <div *ngIf="!isAuthorized()" class="button addDeckToUserButtonInActive"></div>
             </td>
         </tr>
         </tbody>
