@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="font-color-white header-text">
+      <h1 class="font-color-white header-text">Audit</h1>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="row justify-content-center align-items-center">
+      <div *ngIf="auditList">
+        <table class="table table-striped admins-tables">
+          <tr class="admins-tables-header">
+            <th (click)="toggleEmail()">E-mail</th>
+            <th (click)="toggleAction()">Action</th>
+            <th (click)="toggleIp()">Ip-address</th>
+            <th (click)="toggleRole()">Role</th>
+            <th (click)="toggleTime()">Time</th>
+          </tr>
+          <tr *ngFor="let audit of auditList">
+            <td> {{audit.accountEmail}}</td>
+            <td>{{audit.action}}</td>
+            <td>{{audit.ipAddress}}</td>
+            <td> {{audit.role}}</td>
+            <td> {{audit.time}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
