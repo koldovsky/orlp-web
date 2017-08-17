@@ -65,15 +65,14 @@ export class SignUpComponent implements OnInit {
   }
 
   private processError(response) {
-    console.log(response.status);
-    console.log(response.body);
 
-    if (response.status === 400) {
+    if (response.status === 400 && response._body === 'Email exists') {
       this.errorEmailExists = true;
     } else if (response.status === 201) {
       this.success = true;
       console.log(response.status);
-    } else if (response.status === 404) {
+    } else if (response.status === 404 && response._body === 'Mail not sent') {
+      this.success = true;
       this.mailNotSended = true;
     } else {
       this.error = true;
