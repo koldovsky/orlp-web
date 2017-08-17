@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
   public isAuthorized: boolean;
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
-
+  public showSearchResult: boolean;
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
               private deckService: DeckService,

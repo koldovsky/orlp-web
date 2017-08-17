@@ -19,7 +19,7 @@ export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.answer, data.question, self);
+    return new CardPublic(data.cardId, data.answer, data.question, self);
   }
 
   public static jsonToUserDTO(data: any): UsersDTO {
