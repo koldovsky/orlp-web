@@ -1,4 +1,5 @@
 import {Link} from '../link';
+
 export class AdminAudit {
   accountEmail: string;
   action: string;
@@ -6,7 +7,6 @@ export class AdminAudit {
   role: string;
   time: string;
   public self: Link;
-
 
   constructor(accountEmail: string, action: string, ipAddress: string, role: string, time: string, self: Link) {
     this.accountEmail = accountEmail;
