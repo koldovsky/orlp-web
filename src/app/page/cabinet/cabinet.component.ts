@@ -18,7 +18,7 @@ export class CabinetComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckDTO[];
   private showCourseDecks: any;
-  private showFolderDecks: any;
+  public showFolderDecks: any;
 
   constructor(private cabinetService: CabinetService,
               private orlpService: ORLPService,
