@@ -9,10 +9,10 @@ import {AdminUsersComponent} from './users/admin.users.component';
 import {AdminUsersService} from './users/admin.users.service';
 import {AdminUserComponent} from './users/user/admin.user.component';
 import {AdminUserService} from './users/user/admin.user.service';
-
 import {AdminMainComponent} from './admin.main.component';
 import {AdminUsersPipe} from './users/admin.users.filter';
-
+import {AdminAuditService} from './audit/admin.audit.service';
+import {AdminAuditComponent} from './audit/admin.audit.component';
 
 @NgModule({
   imports: [
@@ -20,6 +20,7 @@ import {AdminUsersPipe} from './users/admin.users.filter';
     CommonModule,
     RouterModule.forChild([
       {path: 'admin', component: AdminMainComponent},
+      {path: 'admin/audit', component: AdminAuditComponent},
       {path: 'admin/categories', component: AdminCategoryComponent},
       {path: 'admin/users', component: AdminUsersComponent},
       {path: 'admin/users/:url', component: AdminUserComponent}
@@ -31,12 +32,14 @@ import {AdminUsersPipe} from './users/admin.users.filter';
     AdminCategoryComponent,
     AdminUsersComponent,
     AdminMainComponent,
-    AdminUserComponent
+    AdminUserComponent,
+    AdminAuditComponent
   ],
   providers: [
     AdminCategoryService,
     AdminUsersService,
     AdminUserService,
+    AdminAuditService,
   ],
 })
 
