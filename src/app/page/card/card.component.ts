@@ -64,12 +64,8 @@ export class CardComponent implements OnInit {
     console.log(this.cardStatus.status);
     this.cardService.sendStatus(this.cardStatus, this.cards[this.questionNumber].cardId)
       .subscribe(
-        () => {
-        },
-        () => {
-        }
-      );
-
+        () => {},
+        () => {});
     this.onRotateBack();
   }
 }
