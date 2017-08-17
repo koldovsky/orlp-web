@@ -1,14 +1,14 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 font-color-white header-text">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xs-12 col-sm-4 font-color-white header-text">
       <h1 class="font-color-white header-text">All Categories</h1>
     </div>
     <div class="col-xs-12 col-sm-6">
       <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
     </div>
   </div>
-  <div class="col-xs-12">
-    <div class="row">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-xs-12">
       <div *ngIf="categories">
         <table class="table table-striped admins-tables">
           <tr class="admins-tables-header">
