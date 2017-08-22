@@ -27,16 +27,20 @@
               <div class="row">
                 <div class="col-sm-6">
                   <div class="card">
-                    <textarea>{{answer}}</textarea>
+                    <textarea readonly>{{answer}}</textarea>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="card">
-                    <textarea>{{cards[questionNumber].answer}}</textarea>
+                    <textarea readonly>{{cards[questionNumber].answer}}</textarea>
                   </div>
                 </div>
               </div>
             </div>
+            <!--<ng-progress [positionUsing]="'marginLeft'" [minimum]="0.15" [maximum]="1"-->
+                         <!--[speed]="'200'" [showSpinner]="'false'" [direction]="'rightToLeftIncreased'"-->
+                         <!--[color]="'red'" [trickleSpeed]="250" [thick]="false" [ease]="'linear'"-->
+            <!--&gt;</ng-progress>-->
             <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('BAD')">BAD</button>
             <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('NORMAL')">NORMAL</button>
             <button class="btn btn-primary mt-3 mx-auto" (click)="sendStatus('GOOD')">GOOD</button>

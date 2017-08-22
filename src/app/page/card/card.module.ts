@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {CardComponent} from './card.component';
 import {CardService} from './card.service';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -14,7 +15,7 @@ import {CardService} from './card.service';
   ],
   exports: [],
   declarations: [
-    CardComponent
+    CardComponent,
   ],
   providers: [CardService],
 })

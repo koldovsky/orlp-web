@@ -18,12 +18,12 @@
             </td>
             <td class="alignCenter">
               <div (click)="addDeckToFolder(deck.deckId)" *ngIf="!deck.status; else other_content">
-                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonActive"></div>
+                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonActive" title="Add deck to cabinet"></div>
               </div>
               <ng-template #other_content>
-                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonChecked"></div>
+                <div *ngIf="isAuthorized()" class="button addDeckToUserButtonChecked" title="Deck is already in your cabinet"></div>
               </ng-template>
-              <div *ngIf="!isAuthorized()" class="button addDeckToUserButtonInActive"></div>
+              <div *ngIf="!isAuthorized()" class="button addDeckToUserButtonInActive" title="Please Sign In to have ability to add decks to your cabinet"></div>
             </td>
         </tr>
         </tbody>

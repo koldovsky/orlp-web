@@ -17,7 +17,6 @@ export class DeckComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   private decksWithStatus: DeckLinkByFolderWithStatus[] = [];
   public decksIdInYourFolder: number[] = [];
-  public decksOnPage: DeckLinkByFolderWithStatus[] = [];
   @Input() url: string;
 
   constructor(private deckService: DeckService,
@@ -62,7 +61,6 @@ export class DeckComponent implements OnInit {
         , entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
     }
     this.setStatusForDecksThatInFolder();
-
   }
 
   setStatusForDecksThatInFolder() {
@@ -74,8 +72,6 @@ export class DeckComponent implements OnInit {
         }
       }
     }
-
-
   }
 
   isAuthorized(): boolean {
