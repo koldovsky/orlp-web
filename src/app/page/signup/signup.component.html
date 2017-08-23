@@ -103,7 +103,7 @@
                         </div>
                         <div class="alert alert-danger"
                              *ngIf="(userForm.get('passwordGroup.confirmPassword').touched||userForm.get('passwordGroup.confirmPassword').dirty)&&(userForm.get('passwordGroup.confirmPassword').errors||userForm.get('passwordGroup').errors)">
-                            <span *ngIf="userForm.get('passwordGroup.confirmPassword').errors?.required">Please confirm your password</span>
+                            <span *ngIf="userForm.get('passwordGroup.confirmPassword').errors?.required">Please confirm your password<br></span>
                             <span *ngIf="userForm.get('passwordGroup').errors?.match">The confirmation password does not match the password</span>
                         </div>
                     </div>
@@ -128,6 +128,9 @@
                         <span>Registration <b>successful!</b></span>
                         <span>Check you email for confirmation</span>
                     </div>
+                  <div class="alert alert-warning" *ngIf="mailNotSended">
+                    <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
+                  </div>
                 </div>
             </div>
         </div>
