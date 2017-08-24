@@ -101,7 +101,7 @@
 }
 
 .signout {
-  text-align: center;
+  /*text-align: center;*/
   float: right;
   position: absolute;
   right: 0;
@@ -109,7 +109,7 @@
   width: 100px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
-  margin-top: 20px;
+  margin-left: auto;
   background: url(../../../assets/images/signoutwhite.png) #333 no-repeat right center;
 }
 

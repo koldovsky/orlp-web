@@ -21,6 +21,17 @@
           <div class="forum">
             <a [routerLink]="['/user/courses']">Courses</a>
           </div>
+          <div *ngIf="isAuthorizedAdmin">
+            <div class="link">
+              <a [routerLink]="['/admin/audit']">Admin Audit</a>
+            </div>
+            <div class="link">
+              <a [routerLink]="['/admin/categories']">Admin Categories</a>
+            </div>
+            <div class="link">
+              <a [routerLink]="['/admin/users']">Admin Users</a>
+            </div>
+          </div>
         </li>
       </ul>
     </li>
@@ -47,15 +58,15 @@
     </li>
     <!-- USER-DETAILS -->
     <li *ngIf="isAuthorized" class="user-details">
-      <a id="user-details" (click)="showLogOut =! showLogOut"><b>. . .</b></a>
+      <a id="user-details" data-toggle="dropdown"><b>. . .</b></a>
       <!-- SIGN-OUT-USER -->
-      <div class="signout" *ngIf="showLogOut" (click)="logoutUser()">
-        <a>Sign out</a>
+      <div class="dropdown-menu signout" aria-labelledby="user-details" (click)="logoutUser()">
+        <a class="dropdown-item">Sign out</a>
       </div>
     </li>
     <!-- USER-IMAGE -->
     <li *ngIf="isAuthorized" class="user-image">
-      <a [routerLink]="['/login']">
+      <a [routerLink]="['/user/cabinet']">
         <img *ngIf="userDetails?.image; else default_image" class="user-image" src="{{userDetails?.image}}">
         <ng-template #default_image>
           <img class="user-image" src="../../../assets/images/avatar.png">
