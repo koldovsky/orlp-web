@@ -5,7 +5,7 @@ import {AccountVerificationService} from './accountVerification.service';
 
 
 @Component({
-  template: ``,
+  template: `<div></div>`,
 })
 export class AccountVerificationComponent implements OnInit {
   token: string;
