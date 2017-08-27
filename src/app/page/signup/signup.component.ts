@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {SignupService} from './signup.service';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from '../../dto/User';
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {SignupService} from "./signup.service";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {User} from "../../dto/User";
+import {MessageDTO} from "../../dto/MessageDTO";
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -18,6 +19,7 @@ function passwordMatcher(c: AbstractControl) {
 })
 
 export class SignUpComponent implements OnInit {
+  responseMessage: MessageDTO = new MessageDTO();
   userForm: FormGroup;
   user: User = new User();
   mailNotSended: boolean;
@@ -54,7 +56,10 @@ export class SignUpComponent implements OnInit {
       .subscribe(() => {
           this.success = true;
         },
-        (response) => this.processError(response));
+        (response) => {
+          this.responseMessage = response.json();
+          this.processError(response)
+        });
   }
 
   transferingDataFromFormToUserObj() {
@@ -65,13 +70,13 @@ export class SignUpComponent implements OnInit {
   }
 
   private processError(response) {
-
-    if (response.status === 400 && response._body === 'Email exists') {
+    console.log(this.responseMessage.message);
+    if (response.status === 404 && this.responseMessage.message === 'Email exists') {
       this.errorEmailExists = true;
     } else if (response.status === 201) {
       this.success = true;
       console.log(response.status);
-    } else if (response.status === 404 && response._body === 'Mail not sent') {
+    } else if (response.status === 503 && this.responseMessage.message === 'Mail not sent') {
       this.success = true;
       this.mailNotSended = true;
     } else {
