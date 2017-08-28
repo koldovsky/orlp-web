@@ -14,6 +14,7 @@ import {UserDetailsDto} from './UserDetailsDto';
 import {DeckLinkByFolder} from './DeckDTO/linkByFolder.deck.DTO';
 import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
+import {ImageDTO} from './ImageDTO/ImageDTO';
 
 export class DTOConverter {
 
@@ -22,17 +23,23 @@ export class DTOConverter {
     return new CardPublic(data.cardId, data.answer, data.question, self);
   }
 
+  public static jsonToImageDTO(data: any): ImageDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new ImageDTO(data.imageId, self);
+  }
+
   public static jsonToUserDTO(data: any): UsersDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const folder: Link = DTOConverter.jsonToLink('folder', data._links.folder);
     const courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
-    return new UsersDTO(data.firstName, data.lastName, data.email, self, folder, courses);
+    return new UsersDTO(data.userId, data.firstName, data.lastName, data.email, self, folder, courses);
   }
 
   public static jsonToPublicLinkCourse(data: any): CourseLink {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
-    return new CourseLink(data.name, data.description, data.image, self, decks, data.rating);
+    return new CourseLink(data.courseId, data.name, data.description, data.image, self, decks,
+      data.rating, data.published, data.ownerId, data.categoryId);
   }
 
   public static jsonToPublicLinkCourseWithId(data: any): CourseLinkWithId {
@@ -82,7 +89,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
     const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
-    return new CategoryLink(data.name, data.description, data.image, self, decks, courses);
+    return new CategoryLink(data.categoryId, data.name, data.description, data.image, self, decks, courses);
   }
 
   public static jsonToAdminUsers(data: any): AdminUsers {
