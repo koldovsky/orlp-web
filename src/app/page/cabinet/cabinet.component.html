@@ -1,61 +1,113 @@
 <main class="container">
 
-  <nav class="nav nav-pills">
-    <a class="nav-link active vertical-menu" [routerLink]="['/user/cabinet']">My learning</a>
-  </nav>
+  <div class="vertical-menu">
+    <a [routerLink]="['/user/cabinet']" class="active">My learning</a>
+    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+  </div>
 
   <!--FOLDER-->
   <div>
-    <table class="table table-striped">
+    <table class="table table-striped folder">
       <thead class="folder-head" (click)="getFolderDecks()">
-      <tr>
-        <td><img src="../../../assets/images/categories.png" class="mx-auto d-block rounded-main"></td>
-        <td>Default folder</td>
-      </tr>
+        <tr>
+          <td class="folder-content"><img src="../../../assets/images/myDecks.png" class="folder-img"></td>
+          <td class="folder-content">My decks</td>
+          <td class="folder-content"></td>
+        </tr>
       </thead>
       <tbody *ngIf="showFolderDecks">
-      <tr *ngFor="let deck of decks">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="deck.rating"></star-rating-comp>
-        </td>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button>
-        </td>
-      </tr>
+        <tr *ngFor="let deck of decks">
+          <td class="folder-content">{{deck.name}}</td>
+          <td class="folder-content">{{deck.description}}</td>
+          <td>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                              [rating]="deck.rating"></star-rating-comp>
+          </td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 
   <!--COURSES-->
   <div>
-    <table class="table table-striped" *ngFor="let course of courses">
-      <thead class="course-head" (click)="getCourseDecks(course)">
-      <tr>
-        <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
-        <td>{{course.name}}</td>
-        <td>{{course.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="course.rating"></star-rating-comp>
-        </td>
-      </tr>
+    <table class="table table-striped course" *ngFor="let course of courses">
+      <thead class="course-head">
+        <tr>
+          <div (click)="getCourseDecks(course)">
+              <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
+              <td>{{course.name}}</td>
+              <td>{{course.description}}</td>
+          </div>
+          <td>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                              [rating]="course.rating"></star-rating-comp>
+          </td>
+          <td *ngIf="isOwner(course)&&course.published===false">
+            <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
+          </td>
+          <td *ngIf="isOwner(course)&&course.published===true">
+            <button type="button" class="btn btn-primary btn-sm" (click)="changeAccess(course, false)">PUBLIC</button>
+          </td>
+          <td *ngIf="isOwner(course)">
+            <button (click)="getCategoryDecks(course)" type="button" class="btn btn-success btn-sm" data-toggle="modal"
+                    data-target=".bd-example-modal-sm">+
+            </button>
+          </td>
+          <td></td>
+          <td><button type="button" class="btn btn-danger btn-sm" (click)="deleteCourse(course)">x</button></td>
+        </tr>
       </thead>
-      <tbody *ngIf="course.name === showCourseDecks">
-      <tr *ngFor="let deck of decks">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="deck.rating"></star-rating-comp>
-        </td>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button>
-        </td>
-      </tr>
+      <tbody *ngIf="course.courseId === showCourseDecks">
+        <tr *ngFor="let deck of decks">
+          <td>{{deck.name}}</td>
+          <td>{{deck.description}}</td>
+          <td>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                              [rating]="deck.rating"></star-rating-comp>
+          </td>
+          <td><button class="btn btn-primary btn-sm" (click)="startLearning(deck.cards)">START</button><td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Modal add deck-->
+  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="exampleModalTitle">Choose deck</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let deck of categoryDecks">
+                <td>{{deck.name}}</td>
+                <td>{{deck.description}}</td>
+                <td>
+                  <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                    [rating]="deck.rating"></star-rating-comp>
+                </td>
+                <td><img data-dismiss="modal" src="../../../assets/images/add.png" title="Add"
+                         (click)="addDeckToCourse(deck)" class="deck-img"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </main>

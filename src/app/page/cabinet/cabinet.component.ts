@@ -6,6 +6,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {Router} from '@angular/router';
 import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
+import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
 
 @Component({
   providers: [CabinetService],
@@ -17,8 +18,10 @@ export class CabinetComponent implements OnInit {
   public user: UsersDTO;
   public courses: CourseLink[];
   public decks: DeckDTO[];
-  private showCourseDecks: any;
+  public categoryDecks: DeckLinkByCategory[];
+  public showCourseDecks: any;
   public showFolderDecks: any;
+  public chosenCourse: CourseLink;
 
   constructor(private cabinetService: CabinetService,
               private orlpService: ORLPService,
@@ -39,8 +42,10 @@ export class CabinetComponent implements OnInit {
   }
 
   getUserCourses(user: UsersDTO): void {
-    this.cabinetService.getCourse(user.courses)
-      .subscribe(courses => this.courses = courses);
+    this.cabinetService.getCourses(user.courses)
+      .subscribe(courses => {
+        this.courses = courses;
+      });
   }
 
   getDecks(link: Link): void {
@@ -57,15 +62,52 @@ export class CabinetComponent implements OnInit {
   }
 
   getFolderDecks() {
+    this.decks = null;
     this.getDecks(this.user.folder);
     this.showFolderDecks = !this.showFolderDecks;
     this.showCourseDecks = false;
   }
 
-
   getCourseDecks(course: CourseLink) {
-    this.getDecks(course.decks);
+    this.decks = null;
     this.showFolderDecks = false;
-    this.showCourseDecks = (this.showCourseDecks === course.name) ? false : course.name;
+    this.getDecks(course.decks);
+    this.showCourseDecks = (this.showCourseDecks === course.courseId) ? false : course.courseId;
+  }
+
+  deleteCourse(course: CourseLink) {
+    if (this.isOwner(course)) {
+      this.cabinetService.deleteGlobalCourse(course)
+        .subscribe((response) => this.getUserCourses(this.user));
+    } else {
+      this.cabinetService.deleteLocalCourse(course)
+        .subscribe((response) => this.getUserCourses(this.user));
+    }
+  }
+
+  isOwner(course: CourseLink): boolean {
+    return course.ownerId === this.user.id;
+  }
+
+  changeAccess(course: CourseLink, access: boolean) {
+    course.published = access;
+
+    this.cabinetService.updateCourse(course)
+      .subscribe((response) => console.log());
+  }
+
+  getCategoryDecks(course: CourseLink) {
+    this.chosenCourse = course;
+    this.cabinetService.getCategoryDecks(course.categoryId)
+      .subscribe((decks) => {
+        this.categoryDecks = decks;
+      });
+  }
+
+  addDeckToCourse(deck: DeckLinkByCategory) {
+    this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
+      .subscribe((response) => {
+        console.log();
+      });
   }
 }
