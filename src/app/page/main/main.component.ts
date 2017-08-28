@@ -8,6 +8,7 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {CourseService} from './search/course.service';
 import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
 import {CategoryService} from './search/category.service';
+import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Component({
@@ -25,12 +26,14 @@ export class MainComponent implements OnInit {
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
   public showSearchResult: boolean;
+
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
               private deckService: DeckService,
               private logoutService: LogoutService,
               private router: Router,
-              private mainService: MainService) {
+              private mainService: MainService,
+              private adminGuard: AdminGuardService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +43,7 @@ export class MainComponent implements OnInit {
         .subscribe(user => {
           this.userDetails = user;
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
+          this.setAdmin();
         });
     }
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);
@@ -53,5 +57,9 @@ export class MainComponent implements OnInit {
       this.isAuthorizedAdmin = false;
       this.router.navigate(['main']);
     }
+  }
+
+  setAdmin(): void {
+    this.adminGuard.isAdmin = this.isAuthorizedAdmin;
   }
 }

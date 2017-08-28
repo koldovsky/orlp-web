@@ -63,3 +63,26 @@
 .alignCenter {
   text-align: center;
 }
+.button {
+  background-size: contain;
+  width: 25px;
+  height: 25px;
+  margin-left: 40%;
+}
+
+.addDeckToUserButtonActive {
+  background-image: url("../../../assets/images/add.png");
+}
+.addDeckToUserButtonActive:hover {
+  transform: scale(0.9);
+}
+.addDeckToUserButtonInActive{
+  background-image: url("../../../assets/images/add.png");
+  opacity: 0.1;
+}
+.addDeckToUserButtonChecked{
+  background-image: url("../../../assets/images/checked.png");
+}
+.addDeckToUserButtonChecked:hover {
+  transform: scale(0.9);
+}

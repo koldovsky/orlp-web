@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     this.loginService.signIn(this.account)
       .subscribe((response) => {
         this.success = true;
+        console.log(response);
         this.router.navigate(['main']);
         this.reload();
       }, (error) => {
