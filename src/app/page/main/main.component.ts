@@ -6,9 +6,9 @@ import {Router} from '@angular/router';
 import {MainService} from './main.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {CourseService} from './search/course.service';
-import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
 import {CategoryService} from './search/category.service';
+import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Component({
   selector: 'app-page',
@@ -18,7 +18,7 @@ import {CategoryService} from './search/category.service';
 
 export class MainComponent implements OnInit {
   public categories: CategoriesPublic[];
-  public courses: CourseTop[];
+  public courses: CourseLink[];
   public decks: DeckPublic[];
   public listFilter: string;
   public isAuthorized: boolean;
