@@ -79,33 +79,32 @@
       <div class="email">{{userDetails.email}}</div>
     </li>
   </ul>
+  <!-- SEARCH-RESULT -->
+  <table *ngIf="showSearchResult" class="table">
+    <tbody>
+    <tr *ngFor="let category of categories | categoryFilter: listFilter">
+      <td><img id="category-img" [src]="category.image" class="mx-auto d-block rounded-main card-img-top"></td>
+      <td>{{category.name}}</td>
+      <td>{{category.description}}</td>
+    </tr>
+    <tr *ngFor="let course of courses | courseFilter: listFilter">
+      <td><img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top"></td>
+      <td>{{course.name}}</td>
+      <td>{{course.description}}</td>
+      <td>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                          [rating]="course.rating"></star-rating-comp>
+      </td>
+    </tr>
+    <tr *ngFor="let deck of decks | deckFilter: listFilter">
+      <td>{{deck.name}}</td>
+      <td>{{deck.description}}</td>
+      <td>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                          [rating]="deck.rating"></star-rating-comp>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </nav>
-<!-- SEARCH-RESULT -->
-<table *ngIf="showSearchResult" class="table">
-  <tbody>
-  <tr *ngFor="let category of categories | categoryFilter: listFilter">
-    <td><img id="category-img" src=category.image class="mx-auto d-block rounded-main card-img-top"></td>
-    <td>{{category.name}}</td>
-    <td>{{category.description}}</td>
-
-  </tr>
-  <tr *ngFor="let course of courses | courseFilter: listFilter">
-    <td><img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top"></td>
-    <td>{{course.name}}</td>
-    <td>{{course.description}}</td>
-    <td>
-      <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                        [rating]="course.rating"></star-rating-comp>
-    </td>
-  </tr>
-  <tr *ngFor="let deck of decks | deckFilter: listFilter">
-    <td>{{deck.name}}</td>
-    <td>{{deck.description}}</td>
-    <td>
-      <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                        [rating]="deck.rating"></star-rating-comp>
-    </td>
-  </tr>
-  </tbody>
-</table>
 <router-outlet></router-outlet>

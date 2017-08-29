@@ -1,5 +1,7 @@
 import {Link} from '../link';
+
 export class UsersDTO {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -7,7 +9,8 @@ export class UsersDTO {
   folder: Link;
   courses: Link;
 
-  constructor(firstName: string, lastName: string, email: string, self: Link, folder: Link, courses: Link) {
+  constructor(id: number, firstName: string, lastName: string, email: string, self: Link, folder: Link, courses: Link) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;

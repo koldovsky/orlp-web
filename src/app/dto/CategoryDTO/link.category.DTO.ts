@@ -1,6 +1,7 @@
 import {Link} from '../link';
 
 export class CategoryLink {
+  public categoryId: number;
   public name: string;
   public description: string;
   public image: string;
@@ -9,7 +10,8 @@ export class CategoryLink {
   public courses: Link;
 
 
-  constructor(name: string, description: string, image: string, self: Link, decks: Link, courses: Link) {
+  constructor(categoryId: number, name: string, description: string, image: string, self: Link, decks: Link, courses: Link) {
+    this.categoryId = categoryId;
     this.name = name;
     this.description = description;
     this.image = image;

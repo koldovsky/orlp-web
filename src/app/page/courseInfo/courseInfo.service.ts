@@ -13,8 +13,8 @@ import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 
 @Injectable()
 export class CourseInfoService {
-  private urlAddCourseToUser: string = 'api/user/courses/';
-  private urlGettingListOfIdOfTheCourses: string = 'api/private/user/courses';
+  private urlAddCourseToUser = 'api/user/courses/';
+  private urlGettingListOfIdOfTheCourses = 'api/private/user/courses';
 
   constructor(private orlp: ORLPService) {
   }
@@ -25,7 +25,7 @@ export class CourseInfoService {
       .catch(this.handleError);
   }
 
-  getDecks(course: CourseLink): Observable<DeckPublic[]> {
+  getDecks(course: CourseLinkWithId): Observable<DeckPublic[]> {
     const url = this.orlp.decodeLink(this.orlp.getShortLink(course.decks));
     return this.orlp.get(url)
       .map((response: Response) => <DeckPublic[]>(DTOConverter
