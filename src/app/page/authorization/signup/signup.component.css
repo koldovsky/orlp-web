@@ -1,5 +1,5 @@
 .btn-google {
-  background: url('../../../assets/images/signInGoogle.png') center;
+  background: url('../../../../assets/images/signInGoogle.png') center;
   background-size: 123%;
   width: 50px;
   height: 50px;
@@ -8,7 +8,7 @@
 }
 
 .btn-facebook {
-  background: url('../../../assets/images/signInFacebook.png') center;
+  background: url('../../../../assets/images/signInFacebook.png') center;
   background-size: 123%;
   width: 50px;
   height: 50px;
@@ -32,12 +32,9 @@
   cursor: pointer;
 }
 
-.btn-login {
-  height: 44px;
-}
 
 span.googleIcon {
-  background: url('../../../assets/images/google.png') transparent 50% no-repeat;
+  background: url('../../../../assets/images/google.png') transparent 50% no-repeat;
   display: inline-block;
   vertical-align: middle;
   width: 42px;
@@ -54,7 +51,7 @@ span.buttonText {
 }
 
 span.facebookIcon {
-  background: url('../../../assets/images/facebook.png') transparent 50% no-repeat;
+  background: url('../../../../assets/images/facebook.png') transparent 50% no-repeat;
   display: inline-block;
   vertical-align: middle;
   width: 42px;

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
-import {ORLPService} from '../../services/orlp.service';
-import {User} from '../../dto/User';
+import {ORLPService} from '../../../services/orlp.service';
+import {User} from '../../../dto/User';
 
 
 @Injectable()
