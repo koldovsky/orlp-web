@@ -7,6 +7,7 @@ import {LoginService} from './login.service';
 import {LoginComponent} from './login.component';
 import {Angular2SocialLoginModule} from 'angular2-social-login';
 import {ReCaptchaModule} from 'angular2-recaptcha';
+import {AuthorizationService} from "../authorization.service";
 
 const providers = {
     'google': {
@@ -34,7 +35,7 @@ const providers = {
     declarations: [
         LoginComponent
     ],
-    providers: [LoginService],
+    providers: [LoginService, AuthorizationService],
 })
 export class LoginModule {
     constructor() { }

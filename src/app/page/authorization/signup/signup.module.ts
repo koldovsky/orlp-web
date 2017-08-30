@@ -6,11 +6,14 @@ import {RouterModule} from '@angular/router';
 import {SignupService} from './signup.service';
 import {AccountVerificationComponent} from './accountVerification/accountVerification.component';
 import {AccountVerificationService} from './accountVerification/accountVerification.service';
+import {ReCaptchaModule} from "angular2-recaptcha";
+import {AuthorizationService} from "../authorization.service";
 
 @NgModule({
   imports: [
     FormsModule,
     ReactiveFormsModule,
+    ReCaptchaModule,
     CommonModule,
     RouterModule.forRoot([
       {path: 'registr', component: SignUpComponent},
@@ -22,7 +25,7 @@ import {AccountVerificationService} from './accountVerification/accountVerificat
     SignUpComponent, AccountVerificationComponent
   ],
   providers: [
-    SignupService, AccountVerificationService
+    SignupService, AccountVerificationService, AuthorizationService
   ],
 })
 export class SignUpModule {

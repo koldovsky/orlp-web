@@ -1,7 +1,7 @@
 import {Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {ORLPService} from '../../../services/orlp.service';
+import {ORLPService} from '../../../../services/orlp.service';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 @Injectable()

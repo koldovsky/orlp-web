@@ -1,0 +1,153 @@
+<div class="container">
+  <br/>
+  <form class="form-horizontal" role="form" (ngSubmit)="register()" [formGroup]="userForm" novalidate>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h1 style="color: #41ff05">Register New User</h1>
+        <hr>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 field-label-responsive">
+        <label for="name" style="color: #41FF05">Name</label>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group"
+             [ngClass]="{'has-danger': (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&!userForm.get('firstName').valid}">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+            <input type="text" class="form-control" id="name"
+                   placeholder="John" formControlName="firstName">
+          </div>
+          <div class="alert alert-danger"
+               *ngIf="(userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors">
+            <span *ngIf="userForm.get('firstName').errors.required">Name is Required field</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 field-label-responsive">
+        <label for="last_name" style="color: #41FF05">Last Name</label>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group"
+             [ngClass]="{'has-danger': (userForm.get('lastName').touched||userForm.get('lastName').dirty)&&!userForm.get('lastName').valid}">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+            <input type="text" class="form-control" id="last_name"
+                   placeholder="Doe" formControlName="lastName">
+          </div>
+          <div class="alert alert-danger"
+               *ngIf="(userForm.get('lastName').touched||userForm.get('lastName').dirty)&&userForm.get('lastName').errors">
+            <span *ngIf="userForm.get('lastName').errors.required">Last Name is Required field</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 field-label-responsive">
+        <label for="email" style="color: #41FF05">E-Mail Address</label>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group"
+             [ngClass]="{'has-danger': (userForm.get('email').touched||userForm.get('email').dirty)&&!userForm.get('email').valid ||errorEmailExists}">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+            <input type="email" class="form-control" id="email"
+                   placeholder="you@example.com" formControlName="email">
+          </div>
+          <div class="alert alert-danger"
+               *ngIf="(userForm.get('email').touched||userForm.get('email').dirty)&&userForm.get('email').errors">
+            <span *ngIf="userForm.get('email').errors.required">Email is Required field</span>
+            <span *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required">Please enter valid email address</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div formGroupName="passwordGroup"
+         [ngClass]="{'has-danger': userForm.get('passwordGroup').errors}">
+      <div class="row">
+        <div class="col-md-3 field-label-responsive">
+          <label for="password" style="color: #41FF05">Password</label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+              <input type="password" class="form-control" id="password"
+                     placeholder="Password" formControlName="password">
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="(userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)&&userForm.get('passwordGroup.password').errors">
+              <span *ngIf="userForm.get('passwordGroup.password').errors.required">Password is Required field</span>
+              <span
+                *ngIf="userForm.get('passwordGroup.password').errors.minlength">Password must be more than 8 symbols</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 field-label-responsive">
+          <label for="password" style="color: #41FF05">Confirm Password</label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+              <div class="input-group-addon" style="width: 2.6rem">
+                <i class="fa fa-repeat"></i>
+              </div>
+              <input type="password" class="form-control"
+                     id="password-confirm" placeholder="Password" formControlName="confirmPassword">
+            </div>
+            <div class="alert alert-danger"
+                 *ngIf="(userForm.get('passwordGroup.confirmPassword').touched||userForm.get('passwordGroup.confirmPassword').dirty)&&(userForm.get('passwordGroup.confirmPassword').errors||userForm.get('passwordGroup').errors)">
+              <span
+                *ngIf="userForm.get('passwordGroup.confirmPassword').errors?.required">Please confirm your password<br></span>
+              <span *ngIf="userForm.get('passwordGroup').errors?.match">The confirmation password does not match the password</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 offset-3">
+        <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{siteKey}}"></re-captcha>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-success" [disabled]="!validSignUp()"><i
+          class="fa fa-user-plus"></i>
+          Register
+        </button>
+        <div (click)="signInGoogle('google')" class="btn-google">
+          <span class="googleIcon"></span>
+          <span class="buttonText">Google</span>
+        </div>
+        <div (click)="signInFacebook('facebook') " class="btn-facebook">
+          <span class="facebookIcon"></span>
+          <span class="buttonText">Facebook</span>
+        </div>
+        <div class="alertMessage">
+          <div class="alert alert-danger" *ngIf="errorEmailExists">
+            <span>Email already exists</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="error">
+            <span><b>Registration failed!</b> Try again.</span>
+          </div>
+          <div class="alert alert-success" *ngIf="success">
+            <span>Registration <b>successful!</b></span>
+            <span>Check you email for confirmation</span>
+          </div>
+          <div class="alert alert-warning" *ngIf="mailNotSended">
+            <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
