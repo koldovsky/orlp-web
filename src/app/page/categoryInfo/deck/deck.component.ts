@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {DeckService} from "./deck.service";
-import {ORLPService} from "../../../services/orlp.service";
-import {DeckLinkByCategory} from "../../../dto/DeckDTO/linkByCategory.deck.DTO";
-import {Link} from "../../../dto/link";
-import {Router} from "@angular/router";
-import {DeckLinkByFolderWithStatus} from "../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO";
-import {LogoutService} from "../../logout/logout.service";
+import {Component, Input, OnInit} from '@angular/core';
+import {DeckService} from './deck.service';
+import {ORLPService} from '../../../services/orlp.service';
+import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
+import {Link} from '../../../dto/link';
+import {Router} from '@angular/router';
+import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
+import {LogoutService} from '../../logout/logout.service';
 
 @Component({
   selector: 'app-deck-table',

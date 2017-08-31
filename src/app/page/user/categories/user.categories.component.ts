@@ -7,7 +7,8 @@ import {Link} from '../../../dto/link';
 @Component({
   selector: 'app-user-all-categories',
   providers: [UserCategoriesService],
-  templateUrl: ('./user.categories.component.html')
+  templateUrl: ('./user.categories.component.html'),
+  styleUrls: ['./user.categories.style.css']
 })
 export class UserCategoriesComponent implements OnInit {
 
@@ -15,8 +16,8 @@ export class UserCategoriesComponent implements OnInit {
   errorMessage: string;
   listFilter: string;
 
-  constructor(private userCategoriesService: UserCategoriesService
-    , private orlpService: ORLPService) {
+  constructor(private userCategoriesService: UserCategoriesService,
+              private orlpService: ORLPService) {
   }
 
   ngOnInit(): void {
