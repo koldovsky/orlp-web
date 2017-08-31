@@ -2,8 +2,12 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {SignupService} from "./signup.service";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {User} from "../../dto/User";
-import {MessageDTO} from "../../dto/MessageDTO";
+import {User} from "../../../dto/User";
+import {MessageDTO} from "../../../dto/MessageDTO";
+import * as ORLPSettings from '../../../services/orlp.settings';
+import {AuthService} from "angular2-social-login";
+import {AuthorizationService} from "../authorization.service";
+import { ReCaptchaComponent } from 'angular2-recaptcha';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -15,7 +19,8 @@ function passwordMatcher(c: AbstractControl) {
 }
 
 @Component({
-  templateUrl: ('./signup.component.html')
+  templateUrl: ('./signup.component.html'),
+  styleUrls: ['./signup.component.css']
 })
 
 export class SignUpComponent implements OnInit {
@@ -25,11 +30,15 @@ export class SignUpComponent implements OnInit {
   mailNotSended: boolean;
   success: boolean;
   error: boolean;
+  public userSignIn;
   errorEmailExists: boolean;
-
+  siteKey = ORLPSettings.SITE_KEY;
+  captcha: string;
 
   constructor(private router: Router,
               private signupService: SignupService,
+              public auth: AuthService,
+              private authorizationService: AuthorizationService,
               private formBuilder: FormBuilder) {
   }
 
@@ -43,6 +52,53 @@ export class SignUpComponent implements OnInit {
         confirmPassword: ['', [Validators.required]],
       }, {validator: passwordMatcher})
     });
+  }
+
+  signInGoogle(provider: string) {
+    this.auth.login(provider).subscribe(
+      (data) => {
+        this.userSignIn = data;
+        console.log(this.userSignIn.idToken);
+        console.log(this.userSignIn.email);
+        this.sendGoogleToken();
+      }
+    )
+  }
+
+  sendGoogleToken() {
+    this.authorizationService.sendGoogleIdToken(this.userSignIn.idToken)
+      .subscribe((response) => {
+        this.success = true;
+        this.router.navigate(['main']);
+        this.reload();
+      }, (error) => {
+        this.processError(error);
+      });
+  }
+  signInFacebook(provider: string) {
+    this.auth.login(provider).subscribe(
+      (data) => {
+        this.userSignIn = data;
+        console.log(this.userSignIn.token);
+        console.log(this.userSignIn.email);
+        this.sendFacebookToken();
+      }
+    )
+  }
+
+  sendFacebookToken() {
+    this.authorizationService.sendFacebookToken(this.userSignIn.token)
+      .subscribe((response) => {
+        this.success = true;
+        this.router.navigate(['main']);
+        this.reload();
+      }, (error) => {
+        this.processError(error);
+      });
+  }
+
+  reload() {
+    window.location.reload();
   }
 
   register(): void {
@@ -69,6 +125,10 @@ export class SignUpComponent implements OnInit {
     this.user.person.lastName = this.userForm.value.lastName;
   }
 
+  handleCorrectCaptcha($event) {
+    this.captcha = $event;
+  }
+
   private processError(response) {
     console.log(this.responseMessage.message);
     if (response.status === 404 && this.responseMessage.message === 'Email exists') {
@@ -82,6 +142,10 @@ export class SignUpComponent implements OnInit {
     } else {
       this.error = true;
     }
+  }
+
+  validSignUp(): boolean {
+    return this.userForm.valid && (this.captcha != null);
   }
 
 }

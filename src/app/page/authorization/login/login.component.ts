@@ -4,10 +4,11 @@ import {LoginService} from './login.service';
 import {AuthService} from 'angular2-social-login';
 import {Router} from '@angular/router';
 import {AccountVerificationService} from '../signup/accountVerification/accountVerification.service';
-import {LoginAccount} from '../../dto/LoginAccount';
+import {LoginAccount} from '../../../dto/LoginAccount';
 import { ViewChild } from '@angular/core';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
-import * as ORLPSettings from  '../../services/orlp.settings';
+import * as ORLPSettings from '../../../services/orlp.settings';
+import {AuthorizationService} from "../authorization.service";
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
               private loginService: LoginService,
               public auth: AuthService,
               private router: Router,
+              private authorizationService: AuthorizationService,
               private accountVerify: AccountVerificationService) {
   }
 
@@ -82,6 +84,17 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  sendGoogleToken() {
+    this.authorizationService.sendGoogleIdToken(this.user.idToken)
+      .subscribe((response) => {
+        this.success = true;
+        this.router.navigate(['main']);
+        this.reload();
+      }, (error) => {
+        this.processError(error);
+      });
+  }
+
   signInFacebook(provider: string) {
     this.auth.login(provider).subscribe(
       (data) => {
@@ -94,7 +107,7 @@ export class LoginComponent implements OnInit {
   }
 
   sendFacebookToken() {
-    this.loginService.sendFacebookToken(this.user.token)
+    this.authorizationService.sendFacebookToken(this.user.token)
       .subscribe((response) => {
         this.success = true;
         this.router.navigate(['main']);
@@ -102,18 +115,6 @@ export class LoginComponent implements OnInit {
       }, (error) => {
         this.processError(error);
       });
-  }
-
-  sendGoogleToken() {
-    this.loginService.sendGoogleIdToken(this.user.idToken)
-      .subscribe((response) => {
-        this.success = true;
-        this.router.navigate(['main']);
-        this.reload();
-      }, (error) => {
-        this.processError(error);
-      });
-
   }
 
   reload() {
