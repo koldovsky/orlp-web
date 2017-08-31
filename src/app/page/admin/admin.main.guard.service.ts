@@ -6,8 +6,7 @@ import {LogoutService} from '../logout/logout.service';
 export class AdminGuardService implements CanActivate {
   isAdmin: boolean;
 
-  constructor(private logoutService: LogoutService,
-              private router: Router) {
+  constructor(private router: Router) {
   }
 
   canActivate(): boolean {
