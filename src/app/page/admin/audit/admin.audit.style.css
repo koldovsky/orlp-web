@@ -1,5 +1,6 @@
-th:hover{
+th:hover {
   color: #000;
   background-color: #e1d7e8;
   border-color: #6c757d;
+  cursor: pointer;
 }

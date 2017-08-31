@@ -2,36 +2,32 @@
   <div class="col-md-12 mt-4 font-color-white text-center">
     <h2 class="header-text" *ngIf="course">{{course.name.toString()}}</h2>
   </div>
-  <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
-
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-    <table class="table table-striped" *ngIf="course">
-      <tbody>
-      <tr>
-        <th>Course Name</th>
-        <th>Coourse Description</th>
-        <th class="alignCenter">Rating</th>
-        <th class="alignCenter">Subscribe</th>
-      </tr>
-      <tr>
-        <td>{{course.name}}</td>
-        <td>{{course.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="course.rating"></star-rating-comp>
-        </td>
-        <td class="alignCenter">
-          <div>
-            <div id="button" (click)="addCourseToUser()"
-                 [className]="addCourseToUserButton">
-            </div>
+  <div class='has-error col-12' *ngIf='errorMessage'>{{errorMessage}}</div>
+  <table class="table table-striped" *ngIf="course">
+    <tbody>
+    <tr>
+      <th>Course Name</th>
+      <th>Coourse Description</th>
+      <th class="alignCenter">Rating</th>
+      <th class="alignCenter">Subscribe</th>
+    </tr>
+    <tr>
+      <td>{{course.name}}</td>
+      <td>{{course.description}}</td>
+      <td>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                          [rating]="course.rating"></star-rating-comp>
+      </td>
+      <td class="alignCenter">
+        <div>
+          <div id="button" (click)="addCourseToUser()"
+               [className]="addCourseToUserButton">
           </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <div class="col-md-12 mt-4 font-color-white text-center">
     <h4 class="header-text" *ngIf="course">Course contains decks</h4>
   </div>

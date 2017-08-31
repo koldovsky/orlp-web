@@ -1,27 +1,26 @@
 <div class="container">
-    <div class="row">
-        <div *ngIf="courses">
-            <table class="table table-striped admins-tables">
-                <thead>
-                <tr class="admins-tables-header">
-                    <th>#</th>
-                    <th>Course Name</th>
-                    <th>Course Description</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
-                    <td>
-                        <div>
-                            <img [src]="course.image" style="height: 50px">
-                        </div>
-                    </td>
-                    <td>{{course.name}}</td>
-                    <td>{{course.description}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+  <div class="row">
+    <div *ngIf="courses" class="col-12">
+      <table class="table table-striped admins-tables">
+        <thead>
+        <tr class="admins-tables-header">
+          <th>#</th>
+          <th>Course Name</th>
+          <th>Course Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
+          <td>
+            <div>
+              <img [src]="course.image" style="height: 50px">
+            </div>
+          </td>
+          <td>{{course.name}}</td>
+          <td>{{course.description}}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>

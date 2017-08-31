@@ -56,6 +56,7 @@
   width: 25px;
   height: 25px;
 }
+
 .addToFolderImg:hover {
   transform: scale(0.9);
 }
@@ -63,6 +64,7 @@
 .alignCenter {
   text-align: center;
 }
+
 .button {
   background-size: contain;
   width: 25px;
@@ -73,16 +75,25 @@
 .addDeckToUserButtonActive {
   background-image: url("../../../assets/images/add.png");
 }
+
 .addDeckToUserButtonActive:hover {
   transform: scale(0.9);
 }
-.addDeckToUserButtonInActive{
+
+.addDeckToUserButtonInActive {
   background-image: url("../../../assets/images/add.png");
   opacity: 0.1;
 }
-.addDeckToUserButtonChecked{
+
+.addDeckToUserButtonChecked {
   background-image: url("../../../assets/images/checked.png");
 }
+
 .addDeckToUserButtonChecked:hover {
   transform: scale(0.9);
+}
+
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
 }
