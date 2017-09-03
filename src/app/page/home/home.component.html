@@ -1,53 +1,61 @@
 <div class="container">
-    <main>
-        <!-- CATEGORIES -->
-        <div class="row mt-4 mb-4">
-            <div class="col-md-12 mt-4 font-color-white text-center">
-                <h2 class="header-text">Categories</h2>
-            </div>
-        </div>
+  <main>
+    <!-- CATEGORIES -->
+    <div class="row mt-4 mb-4">
+      <div class="col-md-12 mt-4 font-color-white text-center">
+        <h2 class="header-text">Categories</h2>
+      </div>
+    </div>
 
-        <div class="row">
-            <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
-                 [routerLink]="['/category', getCategoryLink(category.self)]">
-                <div class="card mp-card">
-                    <img id = "category-img" [src]="category.image" class="mx-auto d-block rounded-main card-img-top">
-                    <div class="card-block text-center">
-                        <h4>
-                            <p class="card-text">{{category.name}}</p>
-                        </h4>
-                    </div>
-                </div>
-                <br/>
-            </div>
+    <div class="row">
+      <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
+           [routerLink]="['/category', getCategoryLink(category.self)]">
+        <div class="card mp-card">
+          <img id="category-img" [src]="category.image" class="mx-auto d-block rounded-main card-img-top">
+          <div class="card-block text-center">
+            <h4>
+              <p class="card-text">{{category.name}}</p>
+            </h4>
+          </div>
         </div>
-        <!-- COURSES -->
-        <div class="row mt-5 mb-4">
-            <div class="col-md-12 font-color-white text-center">
-                <h2 class="header-text">Top Courses</h2>
-            </div>
-        </div>
+        <br/>
+      </div>
+    </div>
+    <!-- COURSES -->
+    <div class="row mt-5 mb-4">
+      <div class="col-md-12 font-color-white text-center">
+        <h2 class="header-text">Top Courses</h2>
+      </div>
+    </div>
 
-        <div class="row">
-            <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
-                 [routerLink]="['/course/top', getCourseLink(course.self)]">
-                <div class="card mp-card">
-                    <img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top">
-                    <div class="card-block text-center">
-                        <h4>
-                            <p class="card-text">{{course.name}}</p>
-                        </h4>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+      <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
+           [routerLink]="['/course/top', getCourseLink(course.self)]">
+        <div class="card mp-card">
+          <img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top">
+          <div class="card-block text-center">
+            <h4>
+              <p class="card-text">{{course.name}}</p>
+            </h4>
+          </div>
         </div>
-    </main>
-    <footer>
-        <div class="row ml-xl-5 mt-5">
-            <h1 id="site-description-head">What is Spaced Repetition?</h1>
-        </div>
-        <div class="row justify-content-center">
-            <div id="site-description-main" class="col-6">Spaced Repetition this is the best site!</div>
-        </div>
-    </footer>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="row ml-xl-5 mt-5">
+      <h1 id="site-description-head">What is Spaced Repetition?</h1>
+    </div>
+    <div class="row justify-content-center">
+      <div id="site-description-main" class="col-6">
+        <p>
+          Spaced repetition is a learning technique that incorporates
+          increasing intervals of time between subsequent review of previously
+          learned material in order to exploit the psychological spacing effect.
+          More information about it you can find
+          <a href="https://en.wikipedia.org/wiki/Spaced_repetition" target="_blank" alt="Spaced repetition">here</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
 </div>

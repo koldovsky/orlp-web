@@ -1,18 +1,18 @@
 <div>
   <table class="table table-striped" *ngFor="let course of courses">
     <thead class="course-head" (click)="showDecks(course)">
-      <tr>
-        <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
-        <td>{{course.name}}</td>
-        <td>{{course.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                            [rating]="course.rating"></star-rating-comp>
-        </td>
-      </tr>
+    <tr>
+      <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
+      <td>{{course.name}}</td>
+      <td>{{course.description}}</td>
+      <td>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                          [rating]="course.rating"></star-rating-comp>
+      </td>
+    </tr>
     </thead>
     <tbody *ngIf="course.name === clickedCourse">
-    <tr *ngFor="let deck of decks">
+    <tr *ngFor="let deck of decks" class="table-row">
       <td></td>
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>

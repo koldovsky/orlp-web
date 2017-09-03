@@ -1,38 +1,36 @@
 <div class="container">
-  <div class="row justify-content-center align-items-center">
+  <div class="row">
     <div class="col-xs-12 col-sm-4 font-color-white header-text">
-      <h1 class="font-color-white header-text">All Categories</h1>
+      <h1>All Categories</h1>
     </div>
     <div class="col-xs-12 col-sm-6">
       <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
     </div>
   </div>
-  <div class="row justify-content-center align-items-center">
-    <div class="col-xs-12">
-      <div *ngIf="categories">
-        <table class="table table-striped admins-tables">
-          <tr class="admins-tables-header">
-            <th>#</th>
-            <th>Category Name</th>
-            <th>Category Description</th>
-            <th></th>
-          </tr>
-          <tr *ngFor="let category of categories | categoryFilter:listFilter">
-            <td>
-              <div>
-                <img [src]="category.image" class="category-image">
-              </div>
-            </td>
-            <td>{{category.name}}</td>
-            <td>{{category.description}}</td>
-            <td>
-              <div>
-                <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
-              </div>
-            </td>
-          </tr>
-        </table>
-      </div>
+  <div class="row">
+    <div *ngIf="categories" class="col-12">
+      <table class="table table-striped admins-tables">
+        <tr class="admins-tables-header">
+          <th>#</th>
+          <th>Category Name</th>
+          <th>Category Description</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let category of categories | categoryFilter:listFilter">
+          <td>
+            <div>
+              <img [src]="category.image" class="category-image">
+            </div>
+          </td>
+          <td>{{category.name}}</td>
+          <td>{{category.description}}</td>
+          <td>
+            <div>
+              <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

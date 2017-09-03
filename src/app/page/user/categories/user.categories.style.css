@@ -1,0 +1,4 @@
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
