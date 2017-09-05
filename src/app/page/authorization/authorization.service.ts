@@ -1,14 +1,10 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {ORLPService} from "../../services/orlp.service";
 import {Response} from '@angular/http';
-import 'rxjs/add/operator/map';
-import {LoginAccount} from '../../dto/LoginAccount';
-import {ORLPService} from '../../services/orlp.service';
-
+import {Injectable} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class LoginService {
-
+export class AuthorizationService{
   constructor(private orlp: ORLPService) {
   }
 
@@ -24,18 +20,7 @@ export class LoginService {
       .catch(this.handleErrorObservable);
   }
 
-  signIn(account: LoginAccount): Observable<Response> {
-    return this.orlp.post('api/auth', account);
-  }
-
-  private extractData(res: Response) {
-    const body = res.json();
-    return body;
-  }
-
   private handleErrorObservable(error: Response | any) {
     return Observable.throw(error.message || error);
   }
 }
-
-

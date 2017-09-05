@@ -1,23 +1,53 @@
+.container {
+  margin-top: 20px;
+}
+
 /*MENU*/
 .vertical-menu {
+  float: left;
   cursor: pointer !important;
-  margin-top: 20px;
   width: 200px;
 }
 
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
 /*FOLDER AND COURSES*/
-table {
-  float: right;
-  margin-right: 200px;
+.folder, .course {
+  margin-left: 300px;
   background-color: white;
-  width: 50%;
+  width: 60%;
 }
 
 .folder-head, .course-head, .btn-sm {
   cursor: pointer;
 }
 
-.course-img {
-  width: 40px;
-  height: 40px;
+.course-img, .folder-img {
+  width: 50px;
+  height: 50px;
+}
+
+.deck-img {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+.folder-content {
+  float: left;
 }
