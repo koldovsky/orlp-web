@@ -8,7 +8,7 @@ import {LoginAccount} from '../../../dto/LoginAccount';
 import { ViewChild } from '@angular/core';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
-import {AuthorizationService} from "../authorization.service";
+import {AuthorizationService} from '../authorization.service';
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   account: LoginAccount;
   captcha: string;
   siteKey = ORLPSettings.SITE_KEY;
+  UNAUTHORIZED: number = 401;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
@@ -36,12 +37,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.accountVerify.getMessage().subscribe(verifStatus => {
-      this.verificationStat = verifStatus
+      this.verificationStat = verifStatus;
     });
     this.loginForm = this.fb.group({
       password: ['', [Validators.required]],
       username: ['', [Validators.required]],
-    })
+    });
   }
 
   login = () => {
@@ -60,16 +61,14 @@ export class LoginComponent implements OnInit {
         this.processError(error);
         this.captchaComponent.reset();
       });
-  };
+  }
 
   private processError(response) {
     this.success = false;
-    if (response.status === 401) {
+    if (response.status === this.UNAUTHORIZED) {
       this.wrongDetails = true;
-      console.log(response.status);
     } else {
       this.error = true;
-      console.log(response.status);
     }
   }
 
@@ -81,7 +80,7 @@ export class LoginComponent implements OnInit {
         console.log(this.user.email);
         this.sendGoogleToken();
       }
-    )
+    );
   }
 
   sendGoogleToken() {
@@ -103,7 +102,7 @@ export class LoginComponent implements OnInit {
         console.log(this.user.email);
         this.sendFacebookToken();
       }
-    )
+    );
   }
 
   sendFacebookToken() {
