@@ -21,7 +21,7 @@ export class AdminUserService {
       .catch(this.handleError);
   }
 
-  activeteAccountState(body: AdminUsers, url: string) {
+  activateAccountState(body: AdminUsers, url: string) {
     return this.orlp.post(url, body)
       .map((response: Response) => <AdminUsers> DTOConverter.jsonToAdminUsers(response.json()))
       .catch(this.handleError);
