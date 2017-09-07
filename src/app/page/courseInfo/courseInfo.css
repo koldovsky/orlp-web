@@ -47,6 +47,7 @@ td img {
 .alignCenter {
   text-align: center;
 }
+
 #button {
   background-size: contain;
   width: 25px;
@@ -61,14 +62,22 @@ td img {
 .addCourseToUserButtonActive:hover {
   transform: scale(0.9);
 }
-.addCourseToUserButtonInActive{
+
+.addCourseToUserButtonInActive {
   background-image: url("../../../assets/images/add.png");
   opacity: 0.1;
 }
-.addCourseToUserButtonChecked{
+
+.addCourseToUserButtonChecked {
   background-image: url("../../../assets/images/checked.png");
 }
+
 .addCourseToUserButtonChecked:hover {
   transform: scale(0.9);
+}
+
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
 }
 

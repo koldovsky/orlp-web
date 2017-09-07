@@ -9,7 +9,7 @@ import {User} from '../../../dto/User';
 export class SignupService {
   private _controllerUrl = 'api/registration';
 
-  constructor(private _orlp: ORLPService, private http: Http) {
+  constructor(private _orlp: ORLPService) {
   }
 
 
