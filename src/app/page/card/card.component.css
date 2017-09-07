@@ -15,6 +15,10 @@
   margin-top: 2%;
 }
 
+.btn {
+  cursor: pointer;
+}
+
 .rotate {
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
@@ -40,6 +44,16 @@
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
   position: relative;
+}
+
+.question-was {
+  float: left;
+  position: absolute;
+  margin-top: 30px;
+}
+
+.correct-answer-header {
+  color: green;
 }
 
 /* hide back of pane during swap */
@@ -118,7 +132,7 @@
   margin-top: 50px;
 }
 
-.button-difficult{
+.button-difficult {
   width: 10rem;
 }
 
