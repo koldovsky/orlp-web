@@ -78,9 +78,9 @@ export class DeckComponent implements OnInit {
     return this.logoutService.isAuthorized();
   }
 
-
   getCardsLink(link: Link): string {
-    return this.orlpService.getShortLink(link);
+    const shortLink =  this.orlpService.getShortLink(link);
+    return this.orlpService.decodeLink(shortLink);
   }
 
   startLearning(cards: Link): void {

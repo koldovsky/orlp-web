@@ -10,6 +10,7 @@ import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO'
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
+  public static deckId: number;
   public routing = false;
   public questionNumber = 0;
   public answer = '';
@@ -19,23 +20,19 @@ export class CardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private orlp: ORLPService,
               private cardService: CardService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        let url = params['url'];
-        url = this.orlp.decodeLink(url);
-        this.url = url;
+        this.url = params['url'];
       }
     );
 
     this.cardService.getCards(this.url).subscribe(
       cards => {
         this.cards = cards;
-        console.log(cards);
       }
     );
   }
@@ -61,8 +58,7 @@ export class CardComponent implements OnInit {
 
   sendStatus(status: string) {
     this.cardStatus = new UserCardQueuePublicDTO(status);
-    console.log(this.cardStatus.status);
-    this.cardService.sendStatus(this.cardStatus, this.cards[this.questionNumber].cardId)
+    this.cardService.sendStatus(this.cardStatus, this.cards[this.questionNumber].cardId, CardComponent.deckId)
       .subscribe(
         () => {},
         () => {});

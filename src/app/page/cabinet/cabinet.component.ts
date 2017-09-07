@@ -4,9 +4,9 @@ import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {ORLPService} from '../../services/orlp.service';
 import {Router} from '@angular/router';
-import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
+import {CardComponent} from "../card/card.component";
 
 @Component({
   providers: [CabinetService],
@@ -17,11 +17,12 @@ import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
 export class CabinetComponent implements OnInit {
   public user: UsersDTO;
   public courses: CourseLink[];
-  public decks: DeckDTO[];
+  public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
   public showFolderDecks: any;
   public chosenCourse: CourseLink;
+  public deleteDeck: DeckLinkByCategory;
 
   constructor(private cabinetService: CabinetService,
               private orlpService: ORLPService,
@@ -53,12 +54,9 @@ export class CabinetComponent implements OnInit {
       .subscribe(decks => this.decks = decks);
   }
 
-  getCardsLink(link: Link): string {
-    return this.orlpService.getShortLink(link);
-  }
-
-  startLearning(cards: Link): void {
-    this.router.navigate(['/cards', this.getCardsLink(cards)]);
+  startLearning(deckId: number): void {
+    this.router.navigate(['/cards', '/api/category/decks/' + deckId + '/learn/cards']);
+    CardComponent.deckId = deckId;
   }
 
   getFolderDecks() {
@@ -108,6 +106,13 @@ export class CabinetComponent implements OnInit {
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
       .subscribe((response) => {
         console.log();
+      });
+  }
+
+  deleteFolderDeck(deck: DeckLinkByCategory) {
+    this.cabinetService.deleteDeck(deck.deckId)
+      .subscribe(() => {
+        this.getFolderDecks();
       });
   }
 }

@@ -22,8 +22,8 @@ export class CardService {
       .catch(this.handleError);
   }
 
-  public sendStatus(userCardQueue: UserCardQueuePublicDTO, card_id: number) {
-    return this.orlp.post('api/user/deck/1/card/' + card_id + '/queue', userCardQueue);
+  public sendStatus(userCardQueue: UserCardQueuePublicDTO, card_id: number, deckId: number) {
+    return this.orlp.post('api/user/deck/' + deckId + '/card/' + card_id + '/queue', userCardQueue);
   }
 
   private handleError(error: Response) {

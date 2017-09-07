@@ -6,7 +6,6 @@
         <h2 class="header-text">Categories</h2>
       </div>
     </div>
-
     <div class="row">
       <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
            [routerLink]="['/category', getCategoryLink(category.self)]">
@@ -27,7 +26,6 @@
         <h2 class="header-text">Top Courses</h2>
       </div>
     </div>
-
     <div class="row">
       <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
            [routerLink]="['/course/top', getCourseLink(course.self)]">

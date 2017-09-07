@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 import {Link} from '../dto/link';
 import * as ORLPSettings from './orlp.settings';
 
-
 @Injectable()
 export class ORLPService {
 

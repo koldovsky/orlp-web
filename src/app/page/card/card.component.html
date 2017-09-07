@@ -23,19 +23,24 @@
             </h1>
           </div>
           <div class="content">
-            <div class="main">
+            <div class="main" style="margin-bottom: -10px;">
               <div class="row">
                 <div class="col-sm-6">
                   <div class="card">
+                    <h5>Your answer</h5>
                     <textarea readonly>{{answer}}</textarea>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="card">
+                    <h5 class="correct-answer-header">Correct answer</h5>
                     <textarea readonly>{{cards[questionNumber].answer}}</textarea>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="question-was">
+              <h5>The question was:</h5>
             </div>
             <div class=" row justify-content-center align-items-center">
               <button class="btn btn-danger button-difficult mt-4 mx-1" (click)="sendStatus('BAD')">TOO HARD</button>

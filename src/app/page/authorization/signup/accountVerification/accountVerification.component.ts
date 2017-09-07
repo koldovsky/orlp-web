@@ -17,7 +17,6 @@ export class AccountVerificationComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.token = params['token'];
-      console.log('token= ' + this.token);
     });
 
   }
