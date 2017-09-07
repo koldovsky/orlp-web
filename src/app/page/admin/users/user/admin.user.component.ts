@@ -19,7 +19,7 @@ export class AdminUserComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
-              private adminUserSevice: AdminUserService) {
+              private adminUserService: AdminUserService) {
   }
 
   ngOnInit(): void {
@@ -34,30 +34,30 @@ export class AdminUserComponent implements OnInit {
 
   private takeUser(): void {
     this.decodeLink();
-    this.adminUserSevice.getUser(this.url).subscribe(
-      user => this.user = user);
+    this.adminUserService.getUser(this.url)
+      .subscribe(user => this.user = user);
   }
 
   private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  activeteAccountStatus(currentUser: AdminUsers): void {
-    this.adminUserSevice.activeteAccountState(currentUser, this.url).subscribe(
+  activateAccountStatus(currentUser: AdminUsers): void {
+    this.adminUserService.activateAccountState(currentUser, this.url).subscribe(
       user => this.user = user,
       error => console.log(error)
     );
   }
 
   blockAccountStatus(currentUser: AdminUsers): void {
-    this.adminUserSevice.updateAccountState(currentUser, this.url).subscribe(
+    this.adminUserService.updateAccountState(currentUser, this.url).subscribe(
       user => this.user = user,
       error => console.log(error)
     );
   }
 
   deleteAccountStatus(): void {
-    this.adminUserSevice.deleteAccountState(this.url).subscribe(
+    this.adminUserService.deleteAccountState(this.url).subscribe(
       user => this.user = user,
       error => console.log(error)
     );
@@ -79,7 +79,7 @@ export class AdminUserComponent implements OnInit {
         this.blockAccountStatus(this.user);
       }
     } else {
-      this.activeteAccountStatus(this.user);
+      this.activateAccountStatus(this.user);
     }
   }
 }
