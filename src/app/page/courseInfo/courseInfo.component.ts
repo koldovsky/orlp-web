@@ -9,7 +9,6 @@ import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 @Component({
   templateUrl: ('./courseInfo.component.html'),
   styleUrls: ['./courseInfo.css']
-
 })
 export class CourseInfoComponent implements OnInit {
   private url: string;
