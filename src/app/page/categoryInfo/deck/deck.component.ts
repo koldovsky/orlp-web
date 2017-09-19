@@ -91,6 +91,7 @@ export class DeckComponent implements OnInit {
     for (const entry of this.decksWithStatus) {
       if (entry.deckId === deckId) {
         entry.status = !entry.status;
+        break;
       }
     }
   }
