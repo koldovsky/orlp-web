@@ -48,6 +48,7 @@
   height: 30px;
 }
 
-.folder-content {
-  float: left;
+.my-deck {
+  display: inline-block;
+  margin-left: 20px;
 }
