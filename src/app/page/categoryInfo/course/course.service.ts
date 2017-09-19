@@ -13,7 +13,23 @@ import {Link} from '../../../dto/link';
 
 @Injectable()
 export class CourseService {
+  private urlAddCourseToUser = 'api/user/courses/';
+
   constructor(private orlp: ORLPService) {
+  }
+
+  addCourseToUser(courseId: number) {
+    return this.orlp.put(this.urlAddCourseToUser + courseId, {})
+      .map((response: Response) => console.log(response))
+      .catch(this.handleError);
+  }
+
+  getCoursesIdOfTheUser(): Observable<number[]> {
+    return this.orlp.get("api/private/user/courses")
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch(this.handleError);
   }
 
   getCourse(url: string): Observable<CourseLink[]> {

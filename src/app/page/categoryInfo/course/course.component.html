@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-striped" *ngFor="let course of courses">
+  <table class="table table-striped" *ngFor="let course of coursesWithStatus">
     <thead class="course-head" (click)="showDecks(course)">
     <tr>
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
@@ -8,6 +8,20 @@
       <td>
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
                           [rating]="course.rating"></star-rating-comp>
+      </td>
+      <td class="alignCenter">
+        <div *ngIf="!course.status">
+          <div (click)="addCourseToUser(course.courseId)" *ngIf="isAuthorized()"
+               class="button addDeckToUserButtonActive"
+               title="Subscribe to the course"></div>
+        </div>
+        <div *ngIf="course.status">
+          <div (click)="addCourseToUser(course.courseId)" *ngIf="isAuthorized()"
+               class="button addDeckToUserButtonChecked"
+               title="You are already subscribed to that course"></div>
+        </div>
+        <div *ngIf="!isAuthorized()" class="button addDeckToUserButtonInActive"
+             title="Please Sign In to be able to subscribe to the courses"></div>
       </td>
     </tr>
     </thead>
