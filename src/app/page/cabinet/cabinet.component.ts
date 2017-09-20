@@ -34,7 +34,7 @@ export class CabinetComponent implements OnInit {
     this.getUser();
   }
 
-  onRatingClick = (course: CourseLink, event:IStarRatingOnClickEvent) => {
+  onRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     course.rating = event.rating;
     this.cabinetService.addCourseRating(course);
   }
@@ -100,10 +100,11 @@ export class CabinetComponent implements OnInit {
   }
 
   getCategoryDecks(course: CourseLink) {
+    this.getDecks(course.decks);
     this.chosenCourse = course;
     this.cabinetService.getCategoryDecks(course.categoryId)
       .subscribe((decks) => {
-        this.categoryDecks = decks;
+        this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
       });
   }
 
