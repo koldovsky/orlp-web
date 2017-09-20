@@ -33,17 +33,17 @@ export class CourseComponent implements OnInit {
     this.courseService.getCourse(this.url).subscribe(
       courses => {
         this.courses = courses;
-        if (this.isAuthorized()) {
+        if (this.isAuthorized) {
           this.getCoursesIdOfTheUser();
         }
       });
     this.isAuthorized = this.logoutService.isAuthorized();
   }
 
-  onRatingClick = (course: CourseLink, event:IStarRatingOnClickEvent) => {
+  onRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
     course.rating = event.rating;
     this.courseService.addCourseRating(course);
-  }
+  };
 
   getCoursesIdOfTheUser() {
     this.courseService.getCoursesIdOfTheUser().subscribe(
@@ -73,7 +73,8 @@ export class CourseComponent implements OnInit {
         entry.self,
         entry.decks,
         entry.courseId,
-        false
+        false,
+        entry.rating
       ));
     }
     this.setStatusForCoursesOfTheUser();
@@ -96,10 +97,6 @@ export class CourseComponent implements OnInit {
   showDecks(course: CourseLinkWithStatus) {
     this.getDecks(course);
     this.clickedCourse = (this.clickedCourse === course.name) ? false : course.name;
-  }
-
-  isAuthorized(): boolean {
-    return this.logoutService.isAuthorized();
   }
 
   changeCourseStatus(courseId: number) {

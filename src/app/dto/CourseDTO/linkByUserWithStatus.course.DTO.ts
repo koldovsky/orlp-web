@@ -8,8 +8,9 @@ export class CourseLinkWithStatus {
   public decks: Link;
   public courseId: number;
   public status: boolean;
+  public rating: number;
 
-  constructor(name: string, description: string, image: string, self: Link, decks: Link, courseId: number, status: boolean) {
+  constructor(name: string, description: string, image: string, self: Link, decks: Link, courseId: number, status: boolean, rating: number) {
     this.name = name;
     this.description = description;
     this.image = image;
@@ -17,5 +18,6 @@ export class CourseLinkWithStatus {
     this.decks = decks;
     this.courseId = courseId;
     this.status = status;
+    this.rating = rating;
   }
 }
