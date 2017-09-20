@@ -5,10 +5,14 @@
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
-      <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                          [rating]="course.rating"></star-rating-comp>
+      <td *ngIf="isAuthorized;else unAuthorized">
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="course.rating" (onClick)="onRatingClick(course, $event)"></star-rating-comp>
       </td>
+      <ng-template #unAuthorized>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+      </ng-template>
     </tr>
     </thead>
     <tbody *ngIf="course.name === clickedCourse">
@@ -17,7 +21,7 @@
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>
       <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="!isAuthorized"
                           [rating]="deck.rating"></star-rating-comp>
       </td>
     </tr>

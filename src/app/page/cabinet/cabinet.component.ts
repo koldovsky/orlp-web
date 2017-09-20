@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
 import {CardComponent} from "../card/card.component";
+import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 
 @Component({
   providers: [CabinetService],
@@ -33,6 +34,10 @@ export class CabinetComponent implements OnInit {
     this.getUser();
   }
 
+  onRatingClick = (course: CourseLink, event:IStarRatingOnClickEvent) => {
+    course.rating = event.rating;
+    this.cabinetService.addCourseRating(course);
+  }
   getUser(): void {
     this.cabinetService.getUser()
       .subscribe(user => {

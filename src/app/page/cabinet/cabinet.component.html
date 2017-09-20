@@ -20,7 +20,7 @@
           <td class="folder-content">{{deck.name}}</td>
           <td class="folder-content">{{deck.description}}</td>
           <td>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="deck.rating"></star-rating-comp>
           </td>
           <td>
@@ -43,8 +43,8 @@
               <td>{{course.description}}</td>
           </div>
           <td>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                              [rating]="course.rating"></star-rating-comp>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="course.rating" (onClick)="onRatingClick(course, $event)"></star-rating-comp>
           </td>
           <td *ngIf="isOwner(course)&&course.published===false">
             <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
@@ -66,7 +66,7 @@
           <td>{{deck.name}}</td>
           <td>{{deck.description}}</td>
           <td>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="deck.rating"></star-rating-comp>
           </td>
           <td><button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button><td>
