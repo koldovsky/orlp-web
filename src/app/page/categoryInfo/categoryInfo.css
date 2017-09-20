@@ -72,24 +72,24 @@
   margin-left: 40%;
 }
 
-.addDeckToUserButtonActive {
+.SubscribeCheckboxActive {
   background-image: url("../../../assets/images/add.png");
 }
 
-.addDeckToUserButtonActive:hover {
+.SubscribeCheckboxActive:hover {
   transform: scale(0.9);
 }
 
-.addDeckToUserButtonInActive {
+.SubscribeCheckboxInActive {
   background-image: url("../../../assets/images/add.png");
   opacity: 0.1;
 }
 
-.addDeckToUserButtonChecked {
+.SubscribeCheckboxChecked {
   background-image: url("../../../assets/images/checked.png");
 }
 
-.addDeckToUserButtonChecked:hover {
+.SubscribeCheckboxChecked:hover {
   transform: scale(0.9);
 }
 

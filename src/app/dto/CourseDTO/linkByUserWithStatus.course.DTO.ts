@@ -1,6 +1,6 @@
 import {Link} from '../link';
 
-export class CourseLink {
+export class CourseLinkWithStatus {
   public name: string;
   public description: string;
   public image: string;

@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-striped" *ngFor="let course of courses">
+  <table class="table table-striped" *ngFor="let course of coursesWithStatus">
     <thead class="course-head" (click)="showDecks(course)">
     <tr>
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
@@ -9,10 +9,24 @@
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" (onClick)="onRatingClick(course, $event)"></star-rating-comp>
       </td>
-      <ng-template #unAuthorized>
+            <ng-template #unAuthorized>
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" [readOnly]="true"></star-rating-comp>
       </ng-template>
+      <td class="alignCenter">
+        <div *ngIf="!course.status">
+          <div (click)="addCourseToUser(course.courseId)" *ngIf="isAuthorized()"
+               class="button SubscribeCheckboxActive"
+               title="Subscribe to the course"></div>
+        </div>
+        <div *ngIf="course.status">
+          <div (click)="addCourseToUser(course.courseId)" *ngIf="isAuthorized()"
+               class="button SubscribeCheckboxChecked"
+               title="You are already subscribed to that course"></div>
+        </div>
+        <div *ngIf="!isAuthorized()" class="button SubscribeCheckboxInActive"
+             title="Please Sign In to be able to subscribe to the courses"></div>
+      </td>
     </tr>
     </thead>
     <tbody *ngIf="course.name === clickedCourse">
