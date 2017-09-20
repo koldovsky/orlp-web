@@ -6,6 +6,9 @@ import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
+import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
+
+
 @Component({
   templateUrl: ('./courseInfo.component.html'),
   styleUrls: ['./courseInfo.css']
@@ -19,6 +22,7 @@ export class CourseInfoComponent implements OnInit {
   course: CourseLinkWithId;
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
+  public isAuthorized: boolean;
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
@@ -33,6 +37,12 @@ export class CourseInfoComponent implements OnInit {
       }
     );
     this.takeCourse();
+    this.isAuthorized = this.logoutService.isAuthorized();
+  }
+
+  onRatingClick = (event:IStarRatingOnClickEvent) => {
+    this.course.rating = event.rating;
+    this.courseService.addCourseRating(this.course);
   }
 
   takeCourse() {
@@ -50,7 +60,7 @@ export class CourseInfoComponent implements OnInit {
     this.courseService.getDecks(course).subscribe(
       decks => {
         this.decks = decks;
-        if (this.isAuthorized()) {
+        if (this.isAuthorized) {
           this.getIdCoursesOwnByUser();
         }
         this.buttonManage();
@@ -91,10 +101,10 @@ export class CourseInfoComponent implements OnInit {
   }
 
   buttonManage() {
-    if (this.isAuthorized() && !this.course.isUserOwnCourse) {
+    if (this.isAuthorized && !this.course.isUserOwnCourse) {
       this.addCourseToUserButton = 'addCourseToUserButtonActive';
     } else {
-      if (this.isAuthorized() && this.course.isUserOwnCourse) {
+      if (this.isAuthorized && this.course.isUserOwnCourse) {
         this.addCourseToUserButton = 'addCourseToUserButtonChecked';
       } else{
         this.addCourseToUserButton = 'addCourseToUserButtonInActive';
@@ -106,9 +116,9 @@ export class CourseInfoComponent implements OnInit {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  isAuthorized(): boolean {
-    return this.logoutService.isAuthorized();
-  }
+  // isAuthorized(): boolean {
+  //   return this.logoutService.isAuthorized();
+  // }
 
   private toggleStatus(stat: boolean): boolean {
     if (stat === true) {
