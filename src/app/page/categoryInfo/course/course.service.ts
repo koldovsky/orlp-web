@@ -36,4 +36,9 @@ export class CourseService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
+
+  addCourseRating(course: CourseLink) {
+    return this.orlp.post('/api/private/course/' + course.courseId, course)
+      .subscribe((response: Response) => console.log(response));
+  }
 }
