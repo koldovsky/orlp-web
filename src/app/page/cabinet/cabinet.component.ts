@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {CabinetService} from './cabinet.service';
 import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
-import {ORLPService} from '../../services/orlp.service';
 import {Router} from '@angular/router';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
@@ -23,11 +22,10 @@ export class CabinetComponent implements OnInit {
   public showCourseDecks: any;
   public showFolderDecks: any;
   public chosenCourse: CourseLink;
-  public deleteDeck: DeckLinkByCategory;
 
   constructor(private cabinetService: CabinetService,
-              private orlpService: ORLPService,
               private router: Router) {
+
   }
 
   ngOnInit(): void {
@@ -43,6 +41,8 @@ export class CabinetComponent implements OnInit {
       .subscribe(user => {
           this.user = user;
           this.getUserCourses(user);
+          this.decks = null;
+          this.getDecks(this.user.folder);
         }
       );
   }
@@ -65,8 +65,6 @@ export class CabinetComponent implements OnInit {
   }
 
   getFolderDecks() {
-    this.decks = null;
-    this.getDecks(this.user.folder);
     this.showFolderDecks = !this.showFolderDecks;
     this.showCourseDecks = false;
   }
@@ -109,7 +107,7 @@ export class CabinetComponent implements OnInit {
 
   addDeckToCourse(deck: DeckLinkByCategory) {
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
-      .subscribe((response) => {
+      .subscribe(() => {
         console.log();
       });
   }
@@ -117,7 +115,8 @@ export class CabinetComponent implements OnInit {
   deleteFolderDeck(deck: DeckLinkByCategory) {
     this.cabinetService.deleteDeck(deck.deckId)
       .subscribe(() => {
-        this.getFolderDecks();
-      });
+          this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
+        },
+        error => console.log("Deleting the deck wasn't successful."));
   }
 }

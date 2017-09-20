@@ -26,15 +26,6 @@ export class DeckComponent implements OnInit {
               private logoutService: LogoutService) {
   }
 
-  addDeckToFolder(deckId: number): void {
-    this.deckService.addDeckToFolder(deckId).subscribe(
-      data => {
-        this.changeDeckStatus(deckId);
-      },
-      error => console.log(error)
-    );
-  }
-
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
     this.isAuthorized = this.logoutService.isAuthorized();
@@ -49,6 +40,15 @@ export class DeckComponent implements OnInit {
       });
   }
 
+  addDeckToFolder(deckId: number): void {
+    this.deckService.addDeckToFolder(deckId).subscribe(
+      () => {
+        this.changeDeckStatus(deckId);
+      },
+      error => console.log(error)
+    );
+  }
+
   getIdDecksInYourFolder() {
     this.deckService.getIdDecksInYourFolder().subscribe(
       id => {
@@ -59,8 +59,8 @@ export class DeckComponent implements OnInit {
 
   createDecksWithStatus() {
     for (const entry of this.decks) {
-      this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name
-        , entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
+      this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name,
+        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
     }
     this.setStatusForDecksThatInFolder();
   }
@@ -88,7 +88,8 @@ export class DeckComponent implements OnInit {
   changeDeckStatus(deckId: number) {
     for (const entry of this.decksWithStatus) {
       if (entry.deckId === deckId) {
-        entry.status = true;
+        entry.status = !entry.status;
+        break;
       }
     }
   }
