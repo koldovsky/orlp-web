@@ -15,8 +15,9 @@ import {LogoutService} from '../../logout/logout.service';
 export class DeckComponent implements OnInit {
 
   public decks: DeckLinkByCategory[];
-  private decksWithStatus: DeckLinkByFolderWithStatus[] = [];
+  public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
   public decksIdInYourFolder: number[] = [];
+  public isAuthorized: boolean;
   @Input() url: string;
 
   constructor(private deckService: DeckService,
@@ -27,10 +28,11 @@ export class DeckComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
+    this.isAuthorized = this.logoutService.isAuthorized();
     this.deckService.getDecks(this.url)
       .subscribe(decks => {
         this.decks = decks;
-        if (this.isAuthorized()) {
+        if (this.isAuthorized) {
           this.getIdDecksInYourFolder();
         } else {
           this.createDecksWithStatus();
@@ -74,10 +76,6 @@ export class DeckComponent implements OnInit {
     }
   }
 
-  isAuthorized(): boolean {
-    return this.logoutService.isAuthorized();
-  }
-
   getCardsLink(link: Link): string {
     const shortLink =  this.orlpService.getShortLink(link);
     return this.orlpService.decodeLink(shortLink);
@@ -91,6 +89,7 @@ export class DeckComponent implements OnInit {
     for (const entry of this.decksWithStatus) {
       if (entry.deckId === deckId) {
         entry.status = !entry.status;
+        break;
       }
     }
   }

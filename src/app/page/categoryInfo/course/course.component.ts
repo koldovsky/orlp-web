@@ -5,6 +5,7 @@ import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {CourseLinkWithStatus} from '../../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
+import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 
 @Component({
   selector: 'app-course-table',
@@ -16,6 +17,7 @@ export class CourseComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckPublic[];
   public clickedCourse: any;
+  public isAuthorized: boolean;
   @Input() url: string;
   private coursesIdOfTheUser: number[] = [];
   private coursesWithStatus: CourseLinkWithStatus[] = [];
@@ -24,6 +26,7 @@ export class CourseComponent implements OnInit {
               private orlpService: ORLPService,
               private logoutService: LogoutService) {
   }
+
 
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
@@ -34,6 +37,12 @@ export class CourseComponent implements OnInit {
           this.getCoursesIdOfTheUser();
         }
       });
+    this.isAuthorized = this.logoutService.isAuthorized();
+  }
+
+  onRatingClick = (course: CourseLink, event:IStarRatingOnClickEvent) => {
+    course.rating = event.rating;
+    this.courseService.addCourseRating(course);
   }
 
   getCoursesIdOfTheUser() {

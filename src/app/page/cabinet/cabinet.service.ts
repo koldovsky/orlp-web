@@ -66,4 +66,9 @@ export class CabinetService {
     return this.orlp.delete('api/user/folder/decks/' + deckId)
       .map((response: Response) => console.log());
   }
+
+  addCourseRating(course: CourseLink) {
+    return this.orlp.post('/api/private/course/' + course.courseId, course)
+      .subscribe((response: Response) => console.log(response));
+  }
 }

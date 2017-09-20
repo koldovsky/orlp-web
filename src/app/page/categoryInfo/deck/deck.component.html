@@ -13,19 +13,19 @@
       <td (click)="startLearning(deck.cards)">{{deck.name}}</td>
       <td (click)="startLearning(deck.cards)">{{deck.description}}</td>
       <td class="alignCenter">
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="!isAuthorized"
                           [rating]="deck.rating"></star-rating-comp>
       </td>
       <td class="alignCenter">
         <div *ngIf="!deck.status">
-          <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized()" class="button addDeckToUserButtonActive"
+          <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button addDeckToUserButtonActive"
                title="Add deck to cabinet"></div>
         </div>
         <div *ngIf="deck.status">
-          <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized()" class="button addDeckToUserButtonChecked"
+          <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button addDeckToUserButtonChecked"
                title="Deck is already in your cabinet"></div>
         </div>
-        <div *ngIf="!isAuthorized()" class="button addDeckToUserButtonInActive"
+        <div *ngIf="!isAuthorized" class="button addDeckToUserButtonInActive"
              title="Please Sign In to have ability to add decks to your cabinet"></div>
       </td>
     </tr>

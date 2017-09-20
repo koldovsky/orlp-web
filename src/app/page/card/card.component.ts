@@ -50,7 +50,7 @@ export class CardComponent implements OnInit {
   getNextQuestion() {
     this.questionNumber++;
 
-    if (this.cards[this.questionNumber] === undefined) {
+    if (this.cards[this.questionNumber] === undefined || this.questionNumber === 10) {
       alert('The deck is over');
       this.router.navigate(['/main']);
     }

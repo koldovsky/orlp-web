@@ -14,10 +14,14 @@
     <tr>
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
-      <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                          [rating]="course.rating"></star-rating-comp>
+      <td *ngIf="isAuthorized;else unAuthorized">
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="course.rating" (onClick)="onRatingClick($event)"></star-rating-comp>
       </td>
+      <ng-template #unAuthorized>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+      </ng-template>
       <td class="alignCenter">
         <div>
           <div id="button" (click)="addCourseToUser()"
@@ -46,7 +50,7 @@
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
         <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="!isAuthorized"
                             [rating]="deck.rating"></star-rating-comp>
         </td>
       </tr>
