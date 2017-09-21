@@ -6,6 +6,8 @@ import {Link} from '../../../dto/link';
 import {Router} from '@angular/router';
 import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {IStarRatingOnClickEvent} from "angular-star-rating";
 
 @Component({
   selector: 'app-deck-table',
@@ -92,5 +94,10 @@ export class DeckComponent implements OnInit {
         break;
       }
     }
+  }
+
+  onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
+    deck.rating = event.rating;
+    this.deckService.addDeckRating(deck);
   }
 }

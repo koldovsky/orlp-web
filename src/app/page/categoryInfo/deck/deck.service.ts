@@ -42,4 +42,10 @@ export class DeckService {
 
         return Observable.throw(error.json().error || 'Server error');
     }
+
+    addDeckRating(deck: DeckPublic){
+      console.log(deck);
+      return this.orlp.post('/api/private/deck/' + deck.deckId, deck)
+          .subscribe((response: Response)=>console.log(response));
+    }
 }

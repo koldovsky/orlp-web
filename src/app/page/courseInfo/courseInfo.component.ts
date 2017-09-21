@@ -7,6 +7,7 @@ import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
+import {DeckService} from "../categoryInfo/deck/deck.service";
 
 
 @Component({
@@ -27,7 +28,8 @@ export class CourseInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
               private courseService: CourseInfoService,
-              private logoutService: LogoutService) {
+              private logoutService: LogoutService,
+              private deckService: DeckService) {
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class CourseInfoComponent implements OnInit {
     this.isAuthorized = this.logoutService.isAuthorized();
   }
 
-  onRatingClick = (event:IStarRatingOnClickEvent) => {
+  onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
     this.course.rating = event.rating;
     this.courseService.addCourseRating(this.course);
   }
@@ -116,15 +118,16 @@ export class CourseInfoComponent implements OnInit {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  // isAuthorized(): boolean {
-  //   return this.logoutService.isAuthorized();
-  // }
-
   private toggleStatus(stat: boolean): boolean {
     if (stat === true) {
       return false;
     } else {
       return true;
     }
+  }
+
+  onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
+    deck.rating = event.rating;
+    this.deckService.addDeckRating(deck);
   }
 }

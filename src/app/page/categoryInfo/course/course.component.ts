@@ -6,6 +6,7 @@ import {CourseLinkWithStatus} from '../../../dto/CourseDTO/linkByUserWithStatus.
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
+import {DeckService} from "../deck/deck.service";
 
 @Component({
   selector: 'app-course-table',
@@ -22,7 +23,8 @@ export class CourseComponent implements OnInit {
   private coursesIdOfTheUser: number[] = [];
   private coursesWithStatus: CourseLinkWithStatus[] = [];
 
-  constructor(private courseService: CourseService,
+  constructor(private deckService: DeckService,
+              private courseService: CourseService,
               private orlpService: ORLPService,
               private logoutService: LogoutService) {
   }
@@ -105,5 +107,10 @@ export class CourseComponent implements OnInit {
         entry.status = !entry.status;
       }
     }
+  }
+
+  onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
+    deck.rating = event.rating;
+    this.deckService.addDeckRating(deck);
   }
 }
