@@ -9,6 +9,7 @@ import {DeckService} from './deck/deck.service';
 import {CategoryInfoComponent} from './categoryInfo.component';
 import {CategoryInfoService} from './categoryInfo.service';
 import {StarRatingModule} from 'angular-star-rating';
+import {CourseInfoComponent} from "../courseInfo/courseInfo.component";
 
 @NgModule({
     imports: [
@@ -17,7 +18,7 @@ import {StarRatingModule} from 'angular-star-rating';
         StarRatingModule,
         RouterModule.forChild([
             {path: 'category/:url', component: CategoryInfoComponent},
-            {path: 'course/:url', component: CourseComponent}
+            {path: 'course/:url', component: CourseInfoComponent}
         ])],
     exports: [],
     declarations: [
