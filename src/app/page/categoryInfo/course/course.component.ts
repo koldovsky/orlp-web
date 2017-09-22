@@ -7,6 +7,8 @@ import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../deck/deck.service";
+import {CourseRating} from "../../../dto/CourseDTO/CourseRating";
+import {DeckRating} from "../../../dto/DeckDTO/DeckRating";
 
 @Component({
   selector: 'app-course-table',
@@ -41,11 +43,6 @@ export class CourseComponent implements OnInit {
       });
     this.isAuthorized = this.logoutService.isAuthorized();
   }
-
-  onRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
-    course.rating = event.rating;
-    this.courseService.addCourseRating(course).subscribe(() => course.rating = event.rating);
-  };
 
   getCoursesIdOfTheUser() {
     this.courseService.getCoursesIdOfTheUser().subscribe(
@@ -109,8 +106,13 @@ export class CourseComponent implements OnInit {
     }
   }
 
+  onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
+    let courseRating: CourseRating = new CourseRating(course.courseId, event.rating, course.self);
+    this.courseService.addCourseRating(courseRating).subscribe(() => course.rating = event.rating);
+  };
+
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    deck.rating = event.rating;
-    this.deckService.addDeckRating(deck).subscribe(()=> deck.rating = event.rating);
+    let deckRating: DeckRating = new DeckRating(deck.deckId, event.rating, deck.self);
+    this.deckService.addDeckRating(deckRating).subscribe(()=> deck.rating = event.rating);
   }
 }

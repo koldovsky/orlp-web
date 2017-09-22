@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {Observable} from "rxjs/Observable";
 import {DeckLinkByCategory} from "../../../dto/DeckDTO/linkByCategory.deck.DTO";
+import {DeckRating} from "../../../dto/DeckDTO/DeckRating";
 
 @Injectable()
 export class DeckService {
@@ -43,8 +44,7 @@ export class DeckService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    addDeckRating(deck: DeckPublic){
-      console.log(deck);
+    addDeckRating(deck: DeckRating){
       return this.orlp.post('/api/private/deck/' + deck.deckId, deck);
     }
 }

@@ -11,6 +11,7 @@ import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {Link} from '../../../dto/link';
 import {CourseLinkWithStatus} from "../../../dto/CourseDTO/linkByUserWithStatus.course.DTO";
+import {CourseRating} from "../../../dto/CourseDTO/CourseRating";
 
 @Injectable()
 export class CourseService {
@@ -54,7 +55,7 @@ export class CourseService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  addCourseRating(course: CourseLinkWithStatus) {
+  addCourseRating(course: CourseRating) {
     return this.orlp.post('/api/private/course/' + course.courseId, course);
   }
 }
