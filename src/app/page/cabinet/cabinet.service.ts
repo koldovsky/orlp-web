@@ -68,7 +68,6 @@ export class CabinetService {
   }
 
   addCourseRating(course: CourseLink) {
-    return this.orlp.post('/api/private/course/' + course.courseId, course)
-      .subscribe((response: Response) => console.log(response));
+    return this.orlp.post('/api/private/course/' + course.courseId, course);
   }
 }

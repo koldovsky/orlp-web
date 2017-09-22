@@ -45,7 +45,6 @@ export class DeckService {
 
     addDeckRating(deck: DeckPublic){
       console.log(deck);
-      return this.orlp.post('/api/private/deck/' + deck.deckId, deck)
-          .subscribe((response: Response)=>console.log(response));
+      return this.orlp.post('/api/private/deck/' + deck.deckId, deck);
     }
 }
