@@ -55,7 +55,6 @@ export class CourseService {
   }
 
   addCourseRating(course: CourseLinkWithStatus) {
-    return this.orlp.post('/api/private/course/' + course.courseId, course)
-      .subscribe((response: Response) => console.log(response));
+    return this.orlp.post('/api/private/course/' + course.courseId, course);
   }
 }

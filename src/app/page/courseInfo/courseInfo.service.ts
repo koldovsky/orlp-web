@@ -53,8 +53,7 @@ export class CourseInfoService {
   }
 
   addCourseRating(course: CourseLinkWithId) {
-    return this.orlp.post('/api/private/course/' + course.courseId, course)
-      .subscribe((response: Response) => console.log(response));
+    return this.orlp.post('/api/private/course/' + course.courseId, course);
   }
 
 }
