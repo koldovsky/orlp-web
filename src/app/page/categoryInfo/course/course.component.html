@@ -34,10 +34,14 @@
       <td></td>
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>
-      <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="!isAuthorized"
-                          [rating]="deck.rating"></star-rating-comp>
+      <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
+      <ng-template #unAuthorized>
+        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                          [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+      </ng-template>
     </tr>
     </tbody>
   </table>

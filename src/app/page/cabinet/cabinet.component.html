@@ -21,7 +21,7 @@
           <td class="folder-content">{{deck.description}}</td>
           <td>
             <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                              [rating]="deck.rating"></star-rating-comp>
+                              [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
           </td>
           <td>
             <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
@@ -67,7 +67,7 @@
           <td>{{deck.description}}</td>
           <td>
             <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                              [rating]="deck.rating"></star-rating-comp>
+                              [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
           </td>
           <td><button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button><td>
         </tr>

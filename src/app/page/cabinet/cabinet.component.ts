@@ -7,6 +7,8 @@ import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
 import {CardComponent} from "../card/card.component";
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
+import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
+import {DeckService} from "../categoryInfo/deck/deck.service";
 
 @Component({
   providers: [CabinetService],
@@ -23,7 +25,8 @@ export class CabinetComponent implements OnInit {
   public showFolderDecks: any;
   public chosenCourse: CourseLink;
 
-  constructor(private cabinetService: CabinetService,
+  constructor(private deckService: DeckService,
+              private cabinetService: CabinetService,
               private router: Router) {
 
   }
@@ -119,5 +122,10 @@ export class CabinetComponent implements OnInit {
           this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
         },
         error => console.log("Deleting the deck wasn't successful."));
+  }
+
+  onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
+    deck.rating = event.rating;
+    this.deckService.addDeckRating(deck);
   }
 }

@@ -61,7 +61,7 @@ export class DTOConverter {
 
   public static jsonToPublicDeck(data: any): DeckPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new DeckPublic(data.name, data.description, data.rating, self);
+    return new DeckPublic(data.deckId, data.name, data.description, data.rating, self);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
