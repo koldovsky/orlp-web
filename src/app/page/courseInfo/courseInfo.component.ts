@@ -126,12 +126,12 @@ export class CourseInfoComponent implements OnInit {
   }
 
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
-    let courseRating: CourseRating = new CourseRating(this.course.courseId, event.rating, this.course.self);
+    const courseRating: CourseRating = new CourseRating(this.course.courseId, event.rating, this.course.self);
     this.courseService.addCourseRating(courseRating).subscribe(() => this.course.rating = event.rating);
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    let deckLocal: DeckRating = new DeckRating(deck.deckId, event.rating, deck.self);
+    const deckLocal: DeckRating = new DeckRating(deck.deckId, event.rating, deck.self);
     this.deckService.addDeckRating(deckLocal).subscribe(() => deck.rating = event.rating);
   }
 }
