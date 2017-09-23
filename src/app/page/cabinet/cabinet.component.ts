@@ -10,8 +10,7 @@ import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
 import {DeckService} from "../categoryInfo/deck/deck.service";
 import {CourseService} from "../categoryInfo/course/course.service";
-import {CourseRating} from "../../dto/CourseDTO/CourseRating";
-import {DeckRating} from "../../dto/DeckDTO/DeckRating";
+import {Rating} from "../../dto/Rating";
 
 @Component({
   providers: [CabinetService],
@@ -125,12 +124,12 @@ export class CabinetComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
-    const courseRating: CourseRating = new CourseRating(course.courseId, event.rating, course.self);
+    const courseRating: Rating = new Rating(course.courseId, event.rating, course.self);
     this.courseService.addCourseRating(courseRating).subscribe(() => course.rating = event.rating);
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: DeckRating = new DeckRating(deck.deckId, event.rating, deck.self);
+    const deckRating: Rating = new Rating(deck.deckId, event.rating, deck.self);
     this.deckService.addDeckRating(deckRating).subscribe(() => deck.rating = event.rating);
   }
 }

@@ -8,9 +8,8 @@ import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../categoryInfo/deck/deck.service";
-import {DeckRating} from '../../dto/DeckDTO/DeckRating';
-import {CourseRating} from "../../dto/CourseDTO/CourseRating";
 import {CourseService} from "../categoryInfo/course/course.service";
+import {Rating} from "../../dto/Rating";
 
 
 @Component({
@@ -126,12 +125,12 @@ export class CourseInfoComponent implements OnInit {
   }
 
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
-    const courseRating: CourseRating = new CourseRating(this.course.courseId, event.rating, this.course.self);
+    const courseRating: Rating = new Rating(this.course.courseId, event.rating, this.course.self);
     this.courseService.addCourseRating(courseRating).subscribe(() => this.course.rating = event.rating);
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckLocal: DeckRating = new DeckRating(deck.deckId, event.rating, deck.self);
+    const deckLocal: Rating = new Rating(deck.deckId, event.rating, deck.self);
     this.deckService.addDeckRating(deckLocal).subscribe(() => deck.rating = event.rating);
   }
 }

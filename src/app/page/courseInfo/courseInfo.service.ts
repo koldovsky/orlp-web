@@ -7,10 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.converter';
-import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
-import {CourseRating} from "../../dto/CourseDTO/CourseRating";
 
 @Injectable()
 export class CourseInfoService {
