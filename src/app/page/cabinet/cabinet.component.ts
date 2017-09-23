@@ -9,6 +9,7 @@ import {CardComponent} from "../card/card.component";
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
 import {DeckService} from "../categoryInfo/deck/deck.service";
+import {error} from "util";
 
 @Component({
   providers: [CabinetService],
@@ -22,7 +23,7 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: any;
+  public showFolderDecks: boolean = true;
   public chosenCourse: CourseLink;
 
   constructor(private deckService: DeckService,
@@ -38,7 +39,8 @@ export class CabinetComponent implements OnInit {
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     course.rating = event.rating;
     this.cabinetService.addCourseRating(course).subscribe(() => course.rating = event.rating);
-  }
+  };
+
   getUser(): void {
     this.cabinetService.getUser()
       .subscribe(user => {
@@ -68,6 +70,8 @@ export class CabinetComponent implements OnInit {
   }
 
   getFolderDecks() {
+    this.decks = null;
+    this.getDecks(this.user.folder);
     this.showFolderDecks = !this.showFolderDecks;
     this.showCourseDecks = false;
   }
@@ -101,19 +105,22 @@ export class CabinetComponent implements OnInit {
   }
 
   getCategoryDecks(course: CourseLink) {
-    this.getDecks(course.decks);
-    this.chosenCourse = course;
-    this.cabinetService.getCategoryDecks(course.categoryId)
-      .subscribe((decks) => {
-        this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+    this.cabinetService.getDecks(course.decks)
+      .subscribe(decks => {
+        this.decks = decks;
+        this.chosenCourse = course;
+        this.cabinetService.getCategoryDecks(course.categoryId)
+          .subscribe((decks) => {
+            this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+          });
       });
   }
 
   addDeckToCourse(deck: DeckLinkByCategory) {
+    deck.hidden = true;
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
-      .subscribe(() => {
-        console.log();
-      });
+      .subscribe(() => {},
+        error => deck.hidden = false);
   }
 
   deleteFolderDeck(deck: DeckLinkByCategory) {

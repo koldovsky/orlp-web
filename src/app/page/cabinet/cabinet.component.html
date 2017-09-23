@@ -93,19 +93,21 @@
                 <th>Add</th>
               </tr>
             </thead>
-            <tbody>
-              <tr *ngFor="let deck of categoryDecks">
-                <td>{{deck.name}}</td>
-                <td>{{deck.description}}</td>
-                <td>
-                  <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                                    [rating]="deck.rating"></star-rating-comp>
-                </td>
-                <td><img data-dismiss="modal" src="../../../assets/images/add.png" title="Add"
-                         (click)="addDeckToCourse(deck)" class="deck-img"></td>
-              </tr>
+            <tbody *ngFor="let deck of categoryDecks">
+            <tr *ngIf="!deck.hidden">
+              <td>{{deck.name}}</td>
+              <td>{{deck.description}}</td>
+              <td>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                  [rating]="deck.rating"></star-rating-comp>
+              </td>
+              <td>
+                <button (click)="addDeckToCourse(deck)" type="button" class="btn btn-success btn-sm">+</button>
+              </td>
+            </tr>
             </tbody>
           </table>
+          <button class="btn btn-primary btn-sm btn-center" data-dismiss="modal">OK</button>
         </div>
       </div>
     </div>
