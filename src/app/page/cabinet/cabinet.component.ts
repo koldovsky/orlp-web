@@ -9,6 +9,8 @@ import {CardComponent} from "../card/card.component";
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
 import {DeckService} from "../categoryInfo/deck/deck.service";
+import {CourseService} from "../categoryInfo/course/course.service";
+import {Rating} from "../../dto/Rating";
 
 @Component({
   providers: [CabinetService],
@@ -26,6 +28,7 @@ export class CabinetComponent implements OnInit {
   public chosenCourse: CourseLink;
 
   constructor(private deckService: DeckService,
+              private courseService: CourseService,
               private cabinetService: CabinetService,
               private router: Router) {
 
@@ -35,10 +38,6 @@ export class CabinetComponent implements OnInit {
     this.getUser();
   }
 
-  onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
-    course.rating = event.rating;
-    this.cabinetService.addCourseRating(course).subscribe(() => course.rating = event.rating);
-  }
   getUser(): void {
     this.cabinetService.getUser()
       .subscribe(user => {
@@ -124,8 +123,13 @@ export class CabinetComponent implements OnInit {
         error => console.log("Deleting the deck wasn't successful."));
   }
 
+  onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
+    const courseRating: Rating = new Rating(course.courseId, event.rating, course.self);
+    this.courseService.addCourseRating(courseRating).subscribe(() => course.rating = event.rating);
+  }
+
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    deck.rating = event.rating;
-    this.deckService.addDeckRating(deck).subscribe(() => deck.rating = event.rating);
+    const deckRating: Rating = new Rating(deck.deckId, event.rating, deck.self);
+    this.deckService.addDeckRating(deckRating).subscribe(() => deck.rating = event.rating);
   }
 }

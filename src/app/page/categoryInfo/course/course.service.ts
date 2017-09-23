@@ -10,7 +10,7 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {Link} from '../../../dto/link';
-import {CourseLinkWithStatus} from "../../../dto/CourseDTO/linkByUserWithStatus.course.DTO";
+import {Rating} from "../../../dto/Rating";
 
 @Injectable()
 export class CourseService {
@@ -54,7 +54,7 @@ export class CourseService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  addCourseRating(course: CourseLinkWithStatus) {
-    return this.orlp.post('/api/private/course/' + course.courseId, course);
+  addCourseRating(course: Rating) {
+    return this.orlp.post('/api/private/course/' + course.id, course);
   }
 }

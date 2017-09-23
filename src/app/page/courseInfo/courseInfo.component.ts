@@ -8,6 +8,8 @@ import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../categoryInfo/deck/deck.service";
+import {CourseService} from "../categoryInfo/course/course.service";
+import {Rating} from "../../dto/Rating";
 
 
 @Component({
@@ -27,9 +29,10 @@ export class CourseInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
-              private courseService: CourseInfoService,
+              private courseInfoService: CourseInfoService,
               private logoutService: LogoutService,
-              private deckService: DeckService) {
+              private deckService: DeckService,
+              private courseService: CourseService) {
   }
 
   ngOnInit(): void {
@@ -42,14 +45,9 @@ export class CourseInfoComponent implements OnInit {
     this.isAuthorized = this.logoutService.isAuthorized();
   }
 
-  onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
-    this.course.rating = event.rating;
-    this.courseService.addCourseRating(this.course).subscribe(() => this.course.rating = event.rating);
-  }
-
   takeCourse() {
     this.decodeLink();
-    this.courseService.getCourse(this.url).subscribe(
+    this.courseInfoService.getCourse(this.url).subscribe(
       course => {
         this.course = course;
         this.takeDecks(course);
@@ -59,7 +57,7 @@ export class CourseInfoComponent implements OnInit {
   }
 
   private takeDecks(course: CourseLinkWithId) {
-    this.courseService.getDecks(course).subscribe(
+    this.courseInfoService.getDecks(course).subscribe(
       decks => {
         this.decks = decks;
         if (this.isAuthorized) {
@@ -74,7 +72,7 @@ export class CourseInfoComponent implements OnInit {
   }
 
   getIdCoursesOwnByUser() {
-    this.courseService.getIdCoursesOfTheCurrentUser().subscribe(
+    this.courseInfoService.getIdCoursesOfTheCurrentUser().subscribe(
       id => {
         this.coursesIdExistsInUser = id;
         this.changeCourseStatus(this.course.courseId);
@@ -92,7 +90,7 @@ export class CourseInfoComponent implements OnInit {
 
   addCourseToUser() {
     console.log(this.course.courseId);
-    this.courseService.addCourseToUser(this.course.courseId)
+    this.courseInfoService.addCourseToUser(this.course.courseId)
       .subscribe((response) => {
         console.log(response);
         this.course.isUserOwnCourse = this.toggleStatus(this.course.isUserOwnCourse);
@@ -126,8 +124,13 @@ export class CourseInfoComponent implements OnInit {
     }
   }
 
+  onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
+    const courseRating: Rating = new Rating(this.course.courseId, event.rating, this.course.self);
+    this.courseService.addCourseRating(courseRating).subscribe(() => this.course.rating = event.rating);
+  }
+
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    deck.rating = event.rating;
-    this.deckService.addDeckRating(deck).subscribe(() => deck.rating = event.rating);
+    const deckLocal: Rating = new Rating(deck.deckId, event.rating, deck.self);
+    this.deckService.addDeckRating(deckLocal).subscribe(() => deck.rating = event.rating);
   }
 }

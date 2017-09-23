@@ -7,7 +7,7 @@
       <td>{{course.description}}</td>
       <td *ngIf="isAuthorized;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                          [rating]="course.rating" (onClick)="onRatingClick(course, $event)"></star-rating-comp>
+                          [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
       </td>
             <ng-template #unAuthorized>
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
