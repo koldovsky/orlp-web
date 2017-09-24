@@ -18,3 +18,8 @@
   background-color: #f5f5ff;
   border-color: #6c757d;
 }
+
+.internal-text {
+  text-align: center;
+  font-size: 120%;
+}

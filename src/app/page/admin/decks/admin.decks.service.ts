@@ -24,7 +24,6 @@ export class AdminDecksService {
       .catch(this.handleError);
   }
 
-
   deleteDeck(deckId: number) {
     return this.orlp.delete('/api/admin/decks/' + deckId);
 }
@@ -41,15 +40,14 @@ export class AdminDecksService {
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
-  createDeck (deckAdded: DeckAddedDTO, category_id: number) {
-    console.log(deckAdded);
-    return this.orlp.post('/api/admin/decks/' + category_id , deckAdded)
+  createDeck (deckAdded: DeckAddedDTO ) {
+    return this.orlp.post('/api/admin/decks/' + deckAdded.categoryId, deckAdded)
       .map((response: Response) => response.json());
   }
-  editDeck (deckEdit: DeckAddedDTO, deck_id: number) {
-    console.log(deckEdit);
-    return this.orlp.put('/api/admin/decks/' + deck_id , deckEdit)
-      .map((response: Response) => response.json());
+
+  editDeck (deckEdit: DeckAddedDTO, deck_id: number ) {
+    return this.orlp.put('/api/admin/decks/' + deck_id + '/' + deckEdit.categoryId, deckEdit)
+      .map((response: Response) => console.log());
   }
 
 }

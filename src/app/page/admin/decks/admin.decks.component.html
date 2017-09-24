@@ -30,18 +30,18 @@
           <td>{{deck.owner}}</td>
           <td >
 
-            <button class="btn btn-danger btn-sm" (click)="assignDeskId(deck.deckId)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="assignDeskId(deck.deckId, deck.name)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
           </td>
           <td>
             <div >
 
-          <button   type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ModalEdit">Edit</button>
+          <button   type="button" class="btn btn-primary btn-sm"  (click)="assignDesk(deck.deckId, deck.name, deck.description, deck.categoryId, deck.category)" data-toggle="modal" data-target="#ModalEdit">Edit</button>
 
             </div>
           </td>
           <td>
             <div [routerLink]="['/admin/decks', getDeckLink(deck.self)]">
-              <button class="btn btn-primary btn-sm"> Details</button>
+              <button class="btn btn-primary btn-sm"> Open</button>
             </div>
           </td>
         </tr>
@@ -91,7 +91,7 @@
               </td>
                <td>
                 <select id="selectedCategory" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
-                  <option selected>{{category}}</option>
+                  <option selected>  </option>
                   <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
                 </select>
               </td>
@@ -101,10 +101,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="deckName && deckDescription && (chosenCategoryId || category)"  type="button"
+          <button *ngIf="deckName && deckDescription && chosenCategoryId"  type="button"
                   class="btn btn-primary"
                   data-dismiss="modal"
-                  (click)="createDeck()">Submit</button>
+                  (click)="createDeck()">Add</button>
           <button type="button"  class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -121,11 +121,13 @@
               <h4 class="modal-title">Delete Deck?</h4>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+
+            <div class="internal-text">Deck {{deckSelected.name}} will be deleted</div>
           <div class="modal-footer">
             <button type="button"
                     class="btn btn-primary"
                     data-dismiss="modal"
-                    (click)="deleteDeck(deckSelectedId)" >Submit</button>
+                    (click)="deleteDeck(deckSelected.deckId)" >Delete</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
           </div>
         </div>
@@ -152,7 +154,7 @@
                   <label>name: </label>
                 </td>
                 <td>
-                  <input type="text" name="name" [(ngModel)]="deckName"/>
+                  <input type="text" name="name" [(ngModel)]="deckSelected.name"/>
                 </td>
                 <td>
               </tr>
@@ -162,7 +164,7 @@
 
                   <label>description: </label></td>
                 <td>
-                  <input type="text" name="description" [(ngModel)]="deckDescription" />
+                  <input type="text" name="description" [(ngModel)]="deckSelected.description" />
                 </td>
 
               </tr>
@@ -173,7 +175,7 @@
                 </td>
                 <td>
                   <select id="selectedCategory2" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
-                    <option selected>{{category}}</option>
+                    <option selected>{{deckSelected.category}}</option>
                     <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
                   </select>
                 </td>
@@ -183,10 +185,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="deckName && deckDescription && (chosenCategoryId || category)"  type="button"
+          <button   type="button"
                   class="btn btn-primary"
                   data-dismiss="modal"
-                  (click)="editDeck()">Submit</button>
+                  (click)="editDeck()">Save changes</button>
           <button type="button"  class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>

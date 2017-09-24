@@ -16,11 +16,11 @@ import {Router} from '@angular/router';
 })
 
 export class AdminDecksComponent implements OnInit {
-  deckList: AdminDeck[];
-  deckSelectedId: number;
+
+  public deckSelected: AdminDeck = new AdminDeck(0, '',  '', 0, '', 0, '', null );
   public categories: CategoryLink[];
+  public deckList: AdminDeck[];
   public chosenCategoryId: number;
-  public category: string;
   public deckName: string;
   public deckDescription: string;
   constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {
@@ -29,13 +29,6 @@ export class AdminDecksComponent implements OnInit {
   ngOnInit(): void {
     this.getDecks();
     this.getCategories();
-  }
-
-
-  createDeck() {
-    this.adminDecksService.createDeck(
-      new DeckAddedDTO(this.deckName, this.deckDescription), this.chosenCategoryId)
-      .subscribe( () => this.getDecks() );
   }
 
   getDecks() {
@@ -54,25 +47,40 @@ export class AdminDecksComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  deleteDeck(): void {
-    this.adminDecksService.deleteDeck(this.deckSelectedId)
-  .subscribe( () => this.getDecks() );
-  }
-
-  editDeck (): void {
-    this.adminDecksService.editDeck (new DeckAddedDTO ( this.deckName , this.deckDescription ), this.deckSelectedId)
+  createDeck() {
+    this.adminDecksService.createDeck(
+      (new DeckAddedDTO( this.deckName, this.deckDescription, this.chosenCategoryId )) )
       .subscribe( () => this.getDecks() );
   }
 
-  assignDeskId(id: number): void {
-    this.deckSelectedId = id;
+  deleteDeck(): void {
+    this.adminDecksService.deleteDeck(this.deckSelected.deckId)
+      .subscribe( () => this.getDecks() );
   }
 
+  editDeck (): void {
+    this.adminDecksService.editDeck (
+      ( new DeckAddedDTO(this.deckSelected.name , this.deckSelected.description , this.chosenCategoryId )),
+      this.deckSelected.deckId )
+      .subscribe( () => this.getDecks() );
+  }
+
+  assignDeskId(id: number, name: string ): void {
+    this.deckSelected.deckId = id;
+    this.deckSelected.name = name;
+  }
+
+  assignDesk(id: number, name: string, description: string, categoryId: number, category: string ): void {
+    this.deckSelected.deckId = id;
+    this.deckSelected.name = name;
+    this.deckSelected.description = description;
+    this.deckSelected.categoryId = categoryId;
+    this.deckSelected.category = category;
+}
 
   onCategorySelect(deviceValue) {
     this.chosenCategoryId = deviceValue.value;
   }
-
 
 }
 

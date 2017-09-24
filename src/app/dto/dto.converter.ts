@@ -122,6 +122,6 @@ export class DTOConverter {
 
   public static jsonToAdminDeck(data: any): AdminDeck {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.owner, self);
+    return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
   }
 }
