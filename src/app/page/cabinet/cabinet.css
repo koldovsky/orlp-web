@@ -48,6 +48,26 @@
   height: 30px;
 }
 
-.folder-content {
-  float: left;
+.decks-folder {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.icon {
+  background-size: contain;
+  width: 40px;
+  height: 40px;
+}
+
+.closed-folder {
+  background-image: url("../../../assets/images/closedFolder.png");
+}
+
+.opened-folder {
+  background-image: url("../../../assets/images/openedFolder.png");
+}
+
+.right-column {
+  width: 10%;
+  text-align: center;
 }

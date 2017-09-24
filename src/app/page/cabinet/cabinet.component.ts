@@ -24,7 +24,7 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: any;
+  public showFolderDecks: any = true;
   public chosenCourse: CourseLink;
 
   constructor(private deckService: DeckService,
@@ -66,7 +66,7 @@ export class CabinetComponent implements OnInit {
     CardComponent.deckId = deckId;
   }
 
-  getFolderDecks() {
+  toggleFolder() {
     this.showFolderDecks = !this.showFolderDecks;
     this.showCourseDecks = false;
   }

@@ -69,7 +69,8 @@
   background-size: contain;
   width: 25px;
   height: 25px;
-  margin-left: 40%;
+  /*margin-left: 40%;*/
+  display: inline-block;
 }
 
 .SubscribeCheckboxActive {
