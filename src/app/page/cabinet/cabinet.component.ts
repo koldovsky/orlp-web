@@ -102,6 +102,8 @@ export class CabinetComponent implements OnInit {
   }
 
   getCategoryDecks(course: CourseLink) {
+    this.showFolderDecks = false;
+    this.showCourseDecks = course.courseId;
     this.cabinetService.getDecks(course.decks)
       .subscribe(decks => {
         this.decks = decks;
