@@ -118,7 +118,8 @@ export class CabinetComponent implements OnInit {
   addDeckToCourse(deck: DeckLinkByCategory) {
     deck.hidden = true;
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
-      .subscribe(() => {},
+      .subscribe(() => this.cabinetService.getDecks(this.chosenCourse.decks)
+          .subscribe(decks => this.decks = decks),
         error => deck.hidden = false);
   }
 
