@@ -1,6 +1,6 @@
 import {Link} from '../link';
 
-export class UsersDTO {
+export class UserDTO {
   id: number;
   firstName: string;
   lastName: string;

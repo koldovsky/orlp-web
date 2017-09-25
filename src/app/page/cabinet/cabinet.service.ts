@@ -3,8 +3,7 @@ import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.converter';
-import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
-import {DeckDTO} from '../../dto/DeckDTO/DeckDTO';
+import {UserDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
@@ -15,9 +14,9 @@ export class CabinetService {
   constructor(private orlp: ORLPService) {
   }
 
-  public getUser(): Observable<UsersDTO> {
+  public getUser(): Observable<UserDTO> {
     return this.orlp.get('api/private/user')
-      .map((response: Response) => <UsersDTO> DTOConverter.jsonToUserDTO(response.json()));
+      .map((response: Response) => <UserDTO> DTOConverter.jsonToUserDTO(response.json()));
   }
 
   public getDecks(link: Link): Observable<DeckLinkByCategory[]> {
