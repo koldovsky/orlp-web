@@ -24,7 +24,7 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: any = true;
+  public showFolderDecks: boolean = true;
   public chosenCourse: CourseLink;
 
   constructor(private deckService: DeckService,
@@ -66,7 +66,9 @@ export class CabinetComponent implements OnInit {
     CardComponent.deckId = deckId;
   }
 
-  toggleFolder() {
+  getFolderDecks() {
+    this.decks = null;
+    this.getDecks(this.user.folder);
     this.showFolderDecks = !this.showFolderDecks;
     this.showCourseDecks = false;
   }
@@ -100,19 +102,25 @@ export class CabinetComponent implements OnInit {
   }
 
   getCategoryDecks(course: CourseLink) {
-    this.getDecks(course.decks);
-    this.chosenCourse = course;
-    this.cabinetService.getCategoryDecks(course.categoryId)
-      .subscribe((decks) => {
-        this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+    this.showFolderDecks = false;
+    this.showCourseDecks = course.courseId;
+    this.cabinetService.getDecks(course.decks)
+      .subscribe(decks => {
+        this.decks = decks;
+        this.chosenCourse = course;
+        this.cabinetService.getCategoryDecks(course.categoryId)
+          .subscribe((decks) => {
+            this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+          });
       });
   }
 
   addDeckToCourse(deck: DeckLinkByCategory) {
+    deck.hidden = true;
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
-      .subscribe(() => {
-        console.log();
-      });
+      .subscribe(() => this.cabinetService.getDecks(this.chosenCourse.decks)
+          .subscribe(decks => this.decks = decks),
+        error => deck.hidden = false);
   }
 
   deleteFolderDeck(deck: DeckLinkByCategory) {
@@ -126,7 +134,7 @@ export class CabinetComponent implements OnInit {
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(course.courseId, event.rating, course.self);
     this.courseService.addCourseRating(courseRating).subscribe(() => course.rating = event.rating);
-  }
+  };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(deck.deckId, event.rating, deck.self);
