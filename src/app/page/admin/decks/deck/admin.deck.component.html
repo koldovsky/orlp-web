@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="font-color-white header-text">Deck info:</h1>
+    </div>
+  </div>
+  <div class="row" *ngIf="deck">
+    <div class="col-xs-12 col-sm-9">
+      <table class="table table-striped admins-tables admins-tables-header">
+        <tbody>
+        <tr>
+          <th>Deck Name</th>
+          <td>{{deck.name}}</td>
+        </tr>
+        <tr>
+          <th>Deck Description</th>
+          <td>{{deck.description}}</td>
+        </tr>
+        <tr>
+          <th>Deck Rating</th>
+          <td>{{deck.rating}}</td>
+        </tr>
+        <tr>
+          <th>DeckCategory</th>
+          <td>{{deck.category}}</td>
+        </tr>
+        <tr>
+          <th>DeckOwner</th>
+          <td>{{deck.owner}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

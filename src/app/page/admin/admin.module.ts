@@ -13,6 +13,10 @@ import {AdminUsersPipe} from './users/admin.users.filter';
 import {AdminAuditService} from './audit/admin.audit.service';
 import {AdminAuditComponent} from './audit/admin.audit.component';
 import {AdminGuardService} from './admin.main.guard.service';
+import {AdminDecksComponent} from './decks/admin.decks.component';
+import {AdminDecksService} from './decks/admin.decks.service';
+import {AdminDeckComponent} from './decks/deck/admin.deck.component';
+import {AdminDeckService} from './decks/deck/admin.deck.service';
 
 @NgModule({
   imports: [
@@ -22,7 +26,9 @@ import {AdminGuardService} from './admin.main.guard.service';
       {path: 'admin/audit', canActivate: [AdminGuardService], component: AdminAuditComponent},
       {path: 'admin/categories', canActivate: [AdminGuardService], component: AdminCategoryComponent},
       {path: 'admin/users', canActivate: [AdminGuardService], component: AdminUsersComponent},
-      {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent}
+      {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent},
+      {path: 'admin/decks', canActivate: [AdminGuardService], component: AdminDecksComponent},
+      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent}
     ])],
   exports: [],
   declarations: [
@@ -31,14 +37,18 @@ import {AdminGuardService} from './admin.main.guard.service';
     AdminCategoryComponent,
     AdminUsersComponent,
     AdminUserComponent,
-    AdminAuditComponent
+    AdminAuditComponent,
+    AdminDecksComponent,
+    AdminDeckComponent
   ],
   providers: [
     AdminCategoryService,
     AdminUsersService,
     AdminUserService,
     AdminAuditService,
-    AdminGuardService
+    AdminGuardService,
+    AdminDecksService,
+    AdminDeckService
   ],
 })
 

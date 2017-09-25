@@ -19,7 +19,8 @@ export class UserDecksComponent {
       this.user = user;
       this.decks = null;
       this.userDecksService.getDecks(user.folder).subscribe(decks => {
-        this.decks = this.getOnlyDecksCreatedByTheUser(decks);
+        // this.decks = this.getOnlyDecksCreatedByTheUser(decks);
+        this.decks = decks;
       })
     });
   }

@@ -15,6 +15,7 @@ import {DeckLinkByFolder} from './DeckDTO/linkByFolder.deck.DTO';
 import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
 import {ImageDTO} from './ImageDTO/ImageDTO';
+import {AdminDeck} from './AdminDTO/admin.deck.DTO';
 import {DeckDTO} from "./DeckDTO/DeckDTO";
 
 export class DTOConverter {
@@ -124,5 +125,10 @@ export class DTOConverter {
       array.push(callback(element));
     });
     return array;
+  }
+
+  public static jsonToAdminDeck(data: any): AdminDeck {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
   }
 }
