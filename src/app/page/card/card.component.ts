@@ -4,6 +4,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
+import * as ORLPSettings from '../../services/orlp.settings';
 
 @Component({
   templateUrl: ('./card.component.html'),
@@ -13,6 +14,8 @@ export class CardComponent implements OnInit {
   public static deckId: number;
   public routing = false;
   public questionNumber = 0;
+  public MAX_QUANTITY_CARD = ORLPSettings.MAX_QUANTITY_CARD;
+
   public answer = '';
   public url: string;
   public cards: CardPublic[];
@@ -50,7 +53,7 @@ export class CardComponent implements OnInit {
   getNextQuestion() {
     this.questionNumber++;
 
-    if (this.cards[this.questionNumber] === undefined || this.questionNumber === 10) {
+    if (this.cards[this.questionNumber] === undefined || this.questionNumber === this.MAX_QUANTITY_CARD) {
       alert('The deck is over');
       this.router.navigate(['/main']);
     }
