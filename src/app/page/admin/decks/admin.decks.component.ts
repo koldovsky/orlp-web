@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 
 export class AdminDecksComponent implements OnInit {
 
-  public deckSelected: AdminDeck = new AdminDeck(0, '',  '', 0, '', 0, '', null );
+  public deckSelected: AdminDeck;
   public categories: CategoryLink[];
   public deckList: AdminDeck[];
   public chosenCategoryId: number;
@@ -65,18 +65,11 @@ export class AdminDecksComponent implements OnInit {
       .subscribe( () => this.getDecks() );
   }
 
-  assignDeskId(id: number, name: string ): void {
-    this.deckSelected.deckId = id;
-    this.deckSelected.name = name;
+  assignDeck(deck: AdminDeck): void {
+    this.deckSelected = deck;
   }
 
-  assignDesk(id: number, name: string, description: string, categoryId: number, category: string ): void {
-    this.deckSelected.deckId = id;
-    this.deckSelected.name = name;
-    this.deckSelected.description = description;
-    this.deckSelected.categoryId = categoryId;
-    this.deckSelected.category = category;
-}
+
 
   onCategorySelect(deviceValue) {
     this.chosenCategoryId = deviceValue.value;

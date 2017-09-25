@@ -30,12 +30,12 @@
           <td>{{deck.owner}}</td>
           <td >
 
-            <button class="btn btn-danger btn-sm" (click)="assignDeskId(deck.deckId, deck.name)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
+            <button class="btn btn-danger btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
           </td>
           <td>
             <div >
 
-          <button   type="button" class="btn btn-primary btn-sm"  (click)="assignDesk(deck.deckId, deck.name, deck.description, deck.categoryId, deck.category)" data-toggle="modal" data-target="#ModalEdit">Edit</button>
+          <button   type="button" class="btn btn-primary btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
 
             </div>
           </td>
