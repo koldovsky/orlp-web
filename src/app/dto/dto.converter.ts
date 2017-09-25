@@ -8,13 +8,14 @@ import {CourseTop} from './CourseDTO/top.course.DTO';
 import {DeckLinkByCategory} from './DeckDTO/linkByCategory.deck.DTO';
 import {CardPublic} from './CardsDTO/public.card.DTO';
 import {AdminUsers} from './AdminDTO/admin.user.DTO';
-import {UsersDTO} from './UsersDTO/UserDTO';
+import {UserDTO} from './UsersDTO/UserDTO';
 import {CourseLink} from './CourseDTO/link.course.DTO';
 import {UserDetailsDto} from './UserDetailsDto';
 import {DeckLinkByFolder} from './DeckDTO/linkByFolder.deck.DTO';
 import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
 import {ImageDTO} from './ImageDTO/ImageDTO';
+import {DeckDTO} from "./DeckDTO/DeckDTO";
 
 export class DTOConverter {
 
@@ -28,11 +29,11 @@ export class DTOConverter {
     return new ImageDTO(data.imageId, self);
   }
 
-  public static jsonToUserDTO(data: any): UsersDTO {
+  public static jsonToUserDTO(data: any): UserDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const folder: Link = DTOConverter.jsonToLink('folder', data._links.folder);
     const courses: Link = DTOConverter.jsonToLink('courses', data._links.courses);
-    return new UsersDTO(data.userId, data.firstName, data.lastName, data.email, self, folder, courses);
+    return new UserDTO(data.userId, data.firstName, data.lastName, data.email, self, folder, courses);
   }
 
   public static jsonToPublicLinkCourse(data: any): CourseLink {
@@ -62,6 +63,12 @@ export class DTOConverter {
   public static jsonToPublicDeck(data: any): DeckPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new DeckPublic(data.deckId, data.name, data.description, data.rating, self);
+  }
+
+  public static jsonToDeck(data: any): DeckDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
+    return new DeckDTO(data.name, data.description, data.rating, self, cards, data.ownerId);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {

@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="vertical-menu">
+    <a [routerLink]="['/user/cabinet']">My learning</a>
+    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+    <a [routerLink]="['/user/cabinet/manage/decks']" class="active">Manage decks</a>
+  </div>
+
+  <div class="decks-list">
+    <div class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
+      <span>{{deck.name}}</span>
+      <button class="btn btn-danger btn-sm"
+      style="float: right">-</button>
+    </div>
+  </div>
+  <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
+  <div class="decks-list-button-container">
+    <button class="btn btn-primary decks-list-button">Create new deck</button>
+  </div>
+
+</div>

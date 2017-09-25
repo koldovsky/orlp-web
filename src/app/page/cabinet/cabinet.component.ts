@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CabinetService} from './cabinet.service';
-import {UsersDTO} from '../../dto/UsersDTO/UserDTO';
+import {UserDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {Router} from '@angular/router';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
@@ -15,11 +15,11 @@ import {Rating} from "../../dto/Rating";
 @Component({
   providers: [CabinetService],
   templateUrl: ('./cabinet.component.html'),
-  styleUrls: ['./cabinet.css']
+  styleUrls: ['cabinet.css']
 })
 
 export class CabinetComponent implements OnInit {
-  public user: UsersDTO;
+  public user: UserDTO;
   public courses: CourseLink[];
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
@@ -49,7 +49,7 @@ export class CabinetComponent implements OnInit {
       );
   }
 
-  getUserCourses(user: UsersDTO): void {
+  getUserCourses(user: UserDTO): void {
     this.cabinetService.getCourses(user.courses)
       .subscribe(courses => {
         this.courses = courses;

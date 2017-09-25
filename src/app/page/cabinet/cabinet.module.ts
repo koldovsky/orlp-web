@@ -7,6 +7,8 @@ import {CabinetService} from './cabinet.service';
 import {StarRatingModule} from 'angular-star-rating';
 import {CourseComponent} from './createCourse/course.component';
 import {CourseService} from './createCourse/course.service';
+import {UserDecksComponent} from "./userDecks/user.decks.component";
+import {UserDecksService} from "./userDecks/user.decks.service";
 
 @NgModule({
   imports: [
@@ -15,11 +17,12 @@ import {CourseService} from './createCourse/course.service';
     StarRatingModule,
     RouterModule.forChild([
       {path: 'user/cabinet', component: CabinetComponent},
-      {path: 'user/cabinet/create/course', component: CourseComponent}
+      {path: 'user/cabinet/create/course', component: CourseComponent},
+      {path: 'user/cabinet/manage/decks', component: UserDecksComponent}
     ])],
   exports: [],
-  declarations: [CabinetComponent, CourseComponent],
-  providers: [CabinetService, CourseService],
+  declarations: [CabinetComponent, CourseComponent, UserDecksComponent],
+  providers: [CabinetService, CourseService, UserDecksService],
 })
 
 export class CabinetModule {
