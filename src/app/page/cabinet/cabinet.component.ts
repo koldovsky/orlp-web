@@ -45,6 +45,8 @@ export class CabinetComponent implements OnInit {
       .subscribe(user => {
           this.user = user;
           this.getUserCourses(user);
+          this.decks = null;
+          this.getDecks(this.user.folder);
           this.getDecks(user.folder);
         }
       );
