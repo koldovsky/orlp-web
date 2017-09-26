@@ -5,16 +5,124 @@
     <a [routerLink]="['/user/cabinet/manage/decks']" class="active">Manage decks</a>
   </div>
 
-  <div class="decks-list">
-    <div class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
-      <span>{{deck.name}}</span>
-      <button class="btn btn-danger btn-sm"
-      style="float: right">-</button>
+  <div class="list-button-container">
+    <div class="decks-list">
+      <div class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
+        <span>{{deck.name}}</span>
+        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck"
+                (click)="setSelectedDeck(deck)" style="float: right">-
+        </button>
+      </div>
+    </div>
+    <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
+
+    <div style="text-align: center">
+      <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
+              (click)="prepareCreateDialog()">Create new deck
+      </button>
     </div>
   </div>
-  <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
-  <div class="decks-list-button-container">
-    <button class="btn btn-primary decks-list-button">Create new deck</button>
+
+  <div class="row" *ngIf="deck">
+    <div class="col-12">
+      <table class="table table-striped deck-info-table">
+        <tbody>
+        <tr>
+          <th>Deck Name</th>
+          <td>{{deck.name}}</td>
+        </tr>
+        <tr>
+          <th>Deck Description</th>
+          <td>{{deck.description}}</td>
+        </tr>
+        <tr>
+          <th>Deck Rating</th>
+          <td>{{deck.rating}}</td>
+        </tr>
+        <tr>
+          <th>DeckCategory</th>
+          <td>{{deck.category}}</td>
+        </tr>
+        <tr>
+          <th>DeckOwner</th>
+          <td>{{deck.owner}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
+              (click)="prepareEditDialog()">Edit
+      </button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="create-edit-deck" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">{{dialogName}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <tr>
+              <td>
+                <label>Input deck name:</label>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="name"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Input deck description:</label>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="description"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Choose a category:</label>
+              </td>
+              <td>
+                <select style="width: 200px" (change)="onCategorySelect($event.target)">
+                  <option selected [value]="dialogCategoryId != -1 ? dialogCategoryId : -1">{{category}}</option>
+                  <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="name !== '' && description !== '' && categoryId != -1" class="btn btn-primary btn-pointer"
+                  data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
+          </button>
+          <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="deck">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete this deck?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete the deck {{deck.name}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-pointer"
+                  data-dismiss="modal" (click)="deleteDeck()">Delete
+          </button>
+          <button type="button" class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

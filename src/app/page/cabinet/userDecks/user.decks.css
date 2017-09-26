@@ -25,17 +25,21 @@
   color: white;
 }
 
-.decks-list {
+.list-button-container {
   float: left;
+  margin-left: 10px;
+  width: 220px;
+}
+
+.decks-list {
   background-color: white;
-  cursor: pointer;
-  width: 25%;
-  margin-left: 2%;
   max-height: 450px;
   overflow:hidden;
   overflow-y:scroll;
 }
+
 .decks-list-item {
+  cursor: pointer;
   background-color: #eee;
   color: black;
   padding: 12px;
@@ -53,23 +57,21 @@
 .decks-list-button {
   cursor: pointer;
   margin-top: 12px;
-  margin-bottom: 12px;
-}
-
-.decks-list-button-container {
-  width: 25%;
-  margin-left: 20%;
-  text-align: center;
 }
 
 .empty-list-label {
+  text-align: center;
   color: white;
   font-size: x-large;
-  width: 25%;
-  margin-left: 20%;
-  text-align: center;
+  width: 220px;
 }
 
-.btn-sm {
+.btn-sm, .btn-pointer {
   cursor: pointer;
+}
+
+.deck-info-table {
+  background-color: white;
+  border-radius: 0.7rem;
+  border-top: hidden;
 }
