@@ -28,6 +28,7 @@ import {UserCoursesService} from './page/user/courses/user.courses.service';
 import {CourseInfoModule} from './page/courseInfo/courseInfo.module';
 import {MainService} from './page/main/main.service';
 import {MainComponent} from './page/main/main.component';
+import {AuthorizationEventService} from "./AuthorizationEventService";
 
 @NgModule({
   imports: [
@@ -61,7 +62,7 @@ import {MainComponent} from './page/main/main.component';
   ],
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService],
+    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, AuthorizationEventService],
   bootstrap: [MainComponent]
 })
 export class AppModule {
