@@ -24,10 +24,10 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: any = true;
+  public showFolderDecks: boolean = true;
   public chosenCourse: CourseLink;
-  public showAllertdeck: any = true;
-  public showAllertcouse: any = true;
+  public showAllertdeck: boolean = true;
+  public showAllertcouse: boolean = true;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -46,7 +46,6 @@ export class CabinetComponent implements OnInit {
           this.user = user;
           this.getUserCourses(user);
           this.decks = null;
-          this.getDecks(this.user.folder);
           this.getDecks(user.folder);
         }
       );
