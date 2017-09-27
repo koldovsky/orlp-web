@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminCardsService} from './admin.cards.service';
 import {ORLPService} from '../../../../../../services/orlp.service';
-import {Router} from '@angular/router';
 import {Link} from '../../../../../../dto/link';
 import {AdminDeck} from '../../../../../../dto/AdminDTO/admin.deck.DTO';
 import {CreateCardDTO} from '../../../../../../dto/CardsDTO/CreateCardDTO';
@@ -36,23 +35,32 @@ export class AdminCardsComponent implements OnInit {
     );
     this.takeDeck();
   }
+
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
+
   createCard() {
     this.adminCardsService.createCard(
       new CreateCardDTO(this.answer, this.question, this.title, this.rating), this.deck.categoryId, this.deck.deckId)
       .subscribe();
   }
+
   private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
+
   private takeDeck(): void {
     this.decodeLink();
     this.adminCardsService.getDeck(this.url).subscribe(
       deck => this.deck = deck);
   }
 
+  clearFields() {
+    this.answer = '';
+    this.question = '';
+    this.title = '';
+  }
 
 }
 

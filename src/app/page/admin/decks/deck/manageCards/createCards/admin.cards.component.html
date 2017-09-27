@@ -18,8 +18,26 @@
         <textarea [(ngModel)]="answer"></textarea>
       </div>
       <button *ngIf="question && answer && title" type="button"
-              class="btn btn-primary btn-create-card" (click)="createCard()">Add card
+              class="btn btn-primary btn-create-card" (click)="createCard()" data-toggle="modal" data-target="#SuccessCreate">Add card
       </button>
     </div>
   </div>
 </div>
+<!-- Modal create new card-->
+<div class="modal fade" id="SuccessCreate" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Card created!</h1>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                (click)="clearFields()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+

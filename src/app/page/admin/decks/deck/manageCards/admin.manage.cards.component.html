@@ -4,10 +4,28 @@
     <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]">Create card</a>
   </div>
   <div class="cards-list">
-    <div class="cards-list-item" *ngFor="let card of cards; let i = index" data-toggle="modal" data-target="#ModalEdit">
+    <div class="cards-list-item" *ngFor="let card of cards; let i = index" (click)="onCardClicked(card, i)">
       <span>{{card.title}}</span>
-      <button class="btn btn-danger btn-sm">-></button>
     </div>
   </div>
   <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>
+</div>
+<div class="container">
+<div class="row" *ngIf="card">
+  <div class="col-12">
+    <table class="table table-striped deck-info-table">
+      <tbody>
+      <tr>
+        <th>Card question</th>
+        <td>{{card.question}}</td>
+      </tr>
+      <tr>
+        <th>Card answer</th>
+        <td>{{card.answer}}</td>
+      </tr>
+      <tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </div>

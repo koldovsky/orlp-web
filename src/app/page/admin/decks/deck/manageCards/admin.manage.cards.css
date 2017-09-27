@@ -75,3 +75,89 @@
   float: right;
 }
 
+.container {
+  margin-top: 20px;
+}
+
+.vertical-menu {
+  float: left;
+  cursor: pointer !important;
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.list-button-container {
+  float: left;
+  margin-left: 10px;
+  width: 220px;
+}
+
+.decks-list {
+  background-color: white;
+  max-height: 450px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.decks-list-item {
+  cursor: pointer;
+  background-color: #eee;
+  color: black;
+  padding: 12px;
+}
+
+.decks-list-item:hover {
+  background-color: #ccc;
+}
+
+.decks-list-item.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.decks-list-button {
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.empty-list-label {
+  text-align: center;
+  color: white;
+  font-size: x-large;
+  width: 220px;
+}
+
+.btn-sm, .btn-pointer {
+  cursor: pointer;
+  float: right;
+}
+
+.centered-container {
+  text-align: center;
+}
+
+.category-select {
+  width: 200px;
+}
+
+.deck-info-table {
+  background-color: white;
+  border-radius: 0.7rem;
+  border-top: hidden;
+}

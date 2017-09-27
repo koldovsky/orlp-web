@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AdminCardsService} from './createCards/admin.cards.service';
 import {ORLPService} from '../../../../../services/orlp.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AdminManageCardsService} from './admin.manage.cards.service';
@@ -17,7 +16,7 @@ import {CreateCardDTO} from '../../../../../dto/CardsDTO/CreateCardDTO';
 export class AdminManageCardsComponent implements OnInit {
   public cards: CreateCardDTO[] = [];
   public deck: AdminDeck;
-  public  card: CreateCardDTO;
+  public card: CreateCardDTO;
   public question: string;
   public answer: string;
   public title: string;
@@ -38,15 +37,19 @@ export class AdminManageCardsComponent implements OnInit {
     );
     this.takeDeck();
   }
-
   private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
-
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
-
+  private selectElement (index: number): void {
+    const element = document.getElementsByClassName('selected')[0];
+    if (element !== undefined) {
+      element.classList.remove('selected');
+    }
+   document.getElementsByClassName('cards-list-item')[index].classList.add('selected');
+}
   private takeDeck(): void {
     this.decodeLink();
     this.adminManageCardsService.getDeck(this.url).subscribe(
@@ -56,4 +59,13 @@ export class AdminManageCardsComponent implements OnInit {
         });
       });
   }
+  private onCardClicked(card: CreateCardDTO, index: number): void {
+    this.selectElement(index);
+    this.card = card;
+  }
+
+  private setSelectedCard(card: CreateCardDTO) {
+    this.card = card;
+  }
+
 }
