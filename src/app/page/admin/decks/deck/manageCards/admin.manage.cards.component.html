@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="vertical-menu" *ngIf="deck != undefined">
+    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update</a>
+    <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]">Create card</a>
+  </div>
+  <div class="cards-list">
+    <div class="cards-list-item" *ngFor="let card of cards; let i = index" data-toggle="modal" data-target="#ModalEdit">
+      <span>{{card.title}}</span>
+      <button class="btn btn-danger btn-sm">-></button>
+    </div>
+  </div>
+  <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>
+</div>
