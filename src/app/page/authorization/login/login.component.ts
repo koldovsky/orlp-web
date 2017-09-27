@@ -9,6 +9,7 @@ import { ViewChild } from '@angular/core';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
+import {AuthorizationEventService} from "../../../AuthorizationEventService";
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
               public auth: AuthService,
               private router: Router,
               private authorizationService: AuthorizationService,
-              private accountVerify: AccountVerificationService) {
+              private accountVerify: AccountVerificationService,
+              private  authorizationEventService: AuthorizationEventService) {
   }
 
   ngOnInit() {
@@ -55,13 +57,13 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         this.success = true;
         console.log(response);
+        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-        this.reload();
       }, (error) => {
         this.processError(error);
         this.captchaComponent.reset();
       });
-  }
+  };
 
   private processError(response) {
     this.success = false;
@@ -87,8 +89,8 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
       .subscribe((response) => {
         this.success = true;
+        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-        this.reload();
       }, (error) => {
         this.processError(error);
       });
@@ -109,15 +111,11 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendFacebookToken(this.user.token)
       .subscribe((response) => {
         this.success = true;
+        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-        this.reload();
       }, (error) => {
         this.processError(error);
       });
-  }
-
-  reload() {
-    window.location.reload();
   }
 
   handleCorrectCaptcha($event) {
