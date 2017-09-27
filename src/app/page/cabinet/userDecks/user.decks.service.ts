@@ -35,7 +35,7 @@ export class UserDecksService {
   }
 
   editDeck(deck: DeckDTO) {
-    return this.orlp.put('api/private/deck/' + deck.deckId, deck)
+    return this.orlp.put('api/private/category/' + deck.categoryId + '/deck/' + deck.deckId, deck)
       .map((response: Response) => response.json());
   }
 
