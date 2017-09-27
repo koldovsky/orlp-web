@@ -1,0 +1,77 @@
+.container {
+  margin-top: 20px;
+}
+
+.vertical-menu {
+  float: left;
+  cursor: pointer !important;
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cards-list {
+  float: left;
+  background-color: white;
+  cursor: pointer;
+  width: 25%;
+  margin-left: 2%;
+  max-height: 450px;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+.cards-list-item {
+  background-color: #eee;
+  color: black;
+  padding: 12px;
+}
+
+.cards-list-item:hover {
+  background-color: #ccc;
+}
+
+.cards-list-item.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cards-list-button {
+  cursor: pointer;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.cards-list-button-container {
+  width: 25%;
+  margin-left: 20%;
+  text-align: center;
+}
+
+.empty-list-label {
+  color: white;
+  font-size: x-large;
+  width: 25%;
+  margin-left: 20%;
+  text-align: center;
+}
+
+.btn-sm {
+  cursor: pointer;
+  float: right;
+}
+

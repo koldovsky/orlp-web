@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="vertical-menu" *ngIf="deck != undefined">
+    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]">Delete/Update</a>
+    <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]" class="active" >Create card</a>
+  </div>
+  <div class="create-card">
+    <div class="content">
+      <h1 class="category-header">Enter the title</h1>
+      <div class="main">
+        <input [(ngModel)]="title">
+      </div>
+      <h1 class="category-header">Enter the question</h1>
+      <div class="main">
+        <textarea [(ngModel)]="question"></textarea>
+      </div>
+      <h1 class="category-header">Enter the answer</h1>
+      <div class="main">
+        <textarea [(ngModel)]="answer"></textarea>
+      </div>
+      <button *ngIf="question && answer && title" type="button"
+              class="btn btn-primary btn-create-card" (click)="createCard()">Add card
+      </button>
+    </div>
+  </div>
+</div>
