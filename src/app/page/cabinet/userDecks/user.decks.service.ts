@@ -25,7 +25,7 @@ export class UserDecksService {
   }
 
   getOnlyDecksCreatedByTheUser(userId: number): Observable<DeckDTO[]> {
-    return this.orlp.get('api/private/user/folder/' + userId + '/decks/own').map((response: Response) =>
+    return this.orlp.get('api/private/user/folder/decks/own').map((response: Response) =>
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
   }
 
@@ -40,7 +40,7 @@ export class UserDecksService {
   }
 
   deleteDeck(categoryId: number, deckId: number) {
-    return this.orlp.delete('api/private/category/' + categoryId + '/deck/' + deckId)
+    return this.orlp.delete('api/private/deck/' + deckId)
       .map((response: Response) => response.json());
   }
 }
