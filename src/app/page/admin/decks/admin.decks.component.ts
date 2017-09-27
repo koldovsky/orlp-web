@@ -5,7 +5,7 @@ import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
-import {DeckAddedDTO} from '../../../dto/DeckDTO/deck.added.DTO';
+import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Router} from '@angular/router';
 
 
@@ -49,7 +49,7 @@ export class AdminDecksComponent implements OnInit {
 
   createDeck() {
     this.adminDecksService.createDeck(
-      (new DeckAddedDTO( this.deckName, this.deckDescription, this.chosenCategoryId )) )
+      (new NewDeckDTO( this.deckName, this.deckDescription, this.chosenCategoryId )) )
       .subscribe( () => this.getDecks() );
   }
 
@@ -60,7 +60,7 @@ export class AdminDecksComponent implements OnInit {
 
   editDeck (): void {
     this.adminDecksService.editDeck (
-      ( new DeckAddedDTO(this.deckSelected.name , this.deckSelected.description , this.chosenCategoryId )),
+      ( new NewDeckDTO(this.deckSelected.name , this.deckSelected.description , this.chosenCategoryId )),
       this.deckSelected.deckId )
       .subscribe( () => this.getDecks() );
   }
