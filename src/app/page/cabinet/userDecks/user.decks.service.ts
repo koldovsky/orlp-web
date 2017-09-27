@@ -25,7 +25,7 @@ export class UserDecksService {
   }
 
   getOnlyDecksCreatedByTheUser(userId: number): Observable<DeckDTO[]> {
-    return this.orlp.get('api/private/user/folder/51/decks/own').map((response: Response) =>
+    return this.orlp.get('api/private/user/folder/' + userId + '/decks/own').map((response: Response) =>
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
   }
 
