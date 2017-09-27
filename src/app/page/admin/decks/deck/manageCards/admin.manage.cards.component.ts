@@ -43,13 +43,7 @@ export class AdminManageCardsComponent implements OnInit {
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
-  private selectElement (index: number): void {
-    const element = document.getElementsByClassName('selected')[0];
-    if (element !== undefined) {
-      element.classList.remove('selected');
-    }
-   document.getElementsByClassName('cards-list-item')[index].classList.add('selected');
-}
+
   private takeDeck(): void {
     this.decodeLink();
     this.adminManageCardsService.getDeck(this.url).subscribe(
@@ -59,13 +53,8 @@ export class AdminManageCardsComponent implements OnInit {
         });
       });
   }
-  private onCardClicked(card: CreateCardDTO, index: number): void {
-    this.selectElement(index);
+  private onCardClicked(card: CreateCardDTO): void {
+   // this.selectElement(index);
     this.card = card;
   }
-
-  private setSelectedCard(card: CreateCardDTO) {
-    this.card = card;
-  }
-
 }

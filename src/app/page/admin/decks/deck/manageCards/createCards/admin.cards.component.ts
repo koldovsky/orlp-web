@@ -42,7 +42,7 @@ export class AdminCardsComponent implements OnInit {
 
   createCard() {
     this.adminCardsService.createCard(
-      new CreateCardDTO(this.answer, this.question, this.title, this.rating), this.deck.categoryId, this.deck.deckId)
+      new CreateCardDTO(this.title, this.question, this.answer, this.rating), this.deck.categoryId, this.deck.deckId)
       .subscribe();
   }
 

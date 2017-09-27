@@ -1,17 +1,17 @@
 <div class="container">
-  <div class="vertical-menu" *ngIf="deck != undefined">
+  <div class="vertical-menu" *ngIf="deck">
     <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update</a>
     <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]">Create card</a>
   </div>
   <div class="cards-list">
-    <div class="cards-list-item" *ngFor="let card of cards; let i = index" (click)="onCardClicked(card, i)">
+    <div class="cards-list-item" *ngFor="let card of cards" data-target="modal" (click)="onCardClicked(card)">
       <span>{{card.title}}</span>
     </div>
   </div>
-  <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>
+  <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>git
 </div>
 <div class="container">
-<div class="row" *ngIf="card">
+<div class="row" *ngIf="false">
   <div class="col-12">
     <table class="table table-striped deck-info-table">
       <tbody>
