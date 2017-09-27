@@ -69,7 +69,7 @@ export class DTOConverter {
   public static jsonToDeck(data: any): DeckDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckDTO(data.name, data.description, data.rating, self, cards, data.ownerId);
+    return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating, data.owner, cards, self);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {

@@ -9,7 +9,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
-import {DeckAddedDTO} from '../../../dto/DeckDTO/deck.added.DTO';
+import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 
 @Injectable()
 export class AdminDecksService {
@@ -40,12 +40,12 @@ export class AdminDecksService {
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
-  createDeck (deckAdded: DeckAddedDTO ) {
+  createDeck (deckAdded: NewDeckDTO ) {
     return this.orlp.post('/api/admin/decks/' + deckAdded.categoryId, deckAdded)
       .map((response: Response) => response.json());
   }
 
-  editDeck (deckEdit: DeckAddedDTO, deck_id: number ) {
+  editDeck (deckEdit: NewDeckDTO, deck_id: number ) {
     return this.orlp.put('/api/admin/decks/' + deck_id + '/' + deckEdit.categoryId, deckEdit)
       .map((response: Response) => console.log());
   }
