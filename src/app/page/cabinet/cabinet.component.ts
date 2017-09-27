@@ -26,6 +26,8 @@ export class CabinetComponent implements OnInit {
   public showCourseDecks: any;
   public showFolderDecks: boolean = true;
   public chosenCourse: CourseLink;
+  public showAllertdeck: boolean = true;
+  public showAllertcouse: boolean = true;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -44,7 +46,7 @@ export class CabinetComponent implements OnInit {
           this.user = user;
           this.getUserCourses(user);
           this.decks = null;
-          this.getDecks(this.user.folder);
+          this.getDecks(user.folder);
         }
       );
   }
@@ -53,12 +55,20 @@ export class CabinetComponent implements OnInit {
     this.cabinetService.getCourses(user.courses)
       .subscribe(courses => {
         this.courses = courses;
+        if (courses.length > 0) {
+          this.showAllertcouse = false;
+        }
       });
+
   }
 
   getDecks(link: Link): void {
     this.cabinetService.getDecks(link)
-      .subscribe(decks => this.decks = decks);
+      .subscribe(decks => {this.decks = decks;
+        if (decks.length > 0) {
+          this.showAllertdeck = false;
+        }
+      });
   }
 
   startLearning(deckId: number): void {
