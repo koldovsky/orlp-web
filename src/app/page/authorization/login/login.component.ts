@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         this.success = true;
         this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
-        this.ngZone.run( () => this.router.navigate(['main']));
+        this.router.navigate(['main']);
       }, (error) => {
         this.processError(error);
       });
