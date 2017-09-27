@@ -34,8 +34,8 @@
 .decks-list {
   background-color: white;
   max-height: 450px;
-  overflow:hidden;
-  overflow-y:scroll;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .decks-list-item {
@@ -68,6 +68,15 @@
 
 .btn-sm, .btn-pointer {
   cursor: pointer;
+  float: right;
+}
+
+.centered-container {
+  text-align: center;
+}
+
+.category-select {
+  width: 200px;
 }
 
 .deck-info-table {

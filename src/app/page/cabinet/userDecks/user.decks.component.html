@@ -10,13 +10,13 @@
       <div class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
         <span>{{deck.name}}</span>
         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck"
-                (click)="setSelectedDeck(deck)" style="float: right">-
+                (click)="setSelectedDeck(deck)">-
         </button>
       </div>
     </div>
     <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
 
-    <div style="text-align: center">
+    <div class="centered-container">
       <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
               (click)="prepareCreateDialog()">Create new deck
       </button>
@@ -86,7 +86,7 @@
                 <label>Choose a category:</label>
               </td>
               <td>
-                <select style="width: 200px" (change)="onCategorySelect($event.target)">
+                <select class="category-select" (change)="onCategorySelect($event.target)">
                   <option selected [value]="dialogCategoryId != -1 ? dialogCategoryId : -1">{{category}}</option>
                   <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
                 </select>
