@@ -17,7 +17,6 @@ import {AdminAudit} from './AdminDTO/admin.audit.DTO';
 import {ImageDTO} from './ImageDTO/ImageDTO';
 import {AdminDeck} from './AdminDTO/admin.deck.DTO';
 import {DeckDTO} from "./DeckDTO/DeckDTO";
-import {CreateCardDTO} from "./CardsDTO/CreateCardDTO";
 
 export class DTOConverter {
 
@@ -131,10 +130,5 @@ export class DTOConverter {
   public static jsonToAdminDeck(data: any): AdminDeck {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
-  }
-
-  public static jsonToAdminDeckCards(data: any): CreateCardDTO {
-    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating );
   }
 }

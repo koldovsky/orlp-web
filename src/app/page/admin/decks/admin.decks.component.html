@@ -44,11 +44,6 @@
               <button class="btn btn-primary btn-sm"> Open</button>
             </div>
           </td>
-          <td>
-            <div [routerLink]="['/admin/manage/cards', getDeckLink(deck.self)]">
-              <button  class="btn btn-primary btn-sm">Manage cards</button>
-            </div>
-          </td>
         </tr>
       </table>
     </div>
@@ -60,7 +55,7 @@
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content" >
+      <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Deck</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -121,11 +116,11 @@
  <!-- Modal delete deck-->
       <div class="modal fade" id="ModalDelete" role="dialog">
         <div class="modal-dialog">
-          <div class="modal-content" *ngIf="deckSelected">
-              <div class="modal-header">
-                <h4 class="modal-title">Delete Deck?</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Delete Deck?</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
             <div class="internal-text">Deck {{deckSelected.name}} will be deleted</div>
           <div class="modal-footer">
@@ -144,7 +139,7 @@
   <div class="modal fade" id="ModalEdit" role="dialog">
     <div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content" *ngIf="deckSelected">
+      <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Deck</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
