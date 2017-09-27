@@ -10,7 +10,6 @@ import { ReCaptchaComponent } from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
 import {AuthorizationEventService} from "../../../AuthorizationEventService";
-import { NgZone } from '@angular/core';
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -35,8 +34,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authorizationService: AuthorizationService,
               private accountVerify: AccountVerificationService,
-              private  authorizationEventService: AuthorizationEventService,
-              private ngZone: NgZone) {
+              private  authorizationEventService: AuthorizationEventService) {
   }
 
   ngOnInit() {
@@ -114,7 +112,7 @@ export class LoginComponent implements OnInit {
       .subscribe((response) => {
         this.success = true;
         this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
-        this.ngZone.run( () => this.router.navigate(['main']));
+        this.router.navigate(['main']);
       }, (error) => {
         this.processError(error);
       });
