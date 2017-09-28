@@ -23,6 +23,7 @@ export class UserDecksComponent {
   private dialogName: string;
   private dialogButtonName: string;
   private isCreateDialog: boolean;
+  private selectedIndex: number;
 
   constructor(private userDecksService: UserDecksService) {}
 
@@ -35,8 +36,13 @@ export class UserDecksComponent {
   }
 
   private getOnlyDecksCreatedByTheUser(): void {
-    this.userDecksService.getOnlyDecksCreatedByTheUser().subscribe(decks => {
-      this.decks =  decks;
+    this.userDecksService.getOnlyDecksCreatedByTheUser().subscribe(decks => this.decks = decks);
+  }
+
+  private getDeckCreatedByTheUser(deckId: number): void {
+    this.userDecksService.getDeckCreatedByTheUser(deckId).subscribe(deck => {
+      this.deck = deck;
+      this.decks[this.selectedIndex] = this.deck;
     });
   }
 
@@ -74,16 +80,18 @@ export class UserDecksComponent {
       this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId))
         .subscribe(() => this.getOnlyDecksCreatedByTheUser());
     } else {
-      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.deck.deckId).subscribe(() => this.getOnlyDecksCreatedByTheUser());
+      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.deck.deckId)
+        .subscribe(() => this.getDeckCreatedByTheUser(this.deck.deckId));
     }
   }
 
   private deleteDeck() {
     this.userDecksService.deleteDeck(this.deck.deckId)
-      .subscribe(() => this.getOnlyDecksCreatedByTheUser());
+      .subscribe(() => this.decks.filter(deck => deck.deckId !== this.deck.deckId));
   }
 
-  private selectElement (index: number): void {
+  private selectElement(index: number): void {
+    this.selectedIndex = index;
     let element = document.getElementsByClassName("selected")[0];
     if (element !== undefined) {
       element.classList.remove("selected");

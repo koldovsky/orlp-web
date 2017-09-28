@@ -29,6 +29,11 @@ export class UserDecksService {
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
   }
 
+  getDeckCreatedByTheUser(deckId: number): Observable<DeckDTO> {
+    return this.orlp.get('api/private/user/folder/decks/own/' + deckId).map((response: Response) =>
+      <DeckDTO> DTOConverter.jsonToDeck(response.json()));
+  }
+
   createDeck(deck: NewDeckDTO) {
     return this.orlp.post('api/private/category/' + deck.categoryId + '/decks', deck)
       .map((response: Response) => response.json());
