@@ -87,7 +87,10 @@ export class UserDecksComponent {
 
   private deleteDeck() {
     this.userDecksService.deleteDeck(this.deck.deckId)
-      .subscribe(() => this.decks.filter(deck => deck.deckId !== this.deck.deckId));
+      .subscribe(() => {
+        this.decks = this.decks.filter(deck => deck.deckId !== this.deck.deckId);
+        this.deck = null;
+      });
   }
 
   private selectElement(index: number): void {
