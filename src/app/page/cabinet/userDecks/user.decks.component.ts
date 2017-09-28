@@ -74,11 +74,7 @@ export class UserDecksComponent {
       this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId))
         .subscribe(() => this.getOnlyDecksCreatedByTheUser());
     } else {
-      this.deck.name = this.name;
-      this.deck.description = this.description;
-      this.deck.categoryId = this.categoryId;
-      this.deck.category = this.category;
-      this.userDecksService.editDeck(this.deck).subscribe(() => this.getOnlyDecksCreatedByTheUser());
+      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.deck.deckId).subscribe(() => this.getOnlyDecksCreatedByTheUser());
     }
   }
 
