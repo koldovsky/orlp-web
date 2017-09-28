@@ -35,7 +35,7 @@ export class UserDecksComponent {
   }
 
   private getOnlyDecksCreatedByTheUser(): void {
-    this.userDecksService.getOnlyDecksCreatedByTheUser(this.user.id).subscribe(decks => {
+    this.userDecksService.getOnlyDecksCreatedByTheUser().subscribe(decks => {
       this.decks =  decks;
     });
   }
@@ -83,7 +83,7 @@ export class UserDecksComponent {
   }
 
   private deleteDeck() {
-    this.userDecksService.deleteDeck(this.deck.categoryId, this.deck.deckId)
+    this.userDecksService.deleteDeck(this.deck.deckId)
       .subscribe(() => this.getOnlyDecksCreatedByTheUser());
   }
 
