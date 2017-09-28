@@ -98,6 +98,10 @@
           <button *ngIf="name !== '' && description !== '' && categoryId != -1" class="btn btn-primary btn-pointer"
                   data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
           </button>
+          <button *ngIf="name === '' || description === '' || categoryId == -1"
+                  class="btn btn-primary btn-pointer disabled" style="cursor: not-allowed" aria-label="Close">
+            {{dialogButtonName}}
+          </button>
           <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
         </div>
       </div>
