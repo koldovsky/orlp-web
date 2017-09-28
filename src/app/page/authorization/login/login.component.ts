@@ -9,7 +9,6 @@ import { ViewChild } from '@angular/core';
 import { ReCaptchaComponent } from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
-import {AuthorizationEventService} from "../../../AuthorizationEventService";
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -33,8 +32,7 @@ export class LoginComponent implements OnInit {
               public auth: AuthService,
               private router: Router,
               private authorizationService: AuthorizationService,
-              private accountVerify: AccountVerificationService,
-              private  authorizationEventService: AuthorizationEventService) {
+              private accountVerify: AccountVerificationService) {
   }
 
   ngOnInit() {
@@ -56,8 +54,7 @@ export class LoginComponent implements OnInit {
     this.loginService.signIn(this.account)
       .subscribe((response) => {
         this.success = true;
-        console.log(response);
-        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {
         this.processError(error);
@@ -78,8 +75,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(provider).subscribe(
       (data) => {
         this.user = data;
-        console.log(this.user.idToken);
-        console.log(this.user.email);
         this.sendGoogleToken();
       }
     );
@@ -89,7 +84,7 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
       .subscribe((response) => {
         this.success = true;
-        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {
         this.processError(error);
@@ -100,8 +95,6 @@ export class LoginComponent implements OnInit {
     this.auth.login(provider).subscribe(
       (data) => {
         this.user = data;
-        console.log(this.user.token);
-        console.log(this.user.email);
         this.sendFacebookToken();
       }
     );
@@ -111,7 +104,7 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendFacebookToken(this.user.token)
       .subscribe((response) => {
         this.success = true;
-        this.authorizationEventService.emitIsAuthorizedChangeEvent(true);
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {
         this.processError(error);

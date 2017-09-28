@@ -1,11 +1,22 @@
 import {ORLPService} from "../../services/orlp.service";
 import {Response} from '@angular/http';
-import {Injectable} from "@angular/core";
+import {EventEmitter, Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class AuthorizationService{
+
+  isAuthorizedChange: EventEmitter<boolean> = new EventEmitter();
+
   constructor(private orlp: ORLPService) {
+  }
+
+  emitIsAuthorizedChangeEvent(boolean) {
+    this.isAuthorizedChange.emit(boolean);
+  }
+
+  getIsAuthorizedChangeEmitter() {
+    return this.isAuthorizedChange;
   }
 
   sendGoogleIdToken(idToken: string) {

@@ -10,7 +10,7 @@ import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
 import {CategoryService} from './search/category.service';
 import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
-import {AuthorizationEventService} from "../../AuthorizationEventService";
+import {AuthorizationService} from "../authorization/authorization.service";
 
 @Component({
   selector: 'app-page',
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
               private router: Router,
               private mainService: MainService,
               private adminGuard: AdminGuardService,
-              private authorizationEventService: AuthorizationEventService,
+              private authorizationService: AuthorizationService,
               private ngZone: NgZone) {
   }
 
@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     this.courseService.getCourses().subscribe(courses => this.courses = courses);
     this.deckService.getDecks().subscribe(decks => this.decks = decks);
-    this.authorizationEventService.getIsAuthorizedChangeEmitter()
+    this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(()=>{
         this.isAuthorized = item;
         this.getRole();
@@ -55,10 +55,8 @@ export class MainComponent implements OnInit {
   }
 
   getRole(): void{
-      console.log("blalbladsf");
       this.mainService.getUserDetails()
         .subscribe(user => {
-          console.log("getDetails");
           this.userDetails = user;
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
           this.setAdmin();
@@ -69,7 +67,7 @@ export class MainComponent implements OnInit {
     if (this.logoutService.logout()) {
       this.isAuthorized = false;
       this.isAuthorizedAdmin = false;
-      this.authorizationEventService.emitIsAuthorizedChangeEvent(false);
+      this.authorizationService.emitIsAuthorizedChangeEvent(false);
       this.router.navigate(['main']);
     }
   }
