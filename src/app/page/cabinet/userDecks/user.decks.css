@@ -35,7 +35,7 @@
   background-color: white;
   max-height: 450px;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .decks-list-item {
