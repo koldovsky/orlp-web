@@ -54,7 +54,7 @@ export class CourseService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  addCourseRating(course: Rating) {
-    return this.orlp.post('/api/private/course/' + course.id, course);
+  addCourseRating(rating: Rating, courseId: number) {
+    return this.orlp.post('/api/private/course/' + courseId, rating);
   }
 }
