@@ -9,11 +9,13 @@ import {ORLPService} from '../../../../../services/orlp.service';
 import {DTOConverter} from '../../../../../dto/dto.converter';
 import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
 import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
+import {CreateCardDTO} from '../../../../../dto/CardsDTO/CreateCardDTO';
 
 @Injectable()
 export class AdminManageCardsService {
 
-  constructor(private orlp: ORLPService) {}
+  constructor(private orlp: ORLPService) {
+  }
 
   public getCards(deckId: number): Observable<CardPublic[]> {
     return this.orlp.get('/api/decks/' + deckId + '/cards').map((response: Response) =>
@@ -25,11 +27,20 @@ export class AdminManageCardsService {
       .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()))
       .catch(this.handleError);
   }
+
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
+
   public deleteSelectedCard(cardLink: string) {
+    console.log(cardLink);
     return this.orlp.delete(cardLink).map((response: Response) => console.log());
+  }
+
+  public updateSelectedCard(cardLink: string, card: CreateCardDTO) {
+    console.log(card);
+    console.log(cardLink);
+    return this.orlp.put(cardLink, card).map((response: Response) => console.log());
   }
 }

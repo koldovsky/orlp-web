@@ -17,54 +17,39 @@
         <div class="content">
           <h1 class="category-header">Question</h1>
           <div class="main">
-            <textarea [disabled]="true">{{card.question}}</textarea>
+            <textarea [disabled]="blockEdit" [(ngModel)]=card.question>{{card.question}}</textarea>
           </div>
           <h1 class="category-header">Answer</h1>
           <div class="main">
-            <textarea disabled="disabled">{{card.answer}}</textarea>
+            <textarea [disabled]="blockEdit" [(ngModel)]=card.answer>{{card.answer}}</textarea>
           </div>
-          <button class="btn btn-primary cards-list-button" >Edit
+          <button class="btn btn-primary cards-list-button" (click)="activateEdit()">Edit
           </button>
           <button class="btn btn-primary cards-list-button" data-toggle="modal" data-target="#deleteCard">Delete
           </button>
+          <button *ngIf="!blockEdit" class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
+          </button>
+          <button *ngIf="!blockEdit" class="btn btn-primary cards-list-button" (click)="cancelEdit()">Cansel
+          </button>
         </div>
       </div>
-      <!--<table class="table table-striped cards-info-table">
-        <tbody>
-        <tr>
-          <th>Question</th>
-          <td >{{card.question}}</td>
-        </tr>
-        <tr>
-          <th>Answer</th>
-        </tr>
-        <textarea [disabled]="true">{{card.answer}}</textarea>
-        <tr>
-        </tbody>
-      </table>-->
-      <!--<button class="btn btn-primary cards-list-button" data-toggle="modal" data-target="#deleteCard">Delete
-      </button>-->
     </div>
   </div>
-
-
-
-
   <div class="modal fade" id="deleteCard" role="dialog">
     <div class="modal-dialog">
-      <div class="modal-content"  *ngIf="card">
+      <div class="modal-content" *ngIf="card">
         <div class="modal-header">
           <h4 class="modal-title">Delete card?</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-
         <div class="internal-text">Card <h2>{{card.title}}</h2> will be deleted !!!</div>
         <div class="modal-footer">
           <button type="button"
                   class="btn btn-primary"
                   data-dismiss="modal"
-                  (click)="deleteSelectedCard()">Delete</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+                  (click)="deleteSelectedCard()">Delete
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>

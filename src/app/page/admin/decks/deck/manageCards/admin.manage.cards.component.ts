@@ -15,6 +15,7 @@ import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
 })
 
 export class AdminManageCardsComponent implements OnInit {
+  public blockEdit: boolean = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
   public card: CardPublic;
@@ -74,13 +75,29 @@ export class AdminManageCardsComponent implements OnInit {
   private onCardClicked(card: CardPublic): void {
     this.card = card;
     this.cardLink = this.decodeCardLink(this.getShortCardLink(card.self));
-    console.log(this.cardLink);
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.cardLink).subscribe(() => {this.getCardsList();
-    this.card = null;
+    this.adminManageCardsService.deleteSelectedCard(this.cardLink).subscribe(() => {
+      this.getCardsList();
+      this.card = null;
     });
   }
 
+  public activateEdit() {
+    this.blockEdit = false;
+  }
+
+  public cancelEdit(card: CardPublic) {
+    this.blockEdit = true;
+    this.card = card;
+  }
+
+  updateCard() {
+    this.blockEdit = true;
+    this.adminManageCardsService.updateSelectedCard(this.cardLink, this.card).subscribe(() => {
+        this.getCardsList();
+      }
+    );
+  }
 }
