@@ -84,3 +84,7 @@
   border-radius: 0.7rem;
   border-top: hidden;
 }
+
+.disabled {
+  cursor: not-allowed;
+}
