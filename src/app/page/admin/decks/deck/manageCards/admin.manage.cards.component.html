@@ -3,29 +3,69 @@
     <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update</a>
     <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]">Create card</a>
   </div>
-  <div class="cards-list">
-    <div class="cards-list-item" *ngFor="let card of cards" data-target="modal" (click)="onCardClicked(card)">
-      <span>{{card.title}}</span>
+  <div class="container">
+    <div class="cards-list">
+      <div class="cards-list-item" *ngFor="let card of cards" data-target="modal" (click)="onCardClicked(card)">
+        <span>{{card.title}}</span>
+      </div>
+    </div>
+    <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>
+  </div>
+  <div class="row" *ngIf="card">
+    <div class="col-12">
+      <div class="create-card">
+        <div class="content">
+          <h1 class="category-header">Question</h1>
+          <div class="main">
+            <textarea [disabled]="true">{{card.question}}</textarea>
+          </div>
+          <h1 class="category-header">Answer</h1>
+          <div class="main">
+            <textarea disabled="disabled">{{card.answer}}</textarea>
+          </div>
+          <button class="btn btn-primary cards-list-button" >Edit
+          </button>
+          <button class="btn btn-primary cards-list-button" data-toggle="modal" data-target="#deleteCard">Delete
+          </button>
+        </div>
+      </div>
+      <!--<table class="table table-striped cards-info-table">
+        <tbody>
+        <tr>
+          <th>Question</th>
+          <td >{{card.question}}</td>
+        </tr>
+        <tr>
+          <th>Answer</th>
+        </tr>
+        <textarea [disabled]="true">{{card.answer}}</textarea>
+        <tr>
+        </tbody>
+      </table>-->
+      <!--<button class="btn btn-primary cards-list-button" data-toggle="modal" data-target="#deleteCard">Delete
+      </button>-->
     </div>
   </div>
-  <div *ngIf="cards.length === 0" class="empty-list-label">List of cards is empty</div>git
-</div>
-<div class="container">
-<div class="row" *ngIf="false">
-  <div class="col-12">
-    <table class="table table-striped deck-info-table">
-      <tbody>
-      <tr>
-        <th>Card question</th>
-        <td>{{card.question}}</td>
-      </tr>
-      <tr>
-        <th>Card answer</th>
-        <td>{{card.answer}}</td>
-      </tr>
-      <tr>
-      </tbody>
-    </table>
+
+
+
+
+  <div class="modal fade" id="deleteCard" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content"  *ngIf="card">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete card?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="internal-text">Card <h2>{{card.title}}</h2> will be deleted !!!</div>
+        <div class="modal-footer">
+          <button type="button"
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                  (click)="deleteSelectedCard()">Delete</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-</div>

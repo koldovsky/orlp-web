@@ -5,7 +5,8 @@ import {AdminManageCardsService} from './admin.manage.cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
 import {Link} from '../../../../../dto/link';
-import {CreateCardDTO} from '../../../../../dto/CardsDTO/CreateCardDTO';
+import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
+
 
 @Component({
   providers: [AdminManageCardsService],
@@ -14,21 +15,22 @@ import {CreateCardDTO} from '../../../../../dto/CardsDTO/CreateCardDTO';
 })
 
 export class AdminManageCardsComponent implements OnInit {
-  public cards: CreateCardDTO[] = [];
+  public cards: CardPublic[] = [];
   public deck: AdminDeck;
-  public card: CreateCardDTO;
+  public card: CardPublic;
   public question: string;
   public answer: string;
   public title: string;
   public rating: '0';
   private url: string;
   private sub: Subscription;
+  public cardLink: string;
 
   constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
-              private orlp: ORLPService) {}
+              private orlp: ORLPService) {
+  }
 
   ngOnInit() {
-
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];
@@ -37,9 +39,11 @@ export class AdminManageCardsComponent implements OnInit {
     );
     this.takeDeck();
   }
+
   private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
+
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
@@ -49,12 +53,34 @@ export class AdminManageCardsComponent implements OnInit {
     this.adminManageCardsService.getDeck(this.url).subscribe(
       deck => {
         this.deck = deck;
-        this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {this.cards = cards;
-        });
+        this.getCardsList();
       });
   }
-  private onCardClicked(card: CreateCardDTO): void {
-   // this.selectElement(index);
-    this.card = card;
+
+  private getCardsList() {
+    this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
+      this.cards = cards;
+    });
   }
+
+  private getShortCardLink(linkSelectedCard: Link) {
+    return this.orlp.getShortLink(linkSelectedCard);
+  }
+
+  private decodeCardLink(cardLink: string) {
+    return this.orlp.decodeLink(cardLink);
+  }
+
+  private onCardClicked(card: CardPublic): void {
+    this.card = card;
+    this.cardLink = this.decodeCardLink(this.getShortCardLink(card.self));
+    console.log(this.cardLink);
+  }
+
+  deleteSelectedCard() {
+    this.adminManageCardsService.deleteSelectedCard(this.cardLink).subscribe(() => {this.getCardsList();
+    this.card = null;
+    });
+  }
+
 }

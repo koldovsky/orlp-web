@@ -23,7 +23,7 @@ export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.cardId, data.answer, data.question, self);
+    return new CardPublic(data.cardId, data.title, data.answer, data.rating, data.question, self);
   }
 
   public static jsonToImageDTO(data: any): ImageDTO {
@@ -135,6 +135,6 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating );
+    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self );
   }
 }

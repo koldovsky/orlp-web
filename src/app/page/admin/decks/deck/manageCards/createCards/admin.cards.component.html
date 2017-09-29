@@ -5,26 +5,26 @@
   </div>
   <div class="create-card">
     <div class="content">
-      <h1 class="category-header">Enter the title</h1>
+      <h1 class="category-header">Title</h1>
       <div class="main">
-        <input [(ngModel)]="title">
+        <input [(ngModel)]="title" type="text" minlenght="3">
       </div>
-      <h1 class="category-header">Enter the question</h1>
+      <h1 class="category-header">Question</h1>
       <div class="main">
         <textarea [(ngModel)]="question"></textarea>
       </div>
-      <h1 class="category-header">Enter the answer</h1>
+      <h1 class="category-header">Answer</h1>
       <div class="main">
         <textarea [(ngModel)]="answer"></textarea>
       </div>
-      <button *ngIf="question && answer && title" type="button"
+      <button [disabled]="!(question && answer && title)" type="button"
               class="btn btn-primary btn-create-card" (click)="createCard()" data-toggle="modal" data-target="#SuccessCreate">Add card
       </button>
     </div>
   </div>
 </div>
 <!-- Modal create new card-->
-<div class="modal fade" id="SuccessCreate" role="dialog">
+<div class="modal fade"  id="SuccessCreate" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

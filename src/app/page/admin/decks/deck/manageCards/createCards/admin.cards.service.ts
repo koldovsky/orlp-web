@@ -9,6 +9,7 @@ import {ORLPService} from '../../../../../../services/orlp.service';
 import {DTOConverter} from '../../../../../../dto/dto.converter';
 import {CreateCardDTO} from '../../../../../../dto/CardsDTO/CreateCardDTO';
 import {AdminDeck} from '../../../../../../dto/AdminDTO/admin.deck.DTO';
+import {AdminCardsComponent} from "./admin.cards.component";
 
 
 @Injectable()
@@ -17,12 +18,13 @@ export class AdminCardsService {
   constructor(private orlp: ORLPService) {
   }
   public createCard(createCardDTO: CreateCardDTO, categoryId: number, deckId: number ) {
-    return this.orlp.post('/api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO).map((response: Response) => response.json());
+    return this.orlp.post('/api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
   }
   public getDeck(url: string): Observable<AdminDeck> {
     return this.orlp.get(url)
-      .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()))
-      .catch(this.handleError);
+      .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()));
   }
   private handleError(error: Response) {
     console.error(error);
