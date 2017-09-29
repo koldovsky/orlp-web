@@ -35,7 +35,7 @@
   background-color: white;
   max-height: 450px;
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .decks-list-item {
@@ -83,4 +83,8 @@
   background-color: white;
   border-radius: 0.7rem;
   border-top: hidden;
+}
+
+.disabled {
+  cursor: not-allowed;
 }

@@ -24,9 +24,14 @@ export class UserDecksService {
       <CategoryLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
-  getOnlyDecksCreatedByTheUser(userId: number): Observable<DeckDTO[]> {
+  getOnlyDecksCreatedByTheUser(): Observable<DeckDTO[]> {
     return this.orlp.get('api/private/user/folder/decks/own').map((response: Response) =>
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
+  }
+
+  getDeckCreatedByTheUser(deckId: number): Observable<DeckDTO> {
+    return this.orlp.get('api/private/user/folder/decks/own/' + deckId).map((response: Response) =>
+      <DeckDTO> DTOConverter.jsonToDeck(response.json()));
   }
 
   createDeck(deck: NewDeckDTO) {
@@ -39,7 +44,7 @@ export class UserDecksService {
       .map((response: Response) => response.json());
   }
 
-  deleteDeck(categoryId: number, deckId: number) {
+  deleteDeck(deckId: number) {
     return this.orlp.delete('api/private/deck/' + deckId)
       .map((response: Response) => response.json());
   }
