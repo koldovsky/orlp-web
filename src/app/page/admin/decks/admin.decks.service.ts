@@ -9,7 +9,8 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
-import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
+import {Link} from '../../../dto/link';
+import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 
 @Injectable()
 export class AdminDecksService {
@@ -23,16 +24,16 @@ export class AdminDecksService {
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminDeck, response.json()))
       .catch(this.handleError);
   }
-
-  deleteDeck(deckId: number) {
-    return this.orlp.delete('/api/admin/decks/' + deckId);
-}
+  deleteDeck(link: Link) {
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
+    return this.orlp.delete( shortLink)
+      .map((response: Response) => console.log());
+  }
 
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
-
 
   getCategories(): Observable<CategoryLink[]> {
     return this.orlp.get('api/category/')
@@ -40,13 +41,14 @@ export class AdminDecksService {
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
-  createDeck (deckAdded: NewDeckDTO ) {
-    return this.orlp.post('/api/admin/decks/' + deckAdded.categoryId, deckAdded)
+  createDeckAdmin (deckAdded: EditDeckDTO ) {
+    return this.orlp.post('/api/admin/decks', deckAdded)
       .map((response: Response) => response.json());
   }
 
-  editDeck (deckEdit: NewDeckDTO, deck_id: number ) {
-    return this.orlp.put('/api/admin/decks/' + deck_id + '/' + deckEdit.categoryId, deckEdit)
+  editDeck (link: Link, deckEdit: EditDeckDTO) {
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
+    return this.orlp.put(shortLink, deckEdit)
       .map((response: Response) => console.log());
   }
 

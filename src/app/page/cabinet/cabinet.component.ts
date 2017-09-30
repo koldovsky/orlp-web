@@ -5,12 +5,12 @@ import {Link} from '../../dto/link';
 import {Router} from '@angular/router';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
-import {CardComponent} from "../card/card.component";
-import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
-import {DeckPublic} from "../../dto/DeckDTO/public.deck.DTO";
-import {DeckService} from "../categoryInfo/deck/deck.service";
-import {CourseService} from "../categoryInfo/course/course.service";
-import {Rating} from "../../dto/Rating";
+import {CardComponent} from '../card/card.component';
+import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
+import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
+import {DeckService} from '../categoryInfo/deck/deck.service';
+import {CourseService} from '../categoryInfo/course/course.service';
+import {Rating} from '../../dto/Rating';
 
 @Component({
   providers: [CabinetService],
@@ -26,8 +26,8 @@ export class CabinetComponent implements OnInit {
   public showCourseDecks: any;
   public showFolderDecks: boolean = true;
   public chosenCourse: CourseLink;
-  public showAllertdeck: boolean = true;
-  public showAllertcouse: boolean = true;
+  public showAlertdeck: boolean = true;
+  public showAlertcouse: boolean = true;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -56,7 +56,7 @@ export class CabinetComponent implements OnInit {
       .subscribe(courses => {
         this.courses = courses;
         if (courses.length > 0) {
-          this.showAllertcouse = false;
+          this.showAlertcouse = false;
         }
       });
 
@@ -66,7 +66,7 @@ export class CabinetComponent implements OnInit {
     this.cabinetService.getDecks(link)
       .subscribe(decks => {this.decks = decks;
         if (decks.length > 0) {
-          this.showAllertdeck = false;
+          this.showAlertdeck = false;
         }
       });
   }
