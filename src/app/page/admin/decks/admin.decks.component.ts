@@ -3,12 +3,11 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {AdminDecksService} from './admin.decks.service';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
-import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
-import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Router} from '@angular/router';
-
-
+import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
+import {DeckEditCategoryDTO} from '../../../dto/DeckDTO/deck.edit.category.DTO';
+import {DeckAddedAdminDTO} from '../../../dto/DeckDTO/deck.added.admin.DTO';
 @Component({
   providers: [AdminDecksService],
   templateUrl: ('./admin.decks.component.html'),
@@ -20,9 +19,11 @@ export class AdminDecksComponent implements OnInit {
   public deckSelected: AdminDeck;
   public categories: CategoryLink[];
   public deckList: AdminDeck[];
-  public chosenCategoryId: number;
+  public categoryForDeckAdd: DeckEditCategoryDTO = new DeckEditCategoryDTO();
+  public categoryForDeck: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public deckName: string;
   public deckDescription: string;
+
   constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {
   }
 
@@ -48,20 +49,19 @@ export class AdminDecksComponent implements OnInit {
   }
 
   createDeck() {
-    this.adminDecksService.createDeck(
-      (new NewDeckDTO( this.deckName, this.deckDescription, this.chosenCategoryId )) )
+    this.adminDecksService.createDeckAdmin(
+      (new DeckAddedAdminDTO( this.deckName, this.deckDescription, this.categoryForDeckAdd )) )
       .subscribe( () => this.getDecks() );
   }
 
   deleteDeck(): void {
-    this.adminDecksService.deleteDeck(this.deckSelected.deckId)
+    this.adminDecksService.deleteDeck( this.deckSelected.self)
       .subscribe( () => this.getDecks() );
   }
 
   editDeck (): void {
-    this.adminDecksService.editDeck (
-      ( new NewDeckDTO(this.deckSelected.name , this.deckSelected.description , this.chosenCategoryId )),
-      this.deckSelected.deckId )
+    this.adminDecksService.editDeck (this.deckSelected.self,
+      new EditDeckDTO(this.deckSelected.name , this.deckSelected.description, this.categoryForDeck, this.deckSelected.self))
       .subscribe( () => this.getDecks() );
   }
 
@@ -72,7 +72,8 @@ export class AdminDecksComponent implements OnInit {
 
 
   onCategorySelect(deviceValue) {
-    this.chosenCategoryId = deviceValue.value;
+    this.categoryForDeck.id = deviceValue.value;
+    this.categoryForDeckAdd.id = deviceValue.value;
   }
 
 }

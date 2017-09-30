@@ -1,10 +1,9 @@
 <div class="container">
 
-
   <table class="table ">
     <tr >
       <th>  <div class="col-xs-12 col-sm-4 font-color-white header-text">
-        <h1>Deckes</h1></div></th>
+        <h1>Decks</h1></div></th>
       <th><button   type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add new deck</button></th>
     </tr>
   </table>
@@ -24,19 +23,14 @@
           <td>{{deck.name}}</td>
           <td>{{deck.description}}</td>
           <td>{{deck.rating}}</td>
-
-
           <td>{{deck.category}}</td>
           <td>{{deck.owner}}</td>
           <td >
-
             <button class="btn btn-danger btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
           </td>
           <td>
             <div >
-
               <button   type="button" class="btn btn-primary btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
-
             </div>
           </td>
           <td>
@@ -54,8 +48,6 @@
     </div>
   </div>
 
-
-
   <!-- Modal Add -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -64,14 +56,12 @@
         <div class="modal-header">
           <h4 class="modal-title">Deck</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-
         </div>
         <div *ngIf="categories" class="modal-body">
           <div class="container">
             <table class="table table-striped admins-tables">
               <tr>
                 <td>
-
                   <label>name: </label>
                 </td>
                 <td>
@@ -79,17 +69,13 @@
                 </td>
                 <td>
               </tr>
-
               <tr>
                 <td>
-
                   <label>description: </label></td>
                 <td>
                   <input type="text" name="description" [(ngModel)]="deckDescription" />
                 </td>
-
               </tr>
-
               <tr>
                 <td>
                   <label>category: </label>
@@ -101,12 +87,11 @@
                   </select>
                 </td>
               </tr>
-
             </table>
           </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="deckName && deckDescription && chosenCategoryId"  type="button"
+          <button *ngIf="deckName && deckDescription && categoryForDeckAdd"  type="button"
                   class="btn btn-primary"
                   data-dismiss="modal"
                   (click)="createDeck()">Add</button>
@@ -116,8 +101,6 @@
     </div>
   </div>
 
-
-
   <!-- Modal delete deck-->
   <div class="modal fade" id="ModalDelete" role="dialog">
     <div class="modal-dialog">
@@ -126,19 +109,17 @@
           <h4 class="modal-title">Delete Deck?</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-
         <div class="internal-text">Deck {{deckSelected.name}} will be deleted</div>
         <div class="modal-footer">
           <button type="button"
                   class="btn btn-primary"
                   data-dismiss="modal"
-                  (click)="deleteDeck(deckSelected.deckId)" >Delete</button>
+                  (click)="deleteDeck()" >Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- Modal Edit -->
   <div class="modal fade" id="ModalEdit" role="dialog">
@@ -148,14 +129,12 @@
         <div class="modal-header">
           <h4 class="modal-title">Deck</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-
         </div>
         <div *ngIf="categories" class="modal-body">
           <div class="container">
             <table class="table table-striped admins-tables">
               <tr>
                 <td>
-
                   <label>name: </label>
                 </td>
                 <td>
@@ -163,17 +142,13 @@
                 </td>
                 <td>
               </tr>
-
               <tr>
                 <td>
-
                   <label>description: </label></td>
                 <td>
                   <input type="text" name="description" [(ngModel)]="deckSelected.description" />
                 </td>
-
               </tr>
-
               <tr>
                 <td>
                   <label>category: </label>
@@ -185,7 +160,6 @@
                   </select>
                 </td>
               </tr>
-
             </table>
           </div>
         </div>
