@@ -110,3 +110,12 @@ textarea{
 .category-header {
   color: white;
 }
+
+.active {
+  background-color : #0275d8;
+  color: white;
+}
+.active:hover {
+  background-color : #0275d8;
+  color: white;
+}

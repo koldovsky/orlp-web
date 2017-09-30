@@ -5,7 +5,9 @@
   </div>
   <div class="container">
     <div class="cards-list">
-      <div class="cards-list-item" *ngFor="let card of cards" data-target="modal" (click)="onCardClicked(card)">
+      <div class="cards-list-item" [ngClass]="{'active': selectedItem == item}"
+           *ngFor="let card of cards; let item = index" data-target="modal"
+           (click)="onCardClicked(card); onChangeSelectedItemColor($event, item)">
         <span>{{card.title}}</span>
       </div>
     </div>
@@ -17,19 +19,21 @@
         <div class="content">
           <h1 class="category-header">Question</h1>
           <div class="main">
-            <textarea [disabled]="blockEdit" [(ngModel)]=card.question>{{card.question}}</textarea>
+            <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
           </div>
           <h1 class="category-header">Answer</h1>
           <div class="main">
-            <textarea [disabled]="blockEdit" [(ngModel)]=card.answer>{{card.answer}}</textarea>
+            <textarea [disabled]="edit" [(ngModel)]=card.answer>{{card.answer}}</textarea>
           </div>
-          <button class="btn btn-primary cards-list-button" (click)="activateEdit()">Edit
+          <button [disabled]="!edit" class="btn btn-primary cards-list-button" (click)="changeEditStatus()">Edit
           </button>
-          <button class="btn btn-primary cards-list-button" data-toggle="modal" data-target="#deleteCard">Delete
+          <button [disabled]="!edit" class="btn btn-primary cards-list-button" data-toggle="modal"
+                  data-target="#deleteCard">Delete
           </button>
-          <button *ngIf="!blockEdit" class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
+          <button *ngIf="!edit" [disabled]="!(card.question && card.answer)"
+                  class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
           </button>
-          <button *ngIf="!blockEdit" class="btn btn-primary cards-list-button" (click)="cancelEdit()">Cancel
+          <button *ngIf="!edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
           </button>
         </div>
       </div>
@@ -44,11 +48,7 @@
         </div>
         <div class="internal-text">Card <h2>{{card.title}}</h2> will be deleted !!!</div>
         <div class="modal-footer">
-          <button type="button"
-                  class="btn btn-primary"
-                  data-dismiss="modal"
-                  (click)="deleteSelectedCard()">Delete
-          </button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteSelectedCard()">Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>

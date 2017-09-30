@@ -5,11 +5,11 @@ export class CardPublic {
   title: string;
   answer: string;
   question: string;
-  rating: string;
+  rating: number;
   self: Link;
 
 
-  constructor(cardId: number, title: string, answer: string, question: string, rating: string, self: Link) {
+  constructor(cardId: number, title: string, answer: string, question: string, rating: number, self: Link) {
     this.cardId = cardId;
     this.title = title;
     this.answer = answer;

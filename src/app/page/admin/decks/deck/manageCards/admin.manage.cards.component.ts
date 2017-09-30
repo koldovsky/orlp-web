@@ -15,7 +15,7 @@ import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
 })
 
 export class AdminManageCardsComponent implements OnInit {
-  public blockEdit: boolean = true;
+  public edit: boolean = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
   public card: CardPublic;
@@ -25,7 +25,7 @@ export class AdminManageCardsComponent implements OnInit {
   public rating: '0';
   private url: string;
   private sub: Subscription;
-  public cardLink: Link;
+  public selectedItem: number;
 
   constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
@@ -73,31 +73,37 @@ export class AdminManageCardsComponent implements OnInit {
   }
 
   private onCardClicked(card: CardPublic): void {
-    this.blockEdit = true;
+    this.edit = true;
     this.card = card;
-    this.cardLink = card.self;
+    this.question = card.question;
+    this.answer = card.answer;
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.cardLink)))
+    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
       .subscribe(() => {
       this.getCardsList();
       this.card = null;
     });
   }
 
-  public activateEdit() {
-    this.blockEdit = false;
+  public changeEditStatus() {
+    this.edit = false;
   }
 
   public cancelEdit(card: CardPublic) {
-    this.blockEdit = true;
-    this.card = card;
+    this.edit = true;
+    this.card.answer = this.answer;
+    this.card.question = this.question;
   }
 
-  updateCard() {
-    this.blockEdit = true;
-    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.cardLink)), this.card)
+  public updateCard() {
+    this.edit = true;
+    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
       .subscribe(() => this.getCardsList());
+  }
+
+  public onChangeSelectedItemColor(event, item: number) {
+    this.selectedItem = item;
   }
 }
