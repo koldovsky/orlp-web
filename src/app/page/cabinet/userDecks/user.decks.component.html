@@ -84,19 +84,18 @@
                 <label>Choose a category:</label>
               </td>
               <td>
-                <select class="category-select" (change)="onCategorySelect($event.target)">
-                  <option selected [value]="dialogCategoryId != -1 ? dialogCategoryId : -1">{{category}}</option>
-                  <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+                <select class="category-select" [(ngModel)]="categoryId">
+                  <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
                 </select>
               </td>
             </tr>
           </table>
         </div>
         <div class="modal-footer">
-          <button *ngIf="name && description && categoryId != -1" class="btn btn-primary btn-pointer"
+          <button *ngIf="name && description && categoryId" class="btn btn-primary btn-pointer"
                   data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
           </button>
-          <button *ngIf="!name || !description || categoryId == -1"
+          <button *ngIf="!name || !description || !categoryId"
                   class="btn btn-primary btn-pointer disabled" aria-label="Close">
             {{dialogButtonName}}
           </button>

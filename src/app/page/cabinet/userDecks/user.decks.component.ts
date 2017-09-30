@@ -56,11 +56,10 @@ export class UserDecksComponent {
     this.dialogButtonName = 'Create';
     this.name = '';
     this.description = '';
-    this.dialogCategoryId = -1;
-    this.categoryId = -1;
+    this.dialogCategoryId = null;
+    this.categoryId = null;
     this.category = '';
     this.isCreateDialog = true;
-    (<HTMLOptionElement> document.getElementsByTagName('option')[0]).selected = true;
   }
 
   private prepareEditDialog() {
@@ -68,11 +67,10 @@ export class UserDecksComponent {
     this.dialogButtonName = 'Edit';
     this.name = this.selectedDeck.name;
     this.description = this.selectedDeck.description;
-    this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : -1;
-    this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : -1;
+    this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
+    this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.category = this.selectedDeck.category;
     this.isCreateDialog = false;
-    (<HTMLOptionElement> document.getElementsByTagName('option')[0]).selected = true;
   }
 
   private createDeck() {
@@ -91,9 +89,5 @@ export class UserDecksComponent {
         this.decks = this.decks.filter(deck => deck.deckId !== this.selectedDeck.deckId);
         this.selectedDeck = null;
       });
-  }
-
-  onCategorySelect(deviceValue) {
-    this.categoryId = deviceValue.value;
   }
 }
