@@ -11,17 +11,17 @@ import {NewDeckDTO} from "../../../dto/DeckDTO/deck.added.DTO";
 })
 
 export class UserDecksComponent {
-  private decks: DeckDTO[] = [];
-  private categories: CategoryLink[];
+  decks: DeckDTO[] = [];
+  categories: CategoryLink[];
   private user: UserDTO;
-  private deck: DeckDTO;
-  private name: string;
-  private description: string;
-  private categoryId: number;
-  private dialogCategoryId: number;
-  private category: string;
-  private dialogName: string;
-  private dialogButtonName: string;
+  selectedDeck: DeckDTO;
+  name: string;
+  description: string;
+  categoryId: number;
+  dialogCategoryId: number;
+  category: string;
+  dialogName: string;
+  dialogButtonName: string;
   private isCreateDialog: boolean;
   private selectedIndex: number;
 
@@ -41,14 +41,14 @@ export class UserDecksComponent {
 
   private getDeckCreatedByTheUser(deckId: number): void {
     this.userDecksService.getDeckCreatedByTheUser(deckId).subscribe(deck => {
-      this.deck = deck;
-      this.decks[this.selectedIndex] = this.deck;
+      this.selectedDeck = deck;
+      this.decks[this.selectedIndex] = this.selectedDeck;
     });
   }
 
   private onDeckClicked(deck: DeckDTO, index: number): void {
-    this.selectElement(index);
-    this.deck = deck;
+    this.selectedIndex = index;
+    this.selectedDeck = deck;
   }
 
   private prepareCreateDialog() {
@@ -56,23 +56,21 @@ export class UserDecksComponent {
     this.dialogButtonName = 'Create';
     this.name = '';
     this.description = '';
-    this.dialogCategoryId = -1;
-    this.categoryId = -1;
+    this.dialogCategoryId = null;
+    this.categoryId = null;
     this.category = '';
     this.isCreateDialog = true;
-    (<HTMLOptionElement> document.getElementsByTagName('option')[0]).selected = true;
   }
 
   private prepareEditDialog() {
     this.dialogName = 'Edit the deck';
     this.dialogButtonName = 'Edit';
-    this.name = this.deck.name;
-    this.description = this.deck.description;
-    this.dialogCategoryId = this.deck.categoryId ? this.deck.categoryId : -1;
-    this.categoryId = this.deck.categoryId ? this.deck.categoryId : -1;
-    this.category = this.deck.category;
+    this.name = this.selectedDeck.name;
+    this.description = this.selectedDeck.description;
+    this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
+    this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
+    this.category = this.selectedDeck.category;
     this.isCreateDialog = false;
-    (<HTMLOptionElement> document.getElementsByTagName('option')[0]).selected = true;
   }
 
   private createDeck() {
@@ -80,33 +78,16 @@ export class UserDecksComponent {
       this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId))
         .subscribe(() => this.getOnlyDecksCreatedByTheUser());
     } else {
-      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.deck.deckId)
-        .subscribe(() => this.getDeckCreatedByTheUser(this.deck.deckId));
+      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.selectedDeck.deckId)
+        .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
   }
 
   private deleteDeck() {
-    this.userDecksService.deleteDeck(this.deck.deckId)
+    this.userDecksService.deleteDeck(this.selectedDeck.deckId)
       .subscribe(() => {
-        this.decks = this.decks.filter(deck => deck.deckId !== this.deck.deckId);
-        this.deck = null;
+        this.decks = this.decks.filter(deck => deck.deckId !== this.selectedDeck.deckId);
+        this.selectedDeck = null;
       });
-  }
-
-  private selectElement(index: number): void {
-    this.selectedIndex = index;
-    let element = document.getElementsByClassName("selected")[0];
-    if (element !== undefined) {
-      element.classList.remove("selected");
-    }
-    document.getElementsByClassName('decks-list-item')[index].classList.add("selected");
-  }
-
-  private setSelectedDeck(deck: DeckDTO) {
-    this.deck = deck;
-  }
-
-  onCategorySelect(deviceValue) {
-    this.categoryId = deviceValue.value;
   }
 }
