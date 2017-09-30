@@ -64,7 +64,7 @@ export class UserDecksComponent {
 
   private prepareEditDialog() {
     this.dialogName = 'Edit the deck';
-    this.dialogButtonName = 'Edit';
+    this.dialogButtonName = 'Save';
     this.name = this.selectedDeck.name;
     this.description = this.selectedDeck.description;
     this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
