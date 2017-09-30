@@ -7,11 +7,9 @@
 
   <div class="list-button-container">
     <div class="decks-list">
-      <div class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
+      <div [class.selected]="deck === selectedDeck" class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
         <span>{{deck.name}}</span>
-        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck"
-                (click)="setSelectedDeck(deck)">-
-        </button>
+        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck">-</button>
       </div>
     </div>
     <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
@@ -23,29 +21,29 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="deck">
+  <div class="row" *ngIf="selectedDeck">
     <div class="col-12">
       <table class="table table-striped deck-info-table">
         <tbody>
         <tr>
           <th>Deck Name</th>
-          <td>{{deck.name}}</td>
+          <td>{{selectedDeck.name}}</td>
         </tr>
         <tr>
           <th>Deck Description</th>
-          <td>{{deck.description}}</td>
+          <td>{{selectedDeck.description}}</td>
         </tr>
         <tr>
           <th>Deck Rating</th>
-          <td>{{deck.rating}}</td>
+          <td>{{selectedDeck.rating}}</td>
         </tr>
         <tr>
           <th>DeckCategory</th>
-          <td>{{deck.category}}</td>
+          <td>{{selectedDeck.category}}</td>
         </tr>
         <tr>
           <th>DeckOwner</th>
-          <td>{{deck.owner}}</td>
+          <td>{{selectedDeck.owner}}</td>
         </tr>
         </tbody>
       </table>
@@ -108,7 +106,7 @@
     </div>
   </div>
 
-  <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="deck">
+  <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="selectedDeck">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -117,7 +115,7 @@
             aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          Are you sure you want to delete the deck {{deck.name}}?
+          Are you sure you want to delete the deck {{selectedDeck.name}}?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary btn-pointer"
