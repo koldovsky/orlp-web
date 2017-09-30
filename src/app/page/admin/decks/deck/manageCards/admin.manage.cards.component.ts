@@ -25,7 +25,7 @@ export class AdminManageCardsComponent implements OnInit {
   public rating: '0';
   private url: string;
   private sub: Subscription;
-  public cardLink: string;
+  public cardLink: Link;
 
   constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
@@ -73,12 +73,14 @@ export class AdminManageCardsComponent implements OnInit {
   }
 
   private onCardClicked(card: CardPublic): void {
+    this.blockEdit = true;
     this.card = card;
-    this.cardLink = this.decodeCardLink(this.getShortCardLink(card.self));
+    this.cardLink = card.self;
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.cardLink).subscribe(() => {
+    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.cardLink)))
+      .subscribe(() => {
       this.getCardsList();
       this.card = null;
     });
@@ -95,9 +97,7 @@ export class AdminManageCardsComponent implements OnInit {
 
   updateCard() {
     this.blockEdit = true;
-    this.adminManageCardsService.updateSelectedCard(this.cardLink, this.card).subscribe(() => {
-        this.getCardsList();
-      }
-    );
+    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.cardLink)), this.card)
+      .subscribe(() => this.getCardsList());
   }
 }
