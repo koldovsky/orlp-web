@@ -7,7 +7,6 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Router} from '@angular/router';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 import {DeckEditCategoryDTO} from '../../../dto/DeckDTO/deck.edit.category.DTO';
-import {DeckAddedAdminDTO} from '../../../dto/DeckDTO/deck.added.admin.DTO';
 @Component({
   providers: [AdminDecksService],
   templateUrl: ('./admin.decks.component.html'),
@@ -19,7 +18,6 @@ export class AdminDecksComponent implements OnInit {
   public deckSelected: AdminDeck;
   public categories: CategoryLink[];
   public deckList: AdminDeck[];
-  public categoryForDeckAdd: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public categoryForDeck: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public deckName: string;
   public deckDescription: string;
@@ -50,7 +48,7 @@ export class AdminDecksComponent implements OnInit {
 
   createDeck() {
     this.adminDecksService.createDeckAdmin(
-      (new DeckAddedAdminDTO( this.deckName, this.deckDescription, this.categoryForDeckAdd )) )
+      (new EditDeckDTO( this.deckName, this.deckDescription, this.categoryForDeck, null )) )
       .subscribe( () => this.getDecks() );
   }
 
@@ -73,7 +71,6 @@ export class AdminDecksComponent implements OnInit {
 
   onCategorySelect(deviceValue) {
     this.categoryForDeck.id = deviceValue.value;
-    this.categoryForDeckAdd.id = deviceValue.value;
   }
 
 }
