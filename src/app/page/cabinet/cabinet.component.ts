@@ -142,12 +142,12 @@ export class CabinetComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
-    const courseRating: Rating = new Rating(course.courseId, event.rating, course.self);
-    this.courseService.addCourseRating(courseRating).subscribe(() => course.rating = event.rating);
+    const courseRating: Rating = new Rating(event.rating, course.self);
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => course.rating = event.rating);
   };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: Rating = new Rating(deck.deckId, event.rating, deck.self);
-    this.deckService.addDeckRating(deckRating).subscribe(() => deck.rating = event.rating);
+    const deckRating: Rating = new Rating(event.rating, deck.self);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
   }
 }

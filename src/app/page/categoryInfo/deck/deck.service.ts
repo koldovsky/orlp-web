@@ -44,7 +44,7 @@ export class DeckService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    addDeckRating(deck: Rating){
-      return this.orlp.post('/api/private/deck/' + deck.id, deck);
+    addDeckRating(rating: Rating, deckId: number){
+      return this.orlp.post('/api/private/deck/' + deckId, rating);
     }
 }

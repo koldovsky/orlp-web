@@ -98,7 +98,7 @@ export class DeckComponent implements OnInit {
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: Rating = new Rating(deck.deckId, event.rating, deck.self);
-    this.deckService.addDeckRating(deckRating).subscribe(() => deck.rating = event.rating);
+    const deckRating: Rating = new Rating(event.rating, deck.self);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
   }
 }
