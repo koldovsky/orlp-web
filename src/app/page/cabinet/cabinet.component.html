@@ -7,13 +7,12 @@
   </div>
   <!--ALERT-->
     <table id="alert" class="table table-striped folder">
-    <div *ngIf="showAllertdeck" class="alert alert-info">
-      <strong>Info!</strong> Folder "My deck" is empty now. You can subscribe to deck in section
+    <div *ngIf="showAlertdeck" class="alert alert-info">
+      Folder "My deck" is empty now. You can subscribe to deck in section
       <a [routerLink]="['/user/categories']">Categories</a>
       decks and it appears in your folder.
     </div>
-      <div *ngIf="showAllertcouse" class="alert alert-info">
-        <strong>Info!</strong>
+      <div *ngIf="showAlertcouse" class="alert alert-info">
         You don't have any courses in your cabinet. You can subscribe to course in section
         <a [routerLink]="['/user/courses']">Courses</a>
         or create own course in section

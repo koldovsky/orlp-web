@@ -9,10 +9,8 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
-import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
-import {DeckAddedAdminDTO} from '../../../dto/DeckDTO/deck.added.admin.DTO';
 
 @Injectable()
 export class AdminDecksService {
@@ -27,8 +25,7 @@ export class AdminDecksService {
       .catch(this.handleError);
   }
   deleteDeck(link: Link) {
-    let shortLink: string = this.orlp.getShortLink(link);
-    shortLink = this.orlp.decodeLink(shortLink);
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.delete( shortLink)
       .map((response: Response) => console.log());
   }
@@ -44,19 +41,13 @@ export class AdminDecksService {
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
-  createDeck (deckAdded: NewDeckDTO ) {
-    return this.orlp.post('/api/admin/decks', deckAdded)
-      .map((response: Response) => response.json());
-  }
-
-  createDeckAdmin (deckAdded: DeckAddedAdminDTO ) {
+  createDeckAdmin (deckAdded: EditDeckDTO ) {
     return this.orlp.post('/api/admin/decks', deckAdded)
       .map((response: Response) => response.json());
   }
 
   editDeck (link: Link, deckEdit: EditDeckDTO) {
-    let shortLink: string = this.orlp.getShortLink(link);
-    shortLink = this.orlp.decodeLink(shortLink);
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.put(shortLink, deckEdit)
       .map((response: Response) => console.log());
   }
