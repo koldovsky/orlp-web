@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {AdminCardsService} from './admin.cards.service';
 import {ORLPService} from '../../../../../../services/orlp.service';
 import {Link} from '../../../../../../dto/link';
@@ -21,9 +21,10 @@ export class AdminCardsComponent implements OnInit {
   public rating: '0';
   private url: string;
   private sub: Subscription;
+  public successCreate: boolean;
 
   constructor(private adminCardsService: AdminCardsService, private route: ActivatedRoute,
-              private orlp: ORLPService) {
+              private orlp: ORLPService, private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
@@ -42,7 +43,7 @@ export class AdminCardsComponent implements OnInit {
 
   createCard() {
     this.adminCardsService.createCard(
-      new CreateCardDTO(this.title, this.question, this.answer, this.rating), this.deck.categoryId, this.deck.deckId)
+      new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
       .subscribe();
   }
 
@@ -53,7 +54,9 @@ export class AdminCardsComponent implements OnInit {
   private takeDeck(): void {
     this.decodeLink();
     this.adminCardsService.getDeck(this.url).subscribe(
-      deck => this.deck = deck);
+      deck => {this.deck = deck;
+      }
+    );
   }
 
   clearFields() {

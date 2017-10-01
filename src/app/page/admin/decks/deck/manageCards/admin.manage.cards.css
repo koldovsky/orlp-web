@@ -32,8 +32,7 @@
   width: 25%;
   margin-left: 2%;
   max-height: 450px;
-  overflow:hidden;
-  overflow-y:scroll;
+  overflow: auto;
 }
 .cards-list-item {
   background-color: #eee;
@@ -70,7 +69,53 @@
   text-align: center;
 }
 
-.btn-sm {
-  cursor: pointer;
-  float: right;
+
+.cards-info-table {
+  background-color: white;
+  border-radius: 0.7rem;
+  border-top: hidden;
+}
+
+th {
+  width: 30%;
+}
+.admins-tables {
+  background: white;
+  border-radius: 0.8rem;
+}
+
+.admins-tables-header {
+  border-top: hidden
+}
+
+.btn-secondary {
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+}
+
+.btn-secondary:hover {
+  color: #000;
+  background-color: #f5f5ff;
+  border-color: #6c757d;
+}
+
+.internal-text {
+  text-align: center;
+  font-size: 120%;
+}
+textarea{
+  height: 150px;
+}
+.category-header {
+  color: white;
+}
+
+.active {
+  background-color : #0275d8;
+  color: white;
+}
+.active:hover {
+  background-color : #0275d8;
+  color: white;
 }
