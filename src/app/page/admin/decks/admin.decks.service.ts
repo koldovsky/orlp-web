@@ -43,13 +43,13 @@ export class AdminDecksService {
 
   createDeckAdmin (deckAdded: EditDeckDTO ) {
     return this.orlp.post('/api/admin/decks', deckAdded)
-      .map((response: Response) => response.json());
+      .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()));
   }
 
   editDeck (link: Link, deckEdit: EditDeckDTO) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.put(shortLink, deckEdit)
-      .map((response: Response) => console.log());
+      .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()));
   }
 
 }

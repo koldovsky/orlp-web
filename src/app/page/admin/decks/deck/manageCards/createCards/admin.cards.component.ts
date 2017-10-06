@@ -18,7 +18,7 @@ export class AdminCardsComponent implements OnInit {
   public question: string;
   public answer: string;
   public title: string;
-  public rating: '0';
+  public rating: number;
   private url: string;
   private sub: Subscription;
   public successCreate: boolean;

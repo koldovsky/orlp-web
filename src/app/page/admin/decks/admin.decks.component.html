@@ -4,7 +4,7 @@
     <tr >
       <th>  <div class="col-xs-12 col-sm-4 font-color-white header-text">
         <h1>Decks</h1></div></th>
-      <th><button   type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add new deck</button></th>
+      <th><button   type="button" (click)="beforeCreate()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add new deck</button></th>
     </tr>
   </table>
 
@@ -30,7 +30,7 @@
           </td>
           <td>
             <div >
-              <button   type="button" class="btn btn-primary btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
+              <button   type="button" class="btn btn-primary btn-sm" (click)="beforeEdit(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
             </div>
           </td>
           <td>
@@ -138,7 +138,7 @@
                   <label>name: </label>
                 </td>
                 <td>
-                  <input type="text" name="name" [(ngModel)]="deckSelected.name"/>
+                  <input type="text" name="name" [(ngModel)]="deckName"/>
                 </td>
                 <td>
               </tr>
@@ -146,7 +146,7 @@
                 <td>
                   <label>description: </label></td>
                 <td>
-                  <input type="text" name="description" [(ngModel)]="deckSelected.description" />
+                  <input type="text" name="description" [(ngModel)]="deckDescription" />
                 </td>
               </tr>
               <tr>
