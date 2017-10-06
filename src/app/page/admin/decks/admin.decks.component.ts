@@ -84,7 +84,7 @@ export class AdminDecksComponent implements OnInit {
   private beforeCreate() {
     this.deckName = '';
     this.deckDescription = '';
-    this.categorySelectedId = 0;
+    this.categoryForDeck.id = null;
   }
 
   private beforeEdit(deck: AdminDeck) {
