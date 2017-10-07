@@ -21,6 +21,7 @@ export class AdminDecksComponent implements OnInit {
   public categoryForDeck: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public deckName: string;
   public deckDescription: string;
+  public categorySelectedId: number;
 
   constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {
   }
@@ -49,18 +50,25 @@ export class AdminDecksComponent implements OnInit {
   createDeck() {
     this.adminDecksService.createDeckAdmin(
       (new EditDeckDTO( this.deckName, this.deckDescription, this.categoryForDeck, null )) )
-      .subscribe( () => this.getDecks() );
+      .subscribe( deckNew => this.deckList.push(deckNew) );
   }
 
   deleteDeck(): void {
     this.adminDecksService.deleteDeck( this.deckSelected.self)
-      .subscribe( () => this.getDecks() );
+      .subscribe( () => {
+        const index: number = this.deckList.indexOf(this.deckSelected);
+        if (index !== -1) {
+          this.deckList.splice(index, 1);
+        }
+      });
   }
 
-  editDeck (): void {
+  editDeck () {
     this.adminDecksService.editDeck (this.deckSelected.self,
-      new EditDeckDTO(this.deckSelected.name , this.deckSelected.description, this.categoryForDeck, this.deckSelected.self))
-      .subscribe( () => this.getDecks() );
+      new EditDeckDTO(this.deckName, this.deckDescription, this.categoryForDeck, this.deckSelected.self))
+      .subscribe( deckUpdate => {this.deckSelected.name = this.deckName;
+        this.deckSelected.description = this.deckDescription;
+      this.deckSelected.category = deckUpdate.category; }) ;
   }
 
   assignDeck(deck: AdminDeck): void {
@@ -71,6 +79,19 @@ export class AdminDecksComponent implements OnInit {
 
   onCategorySelect(deviceValue) {
     this.categoryForDeck.id = deviceValue.value;
+  }
+
+  private beforeCreate() {
+    this.deckName = '';
+    this.deckDescription = '';
+    this.categoryForDeck.id = null;
+  }
+
+  private beforeEdit(deck: AdminDeck) {
+    this.deckName = deck.name;
+    this.deckDescription = deck.description;
+    this.categorySelectedId = deck.categoryId;
+    this.deckSelected = deck;
   }
 
 }
