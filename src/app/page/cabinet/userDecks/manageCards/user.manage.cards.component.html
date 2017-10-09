@@ -1,8 +1,8 @@
 <div class="container">
   <div class="vertical-menu" *ngIf="deck">
-    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update card</a>
-    <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]">Create card</a>
-    <a [routerLink]="['/admin/decks']">Back to decks</a>
+    <a [routerLink]="['/user/cabinet/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update cards</a>
+    <a [routerLink]="['/user/cabinet/create/cards/', getDeckLink(deck.self)]">Create card</a>
+    <a [routerLink]="['/user/cabinet/manage/decks']">Back to manage decks</a>
   </div>
   <div class="container">
     <div class="cards-list">

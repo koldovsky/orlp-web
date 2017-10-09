@@ -1,19 +1,18 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {AdminCardsService} from './admin.cards.service';
-import {ORLPService} from '../../../../../../services/orlp.service';
-import {Link} from '../../../../../../dto/link';
-import {AdminDeck} from '../../../../../../dto/AdminDTO/admin.deck.DTO';
-import {CreateCardDTO} from '../../../../../../dto/CardsDTO/CreateCardDTO';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
+import {UserCreateCardsService} from './user.create.cards.service';
+import {Link} from '../../../../../dto/link';
+import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
+import {ORLPService} from '../../../../../services/orlp.service';
+import {CreateCardDTO} from '../../../../../dto/CardsDTO/CreateCardDTO';
 
 @Component({
-  providers: [AdminCardsService],
-  templateUrl: ('./admin.cards.component.html'),
-  styleUrls: ['./admin.cards.css']
+  templateUrl: ('./user.create.cards.component.html'),
+  styleUrls: ['./user.create.cards.css']
 })
 
-export class AdminCardsComponent implements OnInit {
+export class UserCreateCardsComponent implements OnInit {
   public deck: AdminDeck;
   public question: string;
   public answer: string;
@@ -21,9 +20,9 @@ export class AdminCardsComponent implements OnInit {
   public rating: number;
   private url: string;
   private sub: Subscription;
-  result: string;
+  public result: string;
 
-  constructor(private adminCardsService: AdminCardsService, private route: ActivatedRoute,
+  constructor(private userCreateCardsService: UserCreateCardsService, private route: ActivatedRoute,
               private orlp: ORLPService, private ngZone: NgZone) {
   }
 
@@ -42,7 +41,7 @@ export class AdminCardsComponent implements OnInit {
   }
 
   createCard() {
-    this.adminCardsService.createCard(
+    this.userCreateCardsService.createCard(
       new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
         this.result = 'Card created!';
@@ -56,9 +55,8 @@ export class AdminCardsComponent implements OnInit {
 
   private takeDeck(): void {
     this.decodeLink();
-    this.adminCardsService.getDeck(this.url).subscribe(
-      deck => {
-        this.deck = deck;
+    this.userCreateCardsService.getDeck(this.url).subscribe(
+      deck => {this.deck = deck;
       }
     );
   }

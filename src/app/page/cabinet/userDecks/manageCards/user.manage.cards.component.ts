@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ORLPService} from '../../../../../services/orlp.service';
 import {ActivatedRoute} from '@angular/router';
-import {AdminManageCardsService} from './admin.manage.cards.service';
 import {Subscription} from 'rxjs/Subscription';
-import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
-import {Link} from '../../../../../dto/link';
-import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
+import {CardPublic} from '../../../../dto/CardsDTO/public.card.DTO';
+import {UserManageCardsService} from './user.manage.cards.service';
+import {ORLPService} from '../../../../services/orlp.service';
+import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
+import {Link} from '../../../../dto/link';
 
 
 @Component({
-  providers: [AdminManageCardsService],
-  templateUrl: ('./admin.manage.cards.component.html'),
-  styleUrls: ['./admin.manage.cards.css']
+  providers: [UserManageCardsService],
+  templateUrl: ('./user.manage.cards.component.html'),
+  styleUrls: ['./user.manage.cards.css']
 })
 
-export class AdminManageCardsComponent implements OnInit {
+export class UserManageCardsComponent implements OnInit {
   public edit: boolean = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
@@ -26,9 +26,10 @@ export class AdminManageCardsComponent implements OnInit {
   private url: string;
   private sub: Subscription;
   public selectedItem: number;
-  public listOfCards: string = 'Loading...'
+  public listOfCards: string = 'Loading...';
 
-  constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
+
+  constructor(private userManageCardsService: UserManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
   }
 
@@ -40,6 +41,7 @@ export class AdminManageCardsComponent implements OnInit {
       }
     );
     this.takeDeck();
+
   }
 
   private decodeLink(): void {
@@ -52,7 +54,7 @@ export class AdminManageCardsComponent implements OnInit {
 
   private takeDeck(): void {
     this.decodeLink();
-    this.adminManageCardsService.getDeck(this.url).subscribe(
+    this.userManageCardsService.getDeck(this.url).subscribe(
       deck => {
         this.deck = deck;
         this.getCardsList();
@@ -60,7 +62,7 @@ export class AdminManageCardsComponent implements OnInit {
   }
 
   private getCardsList() {
-    this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
+    this.userManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
       this.cards = cards;
       this.listOfCards = 'List of cards is empty';
     });
@@ -82,7 +84,7 @@ export class AdminManageCardsComponent implements OnInit {
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
+    this.userManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
       .subscribe(() => {
         this.getCardsList();
         this.card = null;
@@ -101,7 +103,7 @@ export class AdminManageCardsComponent implements OnInit {
 
   public updateCard() {
     this.edit = true;
-    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
+    this.userManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
       .subscribe(() => this.getCardsList());
   }
 
