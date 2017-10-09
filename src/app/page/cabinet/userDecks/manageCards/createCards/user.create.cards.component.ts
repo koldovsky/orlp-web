@@ -20,7 +20,7 @@ export class UserCreateCardsComponent implements OnInit {
   public rating: number;
   private url: string;
   private sub: Subscription;
-  public result: string;
+  public resultOfCreateCard: string;
 
   constructor(private userCreateCardsService: UserCreateCardsService, private route: ActivatedRoute,
               private orlp: ORLPService, private ngZone: NgZone) {
@@ -44,9 +44,9 @@ export class UserCreateCardsComponent implements OnInit {
     this.userCreateCardsService.createCard(
       new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
-        this.result = 'Card created!';
+        this.resultOfCreateCard = 'Card created!';
         this.clearFields();
-      }, () => this.result = 'Error. Please try again!');
+      }, () => this.resultOfCreateCard = 'Error. Please try again!');
   }
 
   private decodeLink(): void {
