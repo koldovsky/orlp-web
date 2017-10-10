@@ -1,19 +1,19 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {AdminCardsService} from './admin.cards.service';
-import {ORLPService} from '../../../../../../services/orlp.service';
-import {Link} from '../../../../../../dto/link';
-import {AdminDeck} from '../../../../../../dto/AdminDTO/admin.deck.DTO';
-import {CreateCardDTO} from '../../../../../../dto/CardsDTO/CreateCardDTO';
+import {CreateCardsService} from './create.cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
+import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
+import {ORLPService} from '../../../../services/orlp.service';
+import {Link} from '../../../../dto/link';
+import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
 
 @Component({
-  providers: [AdminCardsService],
-  templateUrl: ('./admin.cards.component.html'),
-  styleUrls: ['./admin.cards.css']
+  providers: [CreateCardsService],
+  templateUrl: ('./create.cards.component.html'),
+  styleUrls: ['./create.cards.css']
 })
 
-export class AdminCardsComponent implements OnInit {
+export class CreateCardsComponent implements OnInit {
   public deck: AdminDeck;
   public question: string;
   public answer: string;
@@ -22,8 +22,9 @@ export class AdminCardsComponent implements OnInit {
   private url: string;
   private sub: Subscription;
   public createCardMessage: string;
+  public nameOfPageToBack: string;
 
-  constructor(private adminCardsService: AdminCardsService, private route: ActivatedRoute,
+  constructor(private adminCardsService: CreateCardsService, private route: ActivatedRoute,
               private orlp: ORLPService, private ngZone: NgZone) {
   }
 
@@ -31,7 +32,9 @@ export class AdminCardsComponent implements OnInit {
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];
+        const nameOfPageToBack = params['nameOfPageToBack'];
         this.url = url;
+        this.nameOfPageToBack = nameOfPageToBack;
       }
     );
     this.takeDeck();

@@ -5,15 +5,14 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {ORLPService} from '../../../../services/orlp.service';
-import {CardPublic} from '../../../../dto/CardsDTO/public.card.DTO';
-import {DTOConverter} from '../../../../dto/dto.converter';
-import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
-import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
+import {ORLPService} from '../../../services/orlp.service';
+import {DTOConverter} from '../../../dto/dto.converter';
+import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
+import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 
 
 @Injectable()
-export class UserManageCardsService {
+export class ManageCardsService {
 
   constructor(private orlp: ORLPService) {
   }
@@ -35,13 +34,10 @@ export class UserManageCardsService {
   }
 
   public deleteSelectedCard(cardLink: string) {
-    console.log(cardLink);
     return this.orlp.delete(cardLink).map((response: Response) => console.log());
   }
 
-  public updateSelectedCard(cardLink: string, card: CreateCardDTO) {
-    console.log(card);
-    console.log(cardLink);
+  public updateSelectedCard(cardLink: string, card: CardPublic) {
     return this.orlp.put(cardLink, card).map((response: Response) => console.log());
   }
 }

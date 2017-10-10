@@ -5,14 +5,15 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {ORLPService} from '../../../../../../services/orlp.service';
-import {DTOConverter} from '../../../../../../dto/dto.converter';
-import {CreateCardDTO} from '../../../../../../dto/CardsDTO/CreateCardDTO';
-import {AdminDeck} from '../../../../../../dto/AdminDTO/admin.deck.DTO';
+import {ORLPService} from '../../../../services/orlp.service';
+import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
+import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
+import {DTOConverter} from '../../../../dto/dto.converter';
+
 
 
 @Injectable()
-export class AdminCardsService {
+export class CreateCardsService {
 
   constructor(private orlp: ORLPService) {
   }

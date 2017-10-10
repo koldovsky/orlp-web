@@ -9,10 +9,6 @@ import {CourseComponent} from './createCourse/course.component';
 import {CourseService} from './createCourse/course.service';
 import {UserDecksComponent} from './userDecks/user.decks.component';
 import {UserDecksService} from './userDecks/user.decks.service';
-import {UserManageCardsComponent} from './userDecks/manageCards/user.manage.cards.component';
-import {UserManageCardsService} from './userDecks/manageCards/user.manage.cards.service';
-import {UserCreateCardsComponent} from './userDecks/manageCards/createCards/user.create.cards.component';
-import {UserCreateCardsService} from './userDecks/manageCards/createCards/user.create.cards.service';
 
 @NgModule({
   imports: [
@@ -23,12 +19,10 @@ import {UserCreateCardsService} from './userDecks/manageCards/createCards/user.c
       {path: 'user/cabinet', component: CabinetComponent},
       {path: 'user/cabinet/create/course', component: CourseComponent},
       {path: 'user/cabinet/manage/decks', component: UserDecksComponent},
-      {path: 'user/cabinet/manage/cards/:url', component: UserManageCardsComponent},
-      {path: 'user/cabinet/create/cards/:url', component: UserCreateCardsComponent}
     ])],
   exports: [],
-  declarations: [CabinetComponent, CourseComponent, UserDecksComponent, UserManageCardsComponent, UserCreateCardsComponent],
-  providers: [CabinetService, CourseService, UserDecksService, UserManageCardsService, UserCreateCardsService],
+  declarations: [CabinetComponent, CourseComponent, UserDecksComponent],
+  providers: [CabinetService, CourseService, UserDecksService],
 })
 
 export class CabinetModule {

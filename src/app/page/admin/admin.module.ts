@@ -17,10 +17,7 @@ import {AdminDecksComponent} from './decks/admin.decks.component';
 import {AdminDecksService} from './decks/admin.decks.service';
 import {AdminDeckComponent} from './decks/deck/admin.deck.component';
 import {AdminDeckService} from './decks/deck/admin.deck.service';
-import {AdminCardsComponent} from './decks/deck/manageCards/createCards/admin.cards.component';
-import {AdminCardsService} from './decks/deck/manageCards/createCards/admin.cards.service';
-import {AdminManageCardsComponent} from './decks/deck/manageCards/admin.manage.cards.component';
-import {AdminManageCardsService} from './decks/deck/manageCards/admin.manage.cards.service';
+
 @NgModule({
   imports: [
     FormsModule,
@@ -31,9 +28,7 @@ import {AdminManageCardsService} from './decks/deck/manageCards/admin.manage.car
       {path: 'admin/users', canActivate: [AdminGuardService], component: AdminUsersComponent},
       {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent},
       {path: 'admin/decks', canActivate: [AdminGuardService], component: AdminDecksComponent},
-      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent},
-      {path: 'admin/manage/cards/:url', canActivate: [AdminGuardService], component: AdminManageCardsComponent},
-      {path: 'admin/cards/:url', canActivate: [AdminGuardService], component: AdminCardsComponent}
+      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent}
     ])],
   exports: [],
   declarations: [
@@ -44,9 +39,7 @@ import {AdminManageCardsService} from './decks/deck/manageCards/admin.manage.car
     AdminUserComponent,
     AdminAuditComponent,
     AdminDecksComponent,
-    AdminDeckComponent,
-    AdminCardsComponent,
-    AdminManageCardsComponent
+    AdminDeckComponent
   ],
   providers: [
     AdminCategoryService,
@@ -55,9 +48,8 @@ import {AdminManageCardsService} from './decks/deck/manageCards/admin.manage.car
     AdminAuditService,
     AdminGuardService,
     AdminDecksService,
-    AdminDeckService,
-    AdminCardsService,
-    AdminManageCardsService
+    AdminDeckService
+
   ],
 })
 

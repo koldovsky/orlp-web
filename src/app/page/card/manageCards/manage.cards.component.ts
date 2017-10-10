@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ORLPService} from '../../../../../services/orlp.service';
 import {ActivatedRoute} from '@angular/router';
-import {AdminManageCardsService} from './admin.manage.cards.service';
+import {ManageCardsService} from './manage.cards.service';
 import {Subscription} from 'rxjs/Subscription';
-import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
-import {Link} from '../../../../../dto/link';
-import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
+import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
+import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
+import {ORLPService} from '../../../services/orlp.service';
+import {Link} from '../../../dto/link';
 
 
 @Component({
-  providers: [AdminManageCardsService],
-  templateUrl: ('./admin.manage.cards.component.html'),
-  styleUrls: ['./admin.manage.cards.css']
+  providers: [ManageCardsService],
+  templateUrl: ('./manage.cards.component.html'),
+  styleUrls: ['./manage.cards.css']
 })
 
-export class AdminManageCardsComponent implements OnInit {
+export class ManageCardsComponent implements OnInit {
   public edit: boolean = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
@@ -25,10 +25,11 @@ export class AdminManageCardsComponent implements OnInit {
   public rating: number;
   private url: string;
   private sub: Subscription;
+  public nameOfPageToBack: string;
   public selectedItem: number;
   public listOfCardsMessage: string = 'Loading...'
 
-  constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
+  constructor(private adminManageCardsService: ManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
   }
 
@@ -36,7 +37,9 @@ export class AdminManageCardsComponent implements OnInit {
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];
+        const nameOfPageToBack = params['nameOfPageToBack'];
         this.url = url;
+        this.nameOfPageToBack = nameOfPageToBack;
       }
     );
     this.takeDeck();
