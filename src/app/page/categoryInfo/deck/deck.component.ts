@@ -84,8 +84,8 @@ export class DeckComponent implements OnInit {
     return this.orlpService.decodeLink(shortLink);
   }
 
-  startLearning(cards: Link): void {
-    this.router.navigate(['/cards', this.getCardsLink(cards)]);
+  startLearning(deckId: number): void {
+    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
   }
 
   changeDeckStatus(deckId: number) {

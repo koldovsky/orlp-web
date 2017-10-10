@@ -23,7 +23,7 @@ export class CardService {
   }
 
   public sendStatus(userCardQueue: UserCardQueuePublicDTO, card_id: number, deckId: number) {
-    return this.orlp.post('api/user/deck/' + deckId + '/card/' + card_id + '/queue', userCardQueue);
+    return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', userCardQueue);
   }
 
   private handleError(error: Response) {

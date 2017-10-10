@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
@@ -62,9 +61,7 @@ export class CardComponent implements OnInit {
   sendStatus(status: string) {
     this.cardStatus = new UserCardQueuePublicDTO(status);
     this.cardService.sendStatus(this.cardStatus, this.cards[this.questionNumber].cardId, CardComponent.deckId)
-      .subscribe(
-        () => {},
-        () => {});
+      .subscribe();
     this.onRotateBack();
   }
 }

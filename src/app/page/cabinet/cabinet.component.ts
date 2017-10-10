@@ -72,7 +72,7 @@ export class CabinetComponent implements OnInit {
   }
 
   startLearning(deckId: number): void {
-    this.router.navigate(['/cards', '/api/category/decks/' + deckId + '/learn/cards']);
+    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
   }
 
