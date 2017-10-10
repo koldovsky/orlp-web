@@ -26,7 +26,7 @@ export class AdminManageCardsComponent implements OnInit {
   private url: string;
   private sub: Subscription;
   public selectedItem: number;
-  public listOfCards: string = 'Loading...'
+  public listOfCardsMessage: string = 'Loading...'
 
   constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
@@ -62,7 +62,7 @@ export class AdminManageCardsComponent implements OnInit {
   private getCardsList() {
     this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
       this.cards = cards;
-      this.listOfCards = 'List of cards is empty';
+      this.listOfCardsMessage = 'List of cards is empty';
     });
   }
 

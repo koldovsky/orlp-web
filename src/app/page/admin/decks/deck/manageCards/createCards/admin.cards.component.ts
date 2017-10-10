@@ -21,7 +21,7 @@ export class AdminCardsComponent implements OnInit {
   public rating: number;
   private url: string;
   private sub: Subscription;
-  public resultOfCreateCard: string;
+  public createCardMessage: string;
 
   constructor(private adminCardsService: AdminCardsService, private route: ActivatedRoute,
               private orlp: ORLPService, private ngZone: NgZone) {
@@ -45,9 +45,9 @@ export class AdminCardsComponent implements OnInit {
     this.adminCardsService.createCard(
       new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
-        this.resultOfCreateCard = 'Card created!';
+        this.createCardMessage = 'Card created!';
         this.clearFields();
-      }, () => this.resultOfCreateCard = 'Error. Please try again!');
+      }, () => this.createCardMessage = 'Error. Please try again!');
   }
 
   private decodeLink(): void {

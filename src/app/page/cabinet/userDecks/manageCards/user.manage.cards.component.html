@@ -1,6 +1,6 @@
 <div class="container">
   <div class="vertical-menu" *ngIf="deck">
-    <a [routerLink]="['/user/cabinet/manage/cards/', getDeckLink(deck.self)]" class="active">Delete/Update cards</a>
+    <a [routerLink]="['/user/cabinet/manage/cards/', getDeckLink(deck.self)]" class="active">Manage cards</a>
     <a [routerLink]="['/user/cabinet/create/cards/', getDeckLink(deck.self)]">Create card</a>
     <a [routerLink]="['/user/cabinet/manage/decks']">Back to manage decks</a>
   </div>
@@ -12,7 +12,7 @@
         <span>{{card.title}}</span>
       </div>
     </div>
-    <div *ngIf="cards.length === 0" class="empty-list-label">{{listOfCards}}</div>
+    <div *ngIf="cards.length === 0" class="empty-list-label">{{listOfCardsMessage}}</div>
   </div>
   <div class="row" *ngIf="card">
     <div class="col-12">

@@ -1,6 +1,6 @@
 <div class="container">
   <div class="vertical-menu" *ngIf="deck != undefined">
-    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]">Delete/Update card</a>
+    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]">Manage cards</a>
     <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]" class="active">Create card</a>
     <a [routerLink]="['/admin/decks']">Back to decks</a>
   </div>
@@ -30,7 +30,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title">{{resultOfCreateCard}}</h1>
+        <h1 class="modal-title">{{createCardMessage}}</h1>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-footer">

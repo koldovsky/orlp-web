@@ -26,7 +26,7 @@ export class UserManageCardsComponent implements OnInit {
   private url: string;
   private sub: Subscription;
   public selectedItem: number;
-  public listOfCards: string = 'Loading...';
+  public listOfCardsMessage: string = 'Loading...';
 
 
   constructor(private userManageCardsService: UserManageCardsService, private route: ActivatedRoute,
@@ -64,7 +64,7 @@ export class UserManageCardsComponent implements OnInit {
   private getCardsList() {
     this.userManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
       this.cards = cards;
-      this.listOfCards = 'List of cards is empty';
+      this.listOfCardsMessage = 'List of cards is empty';
     });
   }
 
