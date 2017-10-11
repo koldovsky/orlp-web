@@ -9,6 +9,7 @@ import {LogoutService} from '../../logout/logout.service';
 import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
 import {IStarRatingOnClickEvent} from "angular-star-rating";
 import {Rating} from "../../../dto/Rating";
+import {CardComponent} from "../../card/card.component";
 
 @Component({
   selector: 'app-deck-table',
@@ -86,6 +87,7 @@ export class DeckComponent implements OnInit {
 
   startLearning(deckId: number): void {
     this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    CardComponent.deckId = deckId;
   }
 
   changeDeckStatus(deckId: number) {
