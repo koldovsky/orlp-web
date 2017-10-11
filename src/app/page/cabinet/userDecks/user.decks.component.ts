@@ -1,16 +1,18 @@
-import {Component} from "@angular/core";
-import {DeckDTO} from "../../../dto/DeckDTO/DeckDTO";
-import {UserDecksService} from "./user.decks.service";
-import {UserDTO} from "../../../dto/UsersDTO/UserDTO";
-import {CategoryLink} from "../../../dto/CategoryDTO/link.category.DTO";
-import {NewDeckDTO} from "../../../dto/DeckDTO/deck.added.DTO";
+import {Component, OnInit} from '@angular/core';
+import {DeckDTO} from '../../../dto/DeckDTO/DeckDTO';
+import {UserDecksService} from './user.decks.service';
+import {UserDTO} from '../../../dto/UsersDTO/UserDTO';
+import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
+import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
+import {Link} from '../../../dto/link';
+import {ORLPService} from '../../../services/orlp.service';
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
   styleUrls: ['user.decks.css']
 })
 
-export class UserDecksComponent {
+export class UserDecksComponent implements OnInit {
   decks: DeckDTO[] = [];
   categories: CategoryLink[];
   private user: UserDTO;
@@ -25,7 +27,8 @@ export class UserDecksComponent {
   private isCreateDialog: boolean;
   private selectedIndex: number;
 
-  constructor(private userDecksService: UserDecksService) {}
+  constructor(private userDecksService: UserDecksService, private orlp: ORLPService) {
+  }
 
   ngOnInit() {
     this.userDecksService.getUser().subscribe(user => {
@@ -89,5 +92,9 @@ export class UserDecksComponent {
         this.decks = this.decks.filter(deck => deck.deckId !== this.selectedDeck.deckId);
         this.selectedDeck = null;
       });
+  }
+
+  public getDeckLink(link: Link): string {
+    return this.orlp.getShortLink(link);
   }
 }
