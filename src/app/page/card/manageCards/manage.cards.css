@@ -110,6 +110,9 @@ textarea{
 .category-header {
   color: white;
 }
+input {
+  width: 100%;
+}
 
 .active {
   background-color : #0275d8;

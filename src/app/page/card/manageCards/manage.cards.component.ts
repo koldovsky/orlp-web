@@ -29,7 +29,7 @@ export class ManageCardsComponent implements OnInit {
   public selectedItem: number;
   public listOfCardsMessage: string = 'Loading...'
 
-  constructor(private adminManageCardsService: ManageCardsService, private route: ActivatedRoute,
+  constructor(private manageCardsService: ManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
   }
 
@@ -55,7 +55,7 @@ export class ManageCardsComponent implements OnInit {
 
   private takeDeck(): void {
     this.decodeLink();
-    this.adminManageCardsService.getDeck(this.url).subscribe(
+    this.manageCardsService.getDeck(this.url).subscribe(
       deck => {
         this.deck = deck;
         this.getCardsList();
@@ -63,7 +63,7 @@ export class ManageCardsComponent implements OnInit {
   }
 
   private getCardsList() {
-    this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
+    this.manageCardsService.getCards(this.deck.deckId).subscribe(cards => {
       this.cards = cards;
       this.listOfCardsMessage = 'List of cards is empty';
     });
@@ -80,12 +80,13 @@ export class ManageCardsComponent implements OnInit {
   private onCardClicked(card: CardPublic): void {
     this.edit = true;
     this.card = card;
+    this.title = card.title;
     this.question = card.question;
     this.answer = card.answer;
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
+    this.manageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
       .subscribe(() => {
         this.getCardsList();
         this.card = null;
@@ -98,13 +99,14 @@ export class ManageCardsComponent implements OnInit {
 
   public cancelEdit(card: CardPublic) {
     this.edit = true;
+    this.card.title = this.title;
     this.card.answer = this.answer;
     this.card.question = this.question;
   }
 
   public updateCard() {
     this.edit = true;
-    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
+    this.manageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
       .subscribe(() => this.getCardsList());
   }
 
