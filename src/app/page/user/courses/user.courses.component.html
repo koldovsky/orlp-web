@@ -4,9 +4,9 @@
       <table class="table table-striped admins-tables">
         <thead>
         <tr class="admins-tables-header">
-          <th>#</th>
-          <th>Course Name</th>
-          <th>Course Description</th>
+          <th (click)="sortBy('id')">#</th>
+          <th (click)="sortBy('name')">Course Name</th>
+          <th (click)="sortBy('description')">Course Description</th>
         </tr>
         </thead>
         <tbody>
@@ -21,6 +21,15 @@
         </tr>
         </tbody>
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getCoursesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getCoursesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+          <li class="page-item"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

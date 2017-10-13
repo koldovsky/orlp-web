@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../services/orlp.service';
 import {AdminUsers} from '../../../dto/AdminDTO/admin.user.DTO';
 import {DTOConverter} from '../../../dto/dto.converter';
+import {AdminUsersByPage} from "../../../dto/AdminDTO/admin.users.with.pages.DTO";
 
 @Injectable()
 export class AdminUsersService {
@@ -15,10 +16,10 @@ export class AdminUsersService {
   constructor(private orlp: ORLPService) {
   }
 
-  getUsers(): Observable<AdminUsers[]> {
-    return this.orlp.get('api/admin/users')
-      .map((response: Response) => <AdminUsers[]>
-        DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminUsers, response.json()))
+  getUsers(numberPage: number, selectedSortingParam: string, ascending: boolean): Observable<AdminUsersByPage> {
+    return this.orlp.get('api/admin/users?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <AdminUsersByPage>
+        DTOConverter.jsonToAdminUsersByPage(response.json()))
       .catch(this.handleError);
   }
 
