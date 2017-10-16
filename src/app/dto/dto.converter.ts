@@ -18,6 +18,12 @@ import {ImageDTO} from './ImageDTO/ImageDTO';
 import {AdminDeck} from './AdminDTO/admin.deck.DTO';
 import {DeckDTO} from "./DeckDTO/DeckDTO";
 import {CreateCardDTO} from "./CardsDTO/CreateCardDTO";
+import {AdminDeckByPage} from "./AdminDTO/admin.deck.with.pages.DTO";
+import {AdminAuditWithPagesDTO} from "./AdminDTO/admin.audit.with.pages.DTO";
+import {AdminUsersByPage} from "./AdminDTO/admin.users.with.pages.DTO";
+import {DeckByCategoryAndPageDTO} from "./DeckDTO/linkToDeckByCategoryAndPage";
+import {CoursePageDTO} from "./CourseDTO/linkToCourseByPageDTO";
+import {CoursesByCategoryAndPageDTO} from "./CourseDTO/linkToCoursesByCategoryAndPage";
 
 export class DTOConverter {
 
@@ -45,6 +51,11 @@ export class DTOConverter {
       data.rating, data.published, data.ownerId, data.categoryId);
   }
 
+  public static jsonToCourseByCategoryAndPage(data: any): CoursesByCategoryAndPageDTO {
+    const courseLinks: Array<CourseLink> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, data.content);
+    return new CoursesByCategoryAndPageDTO(courseLinks, data.totalPages);
+  }
+
   public static jsonToPublicLinkCourseWithId(data: any): CourseLinkWithId {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const decks: Link = DTOConverter.jsonToLink('decks', data._links.decks);
@@ -62,6 +73,11 @@ export class DTOConverter {
     return new CoursePublic(data.name, data.description, data.image, self);
   }
 
+  public static jsonToCourseByPage(data: any): CoursePageDTO {
+    const coursesPublic: Array<CoursePublic> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCourse, data.content);
+    return new CoursePageDTO(coursesPublic, data.totalPages);
+  }
+
   public static jsonToPublicDeck(data: any): DeckPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new DeckPublic(data.deckId, data.name, data.description, data.rating, self);
@@ -77,6 +93,11 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status);
+  }
+
+  public static jsonToDeckByCategoryAndPage(data: any): DeckByCategoryAndPageDTO {
+    const deckLinkByCategories: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, data.content);
+    return new DeckByCategoryAndPageDTO(deckLinkByCategories, data.totalPages);
   }
 
   public static jsonToTopCategory(data: any): CategoryTop {
@@ -106,9 +127,19 @@ export class DTOConverter {
     return new AdminUsers(data.firstName, data.lastName, data.email, data.accountStatus, self);
   }
 
+  public static jsonToAdminUsersByPage(data: any): AdminUsersByPage {
+    const arrayAdminUsers: Array<AdminUsers> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminUsers, data.content);
+    return new AdminUsersByPage(arrayAdminUsers, data.totalPages);
+  }
+
   public static jsonToAdminAudit(data: any): AdminAudit {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AdminAudit(data.accountEmail, data.action, data.ipAddress, data.role, data.time, self);
+  }
+
+  public static jsonToAdminAuditByPage(data: any): AdminAuditWithPagesDTO {
+    const arrayAdminAudit: Array<AdminAudit> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminAudit, data.content);
+    return new AdminAuditWithPagesDTO(arrayAdminAudit, data.totalPages);
   }
 
   public static jsonToUserDetails(data: any): UserDetailsDto {
@@ -131,6 +162,11 @@ export class DTOConverter {
   public static jsonToAdminDeck(data: any): AdminDeck {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
+  }
+
+  public static jsonToDeckByPage(data: any): AdminDeckByPage {
+    const arrayAdminDecks: Array<AdminDeck> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminDeck, data.content);
+    return new AdminDeckByPage(arrayAdminDecks, data.totalPages);
   }
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {

@@ -6,11 +6,11 @@
     <div *ngIf="auditList" class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
-          <th (click)="toggleEmail()">E-mail</th>
-          <th (click)="toggleAction()">Action</th>
-          <th (click)="toggleIp()">Ip-address</th>
-          <th (click)="toggleRole()">Role</th>
-          <th (click)="toggleTime()">Time</th>
+          <th (click)="sortBy('accountEmail')">E-mail</th>
+          <th (click)="sortBy('action')">Action</th>
+          <th (click)="sortBy('ipAddress')">Ip-address</th>
+          <th (click)="sortBy('role')">Role</th>
+          <th (click)="sortBy('time')">Time</th>
         </tr>
         <tr *ngFor="let audit of auditList">
           <td> {{audit.accountEmail}}</td>
@@ -20,6 +20,15 @@
           <td> {{audit.time}}</td>
         </tr>
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="getAudit(1)">First</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getAudit(currentPage - 1)">{{currentPage - 1}}</a></li>
+          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getAudit(currentPage)">{{currentPage}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getAudit(currentPage + 1)">{{currentPage + 1}}</a></li>
+          <li class="page-item"><a class="page-link" (click)="getAudit(lastPage)">Last</a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

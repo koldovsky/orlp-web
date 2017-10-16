@@ -12,11 +12,11 @@
     <div class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
-          <th>Deck Name</th>
-          <th>Deck Description</th>
-          <th>Deck Rating</th>
-          <th>Deck Category</th>
-          <th>Deck Owner</th>
+          <th (click)="sortBy('name')">Deck Name</th>
+          <th (click)="sortBy('description')">Deck Description</th>
+          <th (click)="sortBy('rating')">Deck Rating</th>
+          <th (click)="sortBy('category_name')">Deck Category</th>
+          <th (click)="sortBy('deckOwner_account_email')">Deck Owner</th>
           <th></th>
         </tr>
         <tr *ngFor="let deck of deckList " >
@@ -45,6 +45,15 @@
           </td>
         </tr>
       </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" (click)="getDecks(1)">First</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDecks(currentPage - 1)">{{currentPage - 1}}</a></li>
+          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getDecks(currentPage)">{{currentPage}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDecks(currentPage + 1)">{{currentPage + 1}}</a></li>
+          <li class="page-item"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+        </ul>
+      </nav>
     </div>
   </div>
 

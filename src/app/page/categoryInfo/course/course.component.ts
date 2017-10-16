@@ -23,6 +23,11 @@ export class CourseComponent implements OnInit {
   @Input() url: string;
   private coursesIdOfTheUser: number[] = [];
   private coursesWithStatus: CourseLinkWithStatus[] = [];
+  @Input() categoryId: number;
+  actionSort = true;
+  selectedSortedParam: string = 'id';
+  currentPage: number = 1;
+  lastPage: number;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -33,14 +38,20 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
-    this.courseService.getCourse(this.url).subscribe(
-      courses => {
-        this.courses = courses;
+    this.getCoursesByPage(this.currentPage);
+    this.isAuthorized = this.logoutService.isAuthorized();
+  }
+
+  public getCoursesByPage(numberPage: number)  {
+    this.courseService.getCourses(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
+      .subscribe(value => {
+        this.currentPage = numberPage;
+        this.courses = value.courseLinks;
+        this.lastPage = value.totalPages;
         if (this.isAuthorized) {
           this.getCoursesIdOfTheUser();
         }
       });
-    this.isAuthorized = this.logoutService.isAuthorized();
   }
 
   getCoursesIdOfTheUser() {
@@ -63,6 +74,7 @@ export class CourseComponent implements OnInit {
   }
 
   createCoursesWithStatus() {
+    this.coursesWithStatus = [];
     for (const entry of this.courses) {
       this.coursesWithStatus.push(new CourseLinkWithStatus(
         entry.name,

@@ -23,3 +23,14 @@
   text-align: center;
   font-size: 120%;
 }
+.pagination{
+  width: 20%;
+  margin: auto;
+}
+.row th, li{
+  cursor: pointer;
+}
+.row th:hover, .pagination li:hover {
+  color: #000;
+  background-color: #e1d7e8;
+}

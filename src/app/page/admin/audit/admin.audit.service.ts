@@ -8,6 +8,7 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminAudit} from '../../../dto/AdminDTO/admin.audit.DTO';
+import {AdminAuditWithPagesDTO} from "../../../dto/AdminDTO/admin.audit.with.pages.DTO";
 
 @Injectable()
 export class AdminAuditService {
@@ -15,10 +16,10 @@ export class AdminAuditService {
   constructor(private orlp: ORLPService) {
   }
 
-  getFullAuditList(): Observable<AdminAudit[]> {
-    return this.orlp.get('api/admin/audit')
-      .map((response: Response) => <AdminAudit[]>
-        DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminAudit, response.json()))
+  getFullAuditList(numberPage: number, selectedSortingParam: string, ascending: boolean): Observable<AdminAuditWithPagesDTO> {
+    return this.orlp.get('api/admin/audit?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <AdminAuditWithPagesDTO>
+        DTOConverter.jsonToAdminAuditByPage(response.json()))
       .catch(this.handleError);
   }
 

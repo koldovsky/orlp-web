@@ -10,10 +10,10 @@
   <div class="row">
     <table class="table table-striped admins-tables col-12">
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>e-mail</th>
-        <th>Account Status</th>
+        <th (click)="sortBy('person_firstName')">First Name</th>
+        <th (click)="sortBy('person_lastName')">Last Name</th>
+        <th (click)="sortBy('account_email')">e-mail</th>
+        <th (click)="sortBy('account_status')">Account Status</th>
         <th></th>
       </tr>
       <tr *ngFor="let user of users | usersFilter:usersListFilter">
@@ -29,4 +29,13 @@
       </tr>
     </table>
   </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" (click)="getUsers(1)">First</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getUsers(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getUsers(currentPage)">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getUsers(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li class="page-item"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
+    </ul>
+  </nav>
 </div>
