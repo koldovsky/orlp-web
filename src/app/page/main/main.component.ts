@@ -28,7 +28,6 @@ export class MainComponent implements OnInit {
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
   public showSearchResult: boolean;
-  public imgUrl: string = SERVER_ADDRESS + 'api/private/user/profile/image';
   public image: string;
 
   constructor(private categoryService: CategoryService,
@@ -64,10 +63,10 @@ export class MainComponent implements OnInit {
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
           this.setAdmin();
           if (user.imageType === 'BASE64') {
-            this.image = this.imgUrl + '?' + new Date().getTime();
+            this.image = user.self.href + '/image' + '?' + new Date().getTime();
           } else if (user.imageType === 'LINK') {
             this.image = user.image;
-          }
+          } else {this.image = null;}
         });
   }
 

@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
   public showModal: boolean;
   public chosenImage: boolean = false;
   public authenticationType: string;
-  public imageUrl: string = SERVER_ADDRESS + 'api/private/user/profile/image';
   public imageProfile: string;
   public showMessageData: boolean = false;
 
@@ -60,7 +59,7 @@ export class ProfileComponent implements OnInit {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
         if (user.imageType === 'BASE64') {
-          this.imageProfile = this.imageUrl + '?' + new Date().getTime();
+          this.imageProfile = user.self.href + '/image' + '?' + new Date().getTime();
         } else {
           this.imageProfile = user.image;
         }
@@ -72,9 +71,9 @@ export class ProfileComponent implements OnInit {
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
     this.profileService.changePersonalData(this.person)
-      .subscribe(() => {
-        this.userProfile.firstName = this.firstName;
-        this.userProfile.lastName = this.lastName;
+      .subscribe(user => {
+        this.userProfile.firstName = user.firstName;
+        this.userProfile.lastName = user.lastName;
         this.showMessageData = true;
       });
   }
@@ -97,7 +96,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.addImage(formData)
       .subscribe(() => {
         this.chosenImage = true;
-        this.imageProfile = this.imageUrl + '?' + new Date().getTime();
+        this.imageProfile = this.userProfile.self.href + '/image'  + '?' + new Date().getTime();
       });
   }
 

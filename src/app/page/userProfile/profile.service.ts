@@ -14,45 +14,37 @@ import {PasswordDTO} from '../../dto/PasswordDTO';
 
 @Injectable()
 export class ProfileService {
+  private url = '/api/private/user' ;
   constructor(private orlp: ORLPService) {
   }
 
   getUserProfile(): Observable<UserDetailsDto> {
-    return this.orlp.get('/api/private/user/profile')
+    return this.orlp.get(this.url + '/details')
       .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }
 
   changePersonalData(person: Person) {
-    return this.orlp.put('/api/private/user/profile/data', person)
-      .map((response: Response) => console.log())
+    return this.orlp.post(this.url + '/data', person)
+      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }
 
   changePassword(password: PasswordDTO) {
-    console.log('passwords');
-    console.log(password.currentPassword);
-    console.log(password.newPassword);
-    return this.orlp.put('/api/private/user/profile/password-change', password)
+    return this.orlp.put(this.url + '/password-change', password)
       .map((response: Response) => console.log())
       .catch(this.handleError);
   }
 
   deleteProfile() {
-    return this.orlp.get('/api/private/user/profile/delete')
+    return this.orlp.get(this.url + '/delete')
       .map((response: Response) => console.log())
       .catch(this.handleError);
   }
 
   addImage(file: any) {
-    return this.orlp.post('/api/private/user/profile/image', file)
+    return this.orlp.post(this.url + '/image', file)
       .map((response: Response) => response.json());
-  }
-
-  getImageProfile() {
-    return this.orlp.get('/api/private/user/profile/image')
-      .map((response: Response) => console.log())
-      .catch(this.handleError);
   }
 
   private handleError(error: Response) {
