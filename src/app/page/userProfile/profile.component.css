@@ -1,0 +1,21 @@
+#forma{
+  background-color: white;
+}
+
+img{
+  margin:0px 20px 20px 20px;
+  height: 96px;
+  width: 96px;
+}
+
+.row{
+  margin:20px 0px 0px  0px ;
+}
+
+#delete{
+  margin:60px 0px 0px  0px ;
+}
+
+.accountMessage{
+  color: #009900;
+}

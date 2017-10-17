@@ -28,6 +28,8 @@ import {UserCoursesService} from './page/user/courses/user.courses.service';
 import {CourseInfoModule} from './page/courseInfo/courseInfo.module';
 import {MainService} from './page/main/main.service';
 import {MainComponent} from './page/main/main.component';
+import {ProfileModule} from "./page/userProfile/profile.module";
+import {ProfileService} from "./page/userProfile/profile.service";
 
 @NgModule({
   imports: [
@@ -50,7 +52,8 @@ import {MainComponent} from './page/main/main.component';
     CardModule,
     CabinetModule,
     StarRatingModule,
-    UserModule
+    UserModule,
+    ProfileModule
   ],
   exports: [],
   declarations: [
@@ -61,7 +64,7 @@ import {MainComponent} from './page/main/main.component';
   ],
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService],
+    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

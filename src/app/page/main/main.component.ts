@@ -11,6 +11,7 @@ import {CategoryService} from './search/category.service';
 import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {AuthorizationService} from "../authorization/authorization.service";
+import {SERVER_ADDRESS} from "../../services/orlp.settings";
 
 @Component({
   selector: 'app-page',
@@ -27,6 +28,7 @@ export class MainComponent implements OnInit {
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
   public showSearchResult: boolean;
+  public image: string;
 
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
@@ -60,6 +62,11 @@ export class MainComponent implements OnInit {
           this.userDetails = user;
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
           this.setAdmin();
+          if (user.imageType === 'BASE64') {
+            this.image = user.self.href + '/image' + '?' + new Date().getTime();
+          } else if (user.imageType === 'LINK') {
+            this.image = user.image;
+          } else {this.image = null;}
         });
   }
 
