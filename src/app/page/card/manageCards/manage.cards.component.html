@@ -19,6 +19,10 @@
     <div class="col-12">
       <div class="create-card">
         <div class="content">
+          <h1 class="category-header">Title</h1>
+          <div class="main">
+            <input [disabled]="edit" [(ngModel)]=card.title>
+          </div>
           <h1 class="category-header">Question</h1>
           <div class="main">
             <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
@@ -32,7 +36,7 @@
           <button [disabled]="!edit" class="btn btn-primary cards-list-button" data-toggle="modal"
                   data-target="#deleteCard">Delete
           </button>
-          <button *ngIf="!edit" [disabled]="!(card.question && card.answer)"
+          <button *ngIf="!edit" [disabled]="!(card.title && card.question && card.answer)"
                   class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
           </button>
           <button *ngIf="!edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
@@ -48,7 +52,7 @@
           <h4 class="modal-title">Delete card?</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="internal-text">Card <h2>{{card.title}}</h2> will be deleted !!!</div>
+        <div class="internal-text"><h2>{{card.title}}</h2> will be deleted !!!</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteSelectedCard()">Delete</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>

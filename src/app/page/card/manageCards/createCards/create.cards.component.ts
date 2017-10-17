@@ -24,8 +24,8 @@ export class CreateCardsComponent implements OnInit {
   public createCardMessage: string;
   public nameOfPageToBack: string;
 
-  constructor(private adminCardsService: CreateCardsService, private route: ActivatedRoute,
-              private orlp: ORLPService, private ngZone: NgZone) {
+  constructor(private createCardsService: CreateCardsService, private route: ActivatedRoute,
+              private orlp: ORLPService) {
   }
 
   ngOnInit(): void {
@@ -45,7 +45,7 @@ export class CreateCardsComponent implements OnInit {
   }
 
   createCard() {
-    this.adminCardsService.createCard(
+    this.createCardsService.createCard(
       new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
         this.createCardMessage = 'Card created!';
@@ -59,7 +59,7 @@ export class CreateCardsComponent implements OnInit {
 
   private takeDeck(): void {
     this.decodeLink();
-    this.adminCardsService.getDeck(this.url).subscribe(
+    this.createCardsService.getDeck(this.url).subscribe(
       deck => {
         this.deck = deck;
       }
