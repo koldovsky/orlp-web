@@ -1,4 +1,4 @@
-import {AfterContentChecked, Component, DoCheck, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {DeckService} from './search/deck.service';
 import {LogoutService} from '../logout/logout.service';
@@ -57,6 +57,7 @@ export class MainComponent implements OnInit {
   getRole(): void{
       this.mainService.getUserDetails()
         .subscribe(user => {
+          console.log(user);
           this.userDetails = user;
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
           this.setAdmin();
@@ -67,8 +68,9 @@ export class MainComponent implements OnInit {
     if (this.logoutService.logout()) {
       this.isAuthorized = false;
       this.isAuthorizedAdmin = false;
+      this.userDetails = null;
       this.authorizationService.emitIsAuthorizedChangeEvent(false);
-      this.router.navigate(['main']);
+      this.router.navigate(['home']);
     }
   }
 

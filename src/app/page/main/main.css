@@ -1,76 +1,21 @@
-.navigation-bar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
+.my-navbar-nav, .nav-link{
+  flex-direction: row;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
-.nav-logo, .nav-category, .nav-course, .nav-search {
-  float: left;
+.navbar{
+  border-left: 1px solid #9a9b9d;
+  border-right: 1px solid #9a9b9d;
+  border-bottom: 1px solid #9a9b9d;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
 }
-
-.nav-logo {
-  position: absolute;
-}
-
-.nav-category {
-  margin-left: 70px;
-}
-
-#nav-logo, #nav-category, #nav-course, #nav-signin, #nav-signup {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-#nav-logo:hover, #nav-category:hover, #nav-course:hover, #nav-signin:hover, #nav-signup:hover {
-  background-color: #111;
-}
-
-.nav-logo {
-  font-weight: bold;
-  background-color: black;
-}
-
-.nav-search {
-  margin-top: 10px;
-  margin-left: 50px;
-}
-
-#nav-search {
-  width: 250px;
-  background: white url(../../../assets/images/search.png) no-repeat right center;
-  font-size: 14px;
-  outline: none;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  z-index: 9999;
-}
-
-#course-img, #category-img {
-  width: 50px;
-  height: 50px;
-}
-
-/*RIGHT SIDE*/
-.nav-signin, .nav-signup {
-  float: right;
-}
-
 .username, .email {
-  color: white;
   text-align: center;
-  font-size: 14px;
-}
-
-.admin {
-  color: white;
-  text-align: center;
-  font-size: 25px;
+  font-size: 13px;
 }
 
 .user-image {
@@ -82,49 +27,7 @@
   float: right;
 }
 
-.user-information, .user-image {
-  margin: 5px;
-}
-
-.user-details {
-  margin: 10px 20px;
-}
-
-#user-details {
-  text-decoration: none;
-  color: grey;
-}
-
-#user-details:hover {
-  cursor: pointer;
-  color: white;
-}
-
-.signout {
-  /*text-align: center;*/
-  float: right;
-  position: absolute;
-  right: 0;
-  color: white;
-  width: 100px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  margin-left: auto;
-  background: url(../../../assets/images/signoutwhite.png) #333 no-repeat right center;
-}
-
-.signout:hover {
-  cursor: pointer;
-  color: black;
-  background: url(../../../assets/images/signoutblack.png) white no-repeat right center;
-}
-
-/*SEARCH RESULT*/
-.table {
-  margin-left: -10px;
-  margin-top: 0;
-  background-color: white;
-  width: 40%;
-  position: absolute;
-  z-index: 1;
+.user-image {
+  margin-left: 5px;
+  margin-right: 5px;
 }

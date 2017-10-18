@@ -86,7 +86,7 @@ export class DTOConverter {
 
   public static jsonToTopCourse(data: any): CourseTop {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CourseTop(data.name, data.image, self);
+    return new CourseTop(data.courseId, data.name, data.image, data.rating, self);
   }
 
   public static jsonToPublicCategories(data: any): CategoriesPublic {

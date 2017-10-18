@@ -1,113 +1,57 @@
-<!-- NAVBAR -->
-<nav class="container">
-  <ul class="navigation-bar">
-    <!-- LOGO-GUEST -->
-    <li *ngIf="!isAuthorized" class="nav-logo">
-      <a id="nav-logo" [routerLink]="['/home']">ORLP</a>
-    </li>
-    <!-- DROPDOWN-USER -->
-    <li *ngIf="isAuthorized" class="main-dropdown-menu">
-      <ul>
-        <li>
-          <div class="home">
-            <a [routerLink]="['/home']">Home</a>
-          </div>
-          <div class="link">
-            <a [routerLink]="['/user/cabinet']">Cabinet</a>
-          </div>
-          <div class="settings">
-            <a [routerLink]="['/user/categories']">Categories</a>
-          </div>
-          <div class="forum">
-            <a [routerLink]="['/user/courses']">Courses</a>
-          </div>
-          <div *ngIf="isAuthorizedAdmin">
-            <div class="link">
-              <a [routerLink]="['/admin/audit']">Admin Audit</a>
-            </div>
-            <div class="link">
-              <a [routerLink]="['/admin/categories']">Admin Categories</a>
-            </div>
-            <div class="link">
-              <a [routerLink]="['/admin/users']">Admin Users</a>
-            </div>
-            <div class="link">
-              <a [routerLink]="['/admin/decks']">Admin Decks</a>
-            </div>
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" [routerLink]="['/home']">ORLP</a>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 my-navbar-nav">
+        <li class="nav-item">
+          <a  class="nav-link" [routerLink]="['/user/categories']">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/user/courses']">Courses</a>
+        </li>
+        <li class="nav-item" *ngIf="isAuthorized">
+          <a  class="nav-link" [routerLink]="['/user/cabinet']">Cabinet</a>
+        </li>
+        <li *ngIf="isAuthorizedAdmin" class="dropdown nav-item">
+          <a  class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" [routerLink]="['/admin/audit']">Admin Audit</a>
+            <a class="dropdown-item" [routerLink]="['/admin/categories']">Admin Categories</a>
+            <a class="dropdown-item" [routerLink]="['/admin/users']">Admin Users</a>
+            <a class="dropdown-item" [routerLink]="['/admin/decks']">Admin Decks</a>
           </div>
         </li>
+        <li class="nav-item">
+          <a  class="nav-link" [routerLink]="['/home']">About</a>
+        </li>
       </ul>
-    </li>
-    <!-- CATEGORIES-GUEST -->
-    <li *ngIf="!isAuthorized" class="nav-category">
-      <a id="nav-category" [routerLink]="['/user/categories']">Categories</a>
-    </li>
-    <!-- COURSES-GUEST -->
-    <li *ngIf="!isAuthorized" class="nav-course">
-      <a id="nav-course" [routerLink]="['/user/courses']">Courses</a>
-    </li>
-    <!-- SEARCH -->
-    <li class="nav-search">
-      <input id="nav-search" placeholder="Search" [(ngModel)]="listFilter" (keypress)="showSearchResult=true"
-             (blur)="showSearchResult=false"/>
-    </li>
-    <!-- SIGN UP-GUEST -->
-    <li *ngIf="!isAuthorized" class="nav-signup">
-      <a id="nav-signup" [routerLink]="['/registr']">SIGN UP</a>
-    </li>
-    <!-- SIGN IN-GUEST -->
-    <li *ngIf="!isAuthorized" class="nav-signin">
-      <a id="nav-signin" [routerLink]="['/login']">SIGN IN</a>
-    </li>
-    <!-- USER-DETAILS -->
-    <li *ngIf="isAuthorized" class="user-details">
-      <a id="user-details" data-toggle="dropdown"><b>. . .</b></a>
-      <!-- SIGN-OUT-USER -->
-      <div class="dropdown-menu signout" aria-labelledby="user-details" (click)="logoutUser()">
-        <a class="dropdown-item">Sign out</a>
+      <div  class="navbar-nav mt-2 mt-lg-0 my-navbar-nav">
+        <a *ngIf="isAuthorized" [routerLink]="['/user/cabinet']">
+          <img *ngIf="userDetails?.image; else default_image" class="user-image" src="{{userDetails?.image}}">
+          <ng-template #default_image>
+            <img class="user-image" src="../../../assets/images/avatar.png">
+          </ng-template>
+        </a>
+        <div *ngIf="(isAuthorized && userDetails)">
+          <div class="nav-item username ">{{userDetails.firstName}}</div>
+          <div class="nav-item email">{{userDetails.email}}</div>
+        </div>
+      <div *ngIf="!isAuthorized" class="nav-item">
+        <a class="nav-link" [routerLink]="['/registr']"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Sign Up</a>
       </div>
-    </li>
-    <!-- USER-IMAGE -->
-    <li *ngIf="isAuthorized" class="user-image">
-      <a [routerLink]="['/user/cabinet']">
-        <img *ngIf="userDetails?.image; else default_image" class="user-image" src="{{userDetails?.image}}">
-        <ng-template #default_image>
-          <img class="user-image" src="../../../assets/images/avatar.png">
-        </ng-template>
-      </a>
-    </li>
-    <!-- USER-INFORMATION -->
-    <li *ngIf="(isAuthorized && userDetails)" class="user-information">
-      <div class="username">{{userDetails.firstName}}</div>
-      <div class="email">{{userDetails.email}}</div>
-    </li>
-  </ul>
-  <!-- SEARCH-RESULT -->
-  <table *ngIf="showSearchResult" class="table">
-    <tbody>
-    <tr *ngFor="let category of categories | categoryFilter: listFilter">
-      <td><img id="category-img" [src]="category.image" class="mx-auto d-block rounded-main card-img-top"></td>
-      <td>{{category.name}}</td>
-      <td>{{category.description}}</td>
-    </tr>
-    <tr *ngFor="let course of courses | courseFilter: listFilter">
-      <td><img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top"></td>
-      <td>{{course.name}}</td>
-      <td>{{course.description}}</td>
-      <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                          [rating]="course.rating"></star-rating-comp>
-      </td>
-    </tr>
-    <tr *ngFor="let deck of decks | deckFilter: listFilter">
-      <td>{{deck.name}}</td>
-      <td>{{deck.description}}</td>
-      <td>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                          [rating]="deck.rating"></star-rating-comp>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</nav>
+      <div *ngIf="!isAuthorized" class="nav-item ">
+        <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>Sign In</a>
+      </div>
+        <div *ngIf="isAuthorized" class="nav-item">
+          <a class="nav-link logout" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Sign out</a>
+        </div>
+    </div>
+    </div>
+  </nav>
+</div>
 <router-outlet></router-outlet>

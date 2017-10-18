@@ -35,6 +35,7 @@ export class CourseComponent implements OnInit {
     this.url = this.orlpService.decodeLink(this.url);
     this.courseService.getCourse(this.url).subscribe(
       courses => {
+        console.log(courses);
         this.courses = courses;
         if (this.isAuthorized) {
           this.getCoursesIdOfTheUser();
@@ -106,12 +107,12 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
-    const courseRating: Rating = new Rating( event.rating, course.self);
+    const courseRating: Rating = new Rating( event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
   };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: Rating = new Rating(event.rating, deck.self);
+    const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
   }
 }

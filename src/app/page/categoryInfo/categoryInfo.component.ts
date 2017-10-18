@@ -28,14 +28,11 @@ export class CategoryInfoComponent implements OnInit {
                 this.url = params['url'];
             }
         );
-
         this.takeCategory();
     }
 
     private takeCategory() {
-
         this.decodeLink();
-
         this.categoryService.getCategory(this.url).subscribe(
             category => this.category = category,
             error => this.errorMessage = <any>error
