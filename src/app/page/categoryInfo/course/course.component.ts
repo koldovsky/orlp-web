@@ -23,6 +23,11 @@ export class CourseComponent implements OnInit {
   @Input() url: string;
   private coursesIdOfTheUser: number[] = [];
   private coursesWithStatus: CourseLinkWithStatus[] = [];
+  @Input() categoryId: number;
+  actionSort = true;
+  selectedSortedParam: string = 'id';
+  currentPage: number = 1;
+  lastPage: number;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -33,15 +38,20 @@ export class CourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
-    this.courseService.getCourse(this.url).subscribe(
-      courses => {
-        console.log(courses);
-        this.courses = courses;
+    this.getCoursesByPage(this.currentPage);
+    this.isAuthorized = this.logoutService.isAuthorized();
+  }
+
+  public getCoursesByPage(numberPage: number)  {
+    this.courseService.getCourses(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
+      .subscribe(value => {
+        this.currentPage = numberPage;
+        this.courses = value.courseLinks;
+        this.lastPage = value.totalPages;
         if (this.isAuthorized) {
           this.getCoursesIdOfTheUser();
         }
       });
-    this.isAuthorized = this.logoutService.isAuthorized();
   }
 
   getCoursesIdOfTheUser() {
@@ -64,6 +74,7 @@ export class CourseComponent implements OnInit {
   }
 
   createCoursesWithStatus() {
+    this.coursesWithStatus = [];
     for (const entry of this.courses) {
       this.coursesWithStatus.push(new CourseLinkWithStatus(
         entry.name,
@@ -107,12 +118,12 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
-    const courseRating: Rating = new Rating( event.rating);
+    const courseRating: Rating = new Rating( event.rating, course.self);
     this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
   };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: Rating = new Rating(event.rating);
+    const deckRating: Rating = new Rating(event.rating, deck.self);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
   }
 }

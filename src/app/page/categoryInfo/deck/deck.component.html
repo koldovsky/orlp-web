@@ -2,16 +2,16 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th class="alignCenter">Rating</th>
+      <th (click)="sortBy('name')">Name</th>
+      <th (click)="sortBy('description')">Description</th>
+      <th (click)="sortBy('rating')" class="alignCenter">Rating</th>
       <th class="alignCenter">Subscribe</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
-      <td (click)="startLearning(deck.cards)">{{deck.name}}</td>
-      <td (click)="startLearning(deck.cards)">{{deck.description}}</td>
+      <td (click)="startLearning(deck.deckId)">{{deck.name}}</td>
+      <td (click)="startLearning(deck.deckId)">{{deck.description}}</td>
       <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
@@ -35,4 +35,13 @@
     </tr>
     </tbody>
   </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDeckByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDeckByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+    </ul>
+  </nav>
 </div>

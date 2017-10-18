@@ -50,6 +50,8 @@
       <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
               (click)="prepareEditDialog()">Edit
       </button>
+      <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']" class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck">Manage Cards
+      </button>
     </div>
   </div>
 

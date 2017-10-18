@@ -11,6 +11,7 @@ import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {Link} from '../../../dto/link';
 import {Rating} from "../../../dto/Rating";
+import {CoursesByCategoryAndPageDTO} from "../../../dto/CourseDTO/linkToCoursesByCategoryAndPage";
 
 @Injectable()
 export class CourseService {
@@ -37,6 +38,14 @@ export class CourseService {
     return this.orlp.get(url)
       .map((response: Response) => <CourseLink[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
+      .catch(this.handleError);
+  }
+
+  getCourses(categoryId: number, numberPage: number,
+             selectedSortingParam: string, ascending: boolean): Observable<CoursesByCategoryAndPageDTO> {
+    return this.orlp.get('api/category/' + categoryId + '/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <CoursesByCategoryAndPageDTO> DTOConverter
+        .jsonToCourseByCategoryAndPage(response.json()))
       .catch(this.handleError);
   }
 

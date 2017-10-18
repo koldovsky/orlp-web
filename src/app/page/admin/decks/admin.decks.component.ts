@@ -22,18 +22,35 @@ export class AdminDecksComponent implements OnInit {
   public deckName: string;
   public deckDescription: string;
   public categorySelectedId: number;
+  public actionSort = true;
+  public selectedSortedParam: string = 'id';
+  public currentPage: number = 1;
+  public lastPage: number;
 
   constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.getDecks();
+    this.getDecks(this.currentPage);
     this.getCategories();
   }
 
-  getDecks() {
-    this.adminDecksService.getFullDeckList()
-      .subscribe(deckList => this.deckList = deckList);
+  getDecks(numberPage: number) {
+    this.adminDecksService.getFullDeckList(numberPage, this.selectedSortedParam, this.actionSort)
+      .subscribe(value => {
+        this.deckList = value.adminDecks;
+        this.lastPage = value.totalPages;
+        this.currentPage = numberPage;
+      });
+  }
+  public sortBy(param: string) {
+    if (param === this.selectedSortedParam) {
+      this.actionSort = !this.actionSort;
+    }else {
+      this.actionSort = true;
+    }
+    this.selectedSortedParam = param;
+    this.getDecks(this.currentPage);
   }
 
   getCategories() {

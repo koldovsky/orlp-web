@@ -11,6 +11,7 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Link} from '../../../dto/link';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
+import {AdminDeckByPage} from "../../../dto/AdminDTO/admin.deck.with.pages.DTO";
 
 @Injectable()
 export class AdminDecksService {
@@ -18,10 +19,10 @@ export class AdminDecksService {
   constructor(private orlp: ORLPService) {
   }
 
-  getFullDeckList(): Observable<AdminDeck[]> {
-    return this.orlp.get('/api/admin/decks')
-      .map((response: Response) => <AdminDeck[]>
-        DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminDeck, response.json()))
+  getFullDeckList(numberPage: number, selectedSortingParam: string, ascending: boolean) {
+    return this.orlp.get('/api/admin/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <AdminDeckByPage>
+        DTOConverter.jsonToDeckByPage(response.json()))
       .catch(this.handleError);
   }
   deleteDeck(link: Link) {

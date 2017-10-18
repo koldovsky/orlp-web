@@ -15,13 +15,35 @@ export class AdminAuditComponent implements OnInit {
   ipAsc = true;
   roleAsc = true;
   timeAsc = true;
+  public actionSort = true;
+  public selectedSortedParam: string = 'id';
+  public currentPage: number = 1;
+  public lastPage: number;
+
 
   constructor(private adminAuditService: AdminAuditService) {
   }
 
   ngOnInit(): void {
-    this.adminAuditService.getFullAuditList()
-      .subscribe(auditList => this.auditList = auditList);
+    this.getAudit(this.currentPage);
+  }
+
+  getAudit(numberPage: number) {
+    this.adminAuditService.getFullAuditList(numberPage, this.selectedSortedParam, this.actionSort)
+      .subscribe(value => {
+        this.auditList = value.adminAudit;
+        this.lastPage = value.totalPages;
+        this.currentPage = numberPage;
+      });
+  }
+  public sortBy(param: string) {
+    if (param === this.selectedSortedParam) {
+      this.actionSort = !this.actionSort;
+    }else {
+      this.actionSort = true;
+    }
+    this.selectedSortedParam = param;
+    this.getAudit(this.currentPage);
   }
 
   public toggleEmail(): void {

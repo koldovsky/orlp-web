@@ -11,6 +11,7 @@ import 'rxjs/add/observable/throw';
 import {Observable} from "rxjs/Observable";
 import {DeckLinkByCategory} from "../../../dto/DeckDTO/linkByCategory.deck.DTO";
 import {Rating} from "../../../dto/Rating";
+import {DeckByCategoryAndPageDTO} from "../../../dto/DeckDTO/linkToDeckByCategoryAndPage";
 
 @Injectable()
 export class DeckService {
@@ -18,12 +19,14 @@ export class DeckService {
     constructor(private orlp: ORLPService) {
     }
 
-    getDecks(url: string): Observable<DeckLinkByCategory[]> {
-        return this.orlp.get(url)
-            .map((response: Response) => <DeckLinkByCategory[]> DTOConverter
-              .jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()))
-            .catch(this.handleError);
-    }
+  getDecks(categoryId: number, numberPage: number,
+           selectedSortingParam: string, ascending: boolean): Observable<DeckByCategoryAndPageDTO> {
+    return this.orlp.
+    get('/api/category/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <DeckByCategoryAndPageDTO> DTOConverter
+        .jsonToDeckByCategoryAndPage(response.json()))
+      .catch(this.handleError);
+  }
 
     addDeckToFolder(deckId: number): Observable<DeckPublic> {
         return this.orlp.put("api/user/folder/add/deck/" + deckId, {})

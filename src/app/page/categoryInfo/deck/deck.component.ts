@@ -9,6 +9,7 @@ import {LogoutService} from '../../logout/logout.service';
 import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
 import {IStarRatingOnClickEvent} from "angular-star-rating";
 import {Rating} from "../../../dto/Rating";
+import {CardComponent} from "../../card/card.component";
 
 @Component({
   selector: 'app-deck-table',
@@ -22,7 +23,11 @@ export class DeckComponent implements OnInit {
   public decksIdInYourFolder: number[] = [];
   public isAuthorized: boolean;
   @Input() url: string;
-
+  @Input() categoryId: number;
+  actionSort = true;
+  selectedSortedParam: string = 'id';
+  currentPage: number = 1;
+  lastPage: number;
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
               private router: Router,
@@ -32,15 +37,30 @@ export class DeckComponent implements OnInit {
   ngOnInit(): void {
     this.url = this.orlpService.decodeLink(this.url);
     this.isAuthorized = this.logoutService.isAuthorized();
-    this.deckService.getDecks(this.url)
-      .subscribe(decks => {
-        this.decks = decks;
+    this.getDeckByPage(this.currentPage);
+  }
+
+  public getDeckByPage(numberPage: number)  {
+    this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
+      .subscribe(deckList => {
+        this.currentPage = numberPage;
+        this.decks = deckList.decks;
+        this.lastPage = deckList.totalPages;
         if (this.isAuthorized) {
           this.getIdDecksInYourFolder();
         } else {
           this.createDecksWithStatus();
         }
       });
+  }
+  public sortBy(param: string) {
+    if (param === this.selectedSortedParam) {
+      this.actionSort = !this.actionSort;
+    }else {
+      this.actionSort = true;
+    }
+    this.selectedSortedParam = param;
+    this.getDeckByPage(this.currentPage);
   }
 
   addDeckToFolder(deckId: number): void {
@@ -61,6 +81,7 @@ export class DeckComponent implements OnInit {
   }
 
   createDecksWithStatus() {
+    this.decksWithStatus = [];
     for (const entry of this.decks) {
       this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name,
         entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
@@ -84,8 +105,9 @@ export class DeckComponent implements OnInit {
     return this.orlpService.decodeLink(shortLink);
   }
 
-  startLearning(cards: Link): void {
-    this.router.navigate(['/cards', this.getCardsLink(cards)]);
+  startLearning(deckId: number): void {
+    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    CardComponent.deckId = deckId;
   }
 
   changeDeckStatus(deckId: number) {

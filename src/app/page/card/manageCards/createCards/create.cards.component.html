@@ -1,7 +1,9 @@
 <div class="container">
   <div class="vertical-menu" *ngIf="deck != undefined">
-    <a [routerLink]="['/admin/manage/cards/', getDeckLink(deck.self)]">Delete/Update</a>
-    <a [routerLink]="['/admin/cards/', getDeckLink(deck.self)]" class="active" >Create card</a>
+    <a [routerLink]="['/manage/cards/', getDeckLink(deck.self), nameOfPageToBack]">Manage cards</a>
+    <a [routerLink]="['/create/cards/', getDeckLink(deck.self), nameOfPageToBack]" class="active">Create card</a>
+    <a *ngIf="nameOfPageToBack=='AdminDecks'" [routerLink]="['/admin/decks']">Back to decks</a>
+    <a *ngIf="nameOfPageToBack=='CabinetDecks'" [routerLink]="['/user/cabinet/manage/decks']">Back to decks</a>
   </div>
   <div class="create-card">
     <div class="content">
@@ -18,24 +20,25 @@
         <textarea [(ngModel)]="answer"></textarea>
       </div>
       <button [disabled]="!(question && answer && title)" type="button"
-              class="btn btn-primary btn-create-card" (click)="createCard()" data-toggle="modal" data-target="#SuccessCreate">Add card
+              class="btn btn-primary btn-create-card" (click)="createCard()" data-toggle="modal"
+              data-target="#SuccessCreate">Add card
       </button>
     </div>
   </div>
 </div>
 <!-- Modal create new card-->
-<div class="modal fade"  id="SuccessCreate" role="dialog">
+<div class="modal fade" id="SuccessCreate" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title">Card created!</h1>
+        <h1 class="modal-title">{{createCardMessage}}</h1>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-footer">
         <button type="button"
                 class="btn btn-primary"
-                data-dismiss="modal"
-                (click)="clearFields()">OK</button>
+                data-dismiss="modal">OK
+        </button>
       </div>
     </div>
   </div>

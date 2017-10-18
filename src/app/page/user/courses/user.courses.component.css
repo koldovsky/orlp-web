@@ -1,0 +1,7 @@
+.pagination{
+  width: 20%;
+  margin: auto;
+}
+th, li{
+  cursor: pointer;
+}

@@ -18,3 +18,14 @@
   background-color: #f5f5ff;
   border-color: #6c757d;
 }
+.pagination{
+  width: 20%;
+  margin: auto;
+}
+th, li{
+  cursor: pointer;
+}
+.row th:hover, .pagination li:hover {
+  color: #000;
+  background-color: #e1d7e8;
+}

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
+import {CoursePageDTO} from "../../../dto/CourseDTO/linkToCourseByPageDTO";
 
 @Injectable()
 export class UserCoursesService {
@@ -11,10 +12,10 @@ export class UserCoursesService {
   constructor(private orlp: ORLPService) {
   }
 
-  getCourses(): Observable<CoursePublic[]> {
-    return this.orlp.get('/api/courses')
-      .map((response: Response) => <CoursePublic[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToPublicCourse, response.json()))
+  getCoursesByPage(numberPage: number, selectedSortingParam: string, ascending: boolean) {
+    return this.orlp.get('/api/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+      .map((response: Response) => <CoursePageDTO>
+        DTOConverter.jsonToCourseByPage(response.json()))
       .catch(this.handleError);
   }
 

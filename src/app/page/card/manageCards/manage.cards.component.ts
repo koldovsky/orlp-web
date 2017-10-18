@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ORLPService} from '../../../../../services/orlp.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AdminManageCardsService} from './admin.manage.cards.service';
+import {ActivatedRoute} from '@angular/router';
+import {ManageCardsService} from './manage.cards.service';
 import {Subscription} from 'rxjs/Subscription';
-import {AdminDeck} from '../../../../../dto/AdminDTO/admin.deck.DTO';
-import {Link} from '../../../../../dto/link';
-import {CardPublic} from '../../../../../dto/CardsDTO/public.card.DTO';
+import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
+import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
+import {ORLPService} from '../../../services/orlp.service';
+import {Link} from '../../../dto/link';
 
 
 @Component({
-  providers: [AdminManageCardsService],
-  templateUrl: ('./admin.manage.cards.component.html'),
-  styleUrls: ['./admin.manage.cards.css']
+  providers: [ManageCardsService],
+  templateUrl: ('./manage.cards.component.html'),
+  styleUrls: ['./manage.cards.css']
 })
 
-export class AdminManageCardsComponent implements OnInit {
+export class ManageCardsComponent implements OnInit {
   public edit: boolean = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
@@ -25,9 +25,11 @@ export class AdminManageCardsComponent implements OnInit {
   public rating: number;
   private url: string;
   private sub: Subscription;
+  public nameOfPageToBack: string;
   public selectedItem: number;
+  public listOfCardsMessage: string = 'Loading...'
 
-  constructor(private adminManageCardsService: AdminManageCardsService, private route: ActivatedRoute,
+  constructor(private manageCardsService: ManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
   }
 
@@ -35,7 +37,9 @@ export class AdminManageCardsComponent implements OnInit {
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];
+        const nameOfPageToBack = params['nameOfPageToBack'];
         this.url = url;
+        this.nameOfPageToBack = nameOfPageToBack;
       }
     );
     this.takeDeck();
@@ -51,7 +55,7 @@ export class AdminManageCardsComponent implements OnInit {
 
   private takeDeck(): void {
     this.decodeLink();
-    this.adminManageCardsService.getDeck(this.url).subscribe(
+    this.manageCardsService.getDeck(this.url).subscribe(
       deck => {
         this.deck = deck;
         this.getCardsList();
@@ -59,8 +63,9 @@ export class AdminManageCardsComponent implements OnInit {
   }
 
   private getCardsList() {
-    this.adminManageCardsService.getCards(this.deck.deckId).subscribe(cards => {
+    this.manageCardsService.getCards(this.deck.deckId).subscribe(cards => {
       this.cards = cards;
+      this.listOfCardsMessage = 'List of cards is empty';
     });
   }
 
@@ -75,16 +80,17 @@ export class AdminManageCardsComponent implements OnInit {
   private onCardClicked(card: CardPublic): void {
     this.edit = true;
     this.card = card;
+    this.title = card.title;
     this.question = card.question;
     this.answer = card.answer;
   }
 
   deleteSelectedCard() {
-    this.adminManageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
+    this.manageCardsService.deleteSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)))
       .subscribe(() => {
-      this.getCardsList();
-      this.card = null;
-    });
+        this.getCardsList();
+        this.card = null;
+      });
   }
 
   public changeEditStatus() {
@@ -93,13 +99,14 @@ export class AdminManageCardsComponent implements OnInit {
 
   public cancelEdit(card: CardPublic) {
     this.edit = true;
+    this.card.title = this.title;
     this.card.answer = this.answer;
     this.card.question = this.question;
   }
 
   public updateCard() {
     this.edit = true;
-    this.adminManageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
+    this.manageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
       .subscribe(() => this.getCardsList());
   }
 
