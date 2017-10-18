@@ -30,6 +30,7 @@ body, html{
     color: #e8241e;
     margin-top: 10px;
     text-align: center;
+    z-index: 1;
 }
 
 .alert-danger{
