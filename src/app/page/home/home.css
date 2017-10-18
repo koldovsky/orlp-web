@@ -1,38 +1,6 @@
-body {
-    background-color: #3a3345;
-}
-
-#category-img, #course-img {
-    width: 100%;
-}
-
-#site-description-head {
-    color: white;
-}
-
-#site-description-main {
-    color: darkgray;
-}
-
 .header-text {
     color: white;
     text-shadow: 0px 1px white;
-}
-
-.mp-card {
-    width: 100%;
-    border: 1px solid #f7f7f7;
-    box-shadow: 0px 1px 10px 1px white;
-}
-
-.mp-card:hover {
-    cursor: pointer;
-    background-color: #f7f7f7;
-}
-
-.mp-deck {
-    outline: none;
-    width: 47%;
 }
 
 .alertMessage {
@@ -44,4 +12,185 @@ body {
     color: #e8241e;
     margin-top: 15px;
     text-align: center;
+}
+
+.card{
+  margin-top: 20px;
+  background-color: rgba(46, 62, 87, 0.28);
+  color: white;
+  border: solid 1px #111111;
+}
+
+.carousel-inner .carousel-item-right.active,
+.carousel-inner .carousel-item-next {
+  transform: translateX(33.33%);
+}
+
+.carousel-inner .carousel-item-left.active,
+.carousel-inner .carousel-item-prev {
+  transform: translateX(-33.33%)
+}
+
+.carousel-inner .carousel-item-right,
+.carousel-inner .carousel-item-left{
+  transform: translateX(0);
+}
+
+.carousel-inner .carousel-item{
+  transition:  0.7s ease;
+}
+
+.my-image{
+  width: 33.33%;
+}
+
+.main-container{
+  height: 91vh;
+}
+
+.categories-container{
+  height: 100vh;
+}
+
+.categories-container, .courses-container{
+  background: rgba(253, 253, 253, 0.6);
+  position: relative;
+  color: #2e4058;
+}
+
+.cat-main-card{
+  border-radius: 10px;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: rgba(248, 249, 250, 0.81);
+  color: #2e4058;
+  border: 1px solid #9a9b9d;
+}
+
+.main-card{
+  margin-top: 100px;
+  border-radius: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: rgba(248, 249, 250, 0.81);
+  color: #2e4058;
+  border: 1px solid #9a9b9d;
+  font-size: 50px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card-header{
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.card-image{
+  height: 200px;
+}
+
+.my-button{
+  background-color: transparent;
+  color: #2e4058;
+  border: 1px solid #9a9b9d;
+  cursor: pointer;
+  float: right;
+}
+
+.my-button:hover,.my-button:focus{
+  background-color: #2e4058;
+  color: white;
+}
+
+.button-row{
+  margin-top: 150px;
+}
+
+.btn-learning{
+  width: 400px;
+  height: 60px;
+  background-color: rgba(248, 249, 250, 0.81);
+  font-size: xx-large;
+  border-radius: 10px;
+  float: none;
+}
+
+@media (max-width: 576px) {
+  .main-card{
+    margin-top: 10px;
+  }
+  .button-row{
+    margin-top: 5px;
+  }
+}
+
+.down-button{
+  transition: all 0.15s ease-in-out;
+  border: none;
+}
+
+*{
+  z-index: 1;
+}
+
+.my-title{
+  width: 400px;
+  height: 60px;
+  background-color: rgba(248, 249, 250, 0.81);
+  font-size: xx-large;
+  border-radius: 10px;
+}
+
+.my-header{
+  font-size: x-large;
+  text-align: center;
+}
+
+.my-card{
+  height: 310px;
+  max-width: 200px;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+}
+
+.my-card-body{
+  padding-top: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom: 0;
+  padding-left: 1.25rem;
+}
+
+.cat-width{
+  width: 33.33%;
+}
+
+.cat-card{
+  display: inline-block;
+  width: 33.33%;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  color: #2e4058;
+  font-size: large;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.cat-card:hover{
+  text-shadow: 0 0 1px blue;
+}
+
+.cat-title{
+  text-align: center;
+}
+
+.bottom-element{
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.card-title:hover{
+  text-shadow: 0 0 1px green;
 }

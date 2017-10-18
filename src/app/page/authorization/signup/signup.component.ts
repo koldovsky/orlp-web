@@ -12,6 +12,7 @@ function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
   const confirmPassword = c.get('confirmPassword');
   if (passwordControl.value === confirmPassword.value) {
+    console.log("true");
     return null;
   }
   return {'match': true};
@@ -60,8 +61,7 @@ export class SignUpComponent implements OnInit {
     this.auth.login(provider).subscribe(
       (data) => {
         this.userSignIn = data;
-        console.log(this.userSignIn.idToken);
-        console.log(this.userSignIn.email);
+        console.log(data);
         this.sendGoogleToken();
       }
     );
@@ -71,8 +71,8 @@ export class SignUpComponent implements OnInit {
     this.authorizationService.sendGoogleIdToken(this.userSignIn.idToken)
       .subscribe((response) => {
         this.success = true;
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-        this.reload();
       }, (error) => {
         this.processError(error);
       });
@@ -81,9 +81,8 @@ export class SignUpComponent implements OnInit {
   signInFacebook(provider: string) {
     this.auth.login(provider).subscribe(
       (data) => {
+        console.log(data);
         this.userSignIn = data;
-        console.log(this.userSignIn.token);
-        console.log(this.userSignIn.email);
         this.sendFacebookToken();
       }
     );
@@ -93,32 +92,29 @@ export class SignUpComponent implements OnInit {
     this.authorizationService.sendFacebookToken(this.userSignIn.token)
       .subscribe((response) => {
         this.success = true;
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-        this.reload();
       }, (error) => {
         this.processError(error);
       });
   }
 
-  reload() {
-    window.location.reload();
-  }
-
   register(): void {
-    this.error = false;
-    this.success = false;
-    this.errorEmailExists = false;
-    this.mailNotSended = false;
-    this.transferingDataFromFormToUserObj();
-    console.log(this.user);
-    this.signupService.registerUser(this.user)
-      .subscribe(() => {
-          this.success = true;
-        },
-        (response) => {
-          this.responseMessage = response.json();
-          this.processError(response);
-        });
+    if(this.captcha!=null) {
+      this.error = false;
+      this.success = false;
+      this.errorEmailExists = false;
+      this.mailNotSended = false;
+      this.transferingDataFromFormToUserObj();
+      this.signupService.registerUser(this.user)
+        .subscribe(() => {
+            this.success = true;
+          },
+          (response) => {
+            this.responseMessage = response.json();
+            this.processError(response);
+          });
+    }
   }
 
   transferingDataFromFormToUserObj() {
@@ -148,7 +144,7 @@ export class SignUpComponent implements OnInit {
   }
 
   validSignUp(): boolean {
-    return this.userForm.valid && (this.captcha != null);
+    return this.userForm.valid;
   }
 
 }

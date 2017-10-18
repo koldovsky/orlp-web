@@ -1,10 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {HomeService} from './home.service';
-
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
+import {LogoutService} from "../logout/logout.service";
+import {IStarRatingOnClickEvent} from "angular-star-rating";
+import {Rating} from "../../dto/Rating";
+import {CourseService} from "../categoryInfo/course/course.service";
+import "../../../assets/down.js"
+
+declare const myDown: any;
+declare const myTop: any;
 
 @Component({
   templateUrl: ('./home.component.html'),
@@ -12,22 +19,41 @@ import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 })
 
 export class HomeComponent implements OnInit {
-  public categories: CategoryTop[];
-  public courses: CourseTop[];
+  public categories: CategoryTop[][]=[];
+  public courses: CourseTop[]=[];
+  public isAuthorized: boolean;
   errorMessage: string;
 
   constructor(private mainService: HomeService,
-              private orlp: ORLPService) {
+              private orlp: ORLPService,
+              private  logoutService: LogoutService,
+              private courseService: CourseService) {
   }
 
   ngOnInit(): void {
+    myDown();
+    myTop();
+    this.isAuthorized = this.logoutService.isAuthorized();
     this.mainService.getCategories()
-      .subscribe(category => this.categories = category,
+      .subscribe(categories => this.setSlider(this.categories, categories),
         error => this.errorMessage = <any>error);
-
     this.mainService.getCourses()
-      .subscribe(course => this.courses = course,
+      .subscribe(courses =>
+        this.courses = courses,
         error => this.errorMessage = <any>error);
+  }
+
+  setSlider(array: any, categories: any){
+    const length = categories.length;
+    for(var i=0; i < length - 2; i++){
+      array[i] = categories.slice(i, i + 3)
+    }
+    array[length - 2] = categories.slice(length - 2, length);
+    array[length - 2][2] = categories[0];
+    array[length - 1] = new Array();
+    array[length - 1][0] = categories[length - 1];
+    array[length - 1][1] = categories[0];
+    array[length - 1][2] = categories[1];
   }
 
   getCategoryLink(link: Link): string {
@@ -37,4 +63,9 @@ export class HomeComponent implements OnInit {
   getCourseLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
+
+  onCourseRatingClick = (course: CourseTop, event:IStarRatingOnClickEvent) => {
+    const courseRating: Rating = new Rating( event.rating);
+    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
+  };
 }

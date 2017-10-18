@@ -4,11 +4,13 @@ import {HomeService} from './home.service';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
+import {StarRatingModule} from "angular-star-rating";
 
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
+        StarRatingModule,
         RouterModule.forChild([
             {path: 'home', component: HomeComponent}
         ])

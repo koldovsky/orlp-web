@@ -1,59 +1,73 @@
-<div class="container">
-  <main>
-    <!-- CATEGORIES -->
-    <div class="row mt-4 mb-4">
-      <div class="col-md-12 mt-4 font-color-white text-center">
-        <h2 class="header-text">Categories</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div *ngFor="let category of categories" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
-           [routerLink]="['/category', getCategoryLink(category.self)]">
-        <div class="card mp-card">
-          <img id="category-img" [src]="category.image" class="mx-auto d-block rounded-main card-img-top">
-          <div class="card-block text-center">
-            <h4>
-              <p class="card-text">{{category.name}}</p>
-            </h4>
-          </div>
-        </div>
-        <br/>
-      </div>
-    </div>
-    <!-- COURSES -->
-    <div class="row mt-5 mb-4">
-      <div class="col-md-12 font-color-white text-center">
-        <h2 class="header-text">Top Courses</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div *ngFor="let course of courses" class="col-md-3 col-sm-6 col-xs-3 mp-deck"
-           [routerLink]="['/course/top', getCourseLink(course.self)]">
-        <div class="card mp-card">
-          <img id="course-img" [src]="course.image" class="mx-auto d-block rounded-main card-img-top">
-          <div class="card-block text-center">
-            <h4>
-              <p class="card-text">{{course.name}}</p>
-            </h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-  <footer>
-    <div class="row ml-xl-5 mt-5">
-      <h1 id="site-description-head">What is Spaced Repetition?</h1>
-    </div>
-    <div class="row justify-content-center">
-      <div id="site-description-main" class="col-6">
-        <p>
-          Spaced repetition is a learning technique that incorporates
-          increasing intervals of time between subsequent review of previously
-          learned material in order to exploit the psychological spacing effect.
-          More information about it you can find
-          <a href="https://en.wikipedia.org/wiki/Spaced_repetition" target="_blank" alt="Spaced repetition">here</a>.
-        </p>
-      </div>
-    </div>
-  </footer>
+<button class="down down-button bottom-element" id="arrow"></button>
+<button class="top down-button bottom-element" id="arrow-top"></button>
+<div class="main-container">
+<div class="bg"></div>
+<div class="row justify-content-center">
+  <div class="main-card">
+    <p class="title">Learning with us is not so terrible</p>
+  </div>
 </div>
+  <div class="row justify-content-center button-row">
+    <button *ngIf="isAuthorized" type="button" class="btn my-button btn-learning" routerLink="/user/cabinet">Start learning</button>
+    <button *ngIf="!isAuthorized" type="button" class="btn my-button btn-learning" routerLink="/login">Start learning</button>
+  </div>
+</div>
+<div class="categories-container" id="categories">
+<div class="row justify-content-center mt-1">
+  <h1>Categories</h1>
+</div>
+    <div class="row justify-content-center mt-4">
+      <div id="categoryCarousel" class="carousel slide col-12 col-md-10 col-lg-7" data-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let i of categories;let item = index" class="carousel-item " [ngClass]="{'active': item==0}">
+            <div class="card cat-card" *ngFor="let category of this.categories[item];"
+                 [routerLink]="['/category/', getCategoryLink(category.self)]">
+              <div class="card-body">
+              <img class="img-fluid" [src]="category.image">
+              <p class="cat-title">{{category.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#categoryCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#categoryCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+      <div class="row justify-content-center">
+        <div class="card col-12 col-md-7 cat-main-card">
+          <div class="card-body">
+            <p class="card-text">All learning material is divided by categories. Categories are specific topics,
+              such as programming languages. Each category contains courses that can and should take place over and over again to
+              consolidate material.
+              In addition, you can estimate each course and leave a comment about it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="courses-container" id="courses">
+<div class="row col-9" >
+  <div *ngFor="let course of courses" class="col">
+    <div class="card my-card">
+      <img class = "card-image" src = {{course.image}} alt="Card image cap">
+      <div class="card-body my-card-body">
+        <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
+        <td *ngIf="isAuthorized;else unAuthorized">
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
+        </td>
+        <ng-template #unAuthorized>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

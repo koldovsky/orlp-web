@@ -46,20 +46,22 @@ export class LoginComponent implements OnInit {
   }
 
   login = () => {
-    this.success = false;
-    this.error = false;
-    this.wrongDetails = false;
-    this.account = this.loginForm.value;
-    this.account.captcha = this.captcha;
-    this.loginService.signIn(this.account)
-      .subscribe((response) => {
-        this.success = true;
-        this.authorizationService.emitIsAuthorizedChangeEvent(true);
-        this.router.navigate(['main']);
-      }, (error) => {
-        this.processError(error);
-        this.captchaComponent.reset();
-      });
+    if(this.captcha!=null) {
+      this.success = false;
+      this.error = false;
+      this.wrongDetails = false;
+      this.account = this.loginForm.value;
+      this.account.captcha = this.captcha;
+      this.loginService.signIn(this.account)
+        .subscribe((response) => {
+          this.success = true;
+          this.authorizationService.emitIsAuthorizedChangeEvent(true);
+          this.router.navigate(['main']);
+        }, (error) => {
+          this.processError(error);
+          this.captchaComponent.reset();
+        });
+    }
   };
 
   private processError(response) {
@@ -116,6 +118,6 @@ export class LoginComponent implements OnInit {
   }
 
   validLogin(): boolean {
-    return this.loginForm.valid && (this.captcha != null);
+    return this.loginForm.valid;
   }
 }

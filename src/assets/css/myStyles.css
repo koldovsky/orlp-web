@@ -1,7 +1,11 @@
 /*TODO*/
-body {
-    background-color: #3a3345;
+body, html{
+  background-color: #FFFFFF;
+  height: 100%;
+  margin: 0;
 }
+
+
 
 .header-text {
     color:white;
@@ -21,11 +25,141 @@ body {
 
 .alertMessage {
     padding: 0.5rem 1.25rem;
-    margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: 0.25rem;
-    margin-top: -12px;
     color: #e8241e;
-    margin-top: 15px;
+    margin-top: 10px;
     text-align: center;
+}
+
+.alert-danger{
+  border: 1px solid red;
+}
+
+.alert-success{
+  border: 1px solid green;
+}
+
+.alert-warning{
+  border: 1px solid yellow;
+}
+
+.bg {
+  background: url(../images/laptop.jpg) no-repeat center bottom fixed;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+}
+
+.down, .top{
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.down{
+  background: url(../images/down.png) no-repeat center;
+  background-size: contain;
+}
+.top{
+  background: url(../images/top.png) no-repeat center;
+  background-size: contain;
+  display: none;
+}
+
+.btn-google{
+  color: white;
+  background: rgb(220, 78, 65);
+}
+
+.btn-facebook{
+  background: #3b5998;
+  color: white;
+}
+
+.btn-google, .btn-facebook{
+  display: inline-block;
+  width: 49%;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 13px;
+  text-transform: inherit;
+  font-weight: 600;
+  text-align: center;
+}
+
+.btn-google:hover, .btn-facebook:hover {
+  cursor: pointer;
+  color: #e1d7e8;
+}
+
+span.googleIcon, span.facebookIcon {
+  display: block;
+  float: left;
+  width: 35px;
+  height: 35px;
+  margin-top: 2px;
+}
+
+span.googleIcon{
+  background: url('../images/google.png') transparent 100% no-repeat;
+  margin-left: 5px;
+  background-size: contain;
+}
+
+span.facebookIcon {
+  background: url('../images/facebook.png') transparent 100% no-repeat;
+}
+
+.textSpan{
+  white-space: pre-line;
+}
+
+.input-group-addon{
+  float: left;
+  display: inline;
+  width: 38px;
+  height: 38px;
+}
+
+.invalid-feedback{
+  color: #fd0505;
+  font-weight: 500;
+}
+
+.form-control.is-invalid{
+  border-color: #fd0505;
+}
+
+.my-grid{
+  display: flow-root;
+}
+
+.modal-dialog {
+  max-width: 345px;
+}
+
+.close{
+  display: inline-block;
+}
+
+.recaptcha{
+  display: inline-block;
+}
+
+.row{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+star-rating-comp > div{
+  outline: none;
+  cursor: pointer;
+}
+
+div, button:focus, .card-title, img{
+  outline: none;
 }
