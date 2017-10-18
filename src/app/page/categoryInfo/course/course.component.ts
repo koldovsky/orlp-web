@@ -118,12 +118,12 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
-    const courseRating: Rating = new Rating( event.rating, course.self);
+    const courseRating: Rating = new Rating( event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
   };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
-    const deckRating: Rating = new Rating(event.rating, deck.self);
+    const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
   }
 }
