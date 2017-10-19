@@ -27,12 +27,15 @@
           </div>
         </li>
         <li class="nav-item">
+          <a  class="nav-link" [routerLink]="['/user/profile']">Account settings</a>
+        </li>
+        <li class="nav-item">
           <a  class="nav-link" [routerLink]="['/home']">About</a>
         </li>
       </ul>
       <div  class="navbar-nav mt-2 mt-lg-0 my-navbar-nav">
-        <a *ngIf="isAuthorized" [routerLink]="['/user/cabinet']">
-          <img *ngIf="userDetails?.image; else default_image" class="user-image" src="{{userDetails?.image}}">
+        <a *ngIf="isAuthorized" [routerLink]="['/user/profile']">
+          <img *ngIf="image; else default_image" class="user-image" src="{{image}}">
           <ng-template #default_image>
             <img class="user-image" src="../../../assets/images/avatar.png">
           </ng-template>
