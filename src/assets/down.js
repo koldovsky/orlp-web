@@ -1,7 +1,8 @@
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
-  if (window.pageYOffset > $("#courses").offset().top - 3) {
+  const courses = $("#courses");
+  if (courses && window.pageYOffset > courses.offset().top - 3) {
     document.getElementById("arrow").style.display = "none";
     document.getElementById("arrow-top").style.display = "block";
   } else {
@@ -12,18 +13,22 @@ function scrollFunction() {
 
 function myDown(){
   $(function(){
-    $( ".down" ).click( function() {
-      if(window.pageYOffset < $("#categories").offset().top - 1){
-        $('html, body').animate({
-          scrollTop: $("#categories").offset().top
-        }, 500);
-      }
-      else {
-        $('html, body').animate({
-          scrollTop: $("#courses").offset().top
-        }, 500);
-      }
-    });
+    const down =  $('.down');
+    if(down) {
+      down.click(function () {
+        const categories = $("#categories");
+        if (window.pageYOffset < categories.offset().top - 1) {
+          $('html, body').animate({
+            scrollTop: categories.offset().top
+          }, 500);
+        }
+        else {
+          $('html, body').animate({
+            scrollTop: $("#courses").offset().top
+          }, 500);
+        }
+      })
+    }
   });
 }
 
