@@ -44,12 +44,12 @@
   width: 33.33%;
 }
 
-.main-container{
-  height: 91vh;
+.main-container, .categories-container{
+  height: 100vh;
 }
 
-.categories-container{
-  height: 100vh;
+.courses-container{
+  min-height: 100vh;
 }
 
 .categories-container, .courses-container{
