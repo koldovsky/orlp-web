@@ -19,3 +19,8 @@ img{
 .accountMessage{
   color: #009900;
 }
+
+.my-container{
+  background-color: rgba(248, 249, 250, 0.81);
+  height: 100%;
+}

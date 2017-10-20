@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {SignupService} from './signup.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +7,7 @@ import {MessageDTO} from '../../../dto/MessageDTO';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
+import {ReCaptchaComponent} from "angular2-recaptcha";
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -24,6 +25,7 @@ function passwordMatcher(c: AbstractControl) {
 })
 
 export class SignUpComponent implements OnInit {
+  @ViewChild(ReCaptchaComponent) captchaComponent: ReCaptchaComponent;
   responseMessage: MessageDTO = new MessageDTO();
   userForm: FormGroup;
   user: User = new User();
@@ -61,7 +63,6 @@ export class SignUpComponent implements OnInit {
     this.auth.login(provider).subscribe(
       (data) => {
         this.userSignIn = data;
-        console.log(data);
         this.sendGoogleToken();
       }
     );
@@ -81,7 +82,6 @@ export class SignUpComponent implements OnInit {
   signInFacebook(provider: string) {
     this.auth.login(provider).subscribe(
       (data) => {
-        console.log(data);
         this.userSignIn = data;
         this.sendFacebookToken();
       }
@@ -100,7 +100,6 @@ export class SignUpComponent implements OnInit {
   }
 
   register(): void {
-    if(this.captcha!=null) {
       this.error = false;
       this.success = false;
       this.errorEmailExists = false;
@@ -113,8 +112,9 @@ export class SignUpComponent implements OnInit {
           (response) => {
             this.responseMessage = response.json();
             this.processError(response);
+            this.captchaComponent.reset();
+            this.captcha = null;
           });
-    }
   }
 
   transferingDataFromFormToUserObj() {
@@ -134,7 +134,6 @@ export class SignUpComponent implements OnInit {
       this.errorEmailExists = true;
     } else if (response.status === this.CREATED) {
       this.success = true;
-      console.log(response.status);
     } else if (response.status === this.SERVICE_UNAVAILABLE && this.responseMessage.message === 'Mail not sent') {
       this.success = true;
       this.mailNotSended = true;
@@ -144,7 +143,7 @@ export class SignUpComponent implements OnInit {
   }
 
   validSignUp(): boolean {
-    return this.userForm.valid;
+    return this.userForm.valid && (this.captcha != null);
   }
 
 }
