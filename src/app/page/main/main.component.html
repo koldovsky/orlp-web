@@ -26,7 +26,7 @@
             <a class="dropdown-item" [routerLink]="['/admin/decks']">Admin Decks</a>
           </div>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isAuthorized" class="nav-item">
           <a  class="nav-link" [routerLink]="['/user/profile']">Account settings</a>
         </li>
         <li class="nav-item">
@@ -50,7 +50,7 @@
       <div *ngIf="!isAuthorized" class="nav-item ">
         <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>Sign In</a>
       </div>
-        <div *ngIf="isAuthorized" class="nav-item">
+        <div *ngIf="isAuthorized" class="nav-item logout-item">
           <a class="nav-link logout" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Sign out</a>
         </div>
     </div>
