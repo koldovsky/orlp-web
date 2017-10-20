@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   login = () => {
-    if(this.captcha!=null) {
       this.success = false;
       this.error = false;
       this.wrongDetails = false;
@@ -60,8 +59,8 @@ export class LoginComponent implements OnInit {
         }, (error) => {
           this.processError(error);
           this.captchaComponent.reset();
+          this.captcha = null;
         });
-    }
   };
 
   private processError(response) {
@@ -118,6 +117,6 @@ export class LoginComponent implements OnInit {
   }
 
   validLogin(): boolean {
-    return this.loginForm.valid;
+    return this.loginForm.valid && (this.captcha != null);
   }
 }

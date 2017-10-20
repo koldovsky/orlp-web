@@ -52,14 +52,15 @@ export class MainComponent implements OnInit {
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(()=>{
         this.isAuthorized = item;
-        this.getRole();
+        if(this.isAuthorized) {
+          this.getRole();
+        }
       }));
   }
 
   getRole(): void{
       this.mainService.getUserDetails()
         .subscribe(user => {
-          console.log(user);
           this.userDetails = user;
           this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
           this.setAdmin();

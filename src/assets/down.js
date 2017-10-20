@@ -1,14 +1,15 @@
 window.onscroll = function() {scrollFunction()};
 
 function scrollFunction() {
-  const courses = $("#courses");
-  if (courses && window.pageYOffset > courses.offset().top - 3) {
+  if(document.getElementById("courses") != null){
+  if ((window.pageYOffset > $("#courses").offset().top - 3)) {
     document.getElementById("arrow").style.display = "none";
     document.getElementById("arrow-top").style.display = "block";
   } else {
     document.getElementById("arrow").style.display = "block";
     document.getElementById("arrow-top").style.display = "none";
   }
+}
 }
 
 function myDown(){
