@@ -4,6 +4,7 @@
     <tr>
       <th (click)="sortBy('name')">Name</th>
       <th (click)="sortBy('description')">Description</th>
+      <th></th>
       <th (click)="sortBy('rating')" class="alignCenter">Rating</th>
       <th class="alignCenter">Subscribe</th>
     </tr>
@@ -12,6 +13,13 @@
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
       <td (click)="startLearning(deck.deckId)">{{deck.name}}</td>
       <td (click)="startLearning(deck.deckId)">{{deck.description}}</td>
+      <td class="cards-number-container">
+        <div
+          *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"
+          title="Number of cards that need repeating"
+          class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
+        </div>
+      </td>
       <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>

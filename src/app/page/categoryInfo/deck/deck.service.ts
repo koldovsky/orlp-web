@@ -47,7 +47,12 @@ export class DeckService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    addDeckRating(rating: Rating, deckId: number){
-      return this.orlp.post('/api/private/deck/' + deckId, rating);
-    }
+  addDeckRating(rating: Rating, deckId: number) {
+    return this.orlp.post('/api/private/deck/' + deckId, rating);
+  }
+
+  countCardsThatNeedRepeating(deckId: number): Observable<number> {
+    return this.orlp.get('/api/private/decks/' + deckId + '/cards-that-need-repeating/count')
+      .map((response: Response) => response.json());
+  }
 }
