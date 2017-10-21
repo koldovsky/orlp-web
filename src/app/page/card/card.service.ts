@@ -7,7 +7,6 @@ import 'rxjs/add/operator/map';
 import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
-import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
 
 @Injectable()
 export class CardService {
@@ -22,8 +21,8 @@ export class CardService {
       .catch(this.handleError);
   }
 
-  public sendStatus(userCardQueue: UserCardQueuePublicDTO, card_id: number, deckId: number) {
-    return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', userCardQueue);
+  public sendStatus(status: string, card_id: number, deckId: number) {
+    return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', status);
   }
 
   private handleError(error: Response) {

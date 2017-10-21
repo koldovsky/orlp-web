@@ -18,7 +18,6 @@ export class CardComponent implements OnInit {
   public answer = '';
   public url: string;
   public cards: CardPublic[];
-  cardStatus: UserCardQueuePublicDTO;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -59,8 +58,7 @@ export class CardComponent implements OnInit {
   }
 
   sendStatus(status: string) {
-    this.cardStatus = new UserCardQueuePublicDTO(status);
-    this.cardService.sendStatus(this.cardStatus, this.cards[this.questionNumber].cardId, CardComponent.deckId)
+    this.cardService.sendStatus(status, this.cards[this.questionNumber].cardId, CardComponent.deckId)
       .subscribe();
     this.onRotateBack();
   }
