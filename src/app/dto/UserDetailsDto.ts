@@ -9,11 +9,12 @@ export class UserDetailsDto {
     image: string;
     authenticationType: string;
     authorities: string[];
+    accountStatus: string;
     public self: Link;
 
 
   constructor(firstName: string, lastName: string, email: string, imageType: string,
-  imageBase64: string, image: string, authenticationType: string, authorities: string[], self: Link) {
+  imageBase64: string, image: string, authenticationType: string, authorities: string[], accountStatus: string, self: Link) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -22,6 +23,7 @@ export class UserDetailsDto {
     this.image = image;
     this.authenticationType = authenticationType;
     this.authorities = authorities;
+    this.accountStatus = accountStatus;
     this.self = self;
   }
 }

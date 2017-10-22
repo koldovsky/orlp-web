@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from './login.service';
 import {AuthService} from 'angular2-social-login';
 import {Router} from '@angular/router';
 import {AccountVerificationService} from '../signup/accountVerification/accountVerification.service';
 import {LoginAccount} from '../../../dto/LoginAccount';
-import { ViewChild } from '@angular/core';
-import { ReCaptchaComponent } from 'angular2-recaptcha';
+import {ViewChild} from '@angular/core';
+import {ReCaptchaComponent} from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
 
@@ -25,14 +25,19 @@ export class LoginComponent implements OnInit {
   account: LoginAccount;
   captcha: string;
   siteKey = ORLPSettings.SITE_KEY;
-  UNAUTHORIZED: number = 401;
+  isDeleted: boolean = false;
+  isBlocked: boolean = false;
+  isInactive: boolean = false;
+  mailIsSent: boolean = false;
+  mailIsNotSent: boolean = false;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
               public auth: AuthService,
               private router: Router,
               private authorizationService: AuthorizationService,
-              private accountVerify: AccountVerificationService) {
+              private accountVerify: AccountVerificationService,
+              private ngZone: NgZone) {
   }
 
   ngOnInit() {
@@ -53,22 +58,54 @@ export class LoginComponent implements OnInit {
       this.account.captcha = this.captcha;
       this.loginService.signIn(this.account)
         .subscribe((response) => {
-          this.success = true;
-          this.authorizationService.emitIsAuthorizedChangeEvent(true);
-          this.router.navigate(['main']);
+          this.getStatus();
         }, (error) => {
           this.processError(error);
           this.captchaComponent.reset();
           this.captcha = null;
         });
-  };
+  }
+
+  private getStatus() {
+    this.loginService.getStatus()
+      .subscribe((response) => {
+        this.success = true;
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
+        this.router.navigate(['main']);
+      }, (error) => {
+        this.statusError(error);
+        this.captchaComponent.reset();
+        this.captcha = null;
+      });
+  }
+
+  private sendMail() {
+    this.loginService.sendMail()
+      .subscribe(() => {
+        this.isInactive = false;
+        this.mailIsSent = true;
+      }, (error) => {
+        this.mailIsNotSent = true;
+      });
+  }
 
   private processError(response) {
     this.success = false;
-    if (response.status === this.UNAUTHORIZED) {
+    if (response.status === ORLPSettings.UNAUTHORIZED) {
       this.wrongDetails = true;
     } else {
       this.error = true;
+    }
+  }
+
+  private statusError(response) {
+    this.success = false;
+    if (response.status === ORLPSettings.LOCKED) {
+      this.isDeleted = true;
+    } if (response.status === ORLPSettings.FORBIDDEN) {
+      this.isBlocked = true;
+    } if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
+      this.isInactive = true;
     }
   }
 
@@ -83,11 +120,9 @@ export class LoginComponent implements OnInit {
 
   sendGoogleToken() {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
-      .subscribe((response) => {
-        this.success = true;
-        this.authorizationService.emitIsAuthorizedChangeEvent(true);
-        this.router.navigate(['main']);
-      }, (error) => {
+      .subscribe((response) =>  this.ngZone.run(() => {
+        this.getStatus();
+      }), (error) => {
         this.processError(error);
       });
   }
@@ -103,11 +138,9 @@ export class LoginComponent implements OnInit {
 
   sendFacebookToken() {
     this.authorizationService.sendFacebookToken(this.user.token)
-      .subscribe((response) => {
-        this.success = true;
-        this.authorizationService.emitIsAuthorizedChangeEvent(true);
-        this.router.navigate(['main']);
-      }, (error) => {
+      .subscribe((response) => this.ngZone.run(() => {
+        this.getStatus();
+      }), (error) => {
         this.processError(error);
       });
   }

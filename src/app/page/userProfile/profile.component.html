@@ -12,35 +12,35 @@
       </div>
     <div class="col">
       <div class="row ">
-        <h1 class="font-color-white header-text">My profile</h1>
+        <h1 class="title">My profile</h1>
       </div>
-      <h5 *ngIf="userProfile" class="font-color-white header-text">You are signed in as {{userProfile.email}}</h5>
+      <h5 *ngIf="userProfile" class="title">You are signed in as {{userProfile.email}}</h5>
     </div>
     <div class="col-xs-12 col-sm-2" id ="delete">
-      <button (click)="deleteProfile()" type="button" class="btn btn-outline-warning">Delete profile</button>
+      <button (click)="deleteProfile()" type="button" class="btn btn-outline-dark">Delete profile</button>
     </div>
+  </div>
     <div  class="row">
       <div class="col-sm-3">
       </div>
       <div class="col-sm-6">
         <div *ngIf="showModal" class="alert alert-danger">
-          Your account was deactivated.
+          Your account is deactivated.
         </div>
       </div>
-    </div>
   </div>
 
 <div class="card text-center">
     <div class="card-header">
       <ul class="nav nav-tabs card-header-tabs">
         <li class="nav-item">
-          <a class="nav-link active" href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Personal data</a>
+          <a class="nav-link active" href="#home" data-toggle="tab" aria-expanded="true">Personal data</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#hats" role="tab" id="hats-tab" data-toggle="tab" aria-controls="hats">Change password</a>
+          <a class="nav-link" href="#hats" data-toggle="tab">Change password</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#image" role="tab" id="image-tab" data-toggle="tab" aria-controls="image">Change image</a>
+          <a class="nav-link" href="#image"  data-toggle="tab">Change image</a>
         </li>
       </ul>
     </div>
@@ -49,7 +49,7 @@
     <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
       <div class="card-body">
         <div class="row">
-          <div class="col-md-2 field-label-responsive">
+          <div class="col-md-3 field-label-responsive">
             <label for="name" >First Name</label>
           </div>
           <div class="col-md-6">
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-2 field-label-responsive">
+          <div class="col-md-3 field-label-responsive">
             <label for="last_name" >Last Name</label>
           </div>
           <div class="col-md-6">
@@ -93,7 +93,7 @@
           </div>
           <div class="col-sm-6">
             <div *ngIf="showMessageData" class="alert alert-success">
-              Your data was successfully updated.
+              Your data is successfully updated.
             </div>
           </div>
         </div>
@@ -160,14 +160,14 @@
               <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                 <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
                 <input type="password" class="form-control" id="password"
-                       placeholder="Password" formControlName="password">
+                       formControlName="password">
               </div>
               <div *ngIf="currentPassword==''" class="col-sm-6">
                 <small  class="text-danger">
                   Please enter your current password.
                 </small>
               </div>
-              <div class="col-sm-9"
+              <div class="col-sm-9-align-left"
                    *ngIf="(userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)&&userForm.get('passwordGroup.password').errors">
                 <span *ngIf="userForm.get('passwordGroup.password').errors.required"><small  class="text-danger">
                   Password is Required field
@@ -191,9 +191,9 @@
                   <i class="fa fa-repeat"></i>
                 </div>
                 <input type="password" class="form-control"
-                       id="password-confirm" placeholder="Password" formControlName="confirmPassword">
+                       id="password-confirm"  formControlName="confirmPassword">
               </div>
-              <div class="col-sm-9"
+              <div class="col-sm-9-align-left"
                    *ngIf="(userForm.get('passwordGroup.confirmPassword').touched||userForm.get('passwordGroup.confirmPassword').dirty)&&(userForm.get('passwordGroup.confirmPassword').errors||userForm.get('passwordGroup').errors)">
               <span
                 *ngIf="userForm.get('passwordGroup.confirmPassword').errors?.required"><small  class="text-danger">
@@ -224,22 +224,12 @@
     </div>
 
     <div role="tabpanel" class="tab-pane fade" id="image" aria-labelledby="image-tab">
-      <div  class="row">
-      </div>
-      <div>
-        <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file">
-      </div>
-        <div  class="row">
-        </div>
-    <div  data-toggle="modal" data-target=".bd-example-modal-lg">
-      <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
-      <ng-template #chosenContent>
-        <img [src]=this.imageProfile alt="image" class="chosen-image"/>
-      </ng-template>
-      <ng-template #chooseContent>
-      </ng-template>
+      <label class="custom-file">
+        <input type="file" id="file" class="custom-file-input" (change)="loadFile($event)" required>
+        <span class="custom-file-control"></span>
+      </label>
     </div>
-    </div>
+
   </div>
 </div>
 </div>

@@ -21,6 +21,12 @@ export class MainService {
       .catch(this.handleError);
   }
 
+  getStatus(): Observable<Response> {
+    return this.orlp.get('api/status')
+      .map((response: Response) => response.ok)
+      .catch(this.handleError);
+  }
+
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');

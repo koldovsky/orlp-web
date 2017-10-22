@@ -25,8 +25,8 @@ export class ProfileService {
   }
 
   changePersonalData(person: Person) {
-    return this.orlp.post(this.url + '/data', person)
-      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
+    return this.orlp.put(this.url + '/data', person)
+      .map((response: Response) => console.log())
       .catch(this.handleError);
   }
 

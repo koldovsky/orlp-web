@@ -62,6 +62,22 @@
         <span>Your account successfully activated</span>
       </div>
     </div>
+    <div class="alert alert-danger" *ngIf="isBlocked">
+      <span>Account with this email is temporarily blocked by administrator.</span>
+    </div>
+    <div class="alert alert-danger" *ngIf="isDeleted">
+      <span>You can not log in or register with this email, because this email is deleted by the administrator.</span>
+    </div>
+    <div class="alert alert-danger" *ngIf="isInactive">
+      <span>Account with this email is not active. You can send a confirmation mail to activate your account.</span>
+      <button type="button" class="btn btn-outline-success" (click)="sendMail()">send to activate</button>
+    </div>
+    <div class="alert alert-success" *ngIf="mailIsSent">
+      <span>Mail is sent.</span>
+    </div>
+    <div class="alert alert-danger" *ngIf="mailIsNotSent">
+      <span>Mail is not sent.</span>
+    </div>
   </div>
   </form>
 </div>

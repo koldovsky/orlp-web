@@ -55,6 +55,9 @@ export class ProfileComponent implements OnInit {
   getProfile(): void {
     this.profileService.getUserProfile()
       .subscribe(user => {
+        if (user.accountStatus !== 'ACTIVE') {
+          this.router.navigate(['/home']);
+        }
         this.userProfile = user;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
@@ -72,8 +75,6 @@ export class ProfileComponent implements OnInit {
     this.person.lastName = this.lastName;
     this.profileService.changePersonalData(this.person)
       .subscribe(user => {
-        this.userProfile.firstName = user.firstName;
-        this.userProfile.lastName = user.lastName;
         this.showMessageData = true;
       });
   }
