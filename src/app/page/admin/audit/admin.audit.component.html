@@ -6,11 +6,21 @@
     <div *ngIf="auditList" class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
-          <th (click)="sortBy('accountEmail')">E-mail</th>
-          <th (click)="sortBy('action')">Action</th>
-          <th (click)="sortBy('ipAddress')">Ip-address</th>
-          <th (click)="sortBy('role')">Role</th>
-          <th (click)="sortBy('time')">Time</th>
+          <th *ngIf="actionSort == false && selectedSortedParam == 'accountEmail'" class="header-item" (click)="sortBy('accountEmail')">E-mail &#8595;</th>
+          <th *ngIf="actionSort == true && selectedSortedParam == 'accountEmail'" class="header-item" (click)="sortBy('accountEmail')">E-mail &#8593;</th>
+          <th *ngIf="selectedSortedParam != 'accountEmail'" (click)="sortBy('accountEmail')">E-mail</th>
+          <th *ngIf="actionSort == false && selectedSortedParam == 'action'" class="header-item" (click)="sortBy('action')">Action &#8595;</th>
+          <th *ngIf="actionSort == true && selectedSortedParam == 'action'" class="header-item" (click)="sortBy('action')">Action &#8593;</th>
+          <th *ngIf="selectedSortedParam != 'action'" (click)="sortBy('action')">Action</th>
+          <th *ngIf="actionSort == false && selectedSortedParam == 'ipAddress'" class="header-item" (click)="sortBy('ipAddress')">Ip-address &#8595;</th>
+          <th *ngIf="actionSort == true && selectedSortedParam == 'ipAddress'" class="header-item" (click)="sortBy('ipAddress')">Ip-address &#8593;</th>
+          <th *ngIf="selectedSortedParam != 'ipAddress'" (click)="sortBy('ipAddress')">Ip-address </th>
+          <th *ngIf="actionSort == false && selectedSortedParam == 'role'" class="header-item" (click)="sortBy('role')">Role &#8595;</th>
+          <th *ngIf="actionSort == true && selectedSortedParam == 'role'" class="header-item" (click)="sortBy('role')">Role &#8593;</th>
+          <th *ngIf="selectedSortedParam != 'role'" (click)="sortBy('role')">Role</th>
+          <th *ngIf="actionSort == false && selectedSortedParam == 'time'" class="header-item" (click)="sortBy('time')">Time &#8595;</th>
+          <th *ngIf="actionSort == true && selectedSortedParam == 'time'" class="header-item" (click)="sortBy('time')">Time &#8593;</th>
+          <th *ngIf="selectedSortedParam != 'time'" (click)="sortBy('time')">Time</th>
         </tr>
         <tr *ngFor="let audit of auditList">
           <td> {{audit.accountEmail}}</td>
@@ -22,11 +32,17 @@
       </table>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" (click)="getAudit(1)">First</a></li>
+          <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getAudit(1)">First</a></li>
+          <ng-template #disabled>
+            <li class="page-item disabled"><a class="page-link" (click)="getAudit(1)">First</a></li>
+          </ng-template>
           <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getAudit(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getAudit(currentPage)">{{currentPage}}</a></li>
+          <li class="active"><a class="page-link" (click)="getAudit(currentPage)">{{currentPage}}</a></li>
           <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getAudit(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li class="page-item"><a class="page-link" (click)="getAudit(lastPage)">Last</a></li>
+          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getAudit(lastPage)">Last</a></li>
+          <ng-template #disabledLast>
+            <li class="page-item disabled"><a class="page-link" (click)="getAudit(lastPage)">Last</a></li>
+          </ng-template>
         </ul>
       </nav>
     </div>

@@ -9,11 +9,19 @@
   </div>
   <div class="row">
     <table class="table table-striped admins-tables col-12">
-      <tr>
-        <th (click)="sortBy('person_firstName')">First Name</th>
-        <th (click)="sortBy('person_lastName')">Last Name</th>
-        <th (click)="sortBy('account_email')">e-mail</th>
-        <th (click)="sortBy('account_status')">Account Status</th>
+      <tr class="admins-tables-header">
+        <th *ngIf="actionSort == false && selectedSortedParam == 'person_firstName'" class="header-item" (click)="sortBy('person_firstName')">First Name &#8595;</th>
+        <th *ngIf="actionSort == true && selectedSortedParam == 'person_firstName'" class="header-item" (click)="sortBy('person_firstName')">First Name &#8593;</th>
+        <th *ngIf="selectedSortedParam != 'person_firstName'" (click)="sortBy('person_firstName')">First Name</th>
+        <th *ngIf="actionSort == false && selectedSortedParam == 'person_lastName'" class="header-item" (click)="sortBy('person_lastName')">Last Name &#8595;</th>
+        <th *ngIf="actionSort == true && selectedSortedParam == 'person_lastName'" class="header-item" (click)="sortBy('person_lastName')">Last Name &#8593;</th>
+        <th *ngIf="selectedSortedParam != 'person_lastName'" (click)="sortBy('person_lastName')">Last Name</th>
+        <th *ngIf="actionSort == false && selectedSortedParam == 'account_email'" class="header-item" (click)="sortBy('account_email')">e-mail &#8595;</th>
+        <th *ngIf="actionSort == true && selectedSortedParam == 'account_email'" class="header-item" (click)="sortBy('account_email')">e-mail &#8593;</th>
+        <th *ngIf="selectedSortedParam != 'account_email'" (click)="sortBy('account_email')">e-mail</th>
+        <th *ngIf="actionSort == false && selectedSortedParam == 'account_status'" class="header-item" (click)="sortBy('account_status')">Account Status &#8595;</th>
+        <th *ngIf="actionSort == true && selectedSortedParam == 'account_status'" class="header-item" (click)="sortBy('account_status')">Account Status &#8593;</th>
+        <th *ngIf="selectedSortedParam != 'account_status'" (click)="sortBy('account_status')">Account Status</th>
         <th></th>
       </tr>
       <tr *ngFor="let user of users | usersFilter:usersListFilter">
@@ -31,11 +39,17 @@
   </div>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" (click)="getUsers(1)">First</a></li>
+      <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getUsers(1)">First</a></li>
+      <ng-template #disabled>
+        <li class="page-item disabled"><a class="page-link" (click)="getUsers(1)">First</a></li>
+      </ng-template>
       <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getUsers(currentPage - 1)">{{currentPage - 1}}</a></li>
-      <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getUsers(currentPage)">{{currentPage}}</a></li>
+      <li class="active"><a class="page-link" (click)="getUsers(currentPage)">{{currentPage}}</a></li>
       <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getUsers(currentPage + 1)">{{currentPage + 1}}</a></li>
-      <li class="page-item"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
+      </ng-template>
     </ul>
   </nav>
 </div>

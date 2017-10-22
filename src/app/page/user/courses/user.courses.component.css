@@ -2,6 +2,26 @@
   width: 20%;
   margin: auto;
 }
-th, li{
+.pagination li.active > a:hover{
   cursor: pointer;
+}
+.pagination li.active > a{
+  background-color:#eee;
+}
+.active-page-link:hover{
+  background-color: #bcbcbc;
+}
+.disabled{
+  cursor: default;
+}
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.admins-courses-header th:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.header-item {
+  background-color: #e6e6e6;
 }
