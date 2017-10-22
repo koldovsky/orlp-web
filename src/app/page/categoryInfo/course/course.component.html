@@ -1,10 +1,11 @@
 <div>
-  <table class="table table-striped" *ngFor="let course of courses">
+  <table class="table table-striped" *ngFor="let course of coursesWithStatus">
     <thead class="course-head" (click)="showDecks(course)">
     <tr>
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
+      <td></td>
       <td *ngIf="isAuthorized;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
@@ -34,6 +35,13 @@
       <td></td>
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>
+      <td class="cards-number-container">
+        <div
+          *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0"
+          title="Number of cards that need repeating"
+          class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
+        </div>
+      </td>
       <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
@@ -42,6 +50,7 @@
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
       </ng-template>
+      <td></td>
     </tr>
     </tbody>
   </table>
