@@ -1,26 +1,59 @@
-#forma{
+#forma {
   background-color: white;
 }
 
-img{
-  margin:0px 20px 20px 20px;
+img {
+  margin: 0px 20px 20px 20px;
   height: 96px;
   width: 96px;
 }
 
-.row{
-  margin:20px 0px 0px  0px ;
+.row {
+  margin: 20px 0px 0px 0px;
 }
 
-#delete{
-  margin:60px 0px 0px  0px ;
+#delete {
+  margin: 60px 0px 0px 0px;
 }
 
-.accountMessage{
+.accountMessage {
   color: #009900;
 }
 
-.my-container{
+.my-container {
   background-color: rgba(248, 249, 250, 0.81);
   height: 100%;
+}
+
+.learning-regime-tab{
+  padding: 2% 20%;
+  text-align: justify;
+  font-weight: bold;
+}
+
+.radio-button-container {
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.radio-button-container:hover {
+  background-color: #f1f1f1;
+}
+
+.explanation{
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.checked {
+  background-color: #eef1ec;
+}
+
+.checked:hover {
+  background-color: #e0e3de;
 }
