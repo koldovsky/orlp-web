@@ -108,7 +108,7 @@ textarea{
   height: 150px;
 }
 .category-header {
-  color: white;
+  color: black;
 }
 input {
   width: 100%;
@@ -122,3 +122,4 @@ input {
   background-color : #0275d8;
   color: white;
 }
+
