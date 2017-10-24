@@ -11,10 +11,6 @@ import {IStarRatingOnClickEvent} from "angular-star-rating";
 import {Rating} from "../../../dto/Rating";
 import {CardComponent} from "../../card/card.component";
 import {TableColumnDTO} from "../../../dto/TableColumnDTO";
-import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
-import {IStarRatingOnClickEvent} from 'angular-star-rating';
-import {Rating} from '../../../dto/Rating';
-import {CardComponent} from '../../card/card.component';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 
 @Component({
@@ -53,8 +49,6 @@ export class DeckComponent implements OnInit {
 
   public getDeckByPage(numberPage: number)  {
     this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
-  public getDeckByPage(numberPage: number) {
-    this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
       .subscribe(deckList => {
         this.currentPage = numberPage;
         this.decks = deckList.decks;
@@ -74,8 +68,6 @@ export class DeckComponent implements OnInit {
       });
   }
   public sortBy(param: TableColumnDTO) {
-
-  public sortBy(param: string) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
     } else {
