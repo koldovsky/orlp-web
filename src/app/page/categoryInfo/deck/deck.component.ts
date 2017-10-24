@@ -64,10 +64,12 @@ export class DeckComponent implements OnInit {
         } else {
           this.createDecksWithStatus();
         }
-        for (const deck of this.decks) {
-          this.deckService.countCardsThatNeedRepeating(deck.deckId)
-            .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
-              new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+        if (this.isAuthorized) {
+          for (const deck of this.decks) {
+            this.deckService.countCardsThatNeedRepeating(deck.deckId)
+              .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
+                new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+          }
         }
       });
   }
@@ -132,7 +134,7 @@ export class DeckComponent implements OnInit {
   }
 
   startLearning(deckId: number): void {
-    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
   }
 

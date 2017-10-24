@@ -105,10 +105,12 @@ export class CourseComponent implements OnInit {
     this.courseService.getDecks(course.decks)
       .subscribe(decks => {
         this.decks = decks;
-        for (const deck of decks) {
-          this.deckService.countCardsThatNeedRepeating(deck.deckId)
-            .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
-              new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+        if (this.isAuthorized) {
+          for (const deck of decks) {
+            this.deckService.countCardsThatNeedRepeating(deck.deckId)
+              .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
+                new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+          }
         }
       });
   }

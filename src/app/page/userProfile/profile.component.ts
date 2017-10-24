@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   public authenticationType: string;
   public imageProfile: string;
   public showMessageData: boolean = false;
+  selectedRegime: string;
 
   userForm: FormGroup;
 
@@ -64,6 +65,8 @@ export class ProfileComponent implements OnInit {
           this.imageProfile = user.image;
         }
         this.authenticationType = user.authenticationType;
+
+        this.profileService.getLearningRegime().subscribe(regime => this.selectedRegime = regime);
       });
   }
 
@@ -100,4 +103,7 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  updateLearningRegime(regime: string) {
+    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(() => this.selectedRegime = regime);
+  }
 }

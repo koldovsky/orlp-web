@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-striped" *ngFor="let course of coursesWithStatus">
+  <table class="table table-striped" *ngFor="let course of courses">
     <thead class="course-head" (click)="showDecks(course)">
     <tr>
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
@@ -37,7 +37,7 @@
       <td>{{deck.description}}</td>
       <td class="cards-number-container">
         <div
-          *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0"
+          *ngIf="isAuthorized && getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0"
           title="Number of cards that need repeating"
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
