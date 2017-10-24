@@ -17,19 +17,19 @@ import {AuthorizationService} from '../authorization.service';
 export class LoginComponent implements OnInit {
   @ViewChild(ReCaptchaComponent) captchaComponent: ReCaptchaComponent;
   loginForm: FormGroup;
-  success: boolean = false;
-  error: boolean = false;
-  wrongDetails: boolean = false;
+  success = false;
+  error= false;
+  wrongDetails = false;
   public user;
-  verificationStat: boolean = false;
+  verificationStat = false;
   account: LoginAccount;
   captcha: string;
   siteKey = ORLPSettings.SITE_KEY;
-  isDeleted: boolean = false;
-  isBlocked: boolean = false;
-  isInactive: boolean = false;
-  mailIsSent: boolean = false;
-  mailIsNotSent: boolean = false;
+  isDeleted = false;
+  isBlocked = false;
+  isInactive = false;
+  mailIsSent = false;
+  mailIsNotSent = false;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
         .subscribe((response) => {
           this.getStatus();
         }, (error) => {
+          console.log(error.json());
           this.processError(error);
           this.captchaComponent.reset();
           this.captcha = null;
@@ -73,6 +74,7 @@ export class LoginComponent implements OnInit {
         this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {
+        console.log(error.json());
         this.statusError(error);
         this.captchaComponent.reset();
         this.captcha = null;

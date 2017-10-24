@@ -17,7 +17,8 @@
       <h5 *ngIf="userProfile" class="title">You are signed in as {{userProfile.email}}</h5>
     </div>
     <div class="col-xs-12 col-sm-2" id ="delete">
-      <button (click)="deleteProfile()" type="button" class="btn btn-outline-dark">Delete profile</button>
+      <button class="btn btn-outline-dark"
+                                  data-toggle="modal" data-target="#deleteModel">Delete profile</button>
     </div>
   </div>
     <div  class="row">
@@ -130,10 +131,10 @@
         </div>
         <div class="col-md-6">
           <div class="form-group" >  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+              <div class="input-group-addon" ><i class="fa fa-key"></i></div>
               <input type="password" class="form-control" id="currentpassword" [(ngModel)]="currentPassword">
             </div>
-            <div *ngIf="currentPassword==''" class="col-sm-6">
+            <div *ngIf="currentPassword==''" class="col-sm-9-align-left">
               <small  class="text-danger">
                 Please enter your current password.
               </small>
@@ -162,18 +163,13 @@
                 <input type="password" class="form-control" id="password"
                        formControlName="password">
               </div>
-              <div *ngIf="currentPassword==''" class="col-sm-6">
-                <small  class="text-danger">
-                  Please enter your current password.
-                </small>
-              </div>
               <div class="col-sm-9-align-left"
                    *ngIf="(userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)&&userForm.get('passwordGroup.password').errors">
-                <span *ngIf="userForm.get('passwordGroup.password').errors.required"><small  class="text-danger">
+                <span *ngIf="userForm.get('passwordGroup.password').hasError('required')"><small  class="text-danger">
                   Password is Required field
                 </small></span>
                 <span
-                  *ngIf="userForm.get('passwordGroup.password').errors.minlength"><small  class="text-danger">
+                  *ngIf="userForm.get('passwordGroup.password').hasError('minlength')"><small  class="text-danger">
                   Password must be more than 8 symbols
                 </small></span>
               </div>
@@ -196,12 +192,14 @@
               <div class="col-sm-9-align-left"
                    *ngIf="(userForm.get('passwordGroup.confirmPassword').touched||userForm.get('passwordGroup.confirmPassword').dirty)&&(userForm.get('passwordGroup.confirmPassword').errors||userForm.get('passwordGroup').errors)">
               <span
-                *ngIf="userForm.get('passwordGroup.confirmPassword').errors?.required"><small  class="text-danger">
+                *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect"><small  class="text-danger">
                  Please confirm your password
                 </small><br></span>
-                <span *ngIf="userForm.get('passwordGroup').errors?.match"><small  class="text-danger">
-                 The confirmation password does not match the password
-                </small></span>
+                <ng-template #incorrect>
+                  <span *ngIf="(userForm.get('passwordGroup').hasError('match'))"><small  class="text-danger">
+                    Confirmation password is incorrect
+                   </small><br></span>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -232,4 +230,20 @@
 
   </div>
 </div>
+
+  <div class="modal fade" id="deleteModel"  tabindex="-1" role="dialog" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+          <h5 class="modal-title">You really want to delete your profile?</h5>
+          </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="deleteProfile()" data-dismiss="modal">Submit</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
 </div>

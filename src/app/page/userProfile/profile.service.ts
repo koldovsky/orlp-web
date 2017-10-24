@@ -44,7 +44,7 @@ export class ProfileService {
 
   addImage(file: any) {
     return this.orlp.post(this.url + '/image', file)
-      .map((response: Response) => response.json());
+      .map((response: Response) => console.log());
   }
 
   private handleError(error: Response) {

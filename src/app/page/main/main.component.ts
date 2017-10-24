@@ -48,7 +48,6 @@ export class MainComponent implements OnInit {
     this.isAuthenticated = this.logoutService.isAuthorized();
     if (this.isAuthenticated) {
       this.getRole();
-      this.getStatus();
     }
     this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     this.courseService.getCourses().subscribe(courses => this.courses = courses);
@@ -58,7 +57,6 @@ export class MainComponent implements OnInit {
         this.isAuthenticated = item;
         if (this.isAuthenticated) {
           this.getRole();
-          this.getStatus();
         }
       }));
   }
@@ -68,6 +66,7 @@ export class MainComponent implements OnInit {
     this.mainService.getUserDetails()
       .subscribe(user => this.ngZone.run(() => {
         this.userDetails = user;
+        this.isAuthorized = user.accountStatus === 'ACTIVE';
         this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
         this.setAdmin();
         if (user.imageType === 'BASE64') {
@@ -77,13 +76,6 @@ export class MainComponent implements OnInit {
         } else {
           this.image = null;
         }
-      }));
-  }
-
-  getStatus(): void {
-    this.mainService.getStatus()
-      .subscribe(userStatus => this.ngZone.run(() => {
-        this.isAuthorized = true;
       }));
   }
 
