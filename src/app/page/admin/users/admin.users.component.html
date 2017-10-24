@@ -10,18 +10,9 @@
   <div class="row">
     <table class="table table-striped admins-tables col-12">
       <tr class="admins-tables-header">
-        <th *ngIf="actionSort == false && selectedSortedParam == 'person_firstName'" class="header-item" (click)="sortBy('person_firstName')">First Name &#8595;</th>
-        <th *ngIf="actionSort == true && selectedSortedParam == 'person_firstName'" class="header-item" (click)="sortBy('person_firstName')">First Name &#8593;</th>
-        <th *ngIf="selectedSortedParam != 'person_firstName'" (click)="sortBy('person_firstName')">First Name</th>
-        <th *ngIf="actionSort == false && selectedSortedParam == 'person_lastName'" class="header-item" (click)="sortBy('person_lastName')">Last Name &#8595;</th>
-        <th *ngIf="actionSort == true && selectedSortedParam == 'person_lastName'" class="header-item" (click)="sortBy('person_lastName')">Last Name &#8593;</th>
-        <th *ngIf="selectedSortedParam != 'person_lastName'" (click)="sortBy('person_lastName')">Last Name</th>
-        <th *ngIf="actionSort == false && selectedSortedParam == 'account_email'" class="header-item" (click)="sortBy('account_email')">e-mail &#8595;</th>
-        <th *ngIf="actionSort == true && selectedSortedParam == 'account_email'" class="header-item" (click)="sortBy('account_email')">e-mail &#8593;</th>
-        <th *ngIf="selectedSortedParam != 'account_email'" (click)="sortBy('account_email')">e-mail</th>
-        <th *ngIf="actionSort == false && selectedSortedParam == 'account_status'" class="header-item" (click)="sortBy('account_status')">Account Status &#8595;</th>
-        <th *ngIf="actionSort == true && selectedSortedParam == 'account_status'" class="header-item" (click)="sortBy('account_status')">Account Status &#8593;</th>
-        <th *ngIf="selectedSortedParam != 'account_status'" (click)="sortBy('account_status')">Account Status</th>
+        <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+          {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+        </th>
         <th></th>
       </tr>
       <tr *ngFor="let user of users | usersFilter:usersListFilter">

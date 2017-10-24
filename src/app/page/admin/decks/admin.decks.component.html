@@ -12,21 +12,9 @@
     <div class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
-          <th *ngIf="actionSort == false && selectedSortedParam == 'name'" class="header-item" (click)="sortBy('name')">Deck Name &#8595;</th>
-          <th *ngIf="actionSort == true && selectedSortedParam == 'name'" class="header-item" (click)="sortBy('name')">Deck Name &#8593;</th>
-          <th *ngIf="selectedSortedParam != 'name'" (click)="sortBy('name')">Deck Name</th>
-          <th *ngIf="actionSort == false && selectedSortedParam == 'description'" class="header-item" (click)="sortBy('description')">Deck Description &#8595;</th>
-          <th *ngIf="actionSort == true && selectedSortedParam == 'description'" class="header-item" (click)="sortBy('description')">Deck Description &#8593;</th>
-          <th *ngIf="selectedSortedParam != 'description'" (click)="sortBy('description')">Deck Description</th>
-          <th *ngIf="actionSort == false && selectedSortedParam == 'rating'" class="header-item" (click)="sortBy('rating')">Deck Rating &#8595;</th>
-          <th *ngIf="actionSort == true && selectedSortedParam == 'rating'" class="header-item" (click)="sortBy('rating')">Deck Rating &#8593;</th>
-          <th *ngIf="selectedSortedParam != 'rating'" (click)="sortBy('rating')">Deck Rating</th>
-          <th *ngIf="actionSort == false && selectedSortedParam == 'category_name'" class="header-item" (click)="sortBy('category_name')">Deck Category &#8595;</th>
-          <th *ngIf="actionSort == true && selectedSortedParam == 'category_name'" class="header-item" (click)="sortBy('category_name')">Deck Category &#8593;</th>
-          <th *ngIf="selectedSortedParam != 'category_name'" (click)="sortBy('category_name')">Deck Category</th>
-          <th *ngIf="actionSort == false && selectedSortedParam == 'deckOwner_account_email'" class="header-item" (click)="sortBy('deckOwner_account_email')">Deck Owner &#8595;</th>
-          <th *ngIf="actionSort == true && selectedSortedParam == 'deckOwner_account_email'" class="header-item" (click)="sortBy('deckOwner_account_email')">Deck Owner &#8593;</th>
-          <th *ngIf="selectedSortedParam != 'deckOwner_account_email'" (click)="sortBy('deckOwner_account_email')">Deck Owner</th>
+          <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+          </th>
           <th></th>
         </tr>
         <tr *ngFor="let deck of deckList " >

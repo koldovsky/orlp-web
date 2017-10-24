@@ -2,15 +2,9 @@
   <table class="table table-striped">
     <thead>
     <tr class="deck-header">
-      <th *ngIf="actionSort == false && selectedSortedParam == 'name'" class="header-item" (click)="sortBy('name')">Name &#8595;</th>
-      <th *ngIf="actionSort == true && selectedSortedParam == 'name'" class="header-item" (click)="sortBy('name')">Name &#8593;</th>
-      <th *ngIf="selectedSortedParam != 'name'" (click)="sortBy('name')">Name </th>
-      <th *ngIf="actionSort == false && selectedSortedParam == 'description'" class="header-item" (click)="sortBy('description')">Description &#8595;</th>
-      <th *ngIf="actionSort == true && selectedSortedParam == 'description'" class="header-item" (click)="sortBy('description')">Description &#8593;</th>
-      <th *ngIf="selectedSortedParam != 'description'" (click)="sortBy('description')">Description </th>
-      <th *ngIf="actionSort == false && selectedSortedParam == 'rating'" class="header-item" (click)="sortBy('rating')">Rating &#8595;</th>
-      <th *ngIf="actionSort == true && selectedSortedParam == 'rating'" class="header-item" (click)="sortBy('rating')">Rating &#8593;</th>
-      <th *ngIf="selectedSortedParam != 'rating'" (click)="sortBy('rating')">Rating </th>
+      <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+        {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+      </th>
       <th class="alignCenter">Subscribe</th>
     </tr>
     </thead>
