@@ -104,7 +104,6 @@ export class ProfileComponent implements OnInit {
   }
 
   updateLearningRegime(regime: string) {
-    this.selectedRegime = regime;
-    this.profileService.updateLearningRegime(this.selectedRegime).subscribe();
+    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(() => this.selectedRegime = regime);
   }
 }
