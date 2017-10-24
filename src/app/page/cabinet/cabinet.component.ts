@@ -11,6 +11,7 @@ import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {DeckService} from '../categoryInfo/deck/deck.service';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
+import {NumberOfCardsThatNeedRepeatingDTO} from "../../dto/number.of.cards.that.need.repeating.dto";
 
 @Component({
   providers: [CabinetService],
@@ -28,6 +29,7 @@ export class CabinetComponent implements OnInit {
   public chosenCourse: CourseLink;
   public showAlertdeck: boolean = true;
   public showAlertcouse: boolean = true;
+  numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -68,11 +70,16 @@ export class CabinetComponent implements OnInit {
         if (decks.length > 0) {
           this.showAlertdeck = false;
         }
+        for (const deck of this.decks) {
+          this.deckService.countCardsThatNeedRepeating(deck.deckId)
+            .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
+              new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+        }
       });
   }
 
   startLearning(deckId: number): void {
-    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
   }
 
@@ -144,10 +151,18 @@ export class CabinetComponent implements OnInit {
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => course.rating = event.rating);
-  };
+  }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+  }
+
+  getNumberOfCardsThatNeedRepeating(deckId: number): number {
+    for (const value of this.numbersOfCardsThatNeedRepeating) {
+      if (value.deckId === deckId) {
+        return value.numberOfCardsThatNeedRepeating;
+      }
+    }
   }
 }

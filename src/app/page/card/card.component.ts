@@ -4,6 +4,7 @@ import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
 import * as ORLPSettings from '../../services/orlp.settings';
+import {LogoutService} from "../logout/logout.service";
 
 @Component({
   templateUrl: ('./card.component.html'),
@@ -18,10 +19,12 @@ export class CardComponent implements OnInit {
   public answer = '';
   public url: string;
   public cards: CardPublic[];
+  private isAuthorized: boolean;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private cardService: CardService) {
+              private cardService: CardService,
+              private logoutService: LogoutService) {
   }
 
   ngOnInit() {
@@ -30,6 +33,7 @@ export class CardComponent implements OnInit {
         this.url = params['url'];
       }
     );
+    this.isAuthorized = this.logoutService.isAuthorized();
 
     this.cardService.getCards(this.url).subscribe(
       cards => {
@@ -58,8 +62,9 @@ export class CardComponent implements OnInit {
   }
 
   sendStatus(status: string) {
-    this.cardService.sendStatus(status, this.cards[this.questionNumber].cardId, CardComponent.deckId)
-      .subscribe();
+    if (this.isAuthorized) {
+      this.cardService.sendStatus(status, this.cards[this.questionNumber].cardId, CardComponent.deckId).subscribe();
+    }
     this.onRotateBack();
   }
 }

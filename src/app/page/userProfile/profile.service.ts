@@ -51,4 +51,12 @@ export class ProfileService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
+
+  getLearningRegime(): Observable<string> {
+    return this.orlp.get('api/private/account/learning-regime').map((response: Response) => response.json());
+  }
+
+  updateLearningRegime(regime: string) {
+    return this.orlp.put('api/private/account/learning-regime', regime);
+  }
 }

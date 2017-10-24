@@ -8,6 +8,7 @@ import {LogoutService} from '../../logout/logout.service';
 import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../deck/deck.service";
 import {Rating} from "../../../dto/Rating";
+import {NumberOfCardsThatNeedRepeatingDTO} from "../../../dto/number.of.cards.that.need.repeating.dto";
 
 @Component({
   selector: 'app-course-table',
@@ -22,12 +23,13 @@ export class CourseComponent implements OnInit {
   public isAuthorized: boolean;
   @Input() url: string;
   private coursesIdOfTheUser: number[] = [];
-  private coursesWithStatus: CourseLinkWithStatus[] = [];
+  coursesWithStatus: CourseLinkWithStatus[] = [];
   @Input() categoryId: number;
   actionSort = true;
   selectedSortedParam: string = 'id';
   currentPage: number = 1;
   lastPage: number;
+  numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -101,7 +103,16 @@ export class CourseComponent implements OnInit {
 
   getDecks(course: CourseLinkWithStatus) {
     this.courseService.getDecks(course.decks)
-      .subscribe(decks => this.decks = decks);
+      .subscribe(decks => {
+        this.decks = decks;
+        if (this.isAuthorized) {
+          for (const deck of decks) {
+            this.deckService.countCardsThatNeedRepeating(deck.deckId)
+              .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
+                new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+          }
+        }
+      });
   }
 
   showDecks(course: CourseLinkWithStatus) {
@@ -125,5 +136,13 @@ export class CourseComponent implements OnInit {
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
+  }
+
+  getNumberOfCardsThatNeedRepeating(deckId: number): number {
+    for (const value of this.numbersOfCardsThatNeedRepeating) {
+      if (value.deckId === deckId) {
+        return value.numberOfCardsThatNeedRepeating;
+      }
+    }
   }
 }

@@ -43,6 +43,10 @@
         <li class="nav-item">
           <a class="nav-link" href="#image"  data-toggle="tab">Change image</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#regime" role="tab" id="regime-tab" data-toggle="tab"
+             aria-controls="regime">Learning regime
+          </a>
       </ul>
     </div>
   <div id="clothing-nav-content" class="tab-content">
@@ -131,10 +135,10 @@
         </div>
         <div class="col-md-6">
           <div class="form-group" >  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <div class="input-group-addon" ><i class="fa fa-key"></i></div>
+              <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
               <input type="password" class="form-control" id="currentpassword" [(ngModel)]="currentPassword">
             </div>
-            <div *ngIf="currentPassword==''" class="col-sm-9-align-left">
+            <div *ngIf="currentPassword==''" class="col-sm-6">
               <small  class="text-danger">
                 Please enter your current password.
               </small>
@@ -227,23 +231,43 @@
         <span class="custom-file-control"></span>
       </label>
     </div>
-
+    <div role="tabpanel" class="tab-pane learning-regime-tab fade" id="regime" aria-labelledby="regime-tab">
+      <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')" class="radio-button-container"
+           [class.checked]="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">Cards postponing
+        <div class="explanation">
+          In this regime learning is going using spaced repetition. Cards that need repeating are shown first and then
+          the new cards. After each answer the card is postponed on some period of time. The better you know that card
+          - the greater amount of time this card will not be displayed for you. It is recommended practice for you
+          to repeat new cards as soon as they need to be repeated, so there are notification icons for you to see when
+          there are some cards that need repeating.
+        </div>
+      </div>
+      <div (click)="updateLearningRegime('BAD_NORMAL_GOOD_STATUS_DEPENDING')" class="radio-button-container"
+           [class.checked]="selectedRegime === 'BAD_NORMAL_GOOD_STATUS_DEPENDING'">Using status
+        <div class="explanation">
+          In this regime learning is going using special statuses. There are three of them - good, normal and bad.
+          These statuses go with the following buttons correspondingly, so everything is clear here. Cards for
+          learning are shown in the order that new ones are displayed first and then all the others are shown
+          sorted by their statuses starting from those whose statuses are bad.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
   <div class="modal fade" id="deleteModel"  tabindex="-1" role="dialog" aria-hidden="true">
-     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
           <h5 class="modal-title">You really want to delete your profile?</h5>
-          </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="deleteProfile()" data-dismiss="modal">Submit</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="deleteProfile()" data-dismiss="modal">Submit</button>
         </div>
       </div>
+    </div>
   </div>
 
 </div>

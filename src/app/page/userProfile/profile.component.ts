@@ -5,6 +5,7 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
+import {SERVER_ADDRESS} from '../../services/orlp.settings';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -30,10 +31,12 @@ export class ProfileComponent implements OnInit {
   public newPassword: string;
   public showForm: boolean;
   public showModal: boolean;
-  public chosenImage = false;
+  public chosenImage: boolean = false;
   public authenticationType: string;
   public imageProfile: string;
-  public showMessageData = false;
+  public showMessageData: boolean = false;
+  selectedRegime: string;
+
   userForm: FormGroup;
 
   constructor(private profileService: ProfileService, private router: Router,
@@ -65,6 +68,8 @@ export class ProfileComponent implements OnInit {
           this.imageProfile = user.image;
         }
         this.authenticationType = user.authenticationType;
+
+        this.profileService.getLearningRegime().subscribe(regime => this.selectedRegime = regime);
       });
   }
 
@@ -99,4 +104,7 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  updateLearningRegime(regime: string) {
+    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(() => this.selectedRegime = regime);
+  }
 }

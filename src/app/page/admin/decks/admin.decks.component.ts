@@ -7,6 +7,7 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Router} from '@angular/router';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 import {DeckEditCategoryDTO} from '../../../dto/DeckDTO/deck.edit.category.DTO';
+import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 @Component({
   providers: [AdminDecksService],
   templateUrl: ('./admin.decks.component.html'),
@@ -23,7 +24,12 @@ export class AdminDecksComponent implements OnInit {
   public deckDescription: string;
   public categorySelectedId: number;
   public actionSort = true;
-  public selectedSortedParam: string = 'id';
+  courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Deck Name', '\u2191'),
+    new TableColumnDTO('description', 'Deck Description', ''),
+    new TableColumnDTO('rating', 'Deck Rating', ''),
+    new TableColumnDTO('category_name', 'Deck Category', ''),
+    new TableColumnDTO('deckOwner_account_email', 'Deck Owner', '')];
+  selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   public currentPage: number = 1;
   public lastPage: number;
 
@@ -36,18 +42,24 @@ export class AdminDecksComponent implements OnInit {
   }
 
   getDecks(numberPage: number) {
-    this.adminDecksService.getFullDeckList(numberPage, this.selectedSortedParam, this.actionSort)
+    this.adminDecksService.getFullDeckList(numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
       .subscribe(value => {
         this.deckList = value.adminDecks;
         this.lastPage = value.totalPages;
         this.currentPage = numberPage;
       });
   }
-  public sortBy(param: string) {
+  public sortBy(param: TableColumnDTO) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
     }else {
       this.actionSort = true;
+      this.selectedSortedParam.symbolSorting = '';
+    }
+    if (this.actionSort) {
+      param.symbolSorting = '\u2191';
+    } else {
+      param.symbolSorting = '\u2193';
     }
     this.selectedSortedParam = param;
     this.getDecks(this.currentPage);

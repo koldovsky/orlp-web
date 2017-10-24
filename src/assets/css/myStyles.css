@@ -139,10 +139,6 @@ span.facebookIcon {
   display: flow-root;
 }
 
-.modal-dialog {
-  max-width: 345px;
-}
-
 .close{
   display: inline-block;
 }

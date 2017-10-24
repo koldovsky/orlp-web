@@ -10,6 +10,8 @@ import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
 import {IStarRatingOnClickEvent} from "angular-star-rating";
 import {Rating} from "../../../dto/Rating";
 import {CardComponent} from "../../card/card.component";
+import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 
 @Component({
   selector: 'app-deck-table',
@@ -25,9 +27,14 @@ export class DeckComponent implements OnInit {
   @Input() url: string;
   @Input() categoryId: number;
   actionSort = true;
-  selectedSortedParam: string = 'id';
+  courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Name', '\u2191'),
+    new TableColumnDTO('description', 'Description', ''),
+    new TableColumnDTO('rating', 'Rating', '')];
+  selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   currentPage: number = 1;
   lastPage: number;
+  numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
               private router: Router,
@@ -41,7 +48,7 @@ export class DeckComponent implements OnInit {
   }
 
   public getDeckByPage(numberPage: number)  {
-    this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
+    this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
       .subscribe(deckList => {
         this.currentPage = numberPage;
         this.decks = deckList.decks;
@@ -51,13 +58,26 @@ export class DeckComponent implements OnInit {
         } else {
           this.createDecksWithStatus();
         }
+        if (this.isAuthorized) {
+          for (const deck of this.decks) {
+            this.deckService.countCardsThatNeedRepeating(deck.deckId)
+              .subscribe(numberOfCardsThatNeedRepeating => this.numbersOfCardsThatNeedRepeating.push(
+                new NumberOfCardsThatNeedRepeatingDTO(deck.deckId, numberOfCardsThatNeedRepeating)));
+          }
+        }
       });
   }
-  public sortBy(param: string) {
+  public sortBy(param: TableColumnDTO) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
-    }else {
+    } else {
       this.actionSort = true;
+      this.selectedSortedParam.symbolSorting = '';
+    }
+    if (this.actionSort) {
+      param.symbolSorting = '\u2191';
+    } else {
+      param.symbolSorting = '\u2193';
     }
     this.selectedSortedParam = param;
     this.getDeckByPage(this.currentPage);
@@ -101,12 +121,12 @@ export class DeckComponent implements OnInit {
   }
 
   getCardsLink(link: Link): string {
-    const shortLink =  this.orlpService.getShortLink(link);
+    const shortLink = this.orlpService.getShortLink(link);
     return this.orlpService.decodeLink(shortLink);
   }
 
   startLearning(deckId: number): void {
-    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
   }
 
@@ -122,5 +142,13 @@ export class DeckComponent implements OnInit {
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+  }
+
+  getNumberOfCardsThatNeedRepeating(deckId: number): number {
+    for (const value of this.numbersOfCardsThatNeedRepeating) {
+      if (value.deckId === deckId) {
+        return value.numberOfCardsThatNeedRepeating;
+      }
+    }
   }
 }

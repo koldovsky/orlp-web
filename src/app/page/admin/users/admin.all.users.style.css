@@ -29,3 +29,23 @@ th, li{
   color: #000;
   background-color: #e1d7e8;
 }
+.pagination li.active > a{
+  background-color:#eee;
+}
+.disabled{
+  cursor: default;
+}
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.admins-tables-header th:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.admins-tables-header th {
+  background-color: #e6e6e6;
+}
+.admins-tables-header .header-item {
+  background-color: #d6d6d6;
+}

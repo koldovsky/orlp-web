@@ -31,3 +31,36 @@ img{
 .col-sm-9-align-left {
   text-align: left;
 }
+
+.learning-regime-tab{
+  padding: 2% 20%;
+  text-align: justify;
+  font-weight: bold;
+}
+
+.radio-button-container {
+  border: 1px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 20px;
+}
+
+.radio-button-container:hover {
+  background-color: #f1f1f1;
+}
+
+.explanation{
+  margin-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.checked {
+  background-color: #eef1ec;
+}
+
+.checked:hover {
+  background-color: #e0e3de;
+}
