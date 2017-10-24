@@ -132,9 +132,9 @@
 .header-item {
   background-color: #e6e6e6;
 }
-.deck-header th.alignCenter:hover{
+.deck-header th.alignCenter:hover {
   background-color: white;
-  
+}
 .cards-number-container {
   text-align: center;
 }

@@ -5,13 +5,6 @@
       <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
         {{column.nameColumnForDisplay}} {{column.symbolSorting}}
       </th>
-    <tr>
-      <th (click)="sortBy('name')">Name</th>
-      <th (click)="sortBy('description')">Description</th>
-      <th></th>
-      <th (click)="sortBy('rating')" class="alignCenter">Rating</th>
-      <th class="alignCenter">Subscribe</th>
-    </tr>
     </thead>
     <tbody>
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
