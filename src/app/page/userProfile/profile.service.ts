@@ -25,8 +25,8 @@ export class ProfileService {
   }
 
   changePersonalData(person: Person) {
-    return this.orlp.post(this.url + '/data', person)
-      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
+    return this.orlp.put(this.url + '/data', person)
+      .map((response: Response) => console.log())
       .catch(this.handleError);
   }
 
@@ -44,7 +44,7 @@ export class ProfileService {
 
   addImage(file: any) {
     return this.orlp.post(this.url + '/image', file)
-      .map((response: Response) => response.json());
+      .map((response: Response) => console.log());
   }
 
   private handleError(error: Response) {

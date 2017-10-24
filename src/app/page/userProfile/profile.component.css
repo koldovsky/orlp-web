@@ -1,28 +1,35 @@
-#forma {
+#forma{
   background-color: white;
 }
 
-img {
-  margin: 0px 20px 20px 20px;
+img{
+  margin:15px 20px 20px 20px;
   height: 96px;
   width: 96px;
 }
 
-.row {
-  margin: 20px 0px 0px 0px;
+.row{
+  margin:20px 0px 0px  0px ;
 }
 
-#delete {
-  margin: 60px 0px 0px 0px;
+#delete{
+  margin:60px 0px 0px  0px ;
 }
 
-.accountMessage {
+.accountMessage{
   color: #009900;
 }
 
-.my-container {
-  background-color: rgba(248, 249, 250, 0.81);
+.my-container{
+  background-color: rgba(248, 249, 250, 0.55);
   height: 100%;
+}
+
+.custom-file{
+  margin:60px 40px 60px 40px ;
+}
+.col-sm-9-align-left {
+  text-align: left;
 }
 
 .learning-regime-tab{

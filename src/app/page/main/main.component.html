@@ -15,7 +15,7 @@
         <li class="nav-item" *ngIf="isAuthorized">
           <a  class="nav-link" [routerLink]="['/user/cabinet']">Cabinet</a>
         </li>
-        <li *ngIf="isAuthorizedAdmin" class="dropdown nav-item">
+        <li *ngIf="isAuthorizedAdmin && isAuthorized" class="dropdown nav-item">
           <a  class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
@@ -27,7 +27,7 @@
           </div>
         </li>
         <li *ngIf="isAuthorized" class="nav-item">
-          <a  class="nav-link" [routerLink]="['/user/profile']">Account settings</a>
+          <a  class="nav-link" [routerLink]="['/user/profile']">Profile</a>
         </li>
         <li class="nav-item">
           <a  class="nav-link" [routerLink]="['/home']">About</a>

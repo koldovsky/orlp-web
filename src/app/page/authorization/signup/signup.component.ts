@@ -130,11 +130,11 @@ export class SignUpComponent implements OnInit {
 
   private processError(response) {
     console.log(this.responseMessage.message);
-    if (response.status === this.NOT_FOUND && this.responseMessage.message === 'Email exists') {
+    if (response.status === this.NOT_FOUND) {
       this.errorEmailExists = true;
     } else if (response.status === this.CREATED) {
       this.success = true;
-    } else if (response.status === this.SERVICE_UNAVAILABLE && this.responseMessage.message === 'Mail not sent') {
+    } else if (response.status === this.SERVICE_UNAVAILABLE) {
       this.success = true;
       this.mailNotSended = true;
     } else {

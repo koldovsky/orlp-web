@@ -160,3 +160,7 @@ star-rating-comp > div{
 div, button:focus, .card-title, img{
   outline: none;
 }
+
+.btn:hover{
+  cursor: pointer;
+}
