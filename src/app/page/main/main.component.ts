@@ -84,6 +84,7 @@ export class MainComponent implements OnInit {
       this.isAuthorized = false;
       this.isAuthorizedAdmin = false;
       this.userDetails = null;
+      this.isAuthenticated = false;
       this.authorizationService.emitIsAuthorizedChangeEvent(false);
       this.router.navigate(['home']);
     }
