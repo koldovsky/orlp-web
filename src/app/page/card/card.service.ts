@@ -22,7 +22,7 @@ export class CardService {
   }
 
   public sendStatus(status: string, card_id: number, deckId: number) {
-    return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', status);
+    return this.orlp.put('api/decks/' + deckId + '/cards/' + card_id + '/queue', status);
   }
 
   private handleError(error: Response) {

@@ -15,7 +15,7 @@
       <td (click)="startLearning(deck.deckId)">{{deck.description}}</td>
       <td class="cards-number-container">
         <div
-          *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"
+          *ngIf="isAuthorized && getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"
           title="Number of cards that need repeating"
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
