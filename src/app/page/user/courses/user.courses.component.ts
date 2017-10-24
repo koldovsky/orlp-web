@@ -3,6 +3,7 @@ import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {UserCoursesService} from './user.courses.service';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
+import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 
 @Component({
   templateUrl: ('./user.courses.component.html'),
@@ -14,9 +15,11 @@ export class UserCoursesComponent implements OnInit {
   errorMessage: string;
   listFilter: string;
   actionSort = true;
-  selectedSortedParam: string = 'id';
   currentPage: number = 1;
   lastPage: number;
+  courseColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Course Name', '')
+    , new TableColumnDTO('description', 'Course Description', '')];
+  selectedSortedParam: TableColumnDTO = this.courseColumns[0];
 
   constructor(private userCoursesService: UserCoursesService, private orlpService: ORLPService) {
   }
@@ -29,19 +32,26 @@ export class UserCoursesComponent implements OnInit {
     return this.orlpService.getShortLink(link);
   }
   public getCoursesByPage(numberPage: number)  {
-    this.userCoursesService.getCoursesByPage(numberPage, this.selectedSortedParam, this.actionSort)
+    this.userCoursesService.getCoursesByPage(numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
       .subscribe(decks => {
         this.currentPage = numberPage;
         this.lastPage = decks.totalPages;
         this.courses = decks.courses;
       });
   }
-  public sortBy(param: string) {
+  public sortBy(param: TableColumnDTO) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
     }else {
       this.actionSort = true;
+      this.selectedSortedParam.symbolSorting = '';
     }
+    if (this.actionSort) {
+      param.symbolSorting = '\u2191';
+    } else {
+      param.symbolSorting = '\u2193';
+    }
+
     this.selectedSortedParam = param;
     this.getCoursesByPage(this.currentPage);
   }

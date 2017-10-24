@@ -3,14 +3,14 @@
     <div *ngIf="courses" class="col-12">
       <table class="table table-striped admins-tables">
         <thead>
-        <tr class="admins-tables-header">
-          <th (click)="sortBy('id')">#</th>
-          <th (click)="sortBy('name')">Course Name</th>
-          <th (click)="sortBy('description')">Course Description</th>
+        <tr  class="admins-courses-header">
+          <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+          </th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
+        <tr class="table-row" *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
           <td>
             <div>
               <img [src]="course.image" style="height: 50px">
@@ -23,11 +23,17 @@
       </table>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+          <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+          <ng-template #disabled>
+            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+          </ng-template>
           <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getCoursesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
+          <li class="active"><a class="page-link" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
           <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getCoursesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li class="page-item"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+          <ng-template #disabledLast>
+            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+          </ng-template>
         </ul>
       </nav>
     </div>

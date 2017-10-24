@@ -6,6 +6,11 @@ import {Link} from '../../../dto/link';
 import {Router} from '@angular/router';
 import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
+import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
+import {IStarRatingOnClickEvent} from "angular-star-rating";
+import {Rating} from "../../../dto/Rating";
+import {CardComponent} from "../../card/card.component";
+import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {IStarRatingOnClickEvent} from 'angular-star-rating';
 import {Rating} from '../../../dto/Rating';
@@ -26,7 +31,10 @@ export class DeckComponent implements OnInit {
   @Input() url: string;
   @Input() categoryId: number;
   actionSort = true;
-  selectedSortedParam: string = 'id';
+  courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Name', '\u2191'),
+    new TableColumnDTO('description', 'Description', ''),
+    new TableColumnDTO('rating', 'Rating', '')];
+  selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   currentPage: number = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
@@ -43,6 +51,8 @@ export class DeckComponent implements OnInit {
     this.getDeckByPage(this.currentPage);
   }
 
+  public getDeckByPage(numberPage: number)  {
+    this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
   public getDeckByPage(numberPage: number) {
     this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
       .subscribe(deckList => {
@@ -61,12 +71,19 @@ export class DeckComponent implements OnInit {
         }
       });
   }
+  public sortBy(param: TableColumnDTO) {
 
   public sortBy(param: string) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
     } else {
       this.actionSort = true;
+      this.selectedSortedParam.symbolSorting = '';
+    }
+    if (this.actionSort) {
+      param.symbolSorting = '\u2191';
+    } else {
+      param.symbolSorting = '\u2193';
     }
     this.selectedSortedParam = param;
     this.getDeckByPage(this.currentPage);

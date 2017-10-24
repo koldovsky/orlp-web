@@ -1,6 +1,10 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <table class="table table-striped">
     <thead>
+    <tr class="deck-header">
+      <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+        {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+      </th>
     <tr>
       <th (click)="sortBy('name')">Name</th>
       <th (click)="sortBy('description')">Description</th>
@@ -45,11 +49,17 @@
   </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <ng-template #disabled>
+        <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      </ng-template>
       <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDeckByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
-      <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
+      <li class="active"><a class="page-link" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
       <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDeckByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-      <li class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      </ng-template>
     </ul>
   </nav>
 </div>

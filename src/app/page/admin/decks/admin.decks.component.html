@@ -12,11 +12,9 @@
     <div class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
-          <th (click)="sortBy('name')">Deck Name</th>
-          <th (click)="sortBy('description')">Deck Description</th>
-          <th (click)="sortBy('rating')">Deck Rating</th>
-          <th (click)="sortBy('category_name')">Deck Category</th>
-          <th (click)="sortBy('deckOwner_account_email')">Deck Owner</th>
+          <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+          </th>
           <th></th>
         </tr>
         <tr *ngFor="let deck of deckList " >
@@ -47,11 +45,17 @@
       </table>
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" (click)="getDecks(1)">First</a></li>
+          <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getDecks(1)">First</a></li>
+          <ng-template #disabled>
+            <li class="page-item disabled"><a class="page-link" (click)="getDecks(1)">First</a></li>
+          </ng-template>
           <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDecks(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getDecks(currentPage)">{{currentPage}}</a></li>
+          <li class="active"><a class="page-link" (click)="getDecks(currentPage)">{{currentPage}}</a></li>
           <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDecks(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li class="page-item"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+          <ng-template #disabledLast>
+            <li class="page-item disabled"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+          </ng-template>
         </ul>
       </nav>
     </div>
