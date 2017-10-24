@@ -29,6 +29,7 @@ export class DeckComponent implements OnInit {
   actionSort = true;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Name', '\u2191'),
     new TableColumnDTO('description', 'Description', ''),
+    new TableColumnDTO('', '', ''),
     new TableColumnDTO('rating', 'Rating', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   currentPage: number = 1;
