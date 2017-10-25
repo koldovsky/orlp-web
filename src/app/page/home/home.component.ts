@@ -39,8 +39,6 @@ export class HomeComponent implements OnInit {
     myTop();
     this.logoutService.isAuthorized2();
     this.isAuthorized = this.logoutService.isAuthorizedLogout;
-      console.log('kjh');
-    console.log(this.isAuthorized);
     this.mainService.getCategories()
       .subscribe(categories => this.setSlider(this.categories, categories),
         error => this.errorMessage = <any>error);
