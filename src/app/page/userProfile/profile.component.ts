@@ -30,10 +30,10 @@ export class ProfileComponent implements OnInit {
   public newPassword: string;
   public showForm: boolean;
   public showModal: boolean;
-  public chosenImage: boolean = false;
+  public chosenImage = false;
   public authenticationType: string;
   public imageProfile: string;
-  public showMessageData: boolean = false;
+  public showMessageData = false;
   public currenyPasswordNotMatch = false;
   selectedRegime: string;
 
@@ -88,7 +88,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(() => {
           this.showForm = true;
         }, (error) => {
-          this.processError(error);
+        this.currenyPasswordNotMatch = true;
         });
   }
 
@@ -106,10 +106,6 @@ export class ProfileComponent implements OnInit {
         this.chosenImage = true;
         this.imageProfile = this.userProfile.self.href + '/image'  + '?' + new Date().getTime();
       });
-  }
-
-  private processError(error) {
-      this.currenyPasswordNotMatch = true;
   }
 
   updateLearningRegime(regime: string) {

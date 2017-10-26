@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
   private getStatus() {
     this.loginService.getStatus()
       .subscribe((response) => {
+        sessionStorage.setItem('status', 'ACTIVE');
         this.success = true;
         this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
@@ -100,14 +101,34 @@ export class LoginComponent implements OnInit {
     }
   }
 
+// .subscribe((response) => {
+//   this.ngZone.run(() => {
+//   sessionStorage.setItem('status', 'ACTIVE');
+// });
+// }, (error) => {
+//   if (error.status === ORLPSettings.LOCKED) {
+//     sessionStorage.setItem('status', 'DELETED');
+//   } else if (error.status === ORLPSettings.FORBIDDEN) {
+//     sessionStorage.setItem('status', 'BLOCKED');
+//   } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
+//     sessionStorage.setItem('status', 'INACTIVE');
+//   } else {
+//     sessionStorage.setItem('status', 'HHHHHHHHHH');
+//   }
+// });
+
+
   private statusError(response) {
     this.success = false;
     if (response.status === ORLPSettings.LOCKED) {
       this.isDeleted = true;
+      sessionStorage.setItem('status', 'DELETED');
     } if (response.status === ORLPSettings.FORBIDDEN) {
       this.isBlocked = true;
+      sessionStorage.setItem('status', 'BLOCKED');
     } if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
       this.isInactive = true;
+      sessionStorage.setItem('status', 'INACTIVE');
     }
   }
 
