@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
       <div class="col-xs-12 col-sm-3">
-        <img *ngIf="imageProfile; else default_image"  alt="image" class="img-rounded" alt="Cinque Terre"
+        <img *ngIf="imageProfile; else default_image" class="img-rounded" alt="Cinque Terre"
              src="{{imageProfile}}">
         <ng-template #default_image>
           <img class="user-image" src="../../../assets/images/avatar.png">
@@ -80,7 +80,7 @@
           <div class="col-md-6">
             <div class="form-group"
             ><div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
               <input type="text" class="form-control" id="last_name"
                      [(ngModel)]="lastName" >
             </div>
@@ -135,7 +135,7 @@
         </div>
         <div class="col-md-6">
           <div class="form-group" >  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-              <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+              <div class="input-group-addon" ><i class="fa fa-key"></i></div>
               <input type="password" class="form-control" id="currentpassword" [(ngModel)]="currentPassword">
             </div>
             <div *ngIf="currentPassword==''" class="col-sm-6">
@@ -163,7 +163,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                <div class="input-group-addon" ><i class="fa fa-key"></i></div>
                 <input type="password" class="form-control" id="password"
                        formControlName="password">
               </div>
@@ -187,7 +187,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                <div class="input-group-addon" style="width: 2.6rem">
+                <div class="input-group-addon" >
                   <i class="fa fa-repeat"></i>
                 </div>
                 <input type="password" class="form-control"
@@ -222,6 +222,15 @@
           </div>
         </div>
       </div>
+       <div  class="row">
+         <div class="col-sm-3">
+         </div>
+         <div class="col-sm-6">
+           <div *ngIf="currenyPasswordNotMatch" class="alert alert-danger">
+             Current password not match.
+           </div>
+         </div>
+       </div>
     </div>
     </div>
 
@@ -264,7 +273,11 @@
           <h5 class="modal-title">You really want to delete your profile?</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="deleteProfile()" data-dismiss="modal">Submit</button>
+          <button type="button"
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                  (click)="deleteProfile()" >Delete</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
         </div>
       </div>
     </div>
