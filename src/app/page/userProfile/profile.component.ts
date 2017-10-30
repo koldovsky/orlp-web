@@ -36,6 +36,8 @@ export class ProfileComponent implements OnInit {
   public imageProfile: string;
   public showMessageData: boolean = false;
   selectedRegime: string;
+  lastCardsNumber: number;
+  cardsNumber: number;
 
   userForm: FormGroup;
 
@@ -70,6 +72,10 @@ export class ProfileComponent implements OnInit {
         this.authenticationType = user.authenticationType;
 
         this.profileService.getLearningRegime().subscribe(regime => this.selectedRegime = regime);
+        this.profileService.getCardsNumber().subscribe(cardsNumber => {
+          this.cardsNumber = cardsNumber;
+          this.lastCardsNumber = cardsNumber;
+        });
       });
   }
 
@@ -104,7 +110,17 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  updateLearningRegime(regime: string) {
+  updateLearningRegime(regime: string): void {
     this.profileService.updateLearningRegime(regime).subscribe(() => this.selectedRegime = regime);
+  }
+
+  updateCardsNumber(): void {
+    if (this.cardsNumber > 0) {
+      this.profileService.updateCardsNumber(this.cardsNumber).subscribe(
+        () => this.lastCardsNumber = this.cardsNumber,
+        () => this.cardsNumber = this.lastCardsNumber);
+    } else {
+      this.cardsNumber = this.lastCardsNumber;
+    }
   }
 }

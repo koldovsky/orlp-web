@@ -231,7 +231,13 @@
         <span class="custom-file-control"></span>
       </label>
     </div>
+
     <div role="tabpanel" class="tab-pane learning-regime-tab fade" id="regime" aria-labelledby="regime-tab">
+      <div class="cards-number">
+        <label>Number of cards in one learning session:
+          <input type="number" [(ngModel)]="cardsNumber">
+        </label>
+      </div>
       <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')" class="radio-button-container"
            [class.checked]="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">Cards postponing
         <div class="explanation">
@@ -250,6 +256,12 @@
           learning are shown in the order that new ones are displayed first and then all the others are shown
           sorted by their statuses starting from those whose statuses are bad.
         </div>
+      </div>
+      <div class="buttons">
+        <button type="button" class="btn btn-primary btn-pointer" data-dismiss="modal"
+                (click)="updateCardsNumber()">Save changes
+        </button>
+      <button type="button" class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
