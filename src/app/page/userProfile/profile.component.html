@@ -264,8 +264,13 @@
           <h5 class="modal-title">You really want to delete your profile?</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" (click)="deleteProfile()" data-dismiss="modal">Submit</button>
+          <button type="button"
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                  (click)="deleteProfile()" >Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" >No</button>
         </div>
+
       </div>
     </div>
   </div>
