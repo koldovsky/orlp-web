@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   public authenticationType: string;
   public imageProfile: string;
   public showMessageData = false;
-  public currenyPasswordNotMatch = false;
+  public currentPasswordNotMatch = false;
   selectedRegime: string;
   public status: string;
 
@@ -92,7 +92,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(() => {
           this.showForm = true;
         }, (error) => {
-        this.currenyPasswordNotMatch = true;
+        this.currentPasswordNotMatch = true;
         });
   }
 
