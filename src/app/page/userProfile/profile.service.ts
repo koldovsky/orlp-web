@@ -59,4 +59,12 @@ export class ProfileService {
   updateLearningRegime(regime: string) {
     return this.orlp.put('api/private/account/learning-regime', regime);
   }
+
+  getCardsNumber(): Observable<number> {
+    return this.orlp.get('api/private/account/cards-number').map((response: Response) => response.json());
+  }
+
+  updateCardsNumber(cardsNumber: number): Observable<Response> {
+    return this.orlp.put('api/private/account/cards-number', cardsNumber);
+  }
 }
