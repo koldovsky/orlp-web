@@ -64,3 +64,15 @@ img{
 .checked:hover {
   background-color: #e0e3de;
 }
+
+.cards-number {
+  text-align: center;
+}
+
+.btn-pointer {
+  cursor: pointer;
+}
+
+.buttons {
+  text-align: center;
+}

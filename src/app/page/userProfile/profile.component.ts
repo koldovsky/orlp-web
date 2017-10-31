@@ -35,7 +35,10 @@ export class ProfileComponent implements OnInit {
   public authenticationType: string;
   public imageProfile: string;
   public showMessageData: boolean = false;
+  lastSelectedRegime: string;
   selectedRegime: string;
+  lastCardsNumber: number;
+  cardsNumber: number;
 
   userForm: FormGroup;
 
@@ -69,7 +72,14 @@ export class ProfileComponent implements OnInit {
         }
         this.authenticationType = user.authenticationType;
 
-        this.profileService.getLearningRegime().subscribe(regime => this.selectedRegime = regime);
+        this.profileService.getLearningRegime().subscribe(regime => {
+          this.selectedRegime = regime;
+          this.lastSelectedRegime = regime;
+        });
+        this.profileService.getCardsNumber().subscribe(cardsNumber => {
+          this.cardsNumber = cardsNumber;
+          this.lastCardsNumber = cardsNumber;
+        });
       });
   }
 
@@ -104,7 +114,25 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  updateLearningRegime(regime: string) {
-    this.profileService.updateLearningRegime(regime).subscribe(() => this.selectedRegime = regime);
+  updateLearningRegime(regime: string): void {
+    this.selectedRegime = regime;
+  }
+
+  saveChangesInLearningRegimeTab(): void {
+    if (this.cardsNumber > 0) {
+      this.profileService.updateCardsNumber(this.cardsNumber).subscribe(
+        () => this.lastCardsNumber = this.cardsNumber,
+        () => this.cardsNumber = this.lastCardsNumber);
+    } else {
+      this.cardsNumber = this.lastCardsNumber;
+    }
+    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(
+      () => this.lastSelectedRegime = this.selectedRegime,
+      () => this.selectedRegime = this.lastSelectedRegime);
+  }
+
+  cancelChangesInLearningRegimeTab(): void {
+    this.cardsNumber = this.lastCardsNumber;
+    this.selectedRegime = this.lastSelectedRegime;
   }
 }
