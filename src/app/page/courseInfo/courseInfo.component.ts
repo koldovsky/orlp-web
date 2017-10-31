@@ -10,7 +10,7 @@ import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../categoryInfo/deck/deck.service";
 import {CourseService} from "../categoryInfo/course/course.service";
 import {Rating} from "../../dto/Rating";
-import * as ORLPSettings from '../../services/orlp.settings';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -34,7 +34,7 @@ export class CourseInfoComponent implements OnInit {
               private logoutService: LogoutService,
               private deckService: DeckService,
               private courseService: CourseService,
-              private router: Router) {
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
@@ -131,8 +131,7 @@ export class CourseInfoComponent implements OnInit {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => {
       this.course.rating = event.rating; }, (error) => {
-      this.statusError(error);
-
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
 
@@ -141,18 +140,8 @@ export class CourseInfoComponent implements OnInit {
     this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => {
       deck.rating = event.rating;
     }, (error) => {
-      this.statusError(error);
-
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
 
-  private statusError(response) {
-    if (response.status === ORLPSettings.LOCKED) {
-      sessionStorage.setItem('status', 'DELETED');
-      this.router.navigate(['user/status/change']);
-    } else if (response.status === ORLPSettings.FORBIDDEN) {
-      sessionStorage.setItem('status', 'BLOCKED');
-      this.router.navigate(['user/status/change']);
-    }
-  }
 }

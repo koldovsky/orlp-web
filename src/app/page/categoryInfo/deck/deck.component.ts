@@ -12,7 +12,7 @@ import {Rating} from "../../../dto/Rating";
 import {CardComponent} from "../../card/card.component";
 import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
-import * as ORLPSettings from '../../../services/orlp.settings';
+import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 
 @Component({
   selector: 'app-deck-table',
@@ -41,7 +41,8 @@ export class DeckComponent implements OnInit {
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
               private router: Router,
-              private logoutService: LogoutService) {
+              private logoutService: LogoutService,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
@@ -147,8 +148,7 @@ export class DeckComponent implements OnInit {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
       deck.rating = event.rating; }, (error) => {
-      this.statusError(error);
-
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
 
@@ -160,14 +160,4 @@ export class DeckComponent implements OnInit {
     }
   }
 
-  private statusError(response) {
-
-    if (response.status === ORLPSettings.LOCKED) {
-      sessionStorage.setItem('status', 'DELETED');
-      this.router.navigate(['user/status/change']);
-    } else if (response.status === ORLPSettings.FORBIDDEN) {
-      sessionStorage.setItem('status', 'BLOCKED');
-      this.router.navigate(['user/status/change']);
-    }
-  }
 }

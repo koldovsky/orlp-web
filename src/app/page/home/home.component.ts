@@ -10,8 +10,7 @@ import {Rating} from "../../dto/Rating";
 import {CourseService} from "../categoryInfo/course/course.service";
 import "../../../assets/down.js"
 import {AuthorizationService} from "../authorization/authorization.service";
-import * as ORLPSettings from '../../services/orlp.settings';
-import {Router} from "@angular/router";
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 declare const myDown: any;
 declare const myTop: any;
@@ -29,11 +28,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
-              private  logoutService: LogoutService,
+              private logoutService: LogoutService,
               private courseService: CourseService,
               private authorizationService: AuthorizationService,
-              private router: Router,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
@@ -41,8 +40,6 @@ export class HomeComponent implements OnInit {
     myTop();
     this.logoutService.isAuthorized();
     this.status = sessionStorage.getItem('status');
-    console.log('sessionStorageghjh');
-    console.log(sessionStorage.getItem('status'));
     this.mainService.getCategories()
       .subscribe(categories => this.setSlider(this.categories, categories),
         error => this.errorMessage = <any>error);
@@ -54,11 +51,7 @@ export class HomeComponent implements OnInit {
       .subscribe(item => this.ngZone.run(() => {
         this.logoutService.isAuthorized();
         this.status = sessionStorage.getItem('status');
-        console.log('sessionStorageghjh');
-        console.log(sessionStorage.getItem('status'));
       }));
-   console.log('sessionStorageghjh');
-    console.log(sessionStorage.getItem('status'));
   }
 
   setSlider(array: any, categories: any){
@@ -86,19 +79,7 @@ export class HomeComponent implements OnInit {
     const courseRating: Rating = new Rating( event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
       course.rating = event.rating; }, (error) => {
-      this.statusError(error);
-
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
-
-  private statusError(response) {
-
-    if (response.status === ORLPSettings.LOCKED) {
-      sessionStorage.setItem('status', 'DELETED');
-      this.router.navigate(['user/status/change']);
-    } else if (response.status === ORLPSettings.FORBIDDEN) {
-      sessionStorage.setItem('status', 'BLOCKED');
-      this.router.navigate(['user/status/change']);
-    }
   }
 }

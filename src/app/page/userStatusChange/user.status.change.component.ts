@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-
-import { FormBuilder} from '@angular/forms';
 import {UserStatusChangeService} from './user.status.change.service';
 import {AuthorizationService} from "../authorization/authorization.service";
 
@@ -16,9 +13,7 @@ export class UserStatusChangeComponent implements OnInit {
   public blockedMessage = false;
   public inactiveMessage = false;
 
-  constructor(private userStatusChangeService: UserStatusChangeService, private router: Router,
-              private authorizationService: AuthorizationService,
-              private formBuilder: FormBuilder) {
+  constructor(private authorizationService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -31,6 +26,5 @@ export class UserStatusChangeComponent implements OnInit {
     } else if (sessionStorage.getItem('status') === 'BLOCKED') {
       this.blockedMessage = true;
     }
-
   }
 }

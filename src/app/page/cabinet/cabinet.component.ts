@@ -11,8 +11,8 @@ import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {DeckService} from '../categoryInfo/deck/deck.service';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
-import {NumberOfCardsThatNeedRepeatingDTO} from "../../dto/number.of.cards.that.need.repeating.dto";
-import * as ORLPSettings from '../../services/orlp.settings';
+import {NumberOfCardsThatNeedRepeatingDTO} from '../../dto/number.of.cards.that.need.repeating.dto';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 @Component({
   providers: [CabinetService],
@@ -36,7 +36,8 @@ export class CabinetComponent implements OnInit {
   constructor(private deckService: DeckService,
               private courseService: CourseService,
               private cabinetService: CabinetService,
-              private router: Router) {
+              private router: Router,
+              private userStatusChangeService: UserStatusChangeService) {
 
   }
 
@@ -155,7 +156,7 @@ export class CabinetComponent implements OnInit {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
       course.rating = event.rating; }, (error) => {
-      this.statusError(error);
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
 
@@ -163,20 +164,10 @@ export class CabinetComponent implements OnInit {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
       deck.rating = event.rating; }, (error) => {
-      this.statusError(error);
+      this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
 
-private statusError(response) {
-
-  if (response.status === ORLPSettings.LOCKED) {
-    sessionStorage.setItem('status', 'DELETED');
-    this.router.navigate(['user/status/change']);
-  } else if (response.status === ORLPSettings.FORBIDDEN) {
-    sessionStorage.setItem('status', 'BLOCKED');
-    this.router.navigate(['user/status/change']);
-  }
-}
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
     for (const value of this.numbersOfCardsThatNeedRepeating) {
       if (value.deckId === deckId) {

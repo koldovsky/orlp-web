@@ -5,8 +5,8 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
-import {LoginService} from "../authorization/login/login.service";
-import * as ORLPSettings from '../../services/orlp.settings';
+import {LoginService} from '../authorization/login/login.service';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -45,7 +45,8 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: ProfileService,
               private router: Router,
               private loginService: LoginService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
@@ -119,13 +120,7 @@ export class ProfileComponent implements OnInit {
       .subscribe((response) => {
         sessionStorage.setItem('status', 'ACTIVE');
       }, (error) => {
-        if (error.status === ORLPSettings.LOCKED) {
-          sessionStorage.setItem('status', 'DELETED');
-        } else if (error.status === ORLPSettings.FORBIDDEN) {
-          sessionStorage.setItem('status', 'BLOCKED');
-        } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
-          sessionStorage.setItem('status', 'INACTIVE');
-        }
+        this.userStatusChangeService.setUserStatus(error.status);
       });
   }
 

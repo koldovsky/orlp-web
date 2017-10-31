@@ -12,13 +12,6 @@ export class LogoutService {
   constructor(private cookie: CookieService, private orlp: ORLPService, private ngZone: NgZone) {
   }
 
-  // isAuthorized(): boolean {
-  //   if (this.cookie.get(this.cookieWithToken) != null) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   isAuthorized(): boolean {
     if (this.cookie.get(this.cookieWithToken) != null) {
       this.getStatus();
@@ -49,8 +42,6 @@ export class LogoutService {
           sessionStorage.setItem('status', 'BLOCKED');
         } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
           sessionStorage.setItem('status', 'INACTIVE');
-        } else {
-          sessionStorage.setItem('status', 'HHHHHHHHHH');
         }
       });
   }
