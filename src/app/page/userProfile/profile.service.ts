@@ -30,7 +30,7 @@ export class ProfileService {
       .catch(this.handleError);
   }
 
-  changePassword(password: PasswordDTO) {
+  changePassword(password: PasswordDTO): Observable<Response> {
     return this.orlp.put(this.url + '/password-change', password)
       .map((response: Response) => console.log())
       .catch(this.handleError);

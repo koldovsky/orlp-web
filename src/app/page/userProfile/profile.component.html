@@ -14,11 +14,20 @@
       <div class="row ">
         <h1 class="title">My profile</h1>
       </div>
+      <div class="row ">
       <h5 *ngIf="userProfile" class="title">You are signed in as {{userProfile.email}}</h5>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-2" id ="delete">
       <button class="btn btn-outline-dark"
                                   data-toggle="modal" data-target="#deleteModel">Delete profile</button>
+    </div>
+  </div>
+  <div class="row" *ngIf="status==='BLOCKED'">
+    <div class="col">
+    <div class="messageStatus">* Your account activity is temporarily limited,
+      because you committed illegal activities. If after unlocking, you will continue these actions,
+      your account will be deleted without the possibility of recovery.</div>
     </div>
   </div>
     <div  class="row">
@@ -222,6 +231,15 @@
           </div>
         </div>
       </div>
+       <div  class="row">
+         <div class="col-sm-3">
+         </div>
+         <div class="col-sm-6">
+           <div *ngIf="currentPasswordNotMatch" class="alert alert-danger">
+             Current password not match.
+           </div>
+         </div>
+       </div>
     </div>
     </div>
 
@@ -283,7 +301,6 @@
                   (click)="deleteProfile()" >Yes</button>
           <button type="button" class="btn btn-default" data-dismiss="modal" >No</button>
         </div>
-
       </div>
     </div>
   </div>

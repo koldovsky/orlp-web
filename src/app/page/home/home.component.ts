@@ -9,8 +9,8 @@ import {IStarRatingOnClickEvent} from "angular-star-rating";
 import {Rating} from "../../dto/Rating";
 import {CourseService} from "../categoryInfo/course/course.service";
 import "../../../assets/down.js"
-import {Myboolean} from "../../dto/myboolean";
 import {AuthorizationService} from "../authorization/authorization.service";
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 declare const myDown: any;
 declare const myTop: any;
@@ -23,24 +23,23 @@ declare const myTop: any;
 export class HomeComponent implements OnInit {
   public categories: CategoryTop[][]=[];
   public courses: CourseTop[]=[];
-  public isAuthorized: Myboolean;
+  public status: string;
   errorMessage: string;
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
-              private  logoutService: LogoutService,
+              private logoutService: LogoutService,
               private courseService: CourseService,
               private authorizationService: AuthorizationService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
     myDown();
     myTop();
-    this.logoutService.isAuthorized2();
-    this.isAuthorized = this.logoutService.isAuthorizedLogout;
-      console.log('kjh');
-    console.log(this.isAuthorized);
+    this.logoutService.isAuthorized();
+    this.status = sessionStorage.getItem('status');
     this.mainService.getCategories()
       .subscribe(categories => this.setSlider(this.categories, categories),
         error => this.errorMessage = <any>error);
@@ -50,7 +49,8 @@ export class HomeComponent implements OnInit {
         error => this.errorMessage = <any>error);
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(() => {
-        this.isAuthorized = item;
+        this.logoutService.isAuthorized();
+        this.status = sessionStorage.getItem('status');
       }));
   }
 
@@ -75,8 +75,11 @@ export class HomeComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  onCourseRatingClick = (course: CourseTop, event:IStarRatingOnClickEvent) => {
+  onCourseRatingClick = (course: CourseTop, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating( event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
-  };
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
+  }
 }

@@ -9,6 +9,7 @@ import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../deck/deck.service";
 import {Rating} from "../../../dto/Rating";
 import {NumberOfCardsThatNeedRepeatingDTO} from "../../../dto/number.of.cards.that.need.repeating.dto";
+import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 
 @Component({
   selector: 'app-course-table',
@@ -30,15 +31,18 @@ export class CourseComponent implements OnInit {
   currentPage: number = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
               private orlpService: ORLPService,
-              private logoutService: LogoutService) {
+              private logoutService: LogoutService,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
     this.getCoursesByPage(this.currentPage);
     this.isAuthorized = this.logoutService.isAuthorized();
@@ -128,14 +132,20 @@ export class CourseComponent implements OnInit {
     }
   }
 
-  onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
+  onCourseRatingClick = (course: CourseLinkWithStatus, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating( event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
-  };
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
+  }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {

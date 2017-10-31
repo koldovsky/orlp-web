@@ -12,6 +12,7 @@ import {Rating} from "../../../dto/Rating";
 import {CardComponent} from "../../card/card.component";
 import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
+import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 
 @Component({
   selector: 'app-deck-table',
@@ -35,14 +36,17 @@ export class DeckComponent implements OnInit {
   currentPage: number = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
               private router: Router,
-              private logoutService: LogoutService) {
+              private logoutService: LogoutService,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
     this.isAuthorized = this.logoutService.isAuthorized();
     this.getDeckByPage(this.currentPage);
@@ -142,7 +146,10 @@ export class DeckComponent implements OnInit {
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
@@ -152,4 +159,5 @@ export class DeckComponent implements OnInit {
       }
     }
   }
+
 }
