@@ -12,6 +12,7 @@ import {DeckService} from '../categoryInfo/deck/deck.service';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from "../../dto/number.of.cards.that.need.repeating.dto";
+import * as ORLPSettings from '../../services/orlp.settings';
 
 @Component({
   providers: [CabinetService],
@@ -30,6 +31,7 @@ export class CabinetComponent implements OnInit {
   public showAlertdeck: boolean = true;
   public showAlertcouse: boolean = true;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
@@ -39,6 +41,7 @@ export class CabinetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.getUser();
   }
 
@@ -150,14 +153,30 @@ export class CabinetComponent implements OnInit {
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => course.rating = event.rating);
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.statusError(error);
+    });
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.statusError(error);
+    });
   }
 
+private statusError(response) {
+
+  if (response.status === ORLPSettings.LOCKED) {
+    sessionStorage.setItem('status', 'DELETED');
+    this.router.navigate(['user/status/change']);
+  } else if (response.status === ORLPSettings.FORBIDDEN) {
+    sessionStorage.setItem('status', 'BLOCKED');
+    this.router.navigate(['user/status/change']);
+  }
+}
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
     for (const value of this.numbersOfCardsThatNeedRepeating) {
       if (value.deckId === deckId) {

@@ -9,6 +9,8 @@ import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../deck/deck.service";
 import {Rating} from "../../../dto/Rating";
 import {NumberOfCardsThatNeedRepeatingDTO} from "../../../dto/number.of.cards.that.need.repeating.dto";
+import * as ORLPSettings from '../../../services/orlp.settings';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-course-table',
@@ -30,15 +32,18 @@ export class CourseComponent implements OnInit {
   currentPage: number = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
               private orlpService: ORLPService,
-              private logoutService: LogoutService) {
+              private logoutService: LogoutService,
+              private router: Router) {
   }
 
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
     this.getCoursesByPage(this.currentPage);
     this.isAuthorized = this.logoutService.isAuthorized();
@@ -130,12 +135,31 @@ export class CourseComponent implements OnInit {
 
   onCourseRatingClick = (course: CourseLinkWithStatus, event:IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating( event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
-  };
+    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.statusError(error);
+
+    });
+  }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(()=> deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.statusError(error);
+
+    });
+  }
+
+  private statusError(response) {
+
+    if (response.status === ORLPSettings.LOCKED) {
+      sessionStorage.setItem('status', 'DELETED');
+      this.router.navigate(['user/status/change']);
+    } else if (response.status === ORLPSettings.FORBIDDEN) {
+      sessionStorage.setItem('status', 'BLOCKED');
+      this.router.navigate(['user/status/change']);
+    }
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {

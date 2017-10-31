@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
@@ -10,7 +10,7 @@ import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
 import {DeckService} from "../categoryInfo/deck/deck.service";
 import {CourseService} from "../categoryInfo/course/course.service";
 import {Rating} from "../../dto/Rating";
-
+import * as ORLPSettings from '../../services/orlp.settings';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -26,16 +26,19 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
+  public status: string;
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
               private courseInfoService: CourseInfoService,
               private logoutService: LogoutService,
               private deckService: DeckService,
-              private courseService: CourseService) {
+              private courseService: CourseService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.sub = this.route.params.subscribe(
       params => {
         this.url = params['url'];
@@ -106,7 +109,7 @@ export class CourseInfoComponent implements OnInit {
     } else {
       if (this.isAuthorized && this.course.isUserOwnCourse) {
         this.addCourseToUserButton = 'addCourseToUserButtonChecked';
-      } else{
+      } else {
         this.addCourseToUserButton = 'addCourseToUserButtonInActive';
       }
     }
@@ -126,11 +129,30 @@ export class CourseInfoComponent implements OnInit {
 
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
-    this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => this.course.rating = event.rating);
+    this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => {
+      this.course.rating = event.rating; }, (error) => {
+      this.statusError(error);
+
+    });
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckLocal: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => {
+      deck.rating = event.rating;
+    }, (error) => {
+      this.statusError(error);
+
+    });
+  }
+
+  private statusError(response) {
+    if (response.status === ORLPSettings.LOCKED) {
+      sessionStorage.setItem('status', 'DELETED');
+      this.router.navigate(['user/status/change']);
+    } else if (response.status === ORLPSettings.FORBIDDEN) {
+      sessionStorage.setItem('status', 'BLOCKED');
+      this.router.navigate(['user/status/change']);
+    }
   }
 }

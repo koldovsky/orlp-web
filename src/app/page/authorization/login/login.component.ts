@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   captcha: string;
   siteKey = ORLPSettings.SITE_KEY;
   isDeleted = false;
-  isBlocked = false;
   isInactive = false;
   mailIsSent = false;
   mailIsNotSent = false;
@@ -75,10 +74,7 @@ export class LoginComponent implements OnInit {
         this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {
-        console.log(error.json());
         this.statusError(error);
-        this.captchaComponent.reset();
-        this.captcha = null;
       });
   }
 
@@ -101,34 +97,24 @@ export class LoginComponent implements OnInit {
     }
   }
 
-// .subscribe((response) => {
-//   this.ngZone.run(() => {
-//   sessionStorage.setItem('status', 'ACTIVE');
-// });
-// }, (error) => {
-//   if (error.status === ORLPSettings.LOCKED) {
-//     sessionStorage.setItem('status', 'DELETED');
-//   } else if (error.status === ORLPSettings.FORBIDDEN) {
-//     sessionStorage.setItem('status', 'BLOCKED');
-//   } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
-//     sessionStorage.setItem('status', 'INACTIVE');
-//   } else {
-//     sessionStorage.setItem('status', 'HHHHHHHHHH');
-//   }
-// });
-
-
   private statusError(response) {
-    this.success = false;
-    if (response.status === ORLPSettings.LOCKED) {
-      this.isDeleted = true;
-      sessionStorage.setItem('status', 'DELETED');
-    } if (response.status === ORLPSettings.FORBIDDEN) {
-      this.isBlocked = true;
+    if (response.status === ORLPSettings.FORBIDDEN) {
       sessionStorage.setItem('status', 'BLOCKED');
-    } if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
+      this.success = true;
+      this.authorizationService.emitIsAuthorizedChangeEvent(true);
+      this.router.navigate(['main']);
+    }else if (response.status === ORLPSettings.LOCKED) {
+      this.isDeleted = true;
+      this.success = false;
+      sessionStorage.setItem('status', 'DELETED');
+      this.captchaComponent.reset();
+      this.captcha = null;
+    }  else if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
       this.isInactive = true;
+      this.success = false;
       sessionStorage.setItem('status', 'INACTIVE');
+      this.captchaComponent.reset();
+      this.captcha = null;
     }
   }
 

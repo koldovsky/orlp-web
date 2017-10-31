@@ -12,6 +12,7 @@ import {Rating} from "../../../dto/Rating";
 import {CardComponent} from "../../card/card.component";
 import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
+import * as ORLPSettings from '../../../services/orlp.settings';
 
 @Component({
   selector: 'app-deck-table',
@@ -35,6 +36,7 @@ export class DeckComponent implements OnInit {
   currentPage: number = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
@@ -43,6 +45,7 @@ export class DeckComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
     this.isAuthorized = this.logoutService.isAuthorized();
     this.getDeckByPage(this.currentPage);
@@ -142,7 +145,11 @@ export class DeckComponent implements OnInit {
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.statusError(error);
+
+    });
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
@@ -150,6 +157,17 @@ export class DeckComponent implements OnInit {
       if (value.deckId === deckId) {
         return value.numberOfCardsThatNeedRepeating;
       }
+    }
+  }
+
+  private statusError(response) {
+
+    if (response.status === ORLPSettings.LOCKED) {
+      sessionStorage.setItem('status', 'DELETED');
+      this.router.navigate(['user/status/change']);
+    } else if (response.status === ORLPSettings.FORBIDDEN) {
+      sessionStorage.setItem('status', 'BLOCKED');
+      this.router.navigate(['user/status/change']);
     }
   }
 }

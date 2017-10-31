@@ -63,7 +63,7 @@ export class CourseService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  addCourseRating(rating: Rating, courseId: number) {
+  addCourseRating(rating: Rating, courseId: number): Observable<Response> {
     return this.orlp.post('/api/private/course/' + courseId, rating);
   }
 }

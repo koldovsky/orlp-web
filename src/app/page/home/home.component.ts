@@ -10,6 +10,8 @@ import {Rating} from "../../dto/Rating";
 import {CourseService} from "../categoryInfo/course/course.service";
 import "../../../assets/down.js"
 import {AuthorizationService} from "../authorization/authorization.service";
+import * as ORLPSettings from '../../services/orlp.settings';
+import {Router} from "@angular/router";
 
 declare const myDown: any;
 declare const myTop: any;
@@ -22,7 +24,6 @@ declare const myTop: any;
 export class HomeComponent implements OnInit {
   public categories: CategoryTop[][]=[];
   public courses: CourseTop[]=[];
- // public isAuthorized: boolean;
   public status: string;
   errorMessage: string;
 
@@ -31,13 +32,13 @@ export class HomeComponent implements OnInit {
               private  logoutService: LogoutService,
               private courseService: CourseService,
               private authorizationService: AuthorizationService,
+              private router: Router,
               private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
     myDown();
     myTop();
-   // this.logoutService.getStatus();
     this.logoutService.isAuthorized();
     this.status = sessionStorage.getItem('status');
     console.log('sessionStorageghjh');
@@ -51,17 +52,10 @@ export class HomeComponent implements OnInit {
         error => this.errorMessage = <any>error);
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(() => {
-
-       // this.logoutService.getStatus();
         this.logoutService.isAuthorized();
-      //  this.status = this.logoutService.status;
-       // console.log(status);
-      //  this.logoutService.isAuthorized2();
-      //  this.isAuthorized = this.logoutService.isAuthorizedLogout;
         this.status = sessionStorage.getItem('status');
         console.log('sessionStorageghjh');
         console.log(sessionStorage.getItem('status'));
-       // this.isAuthorized = item;
       }));
    console.log('sessionStorageghjh');
     console.log(sessionStorage.getItem('status'));
@@ -88,8 +82,23 @@ export class HomeComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  onCourseRatingClick = (course: CourseTop, event:IStarRatingOnClickEvent) => {
+  onCourseRatingClick = (course: CourseTop, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating( event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId,).subscribe(() => course.rating = event.rating);
-  };
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.statusError(error);
+
+    });
+  }
+
+  private statusError(response) {
+
+    if (response.status === ORLPSettings.LOCKED) {
+      sessionStorage.setItem('status', 'DELETED');
+      this.router.navigate(['user/status/change']);
+    } else if (response.status === ORLPSettings.FORBIDDEN) {
+      sessionStorage.setItem('status', 'BLOCKED');
+      this.router.navigate(['user/status/change']);
+    }
+  }
 }

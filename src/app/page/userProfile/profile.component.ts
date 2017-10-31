@@ -5,6 +5,8 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
+import {LoginService} from "../authorization/login/login.service";
+import * as ORLPSettings from '../../services/orlp.settings';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -36,14 +38,18 @@ export class ProfileComponent implements OnInit {
   public showMessageData = false;
   public currenyPasswordNotMatch = false;
   selectedRegime: string;
+  public status: string;
 
   userForm: FormGroup;
 
-  constructor(private profileService: ProfileService, private router: Router,
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private loginService: LoginService,
               private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.getProfile();
     this.userForm = this.formBuilder.group({
       passwordGroup: this.formBuilder.group({
@@ -56,9 +62,6 @@ export class ProfileComponent implements OnInit {
   getProfile(): void {
     this.profileService.getUserProfile()
       .subscribe(user => {
-        if (user.accountStatus !== 'ACTIVE') {
-          this.router.navigate(['/home']);
-        }
         this.userProfile = user;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
@@ -94,7 +97,10 @@ export class ProfileComponent implements OnInit {
 
   private deleteProfile() {
     this.profileService.deleteProfile()
-      .subscribe(() => this.showModal = true);
+      .subscribe(() => {
+        sessionStorage.setItem('status', 'INACTIVE');
+      this.router.navigate(['user/status/change']);
+    });
   }
 
   loadFile(fileInput: any) {
@@ -105,6 +111,21 @@ export class ProfileComponent implements OnInit {
       .subscribe(() => {
         this.chosenImage = true;
         this.imageProfile = this.userProfile.self.href + '/image'  + '?' + new Date().getTime();
+      });
+  }
+
+  private getStatus() {
+    this.loginService.getStatus()
+      .subscribe((response) => {
+        sessionStorage.setItem('status', 'ACTIVE');
+      }, (error) => {
+        if (error.status === ORLPSettings.LOCKED) {
+          sessionStorage.setItem('status', 'DELETED');
+        } else if (error.status === ORLPSettings.FORBIDDEN) {
+          sessionStorage.setItem('status', 'BLOCKED');
+        } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
+          sessionStorage.setItem('status', 'INACTIVE');
+        }
       });
   }
 
