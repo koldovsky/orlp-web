@@ -1,5 +1,5 @@
-<button class="down down-button bottom-element" id="arrow" (click)="scrollDown()" #arrow></button>
-<button class="top down-button bottom-element" id="arrow-top" (click)="scrollTop()" #arrowTop></button>
+<button class="down scroll-button bottom-element" id="arrow" (click)="scrollDown()" #arrow></button>
+<button class="top scroll-button bottom-element" id="arrow-top" (click)="scrollTop()" #arrowTop></button>
 <div class="main-container">
 <div class="bg"></div>
 <div class="row justify-content-center">
@@ -8,8 +8,8 @@
   </div>
 </div>
   <div class="row justify-content-center button-row">
-    <button *ngIf="status==='ACTIVE'" type="button" class="btn my-button btn-learning" routerLink="/user/cabinet">Start learning</button>
-    <button *ngIf="status!=='ACTIVE'" type="button" class="btn my-button btn-learning" routerLink="/login">Start learning</button>
+    <button *ngIf="status==='ACTIVE'" type="button" class="btn learning-button btn-learning" routerLink="/user/cabinet">Start learning</button>
+    <button *ngIf="status!=='ACTIVE'" type="button" class="btn learning-button btn-learning" routerLink="/login">Start learning</button>
   </div>
 </div>
 <div class="categories-container" id="categories" #categoriesContainer>
@@ -53,9 +53,9 @@
 <div class="courses-container" id="courses" #coursesContainer>
 <div class="row col-9" >
   <div *ngFor="let course of courses" class="col">
-    <div class="card my-card">
+    <div class="card course-card">
       <img class = "card-image" src = {{course.image}} alt="Card image cap">
-      <div class="card-body my-card-body">
+      <div class="card-body course-card-body">
         <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
         <td *ngIf="status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
