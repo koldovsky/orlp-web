@@ -12,11 +12,13 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Link} from '../../../dto/link';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 import {AdminDeckByPage} from "../../../dto/AdminDTO/admin.deck.with.pages.DTO";
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class AdminDecksService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getFullDeckList(numberPage: number, selectedSortingParam: string, ascending: boolean) {
@@ -28,11 +30,11 @@ export class AdminDecksService {
   deleteDeck(link: Link) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.delete( shortLink)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 

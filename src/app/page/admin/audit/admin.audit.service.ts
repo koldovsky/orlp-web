@@ -9,11 +9,13 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminAudit} from '../../../dto/AdminDTO/admin.audit.DTO';
 import {AdminAuditWithPagesDTO} from "../../../dto/AdminDTO/admin.audit.with.pages.DTO";
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class AdminAuditService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getFullAuditList(numberPage: number, selectedSortingParam: string, ascending: boolean): Observable<AdminAuditWithPagesDTO> {
@@ -94,7 +96,7 @@ export class AdminAuditService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

@@ -13,6 +13,7 @@ import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   providers: [CabinetService],
@@ -37,7 +38,8 @@ export class CabinetComponent implements OnInit {
               private courseService: CourseService,
               private cabinetService: CabinetService,
               private router: Router,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private logger: NGXLogger) {
 
   }
 
@@ -119,7 +121,7 @@ export class CabinetComponent implements OnInit {
     course.published = access;
 
     this.cabinetService.updateCourse(course)
-      .subscribe((response) => console.log());
+      .subscribe((response) => this.logger.log(response));
   }
 
   getCategoryDecks(course: CourseLink) {
@@ -149,7 +151,7 @@ export class CabinetComponent implements OnInit {
       .subscribe(() => {
           this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
         },
-        error => console.log("Deleting the deck wasn't successful."));
+        error => this.logger.error('Deleting the deck was not successful.'));
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {

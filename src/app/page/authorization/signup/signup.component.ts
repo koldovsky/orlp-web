@@ -8,12 +8,12 @@ import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
 import {ReCaptchaComponent} from "angular2-recaptcha";
+import {NGXLogger} from 'ngx-logger';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
   const confirmPassword = c.get('confirmPassword');
   if (passwordControl.value === confirmPassword.value) {
-    console.log("true");
     return null;
   }
   return {'match': true};
@@ -44,7 +44,8 @@ export class SignUpComponent implements OnInit {
               private signupService: SignupService,
               public auth: AuthService,
               private authorizationService: AuthorizationService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private logger: NGXLogger) {
   }
 
   ngOnInit() {
@@ -129,7 +130,7 @@ export class SignUpComponent implements OnInit {
   }
 
   private processError(response) {
-    console.log(this.responseMessage.message);
+    this.logger.error(this.responseMessage.message);
     if (response.status === this.NOT_FOUND) {
       this.errorEmailExists = true;
     } else if (response.status === this.CREATED) {

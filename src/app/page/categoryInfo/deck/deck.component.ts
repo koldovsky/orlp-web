@@ -13,6 +13,7 @@ import {CardComponent} from "../../card/card.component";
 import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-deck-table',
@@ -42,7 +43,8 @@ export class DeckComponent implements OnInit {
               private orlpService: ORLPService,
               private router: Router,
               private logoutService: LogoutService,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private logger: NGXLogger) {
   }
 
   ngOnInit(): void {
@@ -93,7 +95,7 @@ export class DeckComponent implements OnInit {
       () => {
         this.changeDeckStatus(deckId);
       },
-      error => console.log(error)
+      error => this.logger.log(error)
     );
   }
 

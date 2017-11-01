@@ -3,13 +3,14 @@ import {ORLPService} from '../../../services/orlp.service';
 import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {DTOConverter} from '../../../dto/dto.converter';
-import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
-import {CoursePageDTO} from "../../../dto/CourseDTO/linkToCourseByPageDTO";
+import {CoursePageDTO} from '../../../dto/CourseDTO/linkToCourseByPageDTO';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class UserCoursesService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getCoursesByPage(numberPage: number, selectedSortingParam: string, ascending: boolean) {
@@ -20,7 +21,7 @@ export class UserCoursesService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

@@ -33,7 +33,8 @@
     "popper.js": "1.12.2",
     "rxjs": "5.4.3",
     "tether": "1.4.0",
-    "zone.js": "0.8.16"
+    "zone.js": "0.8.16",
+    "ngx-logger": "0.2.9"
   },
   "devDependencies": {
     "@angular/cli": "1.3.0",
