@@ -1,5 +1,5 @@
-<button class="down down-button bottom-element" id="arrow"></button>
-<button class="top down-button bottom-element" id="arrow-top"></button>
+<button class="down down-button bottom-element" id="arrow" (click)="scrollDown()" #arrow></button>
+<button class="top down-button bottom-element" id="arrow-top" (click)="scrollTop()" #arrowTop></button>
 <div class="main-container">
 <div class="bg"></div>
 <div class="row justify-content-center">
@@ -12,7 +12,7 @@
     <button *ngIf="status!=='ACTIVE'" type="button" class="btn my-button btn-learning" routerLink="/login">Start learning</button>
   </div>
 </div>
-<div class="categories-container" id="categories">
+<div class="categories-container" id="categories" #categoriesContainer>
 <div class="row justify-content-center mt-1">
   <h1>Categories</h1>
 </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
 </div>
-<div class="courses-container" id="courses">
+<div class="courses-container" id="courses" #coursesContainer>
 <div class="row col-9" >
   <div *ngFor="let course of courses" class="col">
     <div class="card my-card">
