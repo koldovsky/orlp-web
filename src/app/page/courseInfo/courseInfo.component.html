@@ -27,6 +27,7 @@
           <div id="button" (click)="addCourseToUser()"
                [className]="addCourseToUserButton">
           </div>
+          <span class="fa fa-comment-o" aria-hidden="true" (click)="goTo('comment')" (click)="tabClick()" > comments</span>
         </div>
       </td>
     </tr>
@@ -62,3 +63,4 @@
     </table>
   </div>
 </div>
+<app-course-comments *ngIf="table1" id="comment"></app-course-comments>

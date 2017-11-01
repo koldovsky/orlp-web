@@ -5,6 +5,8 @@ import {RouterModule} from "@angular/router";
 import {StarRatingModule} from "angular-star-rating";
 import {CourseInfoService} from "./courseInfo.service";
 import {CourseInfoComponent} from "./courseInfo.component";
+import {CommentComponent} from "../comments/comment.component";
+import {CommentService} from "../comments/comment.service";
 
 @NgModule({
     imports: [
@@ -16,8 +18,8 @@ import {CourseInfoComponent} from "./courseInfo.component";
         ])],
     exports: [],
     declarations: [
-        CourseInfoComponent],
-    providers: [CourseInfoService],
+        CourseInfoComponent, CommentComponent],
+    providers: [CourseInfoService, CommentService],
 })
 export class CourseInfoModule {
 }

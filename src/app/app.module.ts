@@ -28,8 +28,9 @@ import {UserCoursesService} from './page/user/courses/user.courses.service';
 import {CourseInfoModule} from './page/courseInfo/courseInfo.module';
 import {MainService} from './page/main/main.service';
 import {MainComponent} from './page/main/main.component';
-import {ProfileModule} from "./page/userProfile/profile.module";
-import {ProfileService} from "./page/userProfile/profile.service";
+import {ProfileModule} from './page/userProfile/profile.module';
+import {ProfileService} from './page/userProfile/profile.service';
+import {CommentService} from './page/comments/comment.service';
 
 @NgModule({
   imports: [
@@ -64,7 +65,7 @@ import {ProfileService} from "./page/userProfile/profile.service";
   ],
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService],
+    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

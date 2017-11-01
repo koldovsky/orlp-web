@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
@@ -26,13 +26,15 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
+  public table1: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
               private courseInfoService: CourseInfoService,
               private logoutService: LogoutService,
               private deckService: DeckService,
-              private courseService: CourseService) {
+              private courseService: CourseService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -132,5 +134,12 @@ export class CourseInfoComponent implements OnInit {
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckLocal: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => deck.rating = event.rating);
+  }
+  tabClick() {
+      this.table1 = true;
+  }
+
+  goTo(location: string): void {
+    window.location.hash = location;
   }
 }
