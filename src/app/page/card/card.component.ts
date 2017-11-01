@@ -4,7 +4,7 @@ import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
 import * as ORLPSettings from '../../services/orlp.settings';
-import {LogoutService} from "../logout/logout.service";
+import {LogoutService} from '../logout/logout.service';
 
 @Component({
   templateUrl: ('./card.component.html'),

@@ -3,7 +3,7 @@ import {AdminUsersService} from './admin.users.service';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {AdminUsers} from '../../../dto/AdminDTO/admin.user.DTO';
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 
 @Component({
   providers: [AdminUsersService],
@@ -20,7 +20,7 @@ export class AdminUsersComponent implements OnInit {
     new TableColumnDTO('account_email', 'e-mail', ''),
     new TableColumnDTO('account_status', 'Account Status', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
-  public currentPage: number = 1;
+  public currentPage = 1;
   public lastPage: number;
 
   constructor(private orlp: ORLPService,

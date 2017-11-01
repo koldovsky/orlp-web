@@ -1,4 +1,4 @@
-import {CourseLink} from "./link.course.DTO";
+import {CourseLink} from './link.course.DTO';
 
 export class CoursesByCategoryAndPageDTO {
   public courseLinks: CourseLink[];

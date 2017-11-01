@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
   setSlider(array: any, categories: any) {
     const length = categories.length;
     for (let i = 0; i < length - 2; i++) {
-      array[i] = categories.slice(i, i + 3)
+      array[i] = categories.slice(i, i + 3);
     }
     array[length - 2] = categories.slice(length - 2, length);
     array[length - 2][2] = categories[0];

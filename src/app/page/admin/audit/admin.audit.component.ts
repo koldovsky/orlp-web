@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminAudit} from '../../../dto/AdminDTO/admin.audit.DTO';
 import {AdminAuditService} from './admin.audit.service';
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 
 @Component({
   providers: [AdminAuditService],
@@ -23,7 +23,7 @@ export class AdminAuditComponent implements OnInit {
     new TableColumnDTO('role', 'Role', ''),
     new TableColumnDTO('time', 'Time', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
-  public currentPage: number = 1;
+  public currentPage = 1;
   public lastPage: number;
 
 

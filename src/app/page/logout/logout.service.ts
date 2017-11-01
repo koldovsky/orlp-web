@@ -7,7 +7,7 @@ import * as ORLPSettings from '../../services/orlp.settings';
 
 @Injectable()
 export class LogoutService {
-  cookieWithToken: string = 'Authentication';
+  cookieWithToken = 'Authentication';
 
   constructor(private cookie: CookieService, private orlp: ORLPService, private ngZone: NgZone) {
   }

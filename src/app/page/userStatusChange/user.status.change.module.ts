@@ -4,8 +4,8 @@ import {RouterModule} from '@angular/router';
 
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {UserStatusChangeService} from "./user.status.change.service";
-import {UserStatusChangeComponent} from "./user.status.change.component";
+import {UserStatusChangeService} from './user.status.change.service';
+import {UserStatusChangeComponent} from './user.status.change.component';
 @NgModule({
   imports: [
     FormsModule,

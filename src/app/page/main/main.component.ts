@@ -10,7 +10,7 @@ import {CategoriesPublic} from '../../dto/CategoryDTO/public.categories';
 import {CategoryService} from './search/category.service';
 import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
-import {AuthorizationService} from "../authorization/authorization.service";
+import {AuthorizationService} from '../authorization/authorization.service';
 
 @Component({
   selector: 'app-page',

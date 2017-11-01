@@ -26,10 +26,10 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: boolean = true;
+  public showFolderDecks = true;
   public chosenCourse: CourseLink;
-  public showAlertdeck: boolean = true;
-  public showAlertcouse: boolean = true;
+  public showAlertdeck = true;
+  public showAlertcouse = true;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;
 
@@ -149,7 +149,7 @@ export class CabinetComponent implements OnInit {
       .subscribe(() => {
           this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
         },
-        error => console.log("Deleting the deck wasn't successful."));
+        error => console.log('Deleting the deck wasn\'t successful.'));
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {

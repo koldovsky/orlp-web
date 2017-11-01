@@ -1,4 +1,4 @@
-import {AdminUsers} from "./admin.user.DTO";
+import {AdminUsers} from './admin.user.DTO';
 
 export class AdminUsersByPage {
   users: AdminUsers[];

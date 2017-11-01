@@ -1,5 +1,5 @@
-import {Person} from "./Person";
-import {Account} from "./Account";
+import {Person} from './Person';
+import {Account} from './Account';
 
 export class User {
     person: Person;

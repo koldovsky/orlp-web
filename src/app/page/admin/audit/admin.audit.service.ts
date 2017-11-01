@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminAudit} from '../../../dto/AdminDTO/admin.audit.DTO';
-import {AdminAuditWithPagesDTO} from "../../../dto/AdminDTO/admin.audit.with.pages.DTO";
+import {AdminAuditWithPagesDTO} from '../../../dto/AdminDTO/admin.audit.with.pages.DTO';
 
 @Injectable()
 export class AdminAuditService {

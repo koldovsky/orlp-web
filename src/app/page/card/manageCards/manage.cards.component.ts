@@ -15,7 +15,7 @@ import {Link} from '../../../dto/link';
 })
 
 export class ManageCardsComponent implements OnInit {
-  public edit: boolean = true;
+  public edit = true;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
   public card: CardPublic;
@@ -27,7 +27,7 @@ export class ManageCardsComponent implements OnInit {
   private sub: Subscription;
   public nameOfPageToBack: string;
   public selectedItem: number;
-  public listOfCardsMessage: string = 'Loading...'
+  public listOfCardsMessage = 'Loading...';
 
   constructor(private manageCardsService: ManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {

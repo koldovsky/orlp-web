@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
-import {CoursePageDTO} from "../../../dto/CourseDTO/linkToCourseByPageDTO";
+import {CoursePageDTO} from '../../../dto/CourseDTO/linkToCourseByPageDTO';
 
 @Injectable()
 export class UserCoursesService {

@@ -1,4 +1,4 @@
-import {CoursePublic} from "./public.course.DTO";
+import {CoursePublic} from './public.course.DTO';
 
 export class CoursePageDTO {
   public courses: CoursePublic[];

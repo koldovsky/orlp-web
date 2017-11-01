@@ -5,10 +5,10 @@ import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {CourseLinkWithStatus} from '../../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
-import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
-import {DeckService} from "../deck/deck.service";
-import {Rating} from "../../../dto/Rating";
-import {NumberOfCardsThatNeedRepeatingDTO} from "../../../dto/number.of.cards.that.need.repeating.dto";
+import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
+import {DeckService} from '../deck/deck.service';
+import {Rating} from '../../../dto/Rating';
+import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 
 @Component({
@@ -27,8 +27,8 @@ export class CourseComponent implements OnInit {
   coursesWithStatus: CourseLinkWithStatus[] = [];
   @Input() categoryId: number;
   actionSort = true;
-  selectedSortedParam: string = 'id';
-  currentPage: number = 1;
+  selectedSortedParam = 'id';
+  currentPage = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;

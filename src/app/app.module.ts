@@ -28,10 +28,10 @@ import {UserCoursesService} from './page/user/courses/user.courses.service';
 import {CourseInfoModule} from './page/courseInfo/courseInfo.module';
 import {MainService} from './page/main/main.service';
 import {MainComponent} from './page/main/main.component';
-import {ProfileModule} from "./page/userProfile/profile.module";
-import {ProfileService} from "./page/userProfile/profile.service";
-import {UserStatusChangeModule} from "./page/userStatusChange/user.status.change.module";
-import {UserStatusChangeService} from "./page/userStatusChange/user.status.change.service";
+import {ProfileModule} from './page/userProfile/profile.module';
+import {ProfileService} from './page/userProfile/profile.service';
+import {UserStatusChangeModule} from './page/userStatusChange/user.status.change.module';
+import {UserStatusChangeService} from './page/userStatusChange/user.status.change.service';
 
 @NgModule({
   imports: [
