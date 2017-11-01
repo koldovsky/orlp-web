@@ -1,13 +1,10 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th (click)="sortBy('name')">Name</th>
-      <th (click)="sortBy('description')">Description</th>
-      <th></th>
-      <th (click)="sortBy('rating')" class="alignCenter">Rating</th>
-      <th class="alignCenter">Subscribe</th>
-    </tr>
+    <tr class="deck-header">
+      <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+        {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+      </th>
     </thead>
     <tbody>
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
@@ -15,12 +12,12 @@
       <td (click)="startLearning(deck.deckId)">{{deck.description}}</td>
       <td class="cards-number-container">
         <div
-          *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"
+          *ngIf="isAuthorized && getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"
           title="Number of cards that need repeating"
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
       </td>
-      <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
+      <td class="alignCenter" *ngIf="status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
@@ -45,11 +42,17 @@
   </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <ng-template #disabled>
+        <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      </ng-template>
       <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDeckByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
-      <li class="page-item"><a class="page-link" style="background-color: #888888" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
+      <li class="active"><a class="page-link" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
       <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDeckByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-      <li class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      </ng-template>
     </ul>
   </nav>
 </div>

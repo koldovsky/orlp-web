@@ -14,7 +14,7 @@
     <tr>
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
-      <td *ngIf="isAuthorized;else unAuthorized">
+      <td *ngIf="status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" (onClick)="onCourseRatingClick($event)"></star-rating-comp>
       </td>

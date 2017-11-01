@@ -45,10 +45,15 @@
             class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
           </div>
         </td>
-        <td>
+        <td *ngIf="status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
         </td>
+          <ng-template #unAuthorized>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+          </ng-template>
+
         <td>
           <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
         </td>
@@ -72,10 +77,14 @@
           <td>{{course.name}}</td>
           <td>{{course.description}}</td>
         </div>
-        <td>
+        <td *ngIf="status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
         </td>
+        <ng-template #unAuthorized>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+        </ng-template>
         <td *ngIf="isOwner(course)&&course.published===false">
           <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
         </td>

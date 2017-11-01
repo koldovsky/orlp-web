@@ -97,7 +97,8 @@ export class DTOConverter {
   }
 
   public static jsonToDeckByCategoryAndPage(data: any): DeckByCategoryAndPageDTO {
-    const deckLinkByCategories: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, data.content);
+    const deckLinkByCategories: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(DTOConverter
+      .jsonToDeckLinkByCategory, data.content);
     return new DeckByCategoryAndPageDTO(deckLinkByCategories, data.totalPages);
   }
 
@@ -145,7 +146,8 @@ export class DTOConverter {
 
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64, data.image, data.authenticationType, data.authorities, self);
+    return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
+      data.image, data.authenticationType, data.authorities, data.accountStatus, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {

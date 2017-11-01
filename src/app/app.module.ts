@@ -31,6 +31,8 @@ import {MainComponent} from './page/main/main.component';
 import {ProfileModule} from './page/userProfile/profile.module';
 import {ProfileService} from './page/userProfile/profile.service';
 import {CommentService} from './page/comments/comment.service';
+import {UserStatusChangeModule} from './page/userStatusChange/user.status.change.module';
+import {UserStatusChangeService} from './page/userStatusChange/user.status.change.service';
 
 @NgModule({
   imports: [
@@ -54,7 +56,8 @@ import {CommentService} from './page/comments/comment.service';
     CabinetModule,
     StarRatingModule,
     UserModule,
-    ProfileModule
+    ProfileModule,
+    UserStatusChangeModule
   ],
   exports: [],
   declarations: [
@@ -65,7 +68,7 @@ import {CommentService} from './page/comments/comment.service';
   ],
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService],
+    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

@@ -10,8 +10,8 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {Link} from '../../../dto/link';
-import {Rating} from "../../../dto/Rating";
-import {CoursesByCategoryAndPageDTO} from "../../../dto/CourseDTO/linkToCoursesByCategoryAndPage";
+import {Rating} from '../../../dto/Rating';
+import {CoursesByCategoryAndPageDTO} from '../../../dto/CourseDTO/linkToCoursesByCategoryAndPage';
 
 @Injectable()
 export class CourseService {
@@ -27,7 +27,7 @@ export class CourseService {
   }
 
   getCoursesIdOfTheUser(): Observable<number[]> {
-    return this.orlp.get("api/private/user/courses")
+    return this.orlp.get('api/private/user/courses')
       .map((response: Response) => {
         return response.json();
       })
@@ -43,7 +43,8 @@ export class CourseService {
 
   getCourses(categoryId: number, numberPage: number,
              selectedSortingParam: string, ascending: boolean): Observable<CoursesByCategoryAndPageDTO> {
-    return this.orlp.get('api/category/' + categoryId + '/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+    return this.orlp.get('api/category/' + categoryId + '/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam +
+      '&asc=' + ascending)
       .map((response: Response) => <CoursesByCategoryAndPageDTO> DTOConverter
         .jsonToCourseByCategoryAndPage(response.json()))
       .catch(this.handleError);
@@ -63,7 +64,7 @@ export class CourseService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  addCourseRating(rating: Rating, courseId: number) {
+  addCourseRating(rating: Rating, courseId: number): Observable<Response> {
     return this.orlp.post('/api/private/course/' + courseId, rating);
   }
 }

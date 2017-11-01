@@ -5,7 +5,8 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
-import {SERVER_ADDRESS} from '../../services/orlp.settings';
+import {LoginService} from '../authorization/login/login.service';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -31,18 +32,28 @@ export class ProfileComponent implements OnInit {
   public newPassword: string;
   public showForm: boolean;
   public showModal: boolean;
-  public chosenImage: boolean = false;
+  public chosenImage = false;
   public authenticationType: string;
   public imageProfile: string;
-  public showMessageData: boolean = false;
+  public showMessageData = false;
+  lastSelectedRegime: string;
+  public currentPasswordNotMatch = false;
+  selectedRegime: string;
+  lastCardsNumber: number;
+  cardsNumber: number;
+  public status: string;
 
   userForm: FormGroup;
 
-  constructor(private profileService: ProfileService, private router: Router,
-              private formBuilder: FormBuilder) {
+  constructor(private profileService: ProfileService,
+              private router: Router,
+              private loginService: LoginService,
+              private formBuilder: FormBuilder,
+              private userStatusChangeService: UserStatusChangeService) {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.getProfile();
     this.userForm = this.formBuilder.group({
       passwordGroup: this.formBuilder.group({
@@ -64,6 +75,15 @@ export class ProfileComponent implements OnInit {
           this.imageProfile = user.image;
         }
         this.authenticationType = user.authenticationType;
+
+        this.profileService.getLearningRegime().subscribe(regime => {
+          this.selectedRegime = regime;
+          this.lastSelectedRegime = regime;
+        });
+        this.profileService.getCardsNumber().subscribe(cardsNumber => {
+          this.cardsNumber = cardsNumber;
+          this.lastCardsNumber = cardsNumber;
+        });
       });
   }
 
@@ -72,8 +92,6 @@ export class ProfileComponent implements OnInit {
     this.person.lastName = this.lastName;
     this.profileService.changePersonalData(this.person)
       .subscribe(user => {
-        this.userProfile.firstName = user.firstName;
-        this.userProfile.lastName = user.lastName;
         this.showMessageData = true;
       });
   }
@@ -81,12 +99,19 @@ export class ProfileComponent implements OnInit {
   private changePassword() {
     this.newPassword = this.userForm.value.passwordGroup.password;
     this.profileService.changePassword(new PasswordDTO(this.currentPassword, this.newPassword))
-      .subscribe(() => this.showForm = true);
+      .subscribe(() => {
+          this.showForm = true;
+        }, (error) => {
+        this.currentPasswordNotMatch = true;
+        });
   }
 
   private deleteProfile() {
     this.profileService.deleteProfile()
-      .subscribe(() => this.showModal = true);
+      .subscribe(() => {
+        sessionStorage.setItem('status', 'INACTIVE');
+      this.router.navigate(['user/status/change']);
+    });
   }
 
   loadFile(fileInput: any) {
@@ -100,4 +125,34 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  private getStatus() {
+    this.loginService.getStatus()
+      .subscribe((response) => {
+        sessionStorage.setItem('status', 'ACTIVE');
+      }, (error) => {
+        this.userStatusChangeService.setUserStatus(error.status);
+      });
+  }
+
+  updateLearningRegime(regime: string): void {
+    this.selectedRegime = regime;
+  }
+
+  saveChangesInLearningRegimeTab(): void {
+    if (this.cardsNumber > 0) {
+      this.profileService.updateCardsNumber(this.cardsNumber).subscribe(
+        () => this.lastCardsNumber = this.cardsNumber,
+        () => this.cardsNumber = this.lastCardsNumber);
+    } else {
+      this.cardsNumber = this.lastCardsNumber;
+    }
+    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(
+      () => this.lastSelectedRegime = this.selectedRegime,
+      () => this.selectedRegime = this.lastSelectedRegime);
+  }
+
+  cancelChangesInLearningRegimeTab(): void {
+    this.cardsNumber = this.lastCardsNumber;
+    this.selectedRegime = this.lastSelectedRegime;
+  }
 }

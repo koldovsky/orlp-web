@@ -11,7 +11,8 @@ import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {DeckService} from '../categoryInfo/deck/deck.service';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
-import {NumberOfCardsThatNeedRepeatingDTO} from "../../dto/number.of.cards.that.need.repeating.dto";
+import {NumberOfCardsThatNeedRepeatingDTO} from '../../dto/number.of.cards.that.need.repeating.dto';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 @Component({
   providers: [CabinetService],
@@ -25,20 +26,23 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: boolean = true;
+  public showFolderDecks = true;
   public chosenCourse: CourseLink;
-  public showAlertdeck: boolean = true;
-  public showAlertcouse: boolean = true;
+  public showAlertdeck = true;
+  public showAlertcouse = true;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
+  public status: string;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
               private cabinetService: CabinetService,
-              private router: Router) {
+              private router: Router,
+              private userStatusChangeService: UserStatusChangeService) {
 
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.getUser();
   }
 
@@ -79,7 +83,7 @@ export class CabinetComponent implements OnInit {
   }
 
   startLearning(deckId: number): void {
-    this.router.navigate(['/cards', '/api/private/decks/' + deckId + '/learn']);
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
   }
 
@@ -145,17 +149,23 @@ export class CabinetComponent implements OnInit {
       .subscribe(() => {
           this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
         },
-        error => console.log("Deleting the deck wasn't successful."));
+        error => console.log('Deleting the deck wasn\'t successful.'));
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
-    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => course.rating = event.rating);
+    this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
+      course.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
+      deck.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {

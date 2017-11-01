@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute,  Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
-import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
-import {DeckService} from "../categoryInfo/deck/deck.service";
-import {CourseService} from "../categoryInfo/course/course.service";
-import {Rating} from "../../dto/Rating";
-
+import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
+import {DeckService} from '../categoryInfo/deck/deck.service';
+import {CourseService} from '../categoryInfo/course/course.service';
+import {Rating} from '../../dto/Rating';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -27,6 +27,7 @@ export class CourseInfoComponent implements OnInit {
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
   public table1: boolean = false;
+  public status: string;
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
@@ -34,10 +35,12 @@ export class CourseInfoComponent implements OnInit {
               private logoutService: LogoutService,
               private deckService: DeckService,
               private courseService: CourseService,
+              private userStatusChangeService: UserStatusChangeService,
               private router: Router) {
   }
 
   ngOnInit(): void {
+    this.status = sessionStorage.getItem('status');
     this.sub = this.route.params.subscribe(
       params => {
         this.url = params['url'];
@@ -108,7 +111,7 @@ export class CourseInfoComponent implements OnInit {
     } else {
       if (this.isAuthorized && this.course.isUserOwnCourse) {
         this.addCourseToUserButton = 'addCourseToUserButtonChecked';
-      } else{
+      } else {
         this.addCourseToUserButton = 'addCourseToUserButtonInActive';
       }
     }
@@ -128,12 +131,19 @@ export class CourseInfoComponent implements OnInit {
 
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
-    this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => this.course.rating = event.rating);
+    this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => {
+      this.course.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckLocal: Rating = new Rating(event.rating);
-    this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => deck.rating = event.rating);
+    this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => {
+      deck.rating = event.rating;
+    }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
   tabClick() {
       this.table1 = true;
@@ -142,4 +152,5 @@ export class CourseInfoComponent implements OnInit {
   goTo(location: string): void {
     window.location.hash = location;
   }
+
 }

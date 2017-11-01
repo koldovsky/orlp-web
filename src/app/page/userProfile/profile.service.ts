@@ -25,12 +25,12 @@ export class ProfileService {
   }
 
   changePersonalData(person: Person) {
-    return this.orlp.post(this.url + '/data', person)
-      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
+    return this.orlp.put(this.url + '/data', person)
+      .map((response: Response) => console.log())
       .catch(this.handleError);
   }
 
-  changePassword(password: PasswordDTO) {
+  changePassword(password: PasswordDTO): Observable<Response> {
     return this.orlp.put(this.url + '/password-change', password)
       .map((response: Response) => console.log())
       .catch(this.handleError);
@@ -44,11 +44,27 @@ export class ProfileService {
 
   addImage(file: any) {
     return this.orlp.post(this.url + '/image', file)
-      .map((response: Response) => response.json());
+      .map((response: Response) => console.log());
   }
 
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  getLearningRegime(): Observable<string> {
+    return this.orlp.get('api/private/account/learning-regime').map((response: Response) => response.json());
+  }
+
+  updateLearningRegime(regime: string) {
+    return this.orlp.put('api/private/account/learning-regime', regime);
+  }
+
+  getCardsNumber(): Observable<number> {
+    return this.orlp.get('api/private/account/cards-number').map((response: Response) => response.json());
+  }
+
+  updateCardsNumber(cardsNumber: number): Observable<Response> {
+    return this.orlp.put('api/private/account/cards-number', cardsNumber);
   }
 }

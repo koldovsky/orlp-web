@@ -7,13 +7,13 @@ import {MessageDTO} from '../../../dto/MessageDTO';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
-import {ReCaptchaComponent} from "angular2-recaptcha";
+import {ReCaptchaComponent} from 'angular2-recaptcha';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
   const confirmPassword = c.get('confirmPassword');
   if (passwordControl.value === confirmPassword.value) {
-    console.log("true");
+    console.log('true');
     return null;
   }
   return {'match': true};
@@ -36,9 +36,9 @@ export class SignUpComponent implements OnInit {
   errorEmailExists: boolean;
   siteKey = ORLPSettings.SITE_KEY;
   captcha: string;
-  NOT_FOUND: number = 404;
-  CREATED: number = 201;
-  SERVICE_UNAVAILABLE: number = 503;
+  NOT_FOUND = 404;
+  CREATED = 201;
+  SERVICE_UNAVAILABLE = 503;
 
   constructor(private router: Router,
               private signupService: SignupService,
@@ -130,11 +130,11 @@ export class SignUpComponent implements OnInit {
 
   private processError(response) {
     console.log(this.responseMessage.message);
-    if (response.status === this.NOT_FOUND && this.responseMessage.message === 'Email exists') {
+    if (response.status === this.NOT_FOUND) {
       this.errorEmailExists = true;
     } else if (response.status === this.CREATED) {
       this.success = true;
-    } else if (response.status === this.SERVICE_UNAVAILABLE && this.responseMessage.message === 'Mail not sent') {
+    } else if (response.status === this.SERVICE_UNAVAILABLE) {
       this.success = true;
       this.mailNotSended = true;
     } else {

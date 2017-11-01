@@ -35,3 +35,8 @@
 .logout-item{
   cursor: pointer;
 }
+
+img{
+  height: 39px;
+  width: 42px;
+}
