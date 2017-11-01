@@ -1,4 +1,4 @@
-import {AdminAudit} from "./admin.audit.DTO";
+import {AdminAudit} from './admin.audit.DTO';
 
 export class AdminAuditWithPagesDTO {
   adminAudit: AdminAudit[];

@@ -1,4 +1,4 @@
-import {PipeTransform, Pipe} from '@angular/core'
+import {PipeTransform, Pipe} from '@angular/core';
 import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 
 @Pipe({

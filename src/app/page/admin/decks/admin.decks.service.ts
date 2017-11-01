@@ -11,7 +11,7 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Link} from '../../../dto/link';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
-import {AdminDeckByPage} from "../../../dto/AdminDTO/admin.deck.with.pages.DTO";
+import {AdminDeckByPage} from '../../../dto/AdminDTO/admin.deck.with.pages.DTO';
 
 @Injectable()
 export class AdminDecksService {

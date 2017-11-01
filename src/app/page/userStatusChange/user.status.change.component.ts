@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserStatusChangeService} from './user.status.change.service';
-import {AuthorizationService} from "../authorization/authorization.service";
+import {AuthorizationService} from '../authorization/authorization.service';
 
 @Component({
   providers: [UserStatusChangeService],

@@ -1,3 +1,3 @@
-export class MessageDTO{
+export class MessageDTO {
   message: string;
 }

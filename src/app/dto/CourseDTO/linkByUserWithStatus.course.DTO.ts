@@ -10,7 +10,8 @@ export class CourseLinkWithStatus {
   public status: boolean;
   public rating: number;
 
-  constructor(name: string, description: string, image: string, self: Link, decks: Link, courseId: number, status: boolean, rating: number) {
+  constructor(name: string, description: string, image: string, self: Link, decks: Link, courseId: number,
+              status: boolean, rating: number) {
     this.name = name;
     this.description = description;
     this.image = image;

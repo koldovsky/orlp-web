@@ -9,7 +9,7 @@ import {DeckService} from './deck/deck.service';
 import {CategoryInfoComponent} from './categoryInfo.component';
 import {CategoryInfoService} from './categoryInfo.service';
 import {StarRatingModule} from 'angular-star-rating';
-import {CourseInfoComponent} from "../courseInfo/courseInfo.component";
+import {CourseInfoComponent} from '../courseInfo/courseInfo.component';
 
 @NgModule({
     imports: [

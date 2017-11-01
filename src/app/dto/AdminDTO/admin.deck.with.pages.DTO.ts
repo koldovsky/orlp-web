@@ -1,4 +1,4 @@
-import {AdminDeck} from "./admin.deck.DTO";
+import {AdminDeck} from './admin.deck.DTO';
 
 export class AdminDeckByPage {
   adminDecks: AdminDeck[];

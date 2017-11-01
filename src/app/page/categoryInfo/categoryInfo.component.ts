@@ -15,8 +15,8 @@ export class CategoryInfoComponent implements OnInit {
     public category: CategoryLink;
     private sub: Subscription;
     private errorMessage: string;
-    public table1: boolean = true;
-    public table2: boolean = false;
+    public table1 = true;
+    public table2 = false;
 
     constructor(private route: ActivatedRoute,
                 private orlp: ORLPService,

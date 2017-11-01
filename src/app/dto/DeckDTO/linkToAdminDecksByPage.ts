@@ -1,4 +1,4 @@
-import {DeckDTO} from "./DeckDTO";
+import {DeckDTO} from './DeckDTO';
 
 export class AdminDeckPageDTO {
   public decks: DeckDTO[];
