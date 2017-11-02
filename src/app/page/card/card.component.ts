@@ -14,12 +14,13 @@ export class CardComponent implements OnInit {
   public static deckId: number;
   public routing = false;
   public questionNumber = 0;
-  public MAX_QUANTITY_CARD = ORLPSettings.MAX_QUANTITY_CARD;
+  public MAX_QUANTITY_CARD;
 
   public answer = '';
   public url: string;
   public cards: CardPublic[];
   private isAuthorized: boolean;
+  public areCardsEnded: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -34,10 +35,10 @@ export class CardComponent implements OnInit {
       }
     );
     this.isAuthorized = this.logoutService.isAuthorized();
-
     this.cardService.getCards(this.url).subscribe(
       cards => {
         this.cards = cards;
+        this.MAX_QUANTITY_CARD = this.cards.length;
       }
     );
   }
@@ -47,18 +48,24 @@ export class CardComponent implements OnInit {
   }
 
   onRotateBack() {
-    this.routing = false;
-    this.getNextQuestion();
-    this.answer = '';
+    if (this.questionNumber  === this.MAX_QUANTITY_CARD - 1) {
+      this.areCardsEnded = true;
+    } else {
+      this.routing = false;
+      this.questionNumber++;
+      this.answer = '';
+    }
   }
 
-  getNextQuestion() {
-    this.questionNumber++;
-
-    if (this.cards[this.questionNumber] === undefined || this.questionNumber === this.MAX_QUANTITY_CARD) {
-      alert('The deck is over');
-      this.router.navigate(['/main']);
-    }
+  getAdditionalCards() {
+    this.areCardsEnded = false;
+    this.cardService.getAdditionalCards(CardComponent.deckId).subscribe(additionalCards => {
+      console.log(additionalCards);
+        this.cards = additionalCards;
+        this.questionNumber = 0;
+        this.MAX_QUANTITY_CARD = additionalCards.length;
+      }
+    );
   }
 
   sendStatus(status: string) {
