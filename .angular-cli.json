@@ -19,12 +19,9 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css",
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/font-awesome/css/font-awesome.min.css",
-        "./assets/css/myStyles.css",
-        "./assets/css/styles-for-admin-page.css",
-        "./assets/css/styles-for-card-page.css"
+        "scss/style.scss",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/simple-line-icons/css/simple-line-icons.css"
       ],
       "scripts": [
         "../node_modules/popper.js/dist/umd/popper.min.js",
