@@ -27,10 +27,10 @@ export class CabinetComponent implements OnInit {
   public decks: DeckLinkByCategory[];
   public categoryDecks: DeckLinkByCategory[];
   public showCourseDecks: any;
-  public showFolderDecks: boolean = true;
+  public showFolderDecks = true;
   public chosenCourse: CourseLink;
-  public showAlertdeck: boolean = true;
-  public showAlertcouse: boolean = true;
+  public showAlertdeck = true;
+  public showAlertcouse = true;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;
 
@@ -121,7 +121,7 @@ export class CabinetComponent implements OnInit {
     course.published = access;
 
     this.cabinetService.updateCourse(course)
-      .subscribe((response) => this.logger.log(response));
+      .subscribe((response) => console.log());
   }
 
   getCategoryDecks(course: CourseLink) {
@@ -151,7 +151,7 @@ export class CabinetComponent implements OnInit {
       .subscribe(() => {
           this.decks = this.decks.filter(item => item.deckId !== deck.deckId);
         },
-        error => this.logger.error('Deleting the deck was not successful.'));
+        error => this.logger.error('Deleting the deck wasn\'t successful.'));
   }
 
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {

@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {ORLPService} from "../../../services/orlp.service";
-import {UserDTO} from "../../../dto/UsersDTO/UserDTO";
-import {Observable} from "rxjs";
-import {DTOConverter} from "../../../dto/dto.converter";
-import {DeckDTO} from "../../../dto/DeckDTO/DeckDTO";
-import {Link} from "../../../dto/link";
-import {Response} from "@angular/http";
-import {CategoryLink} from "../../../dto/CategoryDTO/link.category.DTO";
-import {NewDeckDTO} from "../../../dto/DeckDTO/deck.added.DTO";
+import {Injectable} from '@angular/core';
+import {ORLPService} from '../../../services/orlp.service';
+import {UserDTO} from '../../../dto/UsersDTO/UserDTO';
+import {Observable} from 'rxjs/Observable';
+import {DTOConverter} from '../../../dto/dto.converter';
+import {DeckDTO} from '../../../dto/DeckDTO/DeckDTO';
+import {Link} from '../../../dto/link';
+import {Response} from '@angular/http';
+import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
+import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 
 @Injectable()
 export class UserDecksService {

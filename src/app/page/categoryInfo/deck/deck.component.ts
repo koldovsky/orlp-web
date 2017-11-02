@@ -6,11 +6,11 @@ import {Link} from '../../../dto/link';
 import {Router} from '@angular/router';
 import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
 import {LogoutService} from '../../logout/logout.service';
-import {DeckPublic} from "../../../dto/DeckDTO/public.deck.DTO";
-import {IStarRatingOnClickEvent} from "angular-star-rating";
-import {Rating} from "../../../dto/Rating";
-import {CardComponent} from "../../card/card.component";
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
+import {IStarRatingOnClickEvent} from 'angular-star-rating';
+import {Rating} from '../../../dto/Rating';
+import {CardComponent} from '../../card/card.component';
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
@@ -34,7 +34,7 @@ export class DeckComponent implements OnInit {
     new TableColumnDTO('', '', ''),
     new TableColumnDTO('rating', 'Rating', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
-  currentPage: number = 1;
+  currentPage = 1;
   lastPage: number;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;

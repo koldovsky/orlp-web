@@ -1,10 +1,10 @@
-import {ORLPService} from "../../services/orlp.service";
+import {ORLPService} from '../../services/orlp.service';
 import {Response} from '@angular/http';
-import {EventEmitter, Injectable} from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {EventEmitter, Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class AuthorizationService{
+export class AuthorizationService {
 
   isAuthorizedChange: EventEmitter<boolean> = new EventEmitter();
 

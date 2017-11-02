@@ -1,4 +1,4 @@
-import {DeckLinkByCategory} from "./linkByCategory.deck.DTO";
+import {DeckLinkByCategory} from './linkByCategory.deck.DTO';
 
 export class DeckByCategoryAndPageDTO {
   public decks: DeckLinkByCategory[];

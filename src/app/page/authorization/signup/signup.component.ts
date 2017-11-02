@@ -7,7 +7,7 @@ import {MessageDTO} from '../../../dto/MessageDTO';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
-import {ReCaptchaComponent} from "angular2-recaptcha";
+import {ReCaptchaComponent} from 'angular2-recaptcha';
 import {NGXLogger} from 'ngx-logger';
 
 function passwordMatcher(c: AbstractControl) {
@@ -36,9 +36,9 @@ export class SignUpComponent implements OnInit {
   errorEmailExists: boolean;
   siteKey = ORLPSettings.SITE_KEY;
   captcha: string;
-  NOT_FOUND: number = 404;
-  CREATED: number = 201;
-  SERVICE_UNAVAILABLE: number = 503;
+  NOT_FOUND = 404;
+  CREATED = 201;
+  SERVICE_UNAVAILABLE = 503;
 
   constructor(private router: Router,
               private signupService: SignupService,

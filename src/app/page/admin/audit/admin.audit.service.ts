@@ -8,8 +8,8 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminAudit} from '../../../dto/AdminDTO/admin.audit.DTO';
-import {AdminAuditWithPagesDTO} from "../../../dto/AdminDTO/admin.audit.with.pages.DTO";
 import {NGXLogger} from 'ngx-logger';
+import {AdminAuditWithPagesDTO} from '../../../dto/AdminDTO/admin.audit.with.pages.DTO';
 
 @Injectable()
 export class AdminAuditService {
@@ -96,7 +96,7 @@ export class AdminAuditService {
   }
 
   private handleError(error: Response) {
-    this.logger.error(error);
+    console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

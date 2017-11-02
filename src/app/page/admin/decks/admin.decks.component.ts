@@ -7,7 +7,7 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {Router} from '@angular/router';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 import {DeckEditCategoryDTO} from '../../../dto/DeckDTO/deck.edit.category.DTO';
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 @Component({
   providers: [AdminDecksService],
   templateUrl: ('./admin.decks.component.html'),
@@ -30,7 +30,7 @@ export class AdminDecksComponent implements OnInit {
     new TableColumnDTO('category_name', 'Deck Category', ''),
     new TableColumnDTO('deckOwner_account_email', 'Deck Owner', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
-  public currentPage: number = 1;
+  public currentPage = 1;
   public lastPage: number;
 
   constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {

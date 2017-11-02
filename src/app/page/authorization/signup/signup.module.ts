@@ -6,8 +6,8 @@ import {RouterModule} from '@angular/router';
 import {SignupService} from './signup.service';
 import {AccountVerificationComponent} from './accountVerification/accountVerification.component';
 import {AccountVerificationService} from './accountVerification/accountVerification.service';
-import {ReCaptchaModule} from "angular2-recaptcha";
-import {AuthorizationService} from "../authorization.service";
+import {ReCaptchaModule} from 'angular2-recaptcha';
+import {AuthorizationService} from '../authorization.service';
 
 @NgModule({
   imports: [

@@ -3,7 +3,7 @@ import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {UserCoursesService} from './user.courses.service';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 
 @Component({
   templateUrl: ('./user.courses.component.html'),
@@ -15,7 +15,7 @@ export class UserCoursesComponent implements OnInit {
   errorMessage: string;
   listFilter: string;
   actionSort = true;
-  currentPage: number = 1;
+  currentPage = 1;
   lastPage: number;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Course Name', '')
     , new TableColumnDTO('description', 'Course Description', '')];

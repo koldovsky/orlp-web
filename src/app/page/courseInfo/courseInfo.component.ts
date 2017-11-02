@@ -6,10 +6,10 @@ import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
-import {IStarRatingOnClickEvent} from "angular-star-rating/star-rating-struct";
-import {DeckService} from "../categoryInfo/deck/deck.service";
-import {CourseService} from "../categoryInfo/course/course.service";
-import {Rating} from "../../dto/Rating";
+import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
+import {DeckService} from '../categoryInfo/deck/deck.service';
+import {CourseService} from '../categoryInfo/course/course.service';
+import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
 
