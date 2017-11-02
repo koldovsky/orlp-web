@@ -12,11 +12,13 @@ import {Observable} from 'rxjs/Observable';
 import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
 import {Rating} from '../../../dto/Rating';
 import {DeckByCategoryAndPageDTO} from '../../../dto/DeckDTO/linkToDeckByCategoryAndPage';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class DeckService {
 
-    constructor(private orlp: ORLPService) {
+    constructor(private orlp: ORLPService,
+                private logger: NGXLogger) {
     }
 
   getDecks(categoryId: number, numberPage: number,
@@ -42,7 +44,7 @@ export class DeckService {
     }
 
     private handleError(error: Response) {
-        console.error(error);
+        this.logger.error(error);
 
         return Observable.throw(error.json().error || 'Server error');
     }

@@ -9,10 +9,12 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {DTOConverter} from '../../dto/dto.converter';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class MainService {
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getUserDetails(): Observable<UserDetailsDto> {
@@ -22,7 +24,7 @@ export class MainService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

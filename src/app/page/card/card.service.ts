@@ -7,11 +7,13 @@ import 'rxjs/add/operator/map';
 import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CardService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   public getCards(url: string): Observable<CardPublic[]> {
@@ -26,7 +28,7 @@ export class CardService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

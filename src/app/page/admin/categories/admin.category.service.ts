@@ -8,11 +8,13 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../services/orlp.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {DTOConverter} from '../../../dto/dto.converter';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class AdminCategoryService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getCatalogs(): Observable<CategoriesPublic[]> {
@@ -23,7 +25,7 @@ export class AdminCategoryService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }
