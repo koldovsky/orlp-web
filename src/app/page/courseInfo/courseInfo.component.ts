@@ -11,6 +11,7 @@ import {DeckService} from '../categoryInfo/deck/deck.service';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -34,7 +35,8 @@ export class CourseInfoComponent implements OnInit {
               private logoutService: LogoutService,
               private deckService: DeckService,
               private courseService: CourseService,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private logger: NGXLogger) {
   }
 
   ngOnInit(): void {
@@ -92,14 +94,13 @@ export class CourseInfoComponent implements OnInit {
   }
 
   addCourseToUser() {
-    console.log(this.course.courseId);
     this.courseInfoService.addCourseToUser(this.course.courseId)
       .subscribe((response) => {
-        console.log(response);
+        this.logger.log(response);
         this.course.isUserOwnCourse = this.toggleStatus(this.course.isUserOwnCourse);
         this.getIdCoursesOwnByUser();
       }, (error) => {
-        console.log(error);
+        this.logger.log(error);
       });
   }
 

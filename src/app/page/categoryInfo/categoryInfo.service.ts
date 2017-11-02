@@ -8,11 +8,13 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
 import {CategoryLink} from '../../dto/CategoryDTO/link.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CategoryInfoService {
 
-    constructor(private orlp: ORLPService) {
+    constructor(private orlp: ORLPService,
+                private logger: NGXLogger) {
     }
 
     public getCategory(url: string): Observable<CategoryLink> {
@@ -23,7 +25,7 @@ export class CategoryInfoService {
     }
 
     private handleError(error: Response) {
-        console.error(error);
+        this.logger.error(error);
 
         return Observable.throw(error.json().error || 'Server error');
     }

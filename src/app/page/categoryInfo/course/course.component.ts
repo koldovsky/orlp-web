@@ -10,6 +10,7 @@ import {DeckService} from '../deck/deck.service';
 import {Rating} from '../../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-course-table',
@@ -37,7 +38,8 @@ export class CourseComponent implements OnInit {
               private courseService: CourseService,
               private orlpService: ORLPService,
               private logoutService: LogoutService,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private logger: NGXLogger) {
   }
 
 
@@ -101,7 +103,7 @@ export class CourseComponent implements OnInit {
       () => {
         this.changeCourseStatus(courseId);
       },
-      (error) => console.log(error)
+      (error) => this.logger.error(error)
     );
   }
 

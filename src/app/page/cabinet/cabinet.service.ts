@@ -7,11 +7,13 @@ import {UserDTO} from '../../dto/UsersDTO/UserDTO';
 import {Link} from '../../dto/link';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {DeckLinkByCategory} from '../../dto/DeckDTO/linkByCategory.deck.DTO';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CabinetService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   public getUser(): Observable<UserDTO> {
@@ -43,26 +45,26 @@ export class CabinetService {
 
   public updateCourse(course: CourseLink) {
     return this.orlp.put('/api/user/courses/' + course.courseId + '/update/access', course)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   public addDeckToCourse(courseId: number, deckId: number) {
     return this.orlp.put('api/category/courses/' + courseId + '/decks/' + deckId, {})
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   public deleteGlobalCourse(course: CourseLink) {
     return this.orlp.delete('api/user/global/courses/' + course.courseId)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   public deleteLocalCourse(course: CourseLink) {
     return this.orlp.delete('api/user/local/courses/' + course.courseId)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   public deleteDeck(deckId: number) {
     return this.orlp.delete('api/user/folder/decks/' + deckId)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 }

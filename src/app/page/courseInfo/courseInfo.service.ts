@@ -9,13 +9,15 @@ import {ORLPService} from '../../services/orlp.service';
 import {DTOConverter} from '../../dto/dto.converter';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseInfoService {
   private urlAddCourseToUser = 'api/user/courses/';
   private urlGettingListOfIdOfTheCourses = 'api/private/user/courses';
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getCourse(url: string): Observable<CourseLinkWithId> {
@@ -34,7 +36,7 @@ export class CourseInfoService {
 
   addCourseToUser(courseId: number) {
     return this.orlp.put(this.urlAddCourseToUser + courseId, {})
-      .map((response: Response) => console.log(response))
+      .map((response: Response) => this.logger.log(response))
       .catch(this.handleError);
   }
   getIdCoursesOfTheCurrentUser(): Observable<number[]> {
