@@ -30,11 +30,11 @@
     "core-js": "2.5.0",
     "font-awesome": "4.7.0",
     "jquery": "3.2.1",
+    "ngx-logger": "^0.2.9",
     "popper.js": "1.12.2",
     "rxjs": "5.4.3",
     "tether": "1.4.0",
-    "zone.js": "0.8.16",
-    "ngx-logger": "0.2.9"
+    "zone.js": "0.8.16"
   },
   "devDependencies": {
     "@angular/cli": "1.3.0",
