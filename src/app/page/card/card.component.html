@@ -1,5 +1,21 @@
 <div class="container" *ngIf="cards">
   <div class="container">
+    <div *ngIf="areCardsEnded === true" class="modal fade" id="modal" role="dialog" data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">The deck is over</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{cardsEndedMessage}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" routerLink="/main">Return to home page</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="getLearningCards()">Continue learning</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card-container">
       <div class="card" [ngClass]="{'rotate' : routing == true}">
         <div class="front">
@@ -43,9 +59,9 @@
               <h5>The question was:</h5>
             </div>
             <div class=" row justify-content-center align-items-center">
-              <button class="btn btn-danger button-difficult mt-4 mx-1" (click)="sendStatus('BAD')">TOO HARD</button>
-              <button class="btn btn-warning button-difficult mt-4 mx-1" (click)="sendStatus('NORMAL')">MEDIUM</button>
-              <button class="btn btn-success button-difficult mt-4 mx-1" (click)="sendStatus('GOOD')">EASY</button>
+              <button class="btn btn-danger button-difficult mt-4 mx-1" (click)="sendStatus('BAD')" data-toggle="modal" data-target="#modal">TOO HARD</button>
+              <button class="btn btn-warning button-difficult mt-4 mx-1" (click)="sendStatus('NORMAL')" data-toggle="modal" data-target="#modal">MEDIUM</button>
+              <button class="btn btn-success button-difficult mt-4 mx-1" (click)="sendStatus('GOOD')" data-toggle="modal" data-target="#modal">EASY</button>
             </div>
           </div>
         </div> <!-- end back panel -->

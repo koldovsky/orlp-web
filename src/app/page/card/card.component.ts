@@ -14,13 +14,14 @@ export class CardComponent implements OnInit {
   public static deckId: number;
   public routing = false;
   public questionNumber = 0;
-  public MAX_QUANTITY_CARD = ORLPSettings.MAX_QUANTITY_CARD;
+  public maxQuantityCard;
 
   public answer = '';
   public url: string;
   public cards: CardPublic[];
   private isAuthorized: boolean;
-
+  public areCardsEnded: boolean = false;
+  public cardsEndedMessage: string;
   constructor(private route: ActivatedRoute,
               private router: Router,
               private cardService: CardService,
@@ -31,15 +32,10 @@ export class CardComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         this.url = params['url'];
-      }
-    );
-    this.isAuthorized = this.logoutService.isAuthorized();
+        this.getLearningCards();
+      });
 
-    this.cardService.getCards(this.url).subscribe(
-      cards => {
-        this.cards = cards;
-      }
-    );
+    this.isAuthorized = this.logoutService.isAuthorized();
   }
 
   onRotate() {
@@ -47,18 +43,48 @@ export class CardComponent implements OnInit {
   }
 
   onRotateBack() {
-    this.routing = false;
-    this.getNextQuestion();
-    this.answer = '';
+    if (this.questionNumber === this.maxQuantityCard - 1) {
+      this.areCardsEnded = true;
+    } else {
+      this.routing = false;
+      this.questionNumber++;
+      this.answer = '';
+    }
   }
 
-  getNextQuestion() {
-    this.questionNumber++;
 
-    if (this.cards[this.questionNumber] === undefined || this.questionNumber === this.MAX_QUANTITY_CARD) {
-      alert('The deck is over');
-      this.router.navigate(['/main']);
-    }
+  getLearningCards() {
+    this.areCardsEnded = false;
+    this.questionNumber = 0;
+    this.cardService.areThereNotPostponedCards(CardComponent.deckId).subscribe(isPresent => {
+      if (isPresent) {
+        this.getCards();
+        this.cardsEndedMessage = 'You have learned all the cards for today. Do you want to continue?';
+      } else {
+        this.getAdditionalCards();
+        this.cardsEndedMessage = 'You have learned all the cards, so there is no need to continue learning cards in' +
+          ' this deck. But if you want though, then you can continue learning with cards that are postponed for the' +
+          ' future.';
+      }
+    });
+  }
+
+  getCards() {
+    this.cardService.getCards(this.url).subscribe(
+      cards => {
+        this.cards = cards;
+        this.maxQuantityCard = this.cards.length;
+      }
+    );
+  }
+
+  getAdditionalCards() {
+    this.areCardsEnded = true;
+    this.cardService.getAdditionalCards(CardComponent.deckId).subscribe(additionalCards => {
+        this.cards = additionalCards;
+        this.maxQuantityCard = additionalCards.length;
+      }
+    );
   }
 
   sendStatus(status: string) {
