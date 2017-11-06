@@ -25,6 +25,7 @@ import {DeckByCategoryAndPageDTO} from './DeckDTO/linkToDeckByCategoryAndPage';
 import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
 import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
 import {RememberingLevelDTO} from './remembering.level.dto';
+import {CommentDTO} from './CommentDTO/commentDTO';
 
 export class DTOConverter {
 
@@ -164,7 +165,7 @@ export class DTOConverter {
 
   public static jsonToAdminDeck(data: any): AdminDeck {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new AdminDeck( data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
+    return new AdminDeck(data.deckId, data.name, data.description, data.rating, data.category, data.categoryId, data.owner, self);
   }
 
   public static jsonToDeckByPage(data: any): AdminDeckByPage {
@@ -174,7 +175,12 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self );
+    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self);
+  }
+
+  public static jsonToCommentDTO(data: any): CommentDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
   }
 
   public static jsonToRememberingLevel(data: any): RememberingLevelDTO {

@@ -132,8 +132,8 @@ export class CabinetComponent implements OnInit {
         this.decks = decks;
         this.chosenCourse = course;
         this.cabinetService.getCategoryDecks(course.categoryId)
-          .subscribe((decks) => {
-            this.categoryDecks = decks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+          .subscribe((filterDecks) => {
+            this.categoryDecks = filterDecks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
           });
       });
   }

@@ -27,6 +27,7 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
+  public showComment: boolean = false;
   public status: string;
 
   constructor(private route: ActivatedRoute,
@@ -36,8 +37,9 @@ export class CourseInfoComponent implements OnInit {
               private deckService: DeckService,
               private courseService: CourseService,
               private userStatusChangeService: UserStatusChangeService,
+              private router: Router,
               private logger: NGXLogger) {
-  }
+
 
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
@@ -131,7 +133,8 @@ export class CourseInfoComponent implements OnInit {
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => {
-      this.course.rating = event.rating; }, (error) => {
+      this.course.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
@@ -145,4 +148,7 @@ export class CourseInfoComponent implements OnInit {
     });
   }
 
+  tabClick() {
+    this.showComment = true;
+  }
 }
