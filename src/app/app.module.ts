@@ -30,6 +30,7 @@ import {MainService} from './page/main/main.service';
 import {MainComponent} from './page/main/main.component';
 import {ProfileModule} from './page/userProfile/profile.module';
 import {ProfileService} from './page/userProfile/profile.service';
+import {CommentService} from './page/comments/comment.service';
 import {UserStatusChangeModule} from './page/userStatusChange/user.status.change.module';
 import {UserStatusChangeService} from './page/userStatusChange/user.status.change.service';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
@@ -71,8 +72,8 @@ import {environment} from '../environments/environment';
     DeckFilterPipe,
   ],
 
-  providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService, UserStatusChangeService],
+  providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
+    CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

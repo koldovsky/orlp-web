@@ -61,4 +61,7 @@
       </tbody>
     </table>
   </div>
+  <button class="fa fa-comment-o" aria-hidden="true" (click)="tabClick()" > comments</button>
 </div>
+
+<app-course-comments *ngIf="showComment"></app-course-comments>
