@@ -10,6 +10,7 @@ import {ReCaptchaComponent} from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
 import {NGXLogger} from 'ngx-logger';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   verificationStat = false;
   account: LoginAccount;
   captcha: string;
-  siteKey = ORLPSettings.SITE_KEY;
+  siteKey = environment.SITE_KEY;
   isDeleted = false;
   isInactive = false;
   mailIsSent = false;

@@ -9,6 +9,7 @@ import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
 import {NGXLogger} from 'ngx-logger';
+import {environment} from "../../../../environments/environment";
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -34,7 +35,7 @@ export class SignUpComponent implements OnInit {
   error: boolean;
   public userSignIn;
   errorEmailExists: boolean;
-  siteKey = ORLPSettings.SITE_KEY;
+  siteKey = environment.SITE_KEY;
   captcha: string;
   NOT_FOUND = 404;
   CREATED = 201;
