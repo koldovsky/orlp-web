@@ -1,4 +1,4 @@
-<div class="container mt-4"  id="comment">
+<div class="container mt-4">
   <div class="row">
     <div *ngFor="let comment of listOfComments; let item = index" class="col-sm-8 comments">
       <div class="panel panel-white post panel-shadow">
@@ -35,7 +35,53 @@
           </div>
         </div>
       </div>
+      <div class="col-8 child-comments">
+      <div *ngFor="let childComment of comment.listOfChildComments; let item = index" class="col-sm-8 comments">
+        <div class="panel panel-white post panel-shadow">
+          <div class="post-heading">
+            <div class="pull-left image">
+              <img *ngIf="childComment.image; else default_image" class="img-circle avatar" alt="user profile image"
+                   src="{{childComment.image}}">
+              <ng-template #default_image>
+                <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
+              </ng-template>
+            </div>
+            <div class="pull-left meta">
+              <div class="title h5">
+                <a href="#"><b>{{childComment.personFirstName}} {{childComment.personLastName}}</b></a>
+              </div>
+              <h6 class="text-muted time">{{childComment.commentDate | date: 'yMMMdjms'}}</h6>
+            </div>
+          </div>
+          <div class="post-description">
+            <h4>{{childComment.commentText}}</h4>
+            <div class="stats">
+              <a class="btn btn-default stat-item">
+                <i class="fa fa-thumbs-up icon"></i>2
+              </a>
+              <a class="btn btn-default stat-item">
+                <i class="fa fa-thumbs-down icon"></i>12
+              </a>
+              <a class="btn btn-default stat-item icon-right" (click)="deleteChildComment(childComment)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i> delete
+              </a>
+              <a class="btn btn-default stat-item icon-right" >
+                <i class="fa fa-reply" aria-hidden="true" (click)="addNewReply()"></i> reply
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div>
+        <div>
+          <textarea class="panel panel-white post panel-shadow col-sm-8 comments post-heading" [(ngModel)]="textOfNewComment"></textarea>
+        </div>
+        <div>
+          <button (click)="createReply(comment.commentId)">Add comment</button>
+        </div>
+        </div>
     </div>
+  </div>
   </div>
   <div>
     <textarea class="panel panel-white post panel-shadow col-sm-8 comments post-heading" [(ngModel)]="textOfNewComment"></textarea>

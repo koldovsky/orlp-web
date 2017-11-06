@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute,  Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
@@ -26,7 +26,7 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
-  public table1: boolean = false;
+  public showComment: boolean = false;
   public status: string;
 
   constructor(private route: ActivatedRoute,
@@ -132,7 +132,8 @@ export class CourseInfoComponent implements OnInit {
   onCourseRatingClick = (event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, this.course.courseId).subscribe(() => {
-      this.course.rating = event.rating; }, (error) => {
+      this.course.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
@@ -145,12 +146,8 @@ export class CourseInfoComponent implements OnInit {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
+
   tabClick() {
-      this.table1 = true;
+    this.showComment = true;
   }
-
-  goTo(location: string): void {
-    window.location.hash = location;
-  }
-
 }

@@ -3,8 +3,9 @@ import {ActivatedRoute} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {Subscription} from 'rxjs/Subscription';
 import {CommentService} from './comment.service';
-import {CommentDTO} from "../../dto/CommentDTO/commentDTO";
-import {Link} from "../../dto/link";
+import {CommentDTO} from '../../dto/CommentDTO/commentDTO';
+import {Link} from '../../dto/link';
+import {CreateCommentDTO} from '../../dto/CommentDTO/createCommentDTO';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CommentComponent implements OnInit {
   private url: string;
   public textOfNewComment: string;
   public listOfComments: CommentDTO[] = [];
+  public showFormToAddReply: boolean = false;
 
   constructor(private route: ActivatedRoute, private orlp: ORLPService, private commentService: CommentService) {
   }
@@ -33,13 +35,8 @@ export class CommentComponent implements OnInit {
 
   private getAllComments(): void {
     this.decodeLink();
-    console.log(this.url);
     this.commentService.getAllComments(this.url).subscribe(comments => {
       this.listOfComments = comments;
-      /*  if (user.imageType === 'BASE64') {
-          this.imageProfile = user.self.href + '/image' + '?' + new Date().getTime();
-        } else {
-          this.imageProfile = user.image;*/
     });
   }
 
@@ -48,16 +45,27 @@ export class CommentComponent implements OnInit {
   }
 
   addNewComment() {
-    console.log(this.url);
-    console.log(this.url);
-    this.commentService.addNewComment(this.url, this.textOfNewComment).subscribe();
-
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, null)).subscribe();
   }
 
-  deleteComment(link: Link){
-    console.log(link);
+  deleteChildComment(comment: any) {
+    this.commentService.deleteComment(comment._links.self).subscribe();
+  }
+
+  deleteComment(link: Link) {
     this.commentService.deleteComment(link).subscribe();
   }
 
 
+  createReply(commentId: number) {
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, commentId)).subscribe();
+  }
+
+  updateComment(link: Link) {
+    this.commentService.updateComment(link, this.textOfNewComment).subscribe();
+  }
+
+  addNewReply() {
+    this.showFormToAddReply = true;
+  }
 }

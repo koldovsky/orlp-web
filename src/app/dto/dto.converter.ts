@@ -179,6 +179,6 @@ export class DTOConverter {
 
   public static jsonToCommentDTO(data: any): CommentDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CommentDTO(data.id, data.commentText, new Date(data.commentDate), data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, self);
+    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
   }
 }

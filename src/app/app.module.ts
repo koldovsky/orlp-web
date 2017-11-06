@@ -67,8 +67,8 @@ import {UserStatusChangeService} from './page/userStatusChange/user.status.chang
     DeckFilterPipe,
   ],
 
-  providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService,
-    LogoutService, MainService, CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService],
+  providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
+    CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService],
   bootstrap: [MainComponent]
 })
 export class AppModule {
