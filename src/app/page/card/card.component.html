@@ -11,12 +11,23 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" routerLink="/main">Return to home page</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="getLearningCards()">Continue learning</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="getLearningCards(false)">Continue learning</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="card-container">
+    <div class="info-additional-container" *ngIf="areCardsEnded">
+      <div class="info-additional-content">
+        <h4>You have learned all the cards, so there is no need to continue learning cards in
+           this deck. But if you want though, then you can continue learning with cards that are postponed for the
+           future.</h4>
+      </div>
+      <div class="info-additional-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" routerLink="/main">Return to home page</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="getLearningCards(false)">Continue learning</button>
+      </div>
+    </div>
+    <div class="card-container" *ngIf="areCardsEnded === false">
       <div class="card" [ngClass]="{'rotate' : routing == true}">
         <div class="front">
           <div class="header">
