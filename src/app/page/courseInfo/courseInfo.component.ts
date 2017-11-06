@@ -39,6 +39,7 @@ export class CourseInfoComponent implements OnInit {
               private userStatusChangeService: UserStatusChangeService,
               private router: Router,
               private logger: NGXLogger) {
+  }
 
 
   ngOnInit(): void {

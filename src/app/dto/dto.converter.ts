@@ -16,15 +16,16 @@ import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
 import {ImageDTO} from './ImageDTO/ImageDTO';
 import {AdminDeck} from './AdminDTO/admin.deck.DTO';
-import {DeckDTO} from "./DeckDTO/DeckDTO";
-import {CreateCardDTO} from "./CardsDTO/CreateCardDTO";
-import {AdminDeckByPage} from "./AdminDTO/admin.deck.with.pages.DTO";
-import {AdminAuditWithPagesDTO} from "./AdminDTO/admin.audit.with.pages.DTO";
-import {AdminUsersByPage} from "./AdminDTO/admin.users.with.pages.DTO";
-import {DeckByCategoryAndPageDTO} from "./DeckDTO/linkToDeckByCategoryAndPage";
-import {CoursePageDTO} from "./CourseDTO/linkToCourseByPageDTO";
-import {CoursesByCategoryAndPageDTO} from "./CourseDTO/linkToCoursesByCategoryAndPage";
-import {CommentDTO} from "./CommentDTO/commentDTO";
+import {DeckDTO} from './DeckDTO/DeckDTO';
+import {CreateCardDTO} from './CardsDTO/CreateCardDTO';
+import {AdminDeckByPage} from './AdminDTO/admin.deck.with.pages.DTO';
+import {AdminAuditWithPagesDTO} from './AdminDTO/admin.audit.with.pages.DTO';
+import {AdminUsersByPage} from './AdminDTO/admin.users.with.pages.DTO';
+import {DeckByCategoryAndPageDTO} from './DeckDTO/linkToDeckByCategoryAndPage';
+import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
+import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
+import {RememberingLevelDTO} from './remembering.level.dto';
+import {CommentDTO} from './CommentDTO/commentDTO';
 
 export class DTOConverter {
 
@@ -180,5 +181,9 @@ export class DTOConverter {
   public static jsonToCommentDTO(data: any): CommentDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
+  }
+
+  public static jsonToRememberingLevel(data: any): RememberingLevelDTO {
+    return new RememberingLevelDTO(data.levelId, data.orderNumber, data.name, data.numberOfPostponedDays);
   }
 }
