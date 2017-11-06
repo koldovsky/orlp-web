@@ -9,6 +9,7 @@ import {ViewChild} from '@angular/core';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   templateUrl: ('./login.component.html'),
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authorizationService: AuthorizationService,
               private accountVerify: AccountVerificationService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private logger: NGXLogger) {
   }
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
         .subscribe((response) => {
           this.getStatus();
         }, (error) => {
-          console.log(error.json());
+          this.logger.error(error.json());
           this.processError(error);
           this.captchaComponent.reset();
           this.captcha = null;

@@ -4,12 +4,12 @@
 <div class="bg"></div>
 <div class="row justify-content-center">
   <div class="main-card">
-    <p class="title">Learning with us is not so terrible</p>
+    <p class="title">Your information should evolve</p>
   </div>
 </div>
   <div class="row justify-content-center button-row">
-    <button *ngIf="status==='ACTIVE'" type="button" class="btn learning-button btn-learning" routerLink="/user/cabinet">Start learning</button>
-    <button *ngIf="status!=='ACTIVE'" type="button" class="btn learning-button btn-learning" routerLink="/login">Start learning</button>
+    <button *ngIf="status==='ACTIVE'" type="button" class="btn btn-outline-dark" routerLink="/user/cabinet">Start learning</button>
+    <button *ngIf="status!=='ACTIVE'" type="button" class="btn btn-outline-dark" routerLink="/login">Start learning</button>
   </div>
 </div>
 <div class="categories-container" id="categories" #categoriesContainer>

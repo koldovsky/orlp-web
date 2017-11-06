@@ -4,11 +4,13 @@ import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {DTOConverter} from '../../../dto/dto.converter';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class UserCategoriesService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getCategories(): Observable<CategoriesPublic[]> {
@@ -19,7 +21,7 @@ export class UserCategoriesService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

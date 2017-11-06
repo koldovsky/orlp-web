@@ -12,17 +12,19 @@ import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {Link} from '../../../dto/link';
 import {Rating} from '../../../dto/Rating';
 import {CoursesByCategoryAndPageDTO} from '../../../dto/CourseDTO/linkToCoursesByCategoryAndPage';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseService {
   private urlAddCourseToUser = 'api/user/courses/';
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   addCourseToUser(courseId: number) {
     return this.orlp.put(this.urlAddCourseToUser + courseId, {})
-      .map((response: Response) => console.log(response))
+      .map((response: Response) => this.logger.log(response))
       .catch(this.handleError);
   }
 
@@ -60,7 +62,7 @@ export class CourseService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 

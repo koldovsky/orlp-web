@@ -9,11 +9,13 @@ import {ORLPService} from '../../services/orlp.service';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class HomeService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   getCategories(): Observable<CategoryTop[]> {
@@ -29,8 +31,7 @@ export class HomeService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
-
+    this.logger.log(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

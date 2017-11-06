@@ -10,11 +10,13 @@ import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {PrivateCourseDTO} from '../../../dto/CourseDTO/private.course.DTO';
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService,
+              private logger: NGXLogger) {
   }
 
   public getUserImages(): Observable<ImageDTO[]> {
@@ -40,11 +42,11 @@ export class CourseService {
 
   deleteImage(imageId: number) {
     return this.orlp.delete('/api/service/image/' + imageId)
-      .map((response: Response) => console.log());
+      .map((response: Response) => this.logger.log(response));
   }
 
   private handleError(error: Response) {
-    console.error(error);
+    this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }
