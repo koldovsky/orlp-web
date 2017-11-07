@@ -101,6 +101,7 @@ img {
 }
 
 .explanation-header {
+  font-weight: bold;
   text-align: center;
   font-style: normal;
 }

@@ -235,7 +235,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
                 this.savingResultMessage = this.FAILURE;
               }
               this.savingResultMessage += ' Error while saving number of postponed cards for ' + level.name +
-                'level in the database.';
+                ' level in the database.';
             });
         } else {
           const level = this.lastRememberingLevels[index];
