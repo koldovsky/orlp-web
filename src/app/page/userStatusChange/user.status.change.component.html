@@ -10,11 +10,8 @@
     </div>
     </div>
       <hr class="my-4">
-    <p *ngIf="blockedMessage">Your account activity is temporarily limited,
-      because you committed illegal activities. If after unlocking, you will continue these actions,
-      your account will be deleted without the possibility of recovery.</p>
-    <p *ngIf="deleteMessage"> You can no longer use this account. It is deleted by the administrator,
-      because you continued to commit illegal activities.</p>
+    <p *ngIf="blockedMessage">Your account activity is temporarily limited.</p>
+    <p *ngIf="deleteMessage"> You can no longer use this account. It is deleted by the administrator.</p>
     <p class="lead">
       <a [routerLink]="['home']" class="card-link">Go to home page</a>
     </p>

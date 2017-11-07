@@ -63,10 +63,10 @@
       </div>
     </div>
     <div class="alert alert-danger" *ngIf="isDeleted">
-      <span>You can not log in or register with this email, because this email is deleted by the administrator.</span>
+      <span>You can not log in or register.This account is deleted by the administrator.</span>
     </div>
     <div class="alert alert-danger" *ngIf="isInactive">
-      <span>Account with this email is not active. You can send a confirmation mail to activate your account.</span>
+      <span>Account is not active. You can send a confirmation mail to activate your account.</span>
       <button type="button" class="btn btn-outline-success" (click)="sendMail()">Send to activate</button>
     </div>
     <div class="alert alert-success" *ngIf="mailIsSent">
