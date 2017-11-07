@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   public courses: CourseTop[] = [];
   public status: string;
   errorMessage: string;
+  isAuthorized: boolean;
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     window.onscroll = ( () => this.scrollFunction());
-    this.logoutService.isAuthorized();
+    this.isAuthorized = this.logoutService.isAuthorized();
     this.status = sessionStorage.getItem('status');
     this.mainService.getCategories()
       .subscribe(categories => this.setSlider(this.categories, categories),
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
         error => this.errorMessage = <any>error);
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(() => {
-        this.logoutService.isAuthorized();
+        this.isAuthorized = item;
         this.status = sessionStorage.getItem('status');
       }));
   }

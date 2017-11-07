@@ -1,73 +1,81 @@
 <button class="down scroll-button bottom-element" id="arrow" (click)="scrollDown()" #arrow></button>
 <button class="top scroll-button bottom-element" id="arrow-top" (click)="scrollTop()" #arrowTop></button>
 <div class="main-container">
-<div class="bg"></div>
-<div class="row justify-content-center">
-  <div class="main-card">
-    <p class="title">Your information should evolve</p>
+  <div class="bg"></div>
+  <div class="row justify-content-center">
+    <div class="main-card">
+      <p class="title">Your information should evolve</p>
+    </div>
   </div>
-</div>
   <div class="row justify-content-center button-row">
-    <button *ngIf="status==='ACTIVE'" type="button" class="btn btn-outline-dark" routerLink="/user/cabinet">Start learning</button>
-    <button *ngIf="status!=='ACTIVE'" type="button" class="btn btn-outline-dark" routerLink="/login">Start learning</button>
+    <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button" routerLink="/user/cabinet">Start
+      learning
+    </button>
+    <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/login">Start learning
+    </button>
   </div>
 </div>
 <div class="categories-container" id="categories" #categoriesContainer>
-<div class="row justify-content-center mt-1">
-  <h1>Categories</h1>
-</div>
-    <div class="row justify-content-center mt-4">
-      <div id="categoryCarousel" class="carousel slide col-12 col-md-10 col-lg-7" data-ride="carousel">
-        <div class="carousel-inner">
-          <div *ngFor="let i of categories;let item = index" class="carousel-item " [ngClass]="{'active': item==0}">
-            <div class="card cat-card" *ngFor="let category of this.categories[item];"
-                 [routerLink]="['/category/', getCategoryLink(category.self)]">
-              <div class="card-body">
+  <div class="row justify-content-center mt-1">
+    <h1>Categories</h1>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div id="categoryCarousel" class="carousel slide col-12 col-md-10 col-lg-7" data-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let i of categories;let item = index" class="carousel-item " [ngClass]="{'active': item==0}">
+          <div class="card cat-card" *ngFor="let category of this.categories[item];"
+               [routerLink]="['/category/', getCategoryLink(category.self)]">
+            <div class="card-body">
               <img class="img-fluid" [src]="category.image">
               <p class="cat-title">{{category.name}}</p>
-              </div>
             </div>
           </div>
         </div>
-        <a class="carousel-control-prev" href="#categoryCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#categoryCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
       </div>
-      <div class="row justify-content-center">
-        <div class="card col-12 col-md-7 cat-main-card">
-          <div class="card-body">
-            <p class="card-text">All learning material is divided by categories. Categories are specific topics,
-              such as programming languages. Each category contains courses that can and should take place over and over again to
-              consolidate material.
-              In addition, you can estimate each course and leave a comment about it.</p>
-          </div>
-        </div>
-      </div>
+      <a class="carousel-control-prev" href="#categoryCarousel" role="button" data-slide="prev">
+        <span class="prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#categoryCarousel" role="button" data-slide="next">
+        <span class="next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-</div>
-<div class="courses-container" id="courses" #coursesContainer>
-<div class="row col-9" >
-  <div *ngFor="let course of courses" class="col">
-    <div class="card course-card">
-      <img class = "card-image" src = {{course.image}} alt="Card image cap">
-      <div class="card-body course-card-body">
-        <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
-        <td *ngIf="status==='ACTIVE';else unAuthorized">
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
-        </td>
-        <ng-template #unAuthorized>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
-        </ng-template>
+    <div class="row justify-content-center">
+      <div class="card col-12 col-md-7 cat-main-card">
+        <div class="card-body">
+          <p class="card-text">All learning material is divided by categories. Categories are specific topics,
+            such as programming languages. Each category contains courses that can and should take place over and over
+            again to
+            consolidate material.
+            In addition, you can estimate each course and leave a comment about it.</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<div class="courses-container" id="courses" #coursesContainer>
+  <div class="row justify-content-center">
+    <h1>Courses</h1>
+  </div>
+  <div class="row">
+    <div *ngFor="let course of courses" class="col">
+      <div class="card course-card">
+        <img class="card-image" src={{course.image}} alt="Card image cap">
+        <div class="card-body course-card-body">
+          <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
+          <td *ngIf="status==='ACTIVE';else unAuthorized">
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="course.rating"
+                              (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
+          </td>
+          <ng-template #unAuthorized>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 

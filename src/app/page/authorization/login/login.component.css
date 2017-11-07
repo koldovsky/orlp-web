@@ -10,4 +10,9 @@
   width: 100%;
 }
 
+.card-header {
+  background: transparent;
+  border-bottom: 1px solid #677182
+}
+
 
