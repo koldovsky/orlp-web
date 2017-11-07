@@ -7,18 +7,18 @@
             <span><h2>Sign Up</h2></span>
             </div>
           <div class="card-body">
-            <div (click)="signInFacebook('facebook')" class="btn-facebook">
+            <div (click)="signInFacebook('facebook')" class="custom-btn-facebook">
               <span class="facebookIcon"></span>
               <span class="textSpan">Sign up with Facebook</span>
             </div>
-            <div (click)="signInGoogle('google')" class="btn-google">
+            <div (click)="signInGoogle('google')" class="custom-btn-google">
               <span class="googleIcon"></span>
               <span class="textSpan">Sign up with Google</span>
             </div>
             <div class="label mt-1 mb-1">or</div>
             <div class="form-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <div class="my-grid">
+              <div class="custom-input">
                 <input type="text" class="form-control" id="name"
                        placeholder="John" formControlName="firstName" [ngClass]="{'is-invalid':
                        (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors}" required>
@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <div class="my-grid">
+              <div class="custom-input">
                 <input type="text" class="form-control" id="last_name"
                        placeholder="Doe" formControlName="lastName"
                        [ngClass]="{'is-invalid': (userForm.get('lastName').touched||userForm.get('lastName').dirty)
@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
               <div class="input-group-addon"><i class="fa fa-at"></i></div>
-              <div class="my-grid">
+              <div class="custom-input">
                 <input type="email" class="form-control" id="email"
                        placeholder="you@example.com" formControlName="email"
                 [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
@@ -57,7 +57,7 @@
             <div formGroupName="passwordGroup">
               <div class="form-group">
                 <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                <div class="my-grid">
+                <div class="custom-input">
                 <input type="password" class="form-control" id="password"
                        placeholder="Password" formControlName="password"
                 [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
@@ -74,7 +74,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-repeat"></i>
                 </div>
-              <div class="my-grid">
+              <div class="custom-input">
                 <input type="password" class="form-control"
                        id="password-confirm" placeholder="Password" formControlName="confirmPassword"
                        [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
