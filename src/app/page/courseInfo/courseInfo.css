@@ -1,5 +1,5 @@
 .table {
-  margin: 25px;
+  margin: 25px 25px 10px 25px;
   background-color: white;
 }
 
@@ -78,4 +78,12 @@ td img {
 .table-row:hover {
   cursor: pointer;
   background-color: #e1d7e8;
+}
+
+.btn-comments{
+  margin-left: 3%;
+}
+
+.text-light{
+  margin-bottom: auto;
 }

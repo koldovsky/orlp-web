@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
@@ -37,10 +37,8 @@ export class CourseInfoComponent implements OnInit {
               private deckService: DeckService,
               private courseService: CourseService,
               private userStatusChangeService: UserStatusChangeService,
-              private router: Router,
               private logger: NGXLogger) {
   }
-
 
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
@@ -150,6 +148,10 @@ export class CourseInfoComponent implements OnInit {
   }
 
   tabClick() {
-    this.showComment = true;
+    if (this.showComment === false) {
+      this.showComment = true;
+    } else {
+      this.showComment = false;
+    }
   }
 }

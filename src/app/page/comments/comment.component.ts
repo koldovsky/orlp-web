@@ -6,35 +6,43 @@ import {CommentService} from './comment.service';
 import {CommentDTO} from '../../dto/CommentDTO/commentDTO';
 import {Link} from '../../dto/link';
 import {CreateCommentDTO} from '../../dto/CommentDTO/createCommentDTO';
-
+import {LogoutService} from '../logout/logout.service';
+import {UserRoleDTO} from '../../dto/CommentDTO/UeserRoleDTO';
 
 @Component({
   selector: 'app-course-comments',
   templateUrl: ('./comment.component.html'),
   styleUrls: ['./comment.component.css']
-
 })
+
 export class CommentComponent implements OnInit {
   private sub: Subscription;
   private url: string;
   public textOfNewComment: string;
   public listOfComments: CommentDTO[] = [];
   public showFormToAddReply: boolean = false;
+  public commentId: number;
+  public isAuthorized: boolean;
+  public person: UserRoleDTO;
+  public linkToCommentNeedToDelete: Link;
 
-  constructor(private route: ActivatedRoute, private orlp: ORLPService, private commentService: CommentService) {
+  constructor(private route: ActivatedRoute, private orlp: ORLPService, private commentService: CommentService
+    , private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(
       params => {
         this.url = params['url'];
+        this.decodeLink();
       }
     );
     this.getAllComments();
+    this.isAuthorized = this.logoutService.isAuthorized();
+    this.getPersonRole();
   }
 
   private getAllComments(): void {
-    this.decodeLink();
     this.commentService.getAllComments(this.url).subscribe(comments => {
       this.listOfComments = comments;
     });
@@ -45,27 +53,48 @@ export class CommentComponent implements OnInit {
   }
 
   addNewComment() {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, null)).subscribe();
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, null)).subscribe(() => {
+      this.getAllComments();
+    });
+    this.textOfNewComment = null;
   }
 
-  deleteChildComment(comment: any) {
-    this.commentService.deleteComment(comment._links.self).subscribe();
+  deleteComment() {
+    this.commentService.deleteComment(this.linkToCommentNeedToDelete).subscribe(() => {
+      this.getAllComments();
+    });
   }
-
-  deleteComment(link: Link) {
-    this.commentService.deleteComment(link).subscribe();
-  }
-
 
   createReply(commentId: number) {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, commentId)).subscribe();
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, commentId)).subscribe(() => {
+      this.getAllComments();
+    });
+    this.textOfNewComment = null;
   }
 
-  updateComment(link: Link) {
-    this.commentService.updateComment(link, this.textOfNewComment).subscribe();
+  getPersonRole(): void {
+    this.commentService.getPersonRole().subscribe(person => this.person = person);
   }
 
-  addNewReply() {
-    this.showFormToAddReply = true;
+  isCommentOwner(comment: CommentDTO): boolean {
+    return comment.personId === this.person.userId || this.person.authorities.includes('ROLE_ADMIN');
+  }
+
+  changeVisibilityOfFormToAddReply(commentId: number) {
+    this.commentId = commentId;
+    if (this.showFormToAddReply === false) {
+      this.showFormToAddReply = true;
+    } else {
+      this.showFormToAddReply = false;
+    }
+  }
+
+  setCommentNeedToDelete(link: Link) {
+    this.linkToCommentNeedToDelete = link;
+  }
+
+  closeFormToAddReply() {
+    this.showFormToAddReply = false;
+    this.textOfNewComment = null;
   }
 }
