@@ -136,16 +136,13 @@
   width: 10rem;
 }
 .info-additional-container {
-  margin-top: 2%;
+  margin: 2% auto;
+  width: 65%;
   background-color: white;
   border: 1px solid black;
   border-radius: 20px;
-  padding: 10px;
-}
-
-.info-additional-footer{
-  width: 300px;
-  margin: auto;
+  padding: 10px 30px 10px 30px;
+  text-align: center;
 }
 /*       Fix bug for IE      */
 
