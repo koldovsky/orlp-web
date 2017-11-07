@@ -1,93 +1,83 @@
-<div class="container mt-4">
+<div class="container bootstrap snippet">
   <div class="row">
-    <div *ngFor="let comment of listOfComments; let item = index" class="col-sm-8 comments">
-      <div class="panel panel-white post panel-shadow">
-        <div class="post-heading">
-          <div class="pull-left image">
-            <img *ngIf="comment.image; else default_image" class="img-circle avatar" alt="user profile image"
+    <div class="col-md-12">
+      <div class="blog-comment">
+        <hr/>
+        <ul class="comments">
+          <li *ngFor="let comment of listOfComments; let item = index; " class="clearfix">
+            <img *ngIf="comment.image; else default_image" class="avatar" lt="user profile image"
                  src="{{comment.image}}">
             <ng-template #default_image>
               <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
             </ng-template>
-          </div>
-          <div class="pull-left meta">
-            <div class="title h5">
-              <a href="#"><b>{{comment.personFirstName}} {{comment.personLastName}}</b></a>
+            <div class="post-comments">
+              <p class="meta comment-owner"><b>{{comment.commentDate | date: 'MMM d, y, HH:mm:ss, '}} {{comment.personFirstName}}
+                {{comment.personLastName}}</b> commented :
+                <button *ngIf="isAuthorized&&isCommentOwner(comment)" class="btn btn-outline-danger btn-sm icon-right pull-right"
+                        data-toggle="modal" data-target="#deleteComment" (click)="setCommentNeedToDelete(comment.self)"><i class="fa fa-trash-o"> Delete</i></button>
+                <button *ngIf="isAuthorized" class="btn btn-outline-warning btn-sm icon-right pull-right"
+                        (click)="changeVisibilityOfFormToAddReply(comment.commentId)">
+                  <i class="fa fa-reply" aria-hidden="true"> Reply</i></button>
+              </p>
+              <p>
+                {{comment.commentText}}
+              </p>
             </div>
-            <h6 class="text-muted time">{{comment.commentDate | date: 'yMMMdjms'}}</h6>
+            <ul *ngFor="let childComment of comment.listOfChildComments; let childItem = index" class="comments">
+              <li class="clearfix">
+                <img *ngIf="childComment.image; else default_image" class="avatar" lt="user profile image"
+                     src="{{childComment.image}}">
+                <ng-template #default_image>
+                  <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
+                </ng-template>
+                <div class="post-comments">
+                  <p class="meta"><b>{{childComment.commentDate | date: 'MMM d, y, HH:mm:ss, '}} {{childComment.personFirstName}}
+                    {{childComment.personLastName}}</b> commented :
+                    <button *ngIf="isAuthorized&&isCommentOwner(childComment)" class="btn btn-outline-danger btn-sm icon-right pull-right"
+                            data-toggle="modal" data-target="#deleteComment" (click)="setCommentNeedToDelete(childComment._links.self)">
+                      <i class="fa fa-trash-o"> Delete</i></button>
+                  </p>
+                  <p>
+                    {{childComment.commentText}}
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <div class="comments" *ngIf="showFormToAddReply&&(comment.commentId === commentId)">
+              <textarea class=" col-sm-10 post-comments-area" rows="5"
+                        [(ngModel)]="textOfNewComment" placeholder="type new comment"></textarea>
+              <button type="reset" class="btn btn-sm btn-danger pull-right" (click)="closeFormToAddReply()"><i class="fa fa-ban"></i> Cancel</button>
+              <button [disabled]="!(textOfNewComment)" type="submit" class="btn btn-sm btn-primary pull-right" (click)="createReply(comment.commentId)">
+                <i class="fa fa-dot-circle-o"></i> Add comment
+              </button>
+            </div>
+
+          </li>
+          <div class="comments" *ngIf="!showFormToAddReply&&isAuthorized">
+              <textarea class=" col-sm-10 post-comments-area" rows="5"
+                        [(ngModel)]="textOfNewComment" placeholder="type new comment"></textarea>
+            <button [disabled]="!(textOfNewComment)" type="submit" class="btn btn-sm btn-primary pull-right" (click)="addNewComment()"><i
+              class="fa fa-dot-circle-o"></i> Add comment
+            </button>
           </div>
-        </div>
-        <div class="post-description">
-          <h4>{{comment.commentText}}</h4>
-          <div class="stats">
-            <a class="btn btn-default stat-item">
-              <i class="fa fa-thumbs-up icon"></i>2
-            </a>
-            <a class="btn btn-default stat-item">
-              <i class="fa fa-thumbs-down icon"></i>12
-            </a>
-            <a class="btn btn-default stat-item icon-right" (click)="deleteComment(comment.self)">
-              <i class="fa fa-trash-o" aria-hidden="true"></i> delete
-            </a>
-            <a class="btn btn-default stat-item icon-right" >
-              <i class="fa fa-reply" aria-hidden="true"></i> reply
-            </a>
-          </div>
-        </div>
+        </ul>
       </div>
-      <div class="col-8 child-comments">
-      <div *ngFor="let childComment of comment.listOfChildComments; let item = index" class="col-sm-8 comments">
-        <div class="panel panel-white post panel-shadow">
-          <div class="post-heading">
-            <div class="pull-left image">
-              <img *ngIf="childComment.image; else default_image" class="img-circle avatar" alt="user profile image"
-                   src="{{childComment.image}}">
-              <ng-template #default_image>
-                <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
-              </ng-template>
-            </div>
-            <div class="pull-left meta">
-              <div class="title h5">
-                <a href="#"><b>{{childComment.personFirstName}} {{childComment.personLastName}}</b></a>
-              </div>
-              <h6 class="text-muted time">{{childComment.commentDate | date: 'yMMMdjms'}}</h6>
-            </div>
-          </div>
-          <div class="post-description">
-            <h4>{{childComment.commentText}}</h4>
-            <div class="stats">
-              <a class="btn btn-default stat-item">
-                <i class="fa fa-thumbs-up icon"></i>2
-              </a>
-              <a class="btn btn-default stat-item">
-                <i class="fa fa-thumbs-down icon"></i>12
-              </a>
-              <a class="btn btn-default stat-item icon-right" (click)="deleteChildComment(childComment)">
-                <i class="fa fa-trash-o" aria-hidden="true"></i> delete
-              </a>
-              <a class="btn btn-default stat-item icon-right" >
-                <i class="fa fa-reply" aria-hidden="true" (click)="addNewReply()"></i> reply
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-        <div>
-        <div>
-          <textarea class="panel panel-white post panel-shadow col-sm-8 comments post-heading" [(ngModel)]="textOfNewComment"></textarea>
-        </div>
-        <div>
-          <button (click)="createReply(comment.commentId)">Add comment</button>
-        </div>
-        </div>
     </div>
   </div>
-  </div>
-  <div>
-    <textarea class="panel panel-white post panel-shadow col-sm-8 comments post-heading" [(ngModel)]="textOfNewComment"></textarea>
-  </div>
-  <div>
-    <button (click)="addNewComment()">Add comment</button>
+</div>
+<div class="modal fade" id="deleteComment" role="dialog">
+  <div class="modal-dialog modal-sm modal-danger">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete comment?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal"
+                (click)="deleteComment()">Delete
+        </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>
-
