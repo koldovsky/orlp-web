@@ -26,6 +26,7 @@ import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
 import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
 import {CommentDTO} from './CommentDTO/commentDTO';
 import {UserRoleDTO} from "./CommentDTO/UeserRoleDTO";
+import {RememberingLevelDTO} from './remembering.level.dto';
 
 export class DTOConverter {
 
@@ -185,5 +186,9 @@ export class DTOConverter {
 
   public static jsonToUserRoleDTO(data: any): UserRoleDTO {
     return new UserRoleDTO(data.userId, data.authorities);
+  }
+
+  public static jsonToRememberingLevel(data: any): RememberingLevelDTO {
+    return new RememberingLevelDTO(data.levelId, data.orderNumber, data.name, data.numberOfPostponedDays);
   }
 }

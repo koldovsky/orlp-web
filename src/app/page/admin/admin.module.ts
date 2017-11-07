@@ -17,11 +17,13 @@ import {AdminDecksComponent} from './decks/admin.decks.component';
 import {AdminDecksService} from './decks/admin.decks.service';
 import {AdminDeckComponent} from './decks/deck/admin.deck.component';
 import {AdminDeckService} from './decks/deck/admin.deck.service';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   imports: [
     FormsModule,
     CommonModule,
+    StarRatingModule,
     RouterModule.forChild([
       {path: 'admin/audit', canActivate: [AdminGuardService], component: AdminAuditComponent},
       {path: 'admin/categories', canActivate: [AdminGuardService], component: AdminCategoryComponent},

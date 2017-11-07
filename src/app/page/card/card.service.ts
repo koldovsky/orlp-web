@@ -23,6 +23,19 @@ export class CardService {
       .catch(this.handleError);
   }
 
+  public getAdditionalCards(deckId: number): Observable<CardPublic[]> {
+    return this.orlp.get('/api/private/decks/' + deckId + '/learn/additional')
+      .map((response: Response) => <CardPublic[]> DTOConverter
+        .jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()))
+      .catch(this.handleError);
+  }
+
+  public areThereNotPostponedCards(deckId: number): Observable<boolean> {
+    return this.orlp.get('/api/private/decks/' + deckId + '/not-postponed')
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
+  }
+
   public sendStatus(status: string, card_id: number, deckId: number) {
     return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', status);
   }

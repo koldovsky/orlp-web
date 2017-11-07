@@ -63,13 +63,12 @@
 }
 
 .main-card {
-  margin-top: 100px;
-  border-radius: 40px;
+  margin-top: 12%;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: rgba(248, 249, 250, 0.81);
+  /*background-color: rgba(248, 249, 250, 0.81);*/
   color: #2e4058;
-  border: 1px solid #9a9b9d;
+  /*border: 1px solid #9a9b9d;*/
   font-size: 50px;
   font-weight: 600;
   text-align: center;
@@ -89,7 +88,11 @@
   color: #2e4058;
   border: 1px solid #9a9b9d;
   cursor: pointer;
-  float: right;
+  /*float: right;*/
+  width: 400px;
+  height: 60px;
+  font-size: xx-large;
+  float: none;
 }
 
 .learning-button:hover, .learning-button:focus {
@@ -98,7 +101,7 @@
 }
 
 .button-row {
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .btn-learning {
@@ -106,7 +109,6 @@
   height: 60px;
   background-color: rgba(248, 249, 250, 0.81);
   font-size: xx-large;
-  border-radius: 10px;
   float: none;
 }
 
@@ -139,6 +141,8 @@
   cursor: pointer;
   border: none;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .course-card-body {
@@ -180,4 +184,39 @@
 
 .card-title:hover {
   text-shadow: 0 0 1px green;
+}
+
+.row{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.down, .top{
+  width: 70px;
+  height: 70px;
+  float: left;
+}
+
+.down{
+  background: url(../../../assets/images/down.png) no-repeat center;
+  background-size: contain;
+}
+.top{
+  background: url(../../../assets/images/top.png) no-repeat center;
+  background-size: contain;
+  display: none;
+}
+
+.next-icon {
+  background-image: url(../../../assets/images/next.png);
+}
+
+.prev-icon {
+  background-image: url(../../../assets/images/prev.png);
+}
+
+.next-icon, .prev-icon {
+  width: 40px;
+  height: 40px;
+  background-size: 100% 100%;
 }

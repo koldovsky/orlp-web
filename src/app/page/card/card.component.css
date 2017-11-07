@@ -135,7 +135,15 @@
 .button-difficult {
   width: 10rem;
 }
-
+.info-additional-container {
+  margin: 2% auto;
+  width: 65%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 10px 30px 10px 30px;
+  text-align: center;
+}
 /*       Fix bug for IE      */
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

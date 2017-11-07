@@ -45,43 +45,17 @@ body, html{
   border: 1px solid yellow;
 }
 
-.bg {
-  background: url(../images/laptop.jpg) no-repeat center bottom fixed;
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 100%;
-}
-
-.down, .top{
-  width: 100px;
-  height: 100px;
-  float: left;
-}
-
-.down{
-  background: url(../images/down.png) no-repeat center;
-  background-size: contain;
-}
-.top{
-  background: url(../images/top.png) no-repeat center;
-  background-size: contain;
-  display: none;
-}
-
-.btn-google{
+.custom-btn-google{
   color: white;
   background: rgb(220, 78, 65);
 }
 
-.btn-facebook{
+.custom-btn-facebook{
   background: #3b5998;
   color: white;
 }
 
-.btn-google, .btn-facebook{
+.custom-btn-google, .custom-btn-facebook{
   display: inline-block;
   width: 49%;
   border-radius: 5px;
@@ -92,7 +66,7 @@ body, html{
   text-align: center;
 }
 
-.btn-google:hover, .btn-facebook:hover {
+.custom-btn-google:hover, .custom-btn-facebook:hover {
   cursor: pointer;
   color: #e1d7e8;
 }
@@ -122,8 +96,7 @@ span.facebookIcon {
 .input-group-addon{
   float: left;
   display: inline;
-  width: 38px;
-  height: 38px;
+  min-height: 33px;
 }
 
 .invalid-feedback{
@@ -135,8 +108,9 @@ span.facebookIcon {
   border-color: #fd0505;
 }
 
-.my-grid{
+.custom-input{
   display: flow-root;
+
 }
 
 .close{
@@ -163,4 +137,19 @@ div, button:focus, .card-title, img{
 
 .btn:hover{
   cursor: pointer;
+}
+
+.form-control {
+  height: 100%;
+}
+
+
+.bg {
+  background: url(../../assets/images/desktop.jpg) no-repeat center bottom fixed;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
 }

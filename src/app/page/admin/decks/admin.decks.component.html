@@ -2,169 +2,196 @@
 
   <table class="table ">
     <tr >
-      <th>  <div class="col-xs-12 col-sm-4 font-color-white header-text">
-        <h1>Decks</h1></div></th>
-      <th><button   type="button" (click)="beforeCreate()" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add new deck</button></th>
+      <th>
+        <div class="row">
+        <div class="col-4">
+        <h1 [class.header-item]="true" (click)="sortBy(courseColumns[0])">
+          Decks {{courseColumns[0].symbolSorting}}
+        </h1>
+        </div>
+          <div class="col-4">
+            <button   type="button" (click)="beforeCreate()" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new deck</button>
+          </div>
+        </div>
+      </th>
     </tr>
   </table>
 
   <div class="row">
-    <div class="col-12">
-      <table class="table table-striped admins-tables">
-        <tr class="admins-tables-header">
-          <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
-            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
-          </th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let deck of deckList " >
-          <td>{{deck.name}}</td>
-          <td>{{deck.description}}</td>
-          <td>{{deck.rating}}</td>
-          <td>{{deck.category}}</td>
-          <td>{{deck.owner}}</td>
-          <td >
-            <button class="btn btn-danger btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalDelete" >Delete</button>
-          </td>
-          <td>
-            <div >
-              <button   type="button" class="btn btn-primary btn-sm" (click)="beforeEdit(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
+    <div *ngFor="let deck of deckList " class="col-sm-6 col-md-4">
+      <div class="card card-accent-primary">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-4">
+          {{deck.name}}
             </div>
-          </td>
-          <td>
-            <div [routerLink]="['/admin/decks', getDeckLink(deck.self)]">
-              <button class="btn btn-primary btn-sm"> Open</button>
+            <div class="col-6">
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
             </div>
-          </td>
-          <td>
-            <div [routerLink]="['/manage/cards', getDeckLink(deck.self), 'AdminDecks']">
-              <button  class="btn btn-primary btn-sm">Manage cards</button>
+            <div class="col-2">
+              <button class="btn btn-outline-danger btn-sm" (click)="assignDeck(deck)"  data-toggle="modal" data-target="#ModalDelete" >x</button>
             </div>
-          </td>
-        </tr>
-      </table>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li *ngIf="currentPage > 1; else disabled" class="page-item"><a class="page-link" (click)="getDecks(1)">First</a></li>
-          <ng-template #disabled>
-            <li class="page-item disabled"><a class="page-link" (click)="getDecks(1)">First</a></li>
-          </ng-template>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDecks(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="active"><a class="page-link" (click)="getDecks(currentPage)">{{currentPage}}</a></li>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDecks(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
-          <ng-template #disabledLast>
-            <li class="page-item disabled"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
-          </ng-template>
-        </ul>
-      </nav>
-    </div>
-  </div>
-
-  <!-- Modal Add -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content" >
-        <div class="modal-header">
-          <h4 class="modal-title">Deck</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div *ngIf="categories" class="modal-body">
-          <div class="container">
-            <table class="table table-striped admins-tables">
-              <tr>
-                <td>
-                  <label>name: </label>
-                </td>
-                <td>
-                  <input type="text" name="name" [(ngModel)]="deckName"/>
-                </td>
-                <td>
-              </tr>
-              <tr>
-                <td>
-                  <label>description: </label></td>
-                <td>
-                  <input type="text" name="description" [(ngModel)]="deckDescription" />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>category: </label>
-                </td>
-                <td>
-                  <select id="selectedCategory" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
-                    <option selected>  </option>
-                    <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
-                  </select>
-                </td>
-              </tr>
-            </table>
           </div>
         </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              description:
+            </div>
+            <div class="col-8">
+              {{deck.description}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              category:
+            </div>
+            <div class="col-8">
+              {{deck.category}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              owner:
+            </div>
+            <div class="col-8">
+              {{deck.owner}}
+            </div>
+          </div>
+
+          <div class="row" id="row-button">
+            <div class="col-6">
+            </div>
+            <div class="col-2">
+              <button   type="button" class="btn btn-primary btn-sm" (click)="beforeEdit(deck)"  data-toggle="modal" data-target="#ModalEdit">Edit</button>
+            </div>
+            <div class="col-3" [routerLink]="['/manage/cards', getDeckLink(deck.self), 'AdminDecks']">
+              <button  class="btn btn-success btn-sm">Open</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getDecks(1)">First</a></li>
+      <ng-template #disabledFirst>
+        <li class="page-item disabled"><a class="page-link" (click)="getDecks(1)">First</a></li>
+      </ng-template>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDecks(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="active"><a class="page-link" (click)="getDecks(currentPage)">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDecks(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getDecks(lastPage)">Last</a></li>
+      </ng-template>
+    </ul>
+  </nav>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-primary" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Deck</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        </div>
+        <div *ngIf="categories" class="modal-body">
+          <table class="table table-striped">
+            <tr>
+              <td>
+                <label>deck name:</label>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="deckName"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>deck description:</label>
+              </td>
+              <td>
+                <input type="text" [(ngModel)]="deckDescription"/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>category:</label>
+              </td>
+              <td>
+                <select id="selectedCategory" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
+                  <option selected>  </option>
+                  <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </div>
         <div class="modal-footer">
-          <button [disabled]="!deckName || !deckDescription || !categoryForDeck.id " type="button"
-                  class="btn btn-primary"
-                  data-dismiss="modal"
-                  (click)="createDeck()">Add</button>
-          <button type="button"  class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button [disabled]="!deckName || !deckDescription || !categoryForDeck.id " type="button"
+                    class="btn btn-primary"
+                    data-dismiss="modal"
+                    (click)="createDeck()">Add</button>
+            <button type="button"  class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal delete deck-->
-  <div class="modal fade" id="ModalDelete" role="dialog">
-    <div class="modal-dialog">
+
+  <div bsModal id="ModalDelete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
       <div class="modal-content" *ngIf="deckSelected">
         <div class="modal-header">
           <h4 class="modal-title">Delete Deck?</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="internal-text">Deck {{deckSelected.name}} will be deleted</div>
+        <div class="modal-body">
+          <p>Deck {{deckSelected.name}} will be deleted.</p>
+        </div>
         <div class="modal-footer">
-          <button type="button"
-                  class="btn btn-primary"
-                  data-dismiss="modal"
-                  (click)="deleteDeck()" >Delete</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+          <button type="button" (click)="deleteDeck()" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancel</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal Edit -->
-  <div class="modal fade" id="ModalEdit" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content" *ngIf="deckSelected">
+
+  <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-primary" role="document">
+      <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Deck</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
         </div>
-        <div *ngIf="categories" class="modal-body">
+        <div *ngIf="deckSelected" class="modal-body">
           <div class="container">
-            <table class="table table-striped admins-tables">
+            <table class="table table-striped">
               <tr>
                 <td>
-                  <label>name: </label>
+                  <label>deck name:</label>
                 </td>
                 <td>
                   <input type="text" name="name" [(ngModel)]="deckName"/>
                 </td>
-                <td>
               </tr>
               <tr>
                 <td>
-                  <label>description: </label></td>
+                  <label>deck description:</label>
+                </td>
                 <td>
                   <input type="text" name="description" [(ngModel)]="deckDescription" />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label>category: </label>
+                  <label>category:</label>
                 </td>
                 <td>
                   <select id="selectedCategory2" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">

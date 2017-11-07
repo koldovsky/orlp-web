@@ -4,21 +4,21 @@
   <div class="row justify-content-center">
       <div class="card border border-secondary">
         <div class="card-header">
-          <span><h2>Login</h2></span>
+          <span><h2>Sign In</h2></span>
         </div>
         <div class="card-body">
-          <div (click)="signInFacebook('facebook')" class="btn-facebook">
+          <div (click)="signInFacebook('facebook')" class="custom-btn-facebook">
             <span class="facebookIcon"></span>
-            <span class="textSpan">Sigh in with Facebook</span>
+            <span class="textSpan">Sign in with Facebook</span>
           </div>
-          <div (click)="signInGoogle('google')" class="btn-google">
+          <div (click)="signInGoogle('google')" class="custom-btn-google">
             <span class="googleIcon"></span>
             <span class="textSpan">Sign in with Google</span>
           </div>
           <div class="label mt-1 mb-1">or</div>
           <div class="form-group">
               <div class="input-group-addon"><i class="fa fa-at"></i></div>
-            <div class="my-grid">
+            <div class="custom-input">
               <input type="text" class="form-control" id="username"
                      placeholder="Email" formControlName="username"
               [ngClass]="{'is-invalid': (loginForm.get('username').touched||loginForm.get('username').dirty)
@@ -30,7 +30,7 @@
           </div>
           <div class="form-group">
               <div class="input-group-addon" ><i class="fa fa-key"></i></div>
-            <div class="my-grid">
+            <div class="custom-input">
               <input type="password" class="form-control" id="password"
                      placeholder="Password" formControlName="password"
               [ngClass]="{'is-invalid':(loginForm.get('password').touched|| loginForm.get('password').dirty)
@@ -63,10 +63,10 @@
       </div>
     </div>
     <div class="alert alert-danger" *ngIf="isDeleted">
-      <span>You can not log in or register with this email, because this email is deleted by the administrator.</span>
+      <span>You can not log in or register.This account is deleted by the administrator.</span>
     </div>
     <div class="alert alert-danger" *ngIf="isInactive">
-      <span>Account with this email is not active. You can send a confirmation mail to activate your account.</span>
+      <span>Account is not active. You can send a confirmation mail to activate your account.</span>
       <button type="button" class="btn btn-outline-success" (click)="sendMail()">Send to activate</button>
     </div>
     <div class="alert alert-success" *ngIf="mailIsSent">

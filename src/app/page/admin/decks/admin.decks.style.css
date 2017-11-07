@@ -1,56 +1,12 @@
-.admins-tables {
-  background: white;
-  border-radius: 0.8rem;
-}
-
-.admins-tables-header {
-  border-top: hidden
-}
-
-.btn-secondary {
-  color: #000;
-  background-color: #fff;
-  border-color: #000;
-}
-
-.btn-secondary:hover {
-  color: #000;
-  background-color: #f5f5ff;
-  border-color: #6c757d;
-}
-
-.internal-text {
-  text-align: center;
-  font-size: 120%;
-}
 .pagination{
   width: 20%;
   margin: auto;
 }
-.row th, li{
-  cursor: pointer;
-}
-.row th:hover, .pagination li:hover {
-  color: #000;
-  background-color: #e1d7e8;
-}
+
 .pagination li.active > a{
   background-color:#eee;
 }
-.disabled{
-  cursor: default;
-}
-.table-row:hover {
-  cursor: pointer;
-  background-color: #e1d7e8;
-}
-.admins-tables-header th:hover {
-  cursor: pointer;
-  background-color: #e1d7e8;
-}
-.admins-tables-header th {
-  background-color: #e6e6e6;
-}
-.admins-tables-header .header-item {
-  background-color: #d6d6d6;
+
+#row-button {
+  margin-top: 20px;
 }

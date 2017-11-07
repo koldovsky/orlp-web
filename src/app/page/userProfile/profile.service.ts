@@ -12,6 +12,7 @@ import {DTOConverter} from '../../dto/dto.converter';
 import {Person} from '../../dto/Person';
 import {PasswordDTO} from '../../dto/PasswordDTO';
 import {NGXLogger} from 'ngx-logger';
+import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
 
 @Injectable()
 export class ProfileService {
@@ -68,5 +69,14 @@ export class ProfileService {
 
   updateCardsNumber(cardsNumber: number): Observable<Response> {
     return this.orlp.put('api/private/account/cards-number', cardsNumber);
+  }
+
+  getRememberingLevels(): Observable<RememberingLevelDTO[]> {
+    return this.orlp.get('api/private/account/remembering-levels').map((response: Response) =>
+      DTOConverter.jsonArrayToCollection(DTOConverter.jsonToRememberingLevel, response.json()));
+  }
+
+  updateRememberingLevel(id: number, numberOfPostponedDays: number): Observable<Response> {
+    return this.orlp.put('api/private/account/remembering-levels/' + id, numberOfPostponedDays);
   }
 }

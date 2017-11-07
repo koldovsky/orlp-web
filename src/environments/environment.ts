@@ -9,5 +9,16 @@ export const environment = {
   production: false,
   logger: {
     level: NgxLoggerLevel.DEBUG
-  }
+  },
+  providers: {
+    google: {
+      clientId: '109414995516-fftdn22fnpfdh80fgfsvpq1ht97hdkl5.apps.googleusercontent.com'
+    },
+    facebook: {
+      clientId: '439882899718340',
+      apiVersion: 'v2.9'
+    }
+  },
+  SERVER_ADDRESS: 'http://localhost:8080/',
+  SITE_KEY: '6LeS2ykUAAAAAMB0_bP2UKSJgI1U5TU9r_al9ESP'
 };
