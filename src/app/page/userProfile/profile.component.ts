@@ -32,14 +32,13 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public person: Person = new Person();
   public currentPassword: string;
   public newPassword: string;
-  public showForm: boolean;
   public showModal: boolean;
   public chosenImage = false;
   public authenticationType: string;
   public imageProfile: string;
   public showMessageData = false;
   lastSelectedRegime: string;
-  public currentPasswordNotMatch = false;
+  public currentPasswordMessage: boolean;
   selectedRegime: string;
   lastCardsNumber: number;
   cardsNumber: number;
@@ -113,9 +112,9 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.newPassword = this.userForm.value.passwordGroup.password;
     this.profileService.changePassword(new PasswordDTO(this.currentPassword, this.newPassword))
       .subscribe(() => {
-          this.showForm = true;
+        this.currentPasswordMessage = true;
         }, (error) => {
-        this.currentPasswordNotMatch = true;
+        this.currentPasswordMessage = false;
         });
   }
 
