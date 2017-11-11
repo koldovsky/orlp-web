@@ -18,10 +18,8 @@ export class UserStatusChangeComponent implements OnInit {
 
   ngOnInit(): void {
     if (sessionStorage.getItem('status') === 'DELETED') {
-      this.authorizationService.emitIsAuthorizedChangeEvent(false);
       this.deleteMessage = true;
     }else if (sessionStorage.getItem('status') === 'INACTIVE') {
-      this.authorizationService.emitIsAuthorizedChangeEvent(false);
       this.inactiveMessage = true;
     } else if (sessionStorage.getItem('status') === 'BLOCKED') {
       this.blockedMessage = true;

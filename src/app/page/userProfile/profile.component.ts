@@ -8,6 +8,7 @@ import {PasswordDTO} from '../../dto/PasswordDTO';
 import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
 import {LoginService} from '../authorization/login/login.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
+import {AuthorizationService} from '../authorization/authorization.service';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -55,7 +56,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private router: Router,
               private loginService: LoginService,
               private formBuilder: FormBuilder,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private authorizationService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -122,6 +124,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
+        this.authorizationService.emitIsAuthorizedChangeEvent(false);
         sessionStorage.setItem('status', 'INACTIVE');
       this.router.navigate(['user/status/change']);
     });
