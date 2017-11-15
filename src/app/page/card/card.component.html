@@ -5,6 +5,12 @@
         <div class="info-additional-content">
           <h4>The deck is over</h4>
           <p>{{cardsEndedMessage}}</p>
+          <hr>
+          <div *ngIf="isShowRating">
+            <p>{{badStatusMark}} question was TOO HARD.</p>
+            <p>{{normalStatusMark}} question was MEDIUM</p>
+            <p>{{goodStatusMark}} question was EASY</p>
+          </div>
         </div>
         <div class="info-additional-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" routerLink="/main">Return to home page</button>
