@@ -9,7 +9,7 @@ import {AuthService} from 'angular2-social-login';
 import {AuthorizationService} from '../authorization.service';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
 import {NGXLogger} from 'ngx-logger';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -40,6 +40,10 @@ export class SignUpComponent implements OnInit {
   NOT_FOUND = 404;
   CREATED = 201;
   SERVICE_UNAVAILABLE = 503;
+  NAMES_MIN_LENGTH = 2;
+  NAMES_MAX_LENGTH = 15;
+  PASSWORD_MIN_LENGTH = 8;
+  PASSWORD_MAX_LENGTH = 20;
 
   constructor(private router: Router,
               private signupService: SignupService,
@@ -50,12 +54,22 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit() {
+    const validators = [
+      Validators.required,
+      Validators.minLength(this.NAMES_MIN_LENGTH),
+      Validators.maxLength(this.NAMES_MAX_LENGTH),
+      Validators.pattern('[a-zA-Zа-яіІА-Я]*')
+    ];
     this.userForm = this.formBuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
+      firstName: ['', validators],
+      lastName: ['', validators],
       email: ['', [Validators.email, Validators.required]],
       passwordGroup: this.formBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(8)]],
+        password: ['', [
+          Validators.required,
+          Validators.minLength(this.PASSWORD_MIN_LENGTH),
+          Validators.maxLength(this.PASSWORD_MAX_LENGTH)
+        ]],
         confirmPassword: ['', [Validators.required]],
       }, {validator: passwordMatcher})
     });
