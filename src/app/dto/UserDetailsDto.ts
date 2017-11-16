@@ -10,11 +10,12 @@ export class UserDetailsDto {
     authenticationType: string;
     authorities: string[];
     accountStatus: string;
+    deactivated: boolean;
     public self: Link;
 
 
-  constructor(firstName: string, lastName: string, email: string, imageType: string,
-  imageBase64: string, image: string, authenticationType: string, authorities: string[], accountStatus: string, self: Link) {
+  constructor(firstName: string, lastName: string, email: string, imageType: string, imageBase64: string,
+              image: string, authenticationType: string, authorities: string[], accountStatus: string, deactivated: boolean, self: Link) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
@@ -24,6 +25,7 @@ export class UserDetailsDto {
     this.authenticationType = authenticationType;
     this.authorities = authorities;
     this.accountStatus = accountStatus;
+    this.deactivated = deactivated;
     this.self = self;
   }
 }
