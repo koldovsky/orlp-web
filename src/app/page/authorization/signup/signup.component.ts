@@ -58,7 +58,7 @@ export class SignUpComponent implements OnInit {
       Validators.required,
       Validators.minLength(this.NAMES_MIN_LENGTH),
       Validators.maxLength(this.NAMES_MAX_LENGTH),
-      Validators.pattern('[a-zA-Zа-яіІА-Я]*')
+      Validators.pattern('[^`~!@#$%^&*()-_=+[\\]{};:\'\".>/?,<\\|]*')
     ];
     this.userForm = this.formBuilder.group({
       firstName: ['', validators],
