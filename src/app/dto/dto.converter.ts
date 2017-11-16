@@ -14,7 +14,7 @@ import {UserDetailsDto} from './UserDetailsDto';
 import {DeckLinkByFolder} from './DeckDTO/linkByFolder.deck.DTO';
 import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
-import {DTO} from './DTO/DTO';
+import {ImageDTO} from './ImageDTO/ImageDTO';
 import {AdminDeck} from './AdminDTO/admin.deck.DTO';
 import {DeckDTO} from './DeckDTO/DeckDTO';
 import {CreateCardDTO} from './CardsDTO/CreateCardDTO';
@@ -25,7 +25,7 @@ import {DeckByCategoryAndPageDTO} from './DeckDTO/linkToDeckByCategoryAndPage';
 import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
 import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
 import {CommentDTO} from './CommentDTO/commentDTO';
-import {UserRoleDTO} from "./CommentDTO/UeserRoleDTO";
+import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 
 export class DTOConverter {
@@ -35,9 +35,9 @@ export class DTOConverter {
     return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self);
   }
 
-  public static jsonToDTO(data: any): DTO {
+  public static jsonToImageDTO(data: any): ImageDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new DTO(data.imageId, data.isUsed, self);
+    return new ImageDTO(data.imageId, data.isUsed, self);
   }
 
   public static jsonToUserDTO(data: any): UserDTO {
