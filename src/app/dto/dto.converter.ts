@@ -14,7 +14,7 @@ import {UserDetailsDto} from './UserDetailsDto';
 import {DeckLinkByFolder} from './DeckDTO/linkByFolder.deck.DTO';
 import {CourseLinkWithId} from './CourseDTO/linkWithId.course.DTO';
 import {AdminAudit} from './AdminDTO/admin.audit.DTO';
-import {ImageDTO} from './ImageDTO/ImageDTO';
+import {DTO} from './DTO/DTO';
 import {AdminDeck} from './AdminDTO/admin.deck.DTO';
 import {DeckDTO} from './DeckDTO/DeckDTO';
 import {CreateCardDTO} from './CardsDTO/CreateCardDTO';
@@ -35,9 +35,9 @@ export class DTOConverter {
     return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self);
   }
 
-  public static jsonToImageDTO(data: any): ImageDTO {
+  public static jsonToDTO(data: any): DTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new ImageDTO(data.imageId, self);
+    return new DTO(data.imageId, data.isUsed, self);
   }
 
   public static jsonToUserDTO(data: any): UserDTO {

@@ -14,7 +14,12 @@
           <th>#</th>
           <th>Category Name</th>
           <th>Category Description</th>
-          <th></th>
+          <th>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" (click)="beforeCreate()"><i
+              class="fa fa-plus" aria-hidden="true"></i>
+              Create
+            </button>
+          </th>
         </tr>
         <tr *ngFor="let category of categories | categoryFilter:listFilter">
           <td>
@@ -31,6 +36,93 @@
           </td>
         </tr>
       </table>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header card-header">
+        <h4 class="modal-title">Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Name</label>
+          <div class="col-md-9">
+            <input type="text" id="text-input" class="form-control" [(ngModel)]="categoryName"/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="textarea-input">Description</label>
+          <div class="col-md-9">
+            <textarea id="textarea-input" rows="6" class="form-control" [(ngModel)]="categoryDescription"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="textarea-input">Image</label>
+          <div class="col-md-9">
+            <div data-toggle="modal" data-target=".bd-example-modal-lg">
+              <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
+              <ng-template #chosenContent>
+                <img [src]="chosenImage.self.href" alt="image" class="chosen-image"/>
+              </ng-template>
+              <ng-template #chooseContent>
+                <div class="choose-image" (click)="getUserImages()">
+                  Choose image
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!categoryName || !categoryDescription || !chosenImage" class="btn btn-success"
+                data-dismiss="modal"
+                (click)="createCategory()" data-toggle="modal"
+                data-target="#CreateCategory"><i class="fa fa-dot-circle-o"></i> Create
+        </button>
+        <button type="reset" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">Images</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let image of userImages">
+          <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
+               data-dismiss="modal"/>
+          <button *ngIf="!image.isUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)"><i
+            class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div>
+          <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file">
+          <label for="file">Choose a file</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="CreateCategory" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">{{createCategoryMessage}}</h1>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-primary"
+                data-dismiss="modal">OK
+        </button>
+      </div>
     </div>
   </div>
 </div>
