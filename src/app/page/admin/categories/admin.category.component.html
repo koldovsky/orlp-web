@@ -99,7 +99,7 @@
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
                data-dismiss="modal"/>
-          <button *ngIf="!image.isUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)"><i
+          <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)"><i
             class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div>

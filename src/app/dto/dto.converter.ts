@@ -37,7 +37,7 @@ export class DTOConverter {
 
   public static jsonToImageDTO(data: any): ImageDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new ImageDTO(data.imageId, data.isUsed, self);
+    return new ImageDTO(data.imageId, data.isImageUsed, self);
   }
 
   public static jsonToUserDTO(data: any): UserDTO {

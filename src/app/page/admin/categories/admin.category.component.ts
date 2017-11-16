@@ -54,7 +54,7 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   getChosenImage(image: ImageDTO) {
-    console.log(image.isUsed);
+    console.log(image.isImageUsed);
     this.chosenImage = image;
   }
 
