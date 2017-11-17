@@ -19,9 +19,9 @@ export class UserCategoriesComponent implements OnInit {
   actionSort = true;
   currentPage = 1;
   lastPage: number;
-  categoryColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Category Name', '')
+  categoryColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Category Name', '')
     , new TableColumnDTO('description', 'Category Description', '')];
-  selectedSortedParam: TableColumnDTO = this.categoryColumns[0];
+  selectedSortedParam: TableColumnDTO = new TableColumnDTO('id', '#', '');
 
   constructor(private userCategoriesService: UserCategoriesService,
               private orlpService: ORLPService) {

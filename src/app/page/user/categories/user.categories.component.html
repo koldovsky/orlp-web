@@ -3,6 +3,7 @@
     <div *ngIf="categories" class="col-12">
       <table class="table table-striped admins-tables">
         <tr class="admins-tables-header">
+          <th class="disabled-header">#</th>
           <th *ngFor="let column of categoryColumns"
               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
               (click)="sortBy(column)">

@@ -25,6 +25,10 @@
 .disabled{
   cursor: default;
 }
+.admins-tables-header .disabled-header:hover{
+  cursor: default;
+  background-color: #d8d9da;
+}
 th, li{
   cursor: pointer;
 }
