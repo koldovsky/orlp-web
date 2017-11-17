@@ -27,6 +27,7 @@ import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAn
 import {CommentDTO} from './CommentDTO/commentDTO';
 import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
+import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
 
 export class DTOConverter {
 
@@ -96,6 +97,11 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status);
+  }
+
+  public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
+    const categories: Array<CategoriesPublic> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, data.content);
+    return new CategoriesByPageDTO(categories, data.totalPages);
   }
 
   public static jsonToDeckByCategoryAndPage(data: any): DeckByCategoryAndPageDTO {
