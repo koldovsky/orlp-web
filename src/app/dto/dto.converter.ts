@@ -25,7 +25,7 @@ import {DeckByCategoryAndPageDTO} from './DeckDTO/linkToDeckByCategoryAndPage';
 import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
 import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
 import {CommentDTO} from './CommentDTO/commentDTO';
-import {UserRoleDTO} from "./CommentDTO/UeserRoleDTO";
+import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 
 export class DTOConverter {
@@ -37,7 +37,7 @@ export class DTOConverter {
 
   public static jsonToImageDTO(data: any): ImageDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new ImageDTO(data.imageId, self);
+    return new ImageDTO(data.imageId, data.isImageUsed, self);
   }
 
   public static jsonToUserDTO(data: any): UserDTO {
