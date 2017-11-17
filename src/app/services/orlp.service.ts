@@ -27,6 +27,10 @@ export class ORLPService {
     return this.http.delete(environment.SERVER_ADDRESS + url, {withCredentials: true});
   }
 
+  deleteByLongLink(url: string) {
+    return this.http.delete(url, {withCredentials: true});
+  }
+
   public getShortLink(link: Link) {
     let url: string = link.href;
     url = url.replace(environment.SERVER_ADDRESS, '');

@@ -26,8 +26,7 @@ export class AdminCategoryService {
       .catch(this.handleError);
   }
 
-  public createCategory(newCategory: CreateCategoryDTO) {
-    console.log(newCategory);
+  createCategory(newCategory: CreateCategoryDTO) {
     return this.orlp.post('api/admin/add/category/', newCategory).map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -36,14 +35,13 @@ export class AdminCategoryService {
       .map((response: Response) => response.json());
   }
 
-  public getUserImages(): Observable<ImageDTO[]> {
+  getUserImages(): Observable<ImageDTO[]> {
     return this.orlp.get('api/service/images/user/')
       .map((response: Response) => <ImageDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToImageDTO, response.json()));
   }
 
-  deleteImage(imageId: number) {
-    return this.orlp.delete('/api/service/image/' + imageId)
-      .map((response: Response) => this.logger.log(response));
+  deleteImage(imageLink: string) {
+    return this.orlp.deleteByLongLink(imageLink).map((response: Response) => this.logger.log(response));
   }
 
   private handleError(error: Response) {

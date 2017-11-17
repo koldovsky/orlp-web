@@ -65,18 +65,16 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   getChosenImage(image: ImageDTO) {
-    console.log(image.isImageUsed);
     this.chosenImage = image;
   }
 
   deleteImage(image: ImageDTO) {
-    this.adminCategoryService.deleteImage(image.id)
+    this.adminCategoryService.deleteImage(image.self.href)
       .subscribe(() => this.getUserImages());
   }
 
   beforeCreate() {
-    this.categoryForm.markAsPristine();
-    this.categoryForm.markAsUntouched();
+    this.categoryForm.reset();
     this.categoryName = '';
     this.categoryDescription = '';
     this.chosenImage = null;
