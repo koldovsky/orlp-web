@@ -3,6 +3,7 @@ import {AdminCategoryService} from './admin.category.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   providers: [AdminCategoryService],
@@ -19,11 +20,21 @@ export class AdminCategoryComponent implements OnInit {
   public userImages: ImageDTO[];
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
+  public categoryForm: FormGroup;
 
-  constructor(private adminCategoryService: AdminCategoryService) {
+
+  constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    const nameValidators = [Validators.required, Validators.minLength(2),
+      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()-_=[\\]{};:\'\".>/?,<\\|]*')];
+    const descriptionValidators = [Validators.required, Validators.minLength(10),
+      Validators.maxLength(150), Validators.pattern('[^`~!@#$%^&*()_=[\\]{};:\'\">/?<\\|]*')];
+    this.categoryForm = this.formBuilder.group({
+      name: ['', nameValidators],
+      description: ['', descriptionValidators]
+    });
     this.getAllCategories();
   }
 
@@ -64,8 +75,14 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   beforeCreate() {
+    this.categoryForm.markAsPristine();
+    this.categoryForm.markAsUntouched();
     this.categoryName = '';
     this.categoryDescription = '';
     this.chosenImage = null;
+  }
+
+  isFormValid(): boolean {
+    return this.categoryForm.valid;
   }
 }

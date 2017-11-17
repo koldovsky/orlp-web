@@ -105,3 +105,6 @@ textarea {
   background-color: gray;
 }
 
+.form-control{
+  height: auto
+}

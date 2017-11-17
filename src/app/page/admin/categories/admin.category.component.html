@@ -40,6 +40,7 @@
   </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header card-header">
@@ -48,28 +49,57 @@
           aria-hidden="true">&times;</span></button>
       </div>
       <div class="card-body">
-        <div class="form-group row">
-          <label class="col-md-3 col-form-label" for="text-input">Name</label>
+        <div class="row form-group" [formGroup]="categoryForm">
+          <label class="col-md-3 col-form-label" for="name">Name</label>
           <div class="col-md-9">
-            <input type="text" id="text-input" class="form-control" [(ngModel)]="categoryName"/>
+            <input type="text" id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
+                       (categoryForm.get('name').touched||categoryForm.get('name').dirty)&&categoryForm.get('name').errors}"
+                   [(ngModel)]="categoryName"
+                   required>
+            <div *ngIf="categoryForm.get('name').hasError('required')" class="invalid-feedback">
+              Name is required field!
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('pattern')" class="invalid-feedback">
+              You wrote incorrect characters!
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('minlength')" class="invalid-feedback">
+              Name is too short! (not less than 2 characters)
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('maxlength')" class="invalid-feedback">
+              Name is too long! (not more than 15 characters)
+            </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" [formGroup]="categoryForm">
           <label class="col-md-3 col-form-label" for="textarea-input">Description</label>
           <div class="col-md-9">
-            <textarea id="textarea-input" rows="6" class="form-control" [(ngModel)]="categoryDescription"></textarea>
+              <textarea id="textarea-input" rows="6" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
+                       (categoryForm.get('description').touched||categoryForm.get('description').dirty)&&categoryForm.get('description').errors}"
+                        required [(ngModel)]="categoryDescription"></textarea>
+            <div *ngIf="categoryForm.get('description').hasError('required')" class="invalid-feedback">
+              Description is required field!
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('pattern')" class="invalid-feedback">
+              You wrote incorrect characters!
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('minlength')" class="invalid-feedback">
+              Description is too short! (not less than 10 characters)
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('maxlength')" class="invalid-feedback">
+              Description is too long! (not more than 200 characters)
+            </div>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row" [formGroup]="categoryForm">
           <label class="col-md-3 col-form-label" for="textarea-input">Image</label>
           <div class="col-md-9">
-            <div data-toggle="modal" data-target=".bd-example-modal-lg">
+            <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
               <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
               <ng-template #chosenContent>
                 <img [src]="chosenImage.self.href" alt="image" class="chosen-image"/>
               </ng-template>
               <ng-template #chooseContent>
-                <div class="choose-image" (click)="getUserImages()">
+                <div class="choose-image">
                   Choose image
                 </div>
               </ng-template>
@@ -78,7 +108,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button [disabled]="!categoryName || !categoryDescription || !chosenImage" class="btn btn-success"
+        <button [disabled]="!isFormValid() || !chosenImage" class="btn btn-success"
                 data-dismiss="modal"
                 (click)="createCategory()" data-toggle="modal"
                 data-target="#CreateCategory"><i class="fa fa-dot-circle-o"></i> Create
