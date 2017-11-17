@@ -61,7 +61,7 @@
   <div class="row">
     <div *ngFor="let course of courses" class="col">
       <div class="card course-card">
-        <img class="card-image" src={{course.image}} alt="Card image cap">
+        <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]" alt="Card image cap">
         <div class="card-body course-card-body">
           <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
           <div *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
