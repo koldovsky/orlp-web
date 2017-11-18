@@ -21,6 +21,8 @@ export class AdminCategoryComponent implements OnInit {
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
   public categoryForm: FormGroup;
+  public errorImage: boolean;
+  public errorMesage: string;
 
 
   constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
@@ -28,7 +30,7 @@ export class AdminCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const nameValidators = [Validators.required, Validators.minLength(2),
-      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()-_=[\\]{};:\'\".>/?,<\\|]*')];
+      Validators.maxLength(15), Validators.pattern('[^`~!@#$%^&*()-_=+[\\]{};:\'\".>/?,<\\|]*')];
     const descriptionValidators = [Validators.required, Validators.minLength(10),
       Validators.maxLength(150), Validators.pattern('[^`~!@#$%^&*()_=[\\]{};:\'\">/?<\\|]*')];
     this.categoryForm = this.formBuilder.group({
@@ -40,7 +42,7 @@ export class AdminCategoryComponent implements OnInit {
 
   createCategory() {
     this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription, this.chosenImage)).subscribe(() => {
-      this.createCategoryMessage = 'Category created!';
+      this.createCategoryMessage = 'Category "' + this.categoryName + '" created!';
       this.getAllCategories();
     }, () => this.createCategoryMessage = 'Error. Please try again!');
   }
@@ -50,7 +52,12 @@ export class AdminCategoryComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', file);
     this.adminCategoryService.addImage(formData)
-      .subscribe(() => this.getUserImages());
+      .subscribe(() => this.getUserImages(), () => {
+        this.errorImage = true;
+        this.errorMesage = 'You chossen incorrect image!';
+      });
+    this.errorImage = false;
+
   }
 
   getUserImages() {
