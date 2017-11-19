@@ -26,7 +26,7 @@ export class CommentService {
   }
 
   public addNewComment(url: string, createCommentDTO: CreateCommentDTO) {
-    return this.orlp.post(url + '/commentss', createCommentDTO).map((response: Response) => response.json())
+    return this.orlp.post(url + '/comments', createCommentDTO).map((response: Response) => response.json())
       .catch(this.handleError);
   }
 

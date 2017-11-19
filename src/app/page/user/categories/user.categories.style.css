@@ -2,3 +2,33 @@
   cursor: pointer;
   background-color: #e1d7e8;
 }
+.admins-tables-header th:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.header-item {
+  background-color: #f1f1f1;
+}
+.pagination{
+  width: 20%;
+  margin: auto;
+}
+.pagination li.active > a:hover{
+  cursor: pointer;
+}
+.pagination li.active > a{
+  background-color:#eee;
+}
+.active-page-link:hover{
+  background-color: #bcbcbc;
+}
+.disabled{
+  cursor: default;
+}
+.admins-tables-header .disabled-header:hover{
+  cursor: default;
+  background-color: #d8d9da;
+}
+th, li{
+  cursor: pointer;
+}
