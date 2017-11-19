@@ -1,4 +1,4 @@
-import {CategoriesPublic} from "./public.categories";
+import {CategoriesPublic} from './public.categories';
 
 export class CategoriesByPageDTO {
   public categories: CategoriesPublic[];

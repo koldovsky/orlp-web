@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AdminCategoryService} from './admin.category.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
+import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
 
 @Component({
   providers: [AdminCategoryService],
