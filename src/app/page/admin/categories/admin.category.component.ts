@@ -21,8 +21,7 @@ export class AdminCategoryComponent implements OnInit {
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
   public categoryForm: FormGroup;
-  public errorImage: boolean;
-  public errorMesage: string;
+  public errorImageFile: boolean;
 
 
   constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
@@ -30,9 +29,9 @@ export class AdminCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const nameValidators = [Validators.required, Validators.minLength(2),
-      Validators.maxLength(15), Validators.pattern('[^`~!@#$%^&*()-_=+[\\]{};:\'\".>/?,<\\|]*')];
+      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
     const descriptionValidators = [Validators.required, Validators.minLength(10),
-      Validators.maxLength(150), Validators.pattern('[^`~!@#$%^&*()_=[\\]{};:\'\">/?<\\|]*')];
+      Validators.maxLength(150), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
     this.categoryForm = this.formBuilder.group({
       name: ['', nameValidators],
       description: ['', descriptionValidators]
@@ -49,18 +48,21 @@ export class AdminCategoryComponent implements OnInit {
 
   loadFile(fileInput: any) {
     const file = fileInput.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    this.adminCategoryService.addImage(formData)
-      .subscribe(() => this.getUserImages(), () => {
-        this.errorImage = true;
-        this.errorMesage = 'You chossen incorrect image!';
-      });
-    this.errorImage = false;
-
+    if (file != null) {
+      const formData = new FormData();
+      formData.append('file', file);
+      this.adminCategoryService.addImage(formData)
+        .subscribe(() => {
+          this.getUserImages();
+        }, () => {
+          this.errorImageFile = true;
+        });
+    }
+    this.errorImageFile = false;
   }
 
   getUserImages() {
+    this.errorImageFile = false;
     this.adminCategoryService.getUserImages().subscribe(userImages => {
         this.userImages = userImages;
       }

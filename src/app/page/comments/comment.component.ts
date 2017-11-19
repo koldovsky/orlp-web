@@ -52,8 +52,8 @@ export class CommentComponent implements OnInit {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  addNewComment() {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, null)).subscribe(() => {
+  addNewComment(parentId: number) {
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, parentId)).subscribe(() => {
       this.getAllComments();
     });
     this.textOfNewComment = null;
@@ -63,13 +63,6 @@ export class CommentComponent implements OnInit {
     this.commentService.deleteComment(this.linkToCommentNeedToDelete).subscribe(() => {
       this.getAllComments();
     });
-  }
-
-  createReply(commentId: number) {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, commentId)).subscribe(() => {
-      this.getAllComments();
-    });
-    this.textOfNewComment = null;
   }
 
   getPersonRole(): void {
