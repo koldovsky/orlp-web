@@ -56,17 +56,18 @@ export class LoginComponent implements OnInit {
       this.success = false;
       this.error = false;
       this.wrongDetails = false;
+      this.verificationStat = false;
       this.account = this.loginForm.value;
       this.account.captcha = this.captcha;
       this.loginService.signIn(this.account)
         .subscribe((response) => {
           this.getStatus();
-        }, (error) => {
-          this.logger.error(error.json());
+        }, (error) => this.ngZone.run(() => {
           this.processError(error);
+          this.logger.error(error.json());
           this.captchaComponent.reset();
           this.captcha = null;
-        });
+        }));
   }
 
   private getStatus() {
@@ -95,6 +96,8 @@ export class LoginComponent implements OnInit {
     this.success = false;
     if (response.status === ORLPSettings.UNAUTHORIZED) {
       this.wrongDetails = true;
+    } else if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
+      this.isInactive = true;
     } else {
       this.error = true;
     }
@@ -112,16 +115,11 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem('status', 'DELETED');
       this.captchaComponent.reset();
       this.captcha = null;
-    }  else if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
-      this.isInactive = true;
-      this.success = false;
-      sessionStorage.setItem('status', 'INACTIVE');
-      this.captchaComponent.reset();
-      this.captcha = null;
     }
   }
 
   signInGoogle(provider: string) {
+    this.verificationStat = false;
     this.auth.login(provider).subscribe(
       (data) => {
         this.user = data;
@@ -134,12 +132,13 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
       .subscribe((response) =>  this.ngZone.run(() => {
         this.getStatus();
-      }), (error) => {
+      }), (error) => this.ngZone.run(() => {
         this.processError(error);
-      });
+      }));
   }
 
   signInFacebook(provider: string) {
+    this.verificationStat = false;
     this.auth.login(provider).subscribe(
       (data) => {
         this.user = data;
@@ -152,9 +151,9 @@ export class LoginComponent implements OnInit {
     this.authorizationService.sendFacebookToken(this.user.token)
       .subscribe((response) => this.ngZone.run(() => {
         this.getStatus();
-      }), (error) => {
+      }), (error) => this.ngZone.run(() => {
         this.processError(error);
-      });
+      }));
   }
 
   handleCorrectCaptcha($event) {
