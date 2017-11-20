@@ -108,6 +108,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private saveChanges() {
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
+    this.originalFirstName = this.firstName;
+    this.originalLastName = this.lastName;
     this.profileService.changePersonalData(this.person)
       .subscribe(user => {
         this.showMessageData = true;
