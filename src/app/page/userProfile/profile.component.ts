@@ -30,6 +30,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public userProfile: UserDetailsDto;
   public firstName: string;
   public lastName: string;
+  public originalFirstName: string;
+  public originalLastName: string;
   public person: Person = new Person();
   public currentPassword: string;
   public newPassword: string;
@@ -76,6 +78,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
         this.userProfile = user;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
+        this.originalFirstName = user.firstName;
+        this.originalLastName = user.lastName;
         if (user.imageType === 'BASE64') {
           this.imageProfile = user.self.href + '/image' + '?' + new Date().getTime();
         } else {
@@ -280,5 +284,18 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
 
   closeAlert(): void {
     this.savingResultMessage = '';
+  }
+
+  public cancelChanges() {
+    console.log(this.firstName, this.lastName);
+    console.log(this.originalFirstName, this.originalLastName);
+    // this.profileService.getUserProfile()
+    //   .subscribe(user => {
+    //     this.userProfile = user;
+    //     this.firstName = user.firstName;
+    //     this.lastName = user.lastName;
+    //   });
+    this.firstName = this.originalFirstName;
+    this.lastName = this.originalLastName;
   }
 }
