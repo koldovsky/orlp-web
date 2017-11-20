@@ -287,14 +287,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   }
 
   public cancelChanges() {
-    console.log(this.firstName, this.lastName);
-    console.log(this.originalFirstName, this.originalLastName);
-    // this.profileService.getUserProfile()
-    //   .subscribe(user => {
-    //     this.userProfile = user;
-    //     this.firstName = user.firstName;
-    //     this.lastName = user.lastName;
-    //   });
     this.firstName = this.originalFirstName;
     this.lastName = this.originalLastName;
   }
