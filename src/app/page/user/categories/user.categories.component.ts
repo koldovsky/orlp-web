@@ -3,7 +3,7 @@ import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {UserCategoriesService} from './user.categories.service';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
-import {TableColumnDTO} from "../../../dto/TableColumnDTO";
+import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 
 @Component({
   selector: 'app-user-all-categories',
@@ -14,8 +14,6 @@ import {TableColumnDTO} from "../../../dto/TableColumnDTO";
 export class UserCategoriesComponent implements OnInit {
 
   categories: CategoriesPublic[];
-  errorMessage: string;
-  listFilter: string;
   actionSort = true;
   currentPage = 1;
   lastPage: number;

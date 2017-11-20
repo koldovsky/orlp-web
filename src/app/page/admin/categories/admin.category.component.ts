@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AdminCategoryService} from './admin.category.service';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
-import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
 
 @Component({
   providers: [AdminCategoryService],
@@ -21,6 +21,7 @@ export class AdminCategoryComponent implements OnInit {
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
   public categoryForm: FormGroup;
+  public errorImageFile: boolean;
 
 
   constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
@@ -28,9 +29,9 @@ export class AdminCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const nameValidators = [Validators.required, Validators.minLength(2),
-      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()-_=[\\]{};:\'\".>/?,<\\|]*')];
+      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
     const descriptionValidators = [Validators.required, Validators.minLength(10),
-      Validators.maxLength(150), Validators.pattern('[^`~!@#$%^&*()_=[\\]{};:\'\">/?<\\|]*')];
+      Validators.maxLength(150), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
     this.categoryForm = this.formBuilder.group({
       name: ['', nameValidators],
       description: ['', descriptionValidators]
@@ -40,20 +41,28 @@ export class AdminCategoryComponent implements OnInit {
 
   createCategory() {
     this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription, this.chosenImage)).subscribe(() => {
-      this.createCategoryMessage = 'Category created!';
+      this.createCategoryMessage = 'Category "' + this.categoryName + '" created!';
       this.getAllCategories();
     }, () => this.createCategoryMessage = 'Error. Please try again!');
   }
 
   loadFile(fileInput: any) {
     const file = fileInput.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    this.adminCategoryService.addImage(formData)
-      .subscribe(() => this.getUserImages());
+    if (file != null) {
+      const formData = new FormData();
+      formData.append('file', file);
+      this.adminCategoryService.addImage(formData)
+        .subscribe(() => {
+          this.getUserImages();
+        }, () => {
+          this.errorImageFile = true;
+        });
+    }
+    this.errorImageFile = false;
   }
 
   getUserImages() {
+    this.errorImageFile = false;
     this.adminCategoryService.getUserImages().subscribe(userImages => {
         this.userImages = userImages;
       }
