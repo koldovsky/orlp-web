@@ -21,7 +21,7 @@
       "styles": [
         "assets/css/myStyles.css",
         "scss/style.scss",
-        ".u./node_modles/font-awesome/css/font-awesome.css",
+        "../node_modles/font-awesome/css/font-awesome.css",
         "../node_modules/simple-line-icons/css/simple-line-icons.css"
       ],
       "scripts": [
