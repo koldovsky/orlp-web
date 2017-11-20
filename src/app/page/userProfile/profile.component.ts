@@ -9,6 +9,7 @@ import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
 import {LoginService} from '../authorization/login/login.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {AuthorizationService} from '../authorization/authorization.service';
+import {LogoutService} from '../logout/logout.service';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -50,6 +51,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   rememberingLevels: RememberingLevelDTO[] = [];
   savingResultMessage: string;
   isFocused: boolean;
+  isAuthorized: boolean;
 
   userForm: FormGroup;
 
@@ -58,10 +60,15 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
-              private authorizationService: AuthorizationService) {
+              private authorizationService: AuthorizationService,
+              private logoutService: LogoutService ) {
   }
 
   ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.status = sessionStorage.getItem('status');
     this.getProfile();
     this.userForm = this.formBuilder.group({

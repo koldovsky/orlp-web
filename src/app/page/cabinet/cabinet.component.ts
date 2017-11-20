@@ -14,6 +14,7 @@ import {Rating} from '../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
+import {LogoutService} from '../logout/logout.service';
 
 @Component({
   providers: [CabinetService],
@@ -33,17 +34,23 @@ export class CabinetComponent implements OnInit {
   public showAlertcouse = true;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;
+  isAuthorized: boolean;
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
               private cabinetService: CabinetService,
               private router: Router,
               private userStatusChangeService: UserStatusChangeService,
-              private logger: NGXLogger) {
+              private logger: NGXLogger,
+              private logoutService: LogoutService) {
 
   }
 
   ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.status = sessionStorage.getItem('status');
     this.getUser();
   }

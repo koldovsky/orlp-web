@@ -4,6 +4,7 @@ import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {PrivateCourseDTO} from '../../../dto/CourseDTO/private.course.DTO';
 import {Router} from '@angular/router';
+import {LogoutService} from '../../logout/logout.service';
 
 @Component({
   templateUrl: ('./course.component.html'),
@@ -17,11 +18,16 @@ export class CourseComponent implements OnInit {
   public chosenImage: ImageDTO;
   public courseName: string;
   public courseDescription: string;
+  isAuthorized: boolean;
 
-  constructor(private courseService: CourseService, private router: Router) {
+  constructor(private courseService: CourseService, private router: Router,  private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.getCategories();
     this.getUserImages();
   }

@@ -6,6 +6,8 @@ import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../../services/orlp.service';
 import {Link} from '../../../../dto/link';
 import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
+import {LogoutService} from '../../../logout/logout.service';
+import {Router} from '@angular/router';
 
 @Component({
   providers: [CreateCardsService],
@@ -23,12 +25,17 @@ export class CreateCardsComponent implements OnInit {
   private sub: Subscription;
   public createCardMessage: string;
   public nameOfPageToBack: string;
+  isAuthorized: boolean;
 
   constructor(private createCardsService: CreateCardsService, private route: ActivatedRoute,
-              private orlp: ORLPService) {
+              private orlp: ORLPService, private logoutService: LogoutService, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];
