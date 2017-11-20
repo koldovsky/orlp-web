@@ -6,6 +6,8 @@ import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
+import {LogoutService} from '../../logout/logout.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -28,12 +30,17 @@ export class ManageCardsComponent implements OnInit {
   public nameOfPageToBack: string;
   public selectedItem: number;
   public listOfCardsMessage = 'Loading...';
+  isAuthorized: boolean;
 
   constructor(private manageCardsService: ManageCardsService, private route: ActivatedRoute,
-              private orlp: ORLPService) {
+              private orlp: ORLPService, private logoutService: LogoutService, private router: Router) {
   }
 
   ngOnInit() {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.sub = this.route.params.subscribe(
       params => {
         const url = params['url'];

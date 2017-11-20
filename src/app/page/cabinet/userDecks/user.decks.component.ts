@@ -6,6 +6,8 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
+import {LogoutService} from '../../logout/logout.service';
+import {Router} from '@angular/router';
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -26,11 +28,16 @@ export class UserDecksComponent implements OnInit {
   dialogButtonName: string;
   private isCreateDialog: boolean;
   private selectedIndex: number;
+  isAuthorized: boolean;
 
-  constructor(private userDecksService: UserDecksService, private orlp: ORLPService) {
+  constructor(private userDecksService: UserDecksService, private orlp: ORLPService, private logoutService: LogoutService, private router: Router) {
   }
 
   ngOnInit() {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.userDecksService.getUser().subscribe(user => {
       this.user = user;
       this.getOnlyDecksCreatedByTheUser();

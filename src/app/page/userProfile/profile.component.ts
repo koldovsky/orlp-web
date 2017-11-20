@@ -9,6 +9,7 @@ import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
 import {LoginService} from '../authorization/login/login.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {AuthorizationService} from '../authorization/authorization.service';
+import {LogoutService} from '../logout/logout.service';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -30,8 +31,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public userProfile: UserDetailsDto;
   public firstName: string;
   public lastName: string;
-  public originalFirstName: string;
-  public originalLastName: string;
   public person: Person = new Person();
   public currentPassword: string;
   public newPassword: string;
@@ -50,6 +49,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   rememberingLevels: RememberingLevelDTO[] = [];
   savingResultMessage: string;
   isFocused: boolean;
+  isAuthorized: boolean;
 
   userForm: FormGroup;
 
@@ -58,10 +58,15 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
-              private authorizationService: AuthorizationService) {
+              private authorizationService: AuthorizationService,
+              private logoutService: LogoutService ) {
   }
 
   ngOnInit(): void {
+    this.isAuthorized = this.logoutService.isAuthorized();
+    if (!this.isAuthorized) {
+      this.router.navigate(['login']);
+    }
     this.status = sessionStorage.getItem('status');
     this.getProfile();
     this.userForm = this.formBuilder.group({
@@ -78,8 +83,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
         this.userProfile = user;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
-        this.originalFirstName = user.firstName;
-        this.originalLastName = user.lastName;
         if (user.imageType === 'BASE64') {
           this.imageProfile = user.self.href + '/image' + '?' + new Date().getTime();
         } else {
@@ -108,8 +111,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private saveChanges() {
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
-    this.originalFirstName = this.firstName;
-    this.originalLastName = this.lastName;
     this.profileService.changePersonalData(this.person)
       .subscribe(user => {
         this.showMessageData = true;
@@ -286,10 +287,5 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
 
   closeAlert(): void {
     this.savingResultMessage = '';
-  }
-
-  public cancelChanges() {
-    this.firstName = this.originalFirstName;
-    this.lastName = this.originalLastName;
   }
 }
