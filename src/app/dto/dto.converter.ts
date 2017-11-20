@@ -155,7 +155,7 @@ export class DTOConverter {
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
-      data.image, data.authenticationType, data.authorities, data.accountStatus, self);
+      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {
