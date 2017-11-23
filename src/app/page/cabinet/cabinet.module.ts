@@ -9,6 +9,7 @@ import {CourseComponent} from './createCourse/course.component';
 import {CourseService} from './createCourse/course.service';
 import {UserDecksComponent} from './userDecks/user.decks.component';
 import {UserDecksService} from './userDecks/user.decks.service';
+import {UserGuardService} from '../user/user.guard.service';
 
 @NgModule({
   imports: [
@@ -16,9 +17,9 @@ import {UserDecksService} from './userDecks/user.decks.service';
     CommonModule,
     StarRatingModule,
     RouterModule.forChild([
-      {path: 'user/cabinet', component: CabinetComponent},
-      {path: 'user/cabinet/create/course', component: CourseComponent},
-      {path: 'user/cabinet/manage/decks', component: UserDecksComponent},
+      {path: 'user/cabinet', canActivate: [UserGuardService] , component: CabinetComponent},
+      {path: 'user/cabinet/create/course', canActivate: [UserGuardService] , component: CourseComponent},
+      {path: 'user/cabinet/manage/decks', canActivate: [UserGuardService] , component: UserDecksComponent},
     ])],
   exports: [],
   declarations: [CabinetComponent, CourseComponent, UserDecksComponent],
