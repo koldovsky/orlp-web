@@ -46,13 +46,15 @@
                 <div class="col-sm-6">
                   <div class="card">
                     <h5>Your answer</h5>
-                    <textarea readonly>{{answer}}</textarea>
+                    <codemirror [(ngModel)]="answer"
+                                [config]="config"></codemirror>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="card">
                     <h5 class="correct-answer-header">Correct answer</h5>
-                    <textarea readonly>{{cards[questionNumber].answer}}</textarea>
+                    <codemirror [(ngModel)]="answer"
+                                [config]="config"></codemirror>
                   </div>
                 </div>
               </div>

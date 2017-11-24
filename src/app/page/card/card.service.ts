@@ -8,6 +8,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
+import {DeckSynthaxDTO} from '../../dto/DeckDTO/deckSynthaxDTO';
 
 @Injectable()
 export class CardService {
@@ -43,5 +44,11 @@ export class CardService {
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  public getDeckSynthax(deckId: number): Observable<DeckSynthaxDTO> {
+    return this.orlp.get('/api/private/decks/' + deckId + '/synthax')
+      .map((response: Response) => DTOConverter.jsonToDeckSynthax(response.json()))
+      .catch(this.handleError);
   }
 }

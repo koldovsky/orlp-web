@@ -4,12 +4,17 @@ import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {LogoutService} from '../logout/logout.service';
 
+import 'codemirror/mode/clike/clike';
+import {DeckSynthaxDTO} from '../../dto/DeckDTO/deckSynthaxDTO';
+
 @Component({
   templateUrl: ('./card.component.html'),
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
   public static deckId: number;
+  public static synthax: string;
+
   public routing = false;
   public questionNumber = 0;
   public maxQuantityCard;
@@ -31,7 +36,7 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(
+   this.route.params.subscribe(
       params => {
         this.url = params['url'];
         this.getLearningCards(true);
@@ -55,7 +60,6 @@ export class CardComponent implements OnInit {
     }
     this.routing = false;
   }
-
 
   getLearningCards(isStart: boolean) {
     this.isShowRating = true;
@@ -83,6 +87,7 @@ export class CardComponent implements OnInit {
     this.cardService.getCards(this.url).subscribe(
       cards => {
         this.cards = cards;
+        console.log('card ' + this.cards[0].question);
         this.maxQuantityCard = this.cards.length;
       }
     );
