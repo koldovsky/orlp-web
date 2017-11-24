@@ -16,7 +16,7 @@ import {AuthorizationService} from '../authorization.service';
     ReCaptchaModule,
     CommonModule,
     RouterModule.forRoot([
-      {path: 'registr', component: SignUpComponent},
+      {path: 'register', component: SignUpComponent},
       {path: 'registrationConfirm', component: AccountVerificationComponent}
     ])
   ],

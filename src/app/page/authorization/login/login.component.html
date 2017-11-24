@@ -46,6 +46,9 @@
             <button class="btn btn-success btn-login" [disabled]="!validLogin()"
                     data-toggle="modal" type="submit">
               <i class="fa fa-sign-in"></i> Login</button>
+          <div class="">
+            <button type="button" class="btn btn-link px-0" [routerLink]="['/api/reset/password']" >Forgot password?</button>
+          </div>
           </div>
       </div>
 

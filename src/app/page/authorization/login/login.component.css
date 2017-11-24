@@ -1,4 +1,4 @@
-.card{
+.card {
   margin-top: 20px;
   background-color: rgba(46, 62, 87, 0.59);
   color: white;
@@ -6,7 +6,7 @@
   width: 345px;
 }
 
-.btn-login{
+.btn-login {
   width: 100%;
 }
 
@@ -15,4 +15,10 @@
   border-bottom: 1px solid #677182
 }
 
+.card-body {
+  padding-bottom: 2%;
+}
 
+.btn-link{
+  color: powderblue;;
+}
