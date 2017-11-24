@@ -19,8 +19,6 @@ export class UserStatusChangeService {
       sessionStorage.setItem('status', 'DELETED');
     } else if (errorStatus === ORLPSettings.FORBIDDEN) {
       sessionStorage.setItem('status', 'BLOCKED');
-    } else if (errorStatus === ORLPSettings.METHOD_NOT_ALLOWED) {
-      sessionStorage.setItem('status', 'INACTIVE');
     }
   }
 
