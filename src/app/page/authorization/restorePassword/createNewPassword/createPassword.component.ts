@@ -37,12 +37,10 @@ export class CreatePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.token = params['token'];
-      this.email = params['email'];
     });
-    this.createPasswordService.tokenVerification(this.token).subscribe((success) => {
-    this.showTemplate = true;
-        /*var emails = this.email;
-        this.router.navigate(['restorePassword']);*/
+    this.createPasswordService.tokenVerification(this.token).subscribe((data) => {
+        console.log(data);
+        this.showTemplate = true;
       },
       (error) => {
         this.router.navigate(['login']);
@@ -59,7 +57,7 @@ export class CreatePasswordComponent implements OnInit {
 
   private changePassword() {
     this.newPassword = this.passwordForm.value.password;
-    this.createPasswordService.changePassword(new NewPasswordDTO(this.email, '1111111111'))
+    this.createPasswordService.changePassword(new NewPasswordDTO(this.email, '311019891'))
       .subscribe(() => {
       }, (error) => {
       });

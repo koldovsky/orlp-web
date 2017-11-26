@@ -2,6 +2,7 @@ import {Response} from '@angular/http';
 import {NGXLogger} from 'ngx-logger';
 import {Injectable} from '@angular/core';
 import {ORLPService} from '../../../services/orlp.service';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class RestorePasswordService {
@@ -11,10 +12,7 @@ export class RestorePasswordService {
               private logger: NGXLogger) {
   }
 
-  sendRestorePasswordMail(url: string, email: string) {
-    return this.orlp.put(url, email).map((response: Response) => {
-
-      this.logger.log(response.json());
-    });
+  sendRestorePasswordMail(email: string): Observable<string> {
+    return this.orlp.put(this.url, email).map((response: Response) => response.text());
   }
 }

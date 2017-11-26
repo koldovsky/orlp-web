@@ -11,6 +11,8 @@ import {Subscription} from 'rxjs/Subscription';
 export class RestorePasswordComponent implements OnInit {
   public email: string;
   private sub: Subscription;
+  public accountStatus: string;
+
   constructor(private router: Router, private restorePasswordService: RestorePasswordService) {
   }
 
@@ -19,8 +21,13 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   sendRestorePasswordMail() {
-    this.restorePasswordService.sendRestorePasswordMail(this.router.url, this.email).subscribe(
-      (data) => console.log(data)
-    );
+    this.restorePasswordService.sendRestorePasswordMail(this.email).subscribe(
+      (accountStatus) => {
+        this.accountStatus = accountStatus;
+        console.log(accountStatus === 'LOCAL');
+      });
+  }
+
+  checkDataStatus(data: Response) {
   }
 }
