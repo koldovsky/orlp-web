@@ -23,8 +23,17 @@
                        placeholder="John" formControlName="firstName" [ngClass]="{'is-invalid':
                        (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors}"
                        required>
-                <div class="invalid-feedback">
-                  Name is Required field
+                <div *ngIf="userForm.get('firstName').hasError('required')" class="invalid-feedback">
+                  Please write your full name
+                </div>
+                <div *ngIf="userForm.get('firstName').hasError('minlength')" class="invalid-feedback">
+                  Name can’t contain less than 2 characters
+                </div>
+                <div *ngIf="userForm.get('firstName').hasError('maxlength')" class="invalid-feedback">
+                  Name can’t contain more than 15 characters
+                </div>
+                <div *ngIf="userForm.get('firstName').hasError('pattern')" class="invalid-feedback">
+                  Name should contain only letters
                 </div>
               </div>
             </div>
@@ -35,8 +44,19 @@
                        placeholder="Doe" formControlName="lastName"
                        [ngClass]="{'is-invalid': (userForm.get('lastName').touched||userForm.get('lastName').dirty)
                        &&userForm.get('lastName').errors}" required>
-                <div class="invalid-feedback">
-                  Last Name is Required field
+                <div *ngIf="userForm.get('lastName').hasError('required')" class="invalid-feedback">
+                  Please write your full last name
+                </div>
+                <div *ngIf="userForm.get('lastName').hasError('minlength')"
+                     class="invalid-feedback">
+                  Last Name can’t contain less than 2 characters
+                </div>
+                <div *ngIf="userForm.get('lastName').hasError('maxlength')"
+                     class="invalid-feedback">
+                  Last Name can’t contain more than 15 characters
+                </div>
+                <div *ngIf="userForm.get('lastName').hasError('pattern')" class="invalid-feedback">
+                  Last Name should contain only letters
                 </div>
               </div>
             </div>
@@ -48,7 +68,7 @@
                        [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
                        &&userForm.get('email').errors}" required>
                 <div *ngIf="userForm.get('email').hasError('required')" class="invalid-feedback">
-                  Email is Required field
+                  Enter your e-mail address
                 </div>
                 <div *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required"
                      class="invalid-feedback">
@@ -65,10 +85,13 @@
                          [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
                 &&userForm.get('passwordGroup.password').errors}" required>
                   <div *ngIf="userForm.get('passwordGroup.password').hasError('required')" class="invalid-feedback">
-                    Password is Required field
+                    Enter your password
                   </div>
                   <div *ngIf="userForm.get('passwordGroup.password').hasError('minlength')" class="invalid-feedback">
-                    Password must be more than 8 symbols
+                    Password can't be shorter than 8 symbols
+                  </div>
+                  <div *ngIf="userForm.get('passwordGroup.password').hasError('maxlength')" class="invalid-feedback">
+                    Password can't be longer than 20 symbols
                   </div>
                 </div>
               </div>
@@ -78,7 +101,7 @@
                 </div>
                 <div class="custom-input">
                   <input type="password" class="form-control"
-                         id="password-confirm" placeholder="Password" formControlName="confirmPassword"
+                         id="password-confirm" placeholder="Confirm password" formControlName="confirmPassword"
                          [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
                        ||userForm.get('passwordGroup.confirmPassword').dirty)
                        &&(userForm.get('passwordGroup.confirmPassword').errors
@@ -89,7 +112,7 @@
                   </div>
                   <ng-template #incorrect>
                     <div *ngIf="(userForm.get('passwordGroup').hasError('match'))" class="invalid-feedback">
-                      Confirmation password is incorrect
+                      Password and confirm password should be the same
                     </div>
                   </ng-template>
                 </div>

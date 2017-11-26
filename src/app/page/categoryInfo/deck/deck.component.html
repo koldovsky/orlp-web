@@ -2,7 +2,7 @@
   <table class="table table-striped">
     <thead>
     <tr class="deck-header">
-      <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+      <th *ngFor="let column of courseColumns" class="alignCenter" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
         {{column.nameColumnForDisplay}} {{column.symbolSorting}}
       </th>
     </thead>
@@ -17,13 +17,14 @@
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
       </td>
-      <td class="alignCenter" *ngIf="status==='ACTIVE';else unAuthorized">
+      <td class="alignCenter" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
       <ng-template #unAuthorized>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+        </td>
       </ng-template>
       <td class="alignCenter">
         <div *ngIf="!deck.status">

@@ -51,35 +51,32 @@
             </div>
           </div>
 
-        </div>
-        <div class="row justify-content-center">
-          <div class="alertMessage">
-            <div class="alert alert-danger" *ngIf="wrongDetails">
-              <span>Not valid email or password</span>
-            </div>
-            <div class="alert alert-danger" *ngIf="error">
-              <span><b>Authorization failed!</b> Try again.</span>
-            </div>
-            <div class="alert alert-success" *ngIf="verificationStat">
-              <span>Your account successfully activated</span>
-            </div>
-          </div>
-          <div class="alert alert-danger" *ngIf="isDeleted">
-            <span>You can not log in or register.This account is deleted by the administrator.</span>
-          </div>
-          <div class="alert alert-danger" *ngIf="isInactive">
-            <span>Account is not active. You can send a confirmation mail to activate your account.</span>
-            <button type="button" class="btn btn-outline-success" (click)="sendMail()">Send to activate</button>
-          </div>
-          <div class="alert alert-success" *ngIf="mailIsSent">
-            <span>Mail is sent.</span>
-          </div>
-          <div class="alert alert-danger" *ngIf="mailIsNotSent">
-            <span>Mail is not sent.</span>
-          </div>
-        </div>
-      </form>
+  </div>
+  <div class="row justify-content-center">
+    <div class="alertMessage">
+      <div class="alert alert-danger" *ngIf="wrongDetails">
+        <span>Not valid email or password</span>
+      </div>
+      <div class="alert alert-danger" *ngIf="error">
+        <span><b>Authorization failed!</b> Try again.</span>
+      </div>
+      <div class="alert alert-success" *ngIf="verificationStat">
+        <span>Your account successfully activated. Please log in.</span>
+      </div>
+    </div>
+    <div class="alert alert-danger" *ngIf="isDeleted">
+      <span>You can not log in or register.This account is deleted by the administrator.</span>
+    </div>
+    <div class="alert alert-danger" *ngIf="isInactive">
+      <span>Account is not active. You can send a confirmation mail to activate your account.</span>
+      <button type="button" class="btn btn-outline-success" (click)="sendMail()">Send to activate</button>
+    </div>
+    <div class="alert alert-success" *ngIf="mailIsSent">
+      <span>Mail is sent.</span>
+    </div>
+    <div class="alert alert-danger" *ngIf="mailIsNotSent">
+      <span>Mail is not sent.</span>
     </div>
   </div>
-
+  </form>
 </div>

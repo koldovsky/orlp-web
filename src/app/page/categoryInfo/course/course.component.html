@@ -6,13 +6,14 @@
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
       <td></td>
-      <td *ngIf="status==='ACTIVE';else unAuthorized">
+      <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
       </td>
-            <ng-template #unAuthorized>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+      <ng-template #unAuthorized>
+        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+        </td>
       </ng-template>
       <td class="alignCenter">
         <div *ngIf="!course.status">
@@ -42,13 +43,14 @@
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
       </td>
-      <td class="alignCenter" *ngIf="isAuthorized;else unAuthorized">
+      <td class="alignCenter" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
       <ng-template #unAuthorized>
-        <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+       <td> <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+       </td>
       </ng-template>
       <td></td>
     </tr>

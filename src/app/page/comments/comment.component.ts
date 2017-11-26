@@ -8,6 +8,7 @@ import {Link} from '../../dto/link';
 import {CreateCommentDTO} from '../../dto/CommentDTO/createCommentDTO';
 import {LogoutService} from '../logout/logout.service';
 import {UserRoleDTO} from '../../dto/CommentDTO/UeserRoleDTO';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-course-comments',
@@ -25,9 +26,10 @@ export class CommentComponent implements OnInit {
   public isAuthorized: boolean;
   public person: UserRoleDTO;
   public linkToCommentNeedToDelete: Link;
+  private readonly imageType: string = 'data:image/PNG;base64,';
 
   constructor(private route: ActivatedRoute, private orlp: ORLPService, private commentService: CommentService
-    , private logoutService: LogoutService) {
+    , private logoutService: LogoutService, private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -52,8 +54,8 @@ export class CommentComponent implements OnInit {
     this.url = this.orlp.decodeLink(this.url);
   }
 
-  addNewComment() {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, null)).subscribe(() => {
+  addNewComment(parentId: number) {
+    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, parentId)).subscribe(() => {
       this.getAllComments();
     });
     this.textOfNewComment = null;
@@ -63,13 +65,6 @@ export class CommentComponent implements OnInit {
     this.commentService.deleteComment(this.linkToCommentNeedToDelete).subscribe(() => {
       this.getAllComments();
     });
-  }
-
-  createReply(commentId: number) {
-    this.commentService.addNewComment(this.url, new CreateCommentDTO(this.textOfNewComment, commentId)).subscribe(() => {
-      this.getAllComments();
-    });
-    this.textOfNewComment = null;
   }
 
   getPersonRole(): void {
@@ -96,5 +91,10 @@ export class CommentComponent implements OnInit {
   closeFormToAddReply() {
     this.showFormToAddReply = false;
     this.textOfNewComment = null;
+  }
+
+  getImage(imageBase64: string): SafeUrl {
+    const image = this.sanitizer.bypassSecurityTrustUrl(this.imageType + imageBase64);
+    return image;
   }
 }

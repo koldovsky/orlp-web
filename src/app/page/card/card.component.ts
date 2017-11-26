@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
-import {UserCardQueuePublicDTO} from '../../dto/CardsDTO/UserCardQueuePublicDTO';
-import * as ORLPSettings from '../../services/orlp.settings';
 import {LogoutService} from '../logout/logout.service';
 
 @Component({
@@ -28,7 +26,6 @@ export class CardComponent implements OnInit {
   public goodStatusMark: number;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
               private cardService: CardService,
               private logoutService: LogoutService) {
   }

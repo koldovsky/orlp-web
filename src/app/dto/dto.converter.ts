@@ -25,8 +25,9 @@ import {DeckByCategoryAndPageDTO} from './DeckDTO/linkToDeckByCategoryAndPage';
 import {CoursePageDTO} from './CourseDTO/linkToCourseByPageDTO';
 import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAndPage';
 import {CommentDTO} from './CommentDTO/commentDTO';
-import {UserRoleDTO} from "./CommentDTO/UeserRoleDTO";
+import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
+import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
 
 export class DTOConverter {
 
@@ -37,7 +38,7 @@ export class DTOConverter {
 
   public static jsonToImageDTO(data: any): ImageDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new ImageDTO(data.imageId, self);
+    return new ImageDTO(data.imageId, data.isImageUsed, self);
   }
 
   public static jsonToUserDTO(data: any): UserDTO {
@@ -98,6 +99,11 @@ export class DTOConverter {
     return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status);
   }
 
+  public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
+    const categories: Array<CategoriesPublic> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategories, data.content);
+    return new CategoriesByPageDTO(categories, data.totalPages);
+  }
+
   public static jsonToDeckByCategoryAndPage(data: any): DeckByCategoryAndPageDTO {
     const deckLinkByCategories: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(DTOConverter
       .jsonToDeckLinkByCategory, data.content);
@@ -149,7 +155,7 @@ export class DTOConverter {
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
-      data.image, data.authenticationType, data.authorities, data.accountStatus, self);
+      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {

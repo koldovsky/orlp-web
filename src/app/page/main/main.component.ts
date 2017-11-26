@@ -73,7 +73,7 @@ export class MainComponent implements OnInit {
     this.mainService.getUserDetails()
       .subscribe(user => this.ngZone.run(() => {
         this.userDetails = user;
-        this.isAuthorized = (user.accountStatus === 'ACTIVE' || user.accountStatus === 'BLOCKED');
+        this.isAuthorized = (!user.deactivated && (user.accountStatus === 'ACTIVE' || user.accountStatus === 'BLOCKED'));
         this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
         this.setAdmin();
         if (user.imageType === 'BASE64') {

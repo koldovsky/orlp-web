@@ -70,7 +70,7 @@
   <div class="row">
     <div *ngFor="let course of courses" class="col">
       <div class="card course-card">
-        <img class="card-image" src={{course.image}} alt="Card image cap">
+        <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]" alt="Card image cap">
         <div class="card-body course-card-body">
           <div class="title-course">
             <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
@@ -80,14 +80,15 @@
               {{course.description}}</p>
           </div>
           <h3 [routerLink]="['/course/top', getCourseLink(course.self)]"></h3>
-          <div class="star-rating" *ngIf="status==='ACTIVE';else unAuthorized">
+          <div class="star-rating" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
             <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="course.rating"
                               (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
           </div>
           <ng-template #unAuthorized>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+            <div><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+            </div>
           </ng-template>
           <button *ngIf="isAuthorized" (click)="addCourseToUser(course)" type="button"
                   class="btn subscribe-button">{{subscriptionButtonText[course.courseId]}}

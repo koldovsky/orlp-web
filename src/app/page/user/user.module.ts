@@ -6,6 +6,8 @@ import {UserCategoriesComponent} from './categories/user.categories.component';
 import {UserCategoriesService} from './categories/user.categories.service';
 import {UserCoursesComponent} from './courses/user.courses.component';
 import {UserCoursesService} from './courses/user.courses.service';
+import {UserGuardService} from './user.guard.service';
+import {ProfileComponent} from '../userProfile/profile.component';
 
 @NgModule({
   imports: [
@@ -13,7 +15,8 @@ import {UserCoursesService} from './courses/user.courses.service';
     CommonModule,
     RouterModule.forChild([
       {path: 'user/categories', component: UserCategoriesComponent},
-      {path: 'user/courses', component: UserCoursesComponent}
+      {path: 'user/courses', component: UserCoursesComponent},
+      {path: 'user/profile', canActivate: [UserGuardService] , component: ProfileComponent},
     ])],
   declarations: [
     UserCoursesComponent,
@@ -21,7 +24,8 @@ import {UserCoursesService} from './courses/user.courses.service';
   ],
   providers: [
     UserCategoriesService,
-    UserCoursesService
+    UserCoursesService,
+    UserGuardService
   ]
 })
 export class UserModule {
