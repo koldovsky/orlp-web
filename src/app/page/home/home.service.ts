@@ -8,8 +8,8 @@ import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../services/orlp.service';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
-import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 import {NGXLogger} from 'ngx-logger';
+import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
 
 @Injectable()
 export class HomeService {
@@ -20,13 +20,14 @@ export class HomeService {
 
   getCategories(): Observable<CategoryTop[]> {
     return this.orlp.get('api/category/top/')
-      .map((response: Response) => <CategoryTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
+      .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
       .catch(this.handleError);
   }
 
-  getCourses(): Observable<CourseTop[]> {
+  getCourses(): Observable<CourseLink[]> {
     return this.orlp.get('api/course/top/')
-      .map((response: Response) => <CourseTop[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCourse, response.json()))
+      .map((response: Response) => <CourseLink[]> DTOConverter
+        .jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
       .catch(this.handleError);
   }
 

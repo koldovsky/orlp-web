@@ -18,6 +18,10 @@
 .card-body {
   padding-bottom: 2%;
 }
+.main-container {
+  height: 600px;
+  max-width: 1800px;
+}
 
 .btn-link{
   color: powderblue;;

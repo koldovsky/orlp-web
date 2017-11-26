@@ -1,39 +1,46 @@
-<div class="container">
-  <nav class="navbar navbar-expand-lg navbar-white bg-white rounded text-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-sm navbar-white bg-white text-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" [routerLink]="['/home']">Infolve</a>
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0 custom-navbar-nav">
-        <li class="nav-item">
-          <a  class="nav-link" [routerLink]="['/user/categories']">Categories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/user/courses']">Courses</a>
-        </li>
-        <li class="nav-item" *ngIf="isAuthorized">
-          <a  class="nav-link" [routerLink]="['/user/cabinet']">Cabinet</a>
-        </li>
-        <li *ngIf="isAuthorizedAdmin && isAuthorized" class="dropdown nav-item">
-          <a  class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Admin
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" [routerLink]="['/admin/audit']">Admin Audit</a>
-            <a class="dropdown-item" [routerLink]="['/admin/categories']">Admin Categories</a>
-            <a class="dropdown-item" [routerLink]="['/admin/users']">Admin Users</a>
-            <a class="dropdown-item" [routerLink]="['/admin/decks']">Admin Decks</a>
-          </div>
-        </li>
-        <li *ngIf="isAuthorized" class="nav-item">
-          <a  class="nav-link" [routerLink]="['/user/profile']">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a  class="nav-link" [routerLink]="['/home']">About</a>
-        </li>
-      </ul>
-      <div  class="navbar-nav mt-2 mt-lg-0 my-navbar-nav">
+    <div class="collapse navbar-collapse row" id="navbarTogglerDemo01">
+      <a class=" navbar-brand" [routerLink]="['/home']" (click)="setNotActive()">
+        <div class="label-name">INFOLVE</div>
+      </a>
+      <div class="ml-auto mr-auto nav-menu-items">
+        <ul class=" navbar-nav custom-navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/user/categories']" [class.active]="activeLink === '/user/categories'" (click)="setActiveLink('/user/categories')">CATEGORIES</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/user/courses']" [class.active]="activeLink === '/user/courses'" (click)="setActiveLink('/user/courses')">COURSES</a>
+          </li>
+          <li class="nav-item" *ngIf="isAuthorized">
+            <a class="nav-link" [routerLink]="['/user/cabinet']" [class.active]="activeLink === '/user/cabinet'" (click)="setActiveLink('/user/cabinet')">CABINET</a>
+          </li>
+          <li *ngIf="isAuthorizedAdmin && isAuthorized" class="dropdown nav-item">
+            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              ADMIN
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" [routerLink]="['/admin/audit']">ADMIN AUDIT</a>
+              <a class="dropdown-item" [routerLink]="['/admin/categories']">ADMIN CATEGORIES</a>
+              <a class="dropdown-item" [routerLink]="['/admin/users']">ADMIN USERS</a>
+              <a class="dropdown-item" [routerLink]="['/admin/decks']">ADMIN DECKS</a>
+            </div>
+          </li>
+          <li *ngIf="isAuthorized" class="nav-item">
+            <a class="nav-link" [routerLink]="['/user/profile']" [class.active]="activeLink === '/user/profile'" (click)="setActiveLink('/user/profile')">PROFILE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']">ABOUT</a>
+          </li>
+        </ul>
+      </div>
+      <div class="navbar-nav my-navbar-nav">
+        <a class="nav-link" [routerLink]="['/home']"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
         <a *ngIf="isAuthorized" [routerLink]="['/user/profile']">
           <img *ngIf="image; else default_image" class="user-image" src="{{image}}">
           <ng-template #default_image>
@@ -44,16 +51,19 @@
           <div class="nav-item username ">{{userDetails.firstName}}</div>
           <div class="nav-item email">{{userDetails.email}}</div>
         </div>
-      <div *ngIf="!isAuthorized" class="nav-item">
-        <a class="nav-link" [routerLink]="['/register']"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>Sign Up</a>
-      </div>
-      <div *ngIf="!isAuthorized" class="nav-item ">
-        <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>Sign In</a>
-      </div>
-        <div *ngIf="isAuthorized" class="nav-item logout-item">
-          <a class="nav-link logout" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>Sign out</a>
+        <div *ngIf="!isAuthorized" class="nav-item">
+          <a class="nav-link" [routerLink]="['/registr']" [class.active]="activeLink === '/registr'" (click)="setActiveLink('/registr')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
+            UP</a>
         </div>
-    </div>
+        <div *ngIf="!isAuthorized" class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']" [class.active]="activeLink === '/login'" (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
+            IN</a>
+        </div>
+        <div *ngIf="isAuthorized" class="nav-item logout-item">
+          <a class="nav-link logout" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>SIGN
+            OUT</a>
+        </div>
+      </div>
     </div>
   </nav>
 </div>
