@@ -14,5 +14,8 @@
   background: transparent;
   border-bottom: 1px solid #677182
 }
-
+.main-container {
+  height: 600px;
+  max-width: 1800px;
+}
 
