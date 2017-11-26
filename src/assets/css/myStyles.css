@@ -1,7 +1,5 @@
 /*TODO*/
 body, html{
-  background-color: #FFFFFF;
-  height: 100%;
   margin: 0;
 }
 
@@ -145,11 +143,23 @@ div, button:focus, .card-title, img{
 
 
 .bg {
-  background: url(../../assets/images/desktop.jpg) no-repeat center bottom fixed;
+  background: url(../../assets/images/background_home_page.jpg) no-repeat center bottom;
   background-size: cover;
-  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   height: 100%;
+}
+.title {
+  margin-top: 20%;
+  color: black;
+  font-size: 37px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", sans-serif;
+}
+.sub-title {
+  color: #ffc91b;
+  font-size: 23px;
+  font-family: "Helvetica Neue", sans-serif;
+  font-weight: lighter;
 }

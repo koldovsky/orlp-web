@@ -23,12 +23,14 @@ export class MainComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckPublic[];
   public listFilter: string;
-  public isAuthorized: boolean;
+  public isAuthorized:
+    boolean;
   public isAuthenticated: boolean;
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
   public showSearchResult: boolean;
   public image: string;
+  public activeLink: string;
 
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
@@ -97,5 +99,11 @@ export class MainComponent implements OnInit {
 
   setAdmin(): void {
     this.adminGuard.isAdmin = this.isAuthorizedAdmin;
+  }
+  setActiveLink(link: string): void {
+    this.activeLink = link;
+  }
+  setNotActive(): void {
+    this.activeLink = '';
   }
 }

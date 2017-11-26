@@ -3,14 +3,17 @@ import {HomeService} from './home.service';
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
-import {CourseTop} from '../../dto/CourseDTO/top.course.DTO';
 import {LogoutService} from '../logout/logout.service';
 import {IStarRatingOnClickEvent} from 'angular-star-rating';
 import {Rating} from '../../dto/Rating';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
-
+import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {CourseInfoService} from "../courseInfo/courseInfo.service";
+import {CourseLinkWithStatus} from "../../dto/CourseDTO/linkByUserWithStatus.course.DTO";
+export const SUBSCRIBE = 'SUBSCRIBE';
+export const UNSUBSCRIBE = 'UNSUBSCRIBE';
 @Component({
   templateUrl: ('./home.component.html'),
   styleUrls: ['./home.css']
@@ -20,10 +23,13 @@ export class HomeComponent implements OnInit {
   @ViewChild('categoriesContainer') categoriesContainer: ElementRef;
   @ViewChild('coursesContainer') coursesContainer: ElementRef;
   public categories: CategoryTop[][] = [];
-  public courses: CourseTop[] = [];
+  public courses: CourseLink[] = [];
   public status: string;
   errorMessage: string;
   isAuthorized: boolean;
+  public subscriptionButtonText: string[] = [];
+  coursesWithStatus: CourseLinkWithStatus[] = [];
+  private coursesIdOfTheUser: number[] = [];
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
@@ -31,7 +37,8 @@ export class HomeComponent implements OnInit {
               private courseService: CourseService,
               private authorizationService: AuthorizationService,
               private ngZone: NgZone,
-              private userStatusChangeService: UserStatusChangeService) {
+              private userStatusChangeService: UserStatusChangeService,
+              private  courseInfoService: CourseInfoService) {
   }
 
   ngOnInit(): void {
@@ -42,8 +49,13 @@ export class HomeComponent implements OnInit {
       .subscribe(categories => this.setSlider(this.categories, categories),
         error => this.errorMessage = <any>error);
     this.mainService.getCourses()
-      .subscribe(courses =>
-          this.courses = courses,
+      .subscribe(courses => {
+          this.courses = courses;
+          this.setDefaultTextForButtonSubscribe();
+          if (this.isAuthorized) {
+              this.getCoursesIdOfTheUser();
+          }
+        },
         error => this.errorMessage = <any>error);
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(() => {
@@ -73,7 +85,7 @@ export class HomeComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  onCourseRatingClick = (course: CourseTop, event: IStarRatingOnClickEvent) => {
+  onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
       course.rating = event.rating;
@@ -98,11 +110,72 @@ export class HomeComponent implements OnInit {
     if (document.getElementById('courses') != null) {
       if ((window.pageYOffset >= this.coursesContainer.nativeElement.offsetTop)) {
         document.getElementById('arrow').style.display = 'none';
-        document.getElementById('arrow-top').style.display = 'block';
       } else {
         document.getElementById('arrow').style.display = 'block';
-        document.getElementById('arrow-top').style.display = 'none';
       }
+    }
+  }
+
+  getCoursesIdOfTheUser() {
+    this.courseService.getCoursesIdOfTheUser().subscribe(
+      id => {
+        this.coursesIdOfTheUser = id;
+        for (const courseId of id) {
+          this.subscriptionButtonText[courseId] = UNSUBSCRIBE;
+        }
+        this.createCoursesWithStatus();
+      });
+  }
+  createCoursesWithStatus() {
+    this.coursesWithStatus = [];
+    for (const course of this.courses) {
+      this.coursesWithStatus.push(new CourseLinkWithStatus(
+        course.name,
+        course.description,
+        course.image,
+        course.self,
+        course.decks,
+        course.courseId,
+        false,
+        course.rating
+      ));
+    }
+    this.setStatusForCoursesOfTheUser();
+  }
+
+  setStatusForCoursesOfTheUser() {
+    for (const course of this.coursesWithStatus) {
+      for (const id of this.coursesIdOfTheUser) {
+        if (course.courseId === id) {
+          course.status = true;
+          break;
+        }
+      }
+    }
+  }
+
+  addCourseToUser(course: CourseLink) {
+    this.courseService.addCourseToUser(course.courseId).subscribe(
+      () => this.changeCourseStatus(course.courseId),
+      (error) => console.error(error)
+    );
+  }
+
+  changeCourseStatus(courseId: number) {
+    for (const course of this.coursesWithStatus) {
+      if (course.courseId === courseId) {
+        course.status = !course.status;
+        if (course.status) {
+          this.subscriptionButtonText[course.courseId] = UNSUBSCRIBE;
+        } else {
+          this.subscriptionButtonText[course.courseId] = SUBSCRIBE;
+        }
+      }
+    }
+  }
+  setDefaultTextForButtonSubscribe() {
+    for (const course of this.courses) {
+        this.subscriptionButtonText[course.courseId] = SUBSCRIBE;
     }
   }
 }

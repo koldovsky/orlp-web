@@ -1,11 +1,11 @@
-<div class="bg"></div>
-<div class="container">
-  <form class="form-horizontal" role="form" [formGroup]="userForm" (ngSubmit)="register()" novalidate>
-    <div class="row justify-content-center">
+<div class="bg">
+  <div class="container">
+    <form class="form-horizontal" role="form" [formGroup]="userForm" (ngSubmit)="register()" novalidate>
+      <div class="row justify-content-center">
         <div class="card border border-secondary">
           <div class="card-header">
             <span><h2>Sign Up</h2></span>
-            </div>
+          </div>
           <div class="card-body">
             <div (click)="signInFacebook('facebook')" class="custom-btn-facebook">
               <span class="facebookIcon"></span>
@@ -17,26 +17,27 @@
             </div>
             <div class="label mt-1 mb-1">or</div>
             <div class="form-group">
-                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
               <div class="custom-input">
                 <input type="text" class="form-control" id="name"
                        placeholder="John" formControlName="firstName" [ngClass]="{'is-invalid':
-                       (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors}" required>
+                       (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors}"
+                       required>
                 <div class="invalid-feedback">
                   Name is Required field
                 </div>
               </div>
             </div>
             <div class="form-group">
-                <div class="input-group-addon"><i class="fa fa-user"></i></div>
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
               <div class="custom-input">
                 <input type="text" class="form-control" id="last_name"
                        placeholder="Doe" formControlName="lastName"
                        [ngClass]="{'is-invalid': (userForm.get('lastName').touched||userForm.get('lastName').dirty)
                        &&userForm.get('lastName').errors}" required>
-              <div class="invalid-feedback">
-                Last Name is Required field
-              </div>
+                <div class="invalid-feedback">
+                  Last Name is Required field
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -44,52 +45,54 @@
               <div class="custom-input">
                 <input type="email" class="form-control" id="email"
                        placeholder="you@example.com" formControlName="email"
-                [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
+                       [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
                        &&userForm.get('email').errors}" required>
-              <div *ngIf="userForm.get('email').hasError('required')" class="invalid-feedback">
-              Email is Required field
+                <div *ngIf="userForm.get('email').hasError('required')" class="invalid-feedback">
+                  Email is Required field
+                </div>
+                <div *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required"
+                     class="invalid-feedback">
+                  Please enter valid email address
+                </div>
               </div>
-              <div *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required" class="invalid-feedback">
-                Please enter valid email address
-              </div>
-              </div>
-              </div>
+            </div>
             <div formGroupName="passwordGroup">
               <div class="form-group">
                 <div class="input-group-addon"><i class="fa fa-key"></i></div>
                 <div class="custom-input">
-                <input type="password" class="form-control" id="password"
-                       placeholder="Password" formControlName="password"
-                [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
+                  <input type="password" class="form-control" id="password"
+                         placeholder="Password" formControlName="password"
+                         [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
                 &&userForm.get('passwordGroup.password').errors}" required>
-                <div *ngIf="userForm.get('passwordGroup.password').hasError('required')" class="invalid-feedback">
-                  Password is Required field
+                  <div *ngIf="userForm.get('passwordGroup.password').hasError('required')" class="invalid-feedback">
+                    Password is Required field
+                  </div>
+                  <div *ngIf="userForm.get('passwordGroup.password').hasError('minlength')" class="invalid-feedback">
+                    Password must be more than 8 symbols
+                  </div>
                 </div>
-                <div *ngIf="userForm.get('passwordGroup.password').hasError('minlength')" class="invalid-feedback">
-                  Password must be more than 8 symbols
-                </div>
-                </div>
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <div class="input-group-addon">
                   <i class="fa fa-repeat"></i>
                 </div>
-              <div class="custom-input">
-                <input type="password" class="form-control"
-                       id="password-confirm" placeholder="Password" formControlName="confirmPassword"
-                       [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
+                <div class="custom-input">
+                  <input type="password" class="form-control"
+                         id="password-confirm" placeholder="Password" formControlName="confirmPassword"
+                         [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
                        ||userForm.get('passwordGroup.confirmPassword').dirty)
                        &&(userForm.get('passwordGroup.confirmPassword').errors
                        ||userForm.get('passwordGroup').errors)}" required>
-              <div *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect" class="invalid-feedback">
-                Please confirm your password
-              </div>
-              <ng-template #incorrect>
-              <div *ngIf="(userForm.get('passwordGroup').hasError('match'))" class="invalid-feedback">
-                Confirmation password is incorrect
-              </div>
-              </ng-template>
-              </div>
+                  <div *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect"
+                       class="invalid-feedback">
+                    Please confirm your password
+                  </div>
+                  <ng-template #incorrect>
+                    <div *ngIf="(userForm.get('passwordGroup').hasError('match'))" class="invalid-feedback">
+                      Confirmation password is incorrect
+                    </div>
+                  </ng-template>
+                </div>
               </div>
             </div>
             <div class="recaptcha">
@@ -102,33 +105,34 @@
             </button>
           </div>
         </div>
-    </div>
-    <div class="row justify-content-center">
+      </div>
+      <div class="row justify-content-center">
         <div class="alertMessage">
-        <div class="alert alert-danger" *ngIf="errorEmailExists">
-          <span>Email already exists</span>
-        </div>
-        <div class="alert alert-danger" *ngIf="error">
-          <span><b>Registration failed!</b> Try again.</span>
-        </div>
-        <div class="alert alert-success" *ngIf="success">
-          <span>Registration <b>successful!</b></span>
-          <span>Check you email for confirmation</span>
-        </div>
-        <div class="alert alert-warning" *ngIf="mailNotSended">
-          <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
-        </div>
+          <div class="alert alert-danger" *ngIf="errorEmailExists">
+            <span>Email already exists</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="error">
+            <span><b>Registration failed!</b> Try again.</span>
+          </div>
+          <div class="alert alert-success" *ngIf="success">
+            <span>Registration <b>successful!</b></span>
+            <span>Check you email for confirmation</span>
+          </div>
+          <div class="alert alert-warning" *ngIf="mailNotSended">
+            <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
+          </div>
 
-        <div class="alert alert-danger" *ngIf="wrongDetails">
-          <span>Not valid email or password</span>
-        </div>
-        <div class="alert alert-danger" *ngIf="error">
-          <span><b>Authorization failed!</b> Try again.</span>
-        </div>
-        <div class="alert alert-success" *ngIf="verificationStat">
-          <span>Your account successfully activated</span>
-        </div>
+          <div class="alert alert-danger" *ngIf="wrongDetails">
+            <span>Not valid email or password</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="error">
+            <span><b>Authorization failed!</b> Try again.</span>
+          </div>
+          <div class="alert alert-success" *ngIf="verificationStat">
+            <span>Your account successfully activated</span>
+          </div>
         </div>
       </div>
-  </form>
+    </form>
   </div>
+</div>
