@@ -1,26 +1,33 @@
-<button class="down scroll-button bottom-element" id="arrow" (click)="scrollDown()" #arrow></button>
-<button class="top scroll-button bottom-element" id="arrow-top" (click)="scrollTop()" #arrowTop></button>
 <div class="main-container">
-  <div class="bg"></div>
-  <div class="row justify-content-center">
-    <div class="main-card">
-      <p class="title">Your information should evolve</p>
+  <div class="bg">
+    <div class="row justify-content-center">
+      <div class="main-card">
+        <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
+        <p class="sub-title">THE PERFECT WAY TO LEARN</p>
+      </div>
+    </div>
+    <div class="row justify-content-center button-row">
+      <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
+              routerLink="/user/cabinet">START
+        LEARNING
+      </button>
+      <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/login">START LEARNING
+      </button>
     </div>
   </div>
-  <div class="row justify-content-center button-row">
-    <button *ngIf="isAuthorized" type="button" class="btn learning-button" routerLink="/user/cabinet">Start
-      learning
-    </button>
-    <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/login">Start learning
-    </button>
+  <div class="row end-row">
+    <div class="col center-col">
+      <img class="down scroll-button" id="arrow" (click)="scrollDown()" #arrow/>
+    </div>
   </div>
 </div>
 <div class="categories-container" id="categories" #categoriesContainer>
+  <div class="over-line"></div>
   <div class="row justify-content-center mt-1">
-    <h1>Categories</h1>
+    <p class="our-categories">OUR CATEGORIES</p>
   </div>
   <div class="row justify-content-center mt-4">
-    <div id="categoryCarousel" class="carousel slide col-12 col-md-10 col-lg-7" data-ride="carousel">
+    <div id="categoryCarousel" class="carousel slide col-12 col-md-12 col-lg-12" data-ride="carousel">
       <div class="carousel-inner">
         <div *ngFor="let i of categories;let item = index" class="carousel-item " [ngClass]="{'active': item==0}">
           <div class="card cat-card" *ngFor="let category of this.categories[item];"
@@ -43,28 +50,37 @@
     </div>
     <div class="row justify-content-center">
       <div class="card col-12 col-md-7 cat-main-card">
-        <div class="card-body">
-          <p class="card-text">All learning material is divided by categories. Categories are specific topics,
-            such as programming languages. Each category contains courses that can and should take place over and over
-            again to
+        <ul class="card-body">
+          <li class="card-text">All learning material is divided by categories.</li>
+          <li class="card-text">Categories are specific topics, such as programming languages.</li>
+          <li class="card-text">Each category contains courses that can and should take place over and over again to
             consolidate material.
-            In addition, you can estimate each course and leave a comment about it.</p>
-        </div>
+          </li>
+          <li class="card-text">In addition, you can estimate each course and leave a comment about it.</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 <div class="courses-container" id="courses" #coursesContainer>
+  <div class="over-line"></div>
   <div class="row justify-content-center">
-    <h1>Courses</h1>
+    <p class="our-courses">OUR COURSES</p>
   </div>
   <div class="row">
     <div *ngFor="let course of courses" class="col">
       <div class="card course-card">
         <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]" alt="Card image cap">
         <div class="card-body course-card-body">
-          <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
-          <div *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
+          <div class="title-course">
+            <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
+          </div>
+          <div class="description-course">
+            <p class="card-description" [routerLink]="['/course/top', getCourseLink(course.self)]">
+              {{course.description}}</p>
+          </div>
+          <h3 [routerLink]="['/course/top', getCourseLink(course.self)]"></h3>
+          <div class="star-rating" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
             <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="course.rating"
                               (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
@@ -74,9 +90,35 @@
                               [rating]="course.rating" [readOnly]="true"></star-rating-comp>
             </div>
           </ng-template>
+          <button *ngIf="isAuthorized" (click)="addCourseToUser(course)" type="button"
+                  class="btn subscribe-button">{{subscriptionButtonText[course.courseId]}}
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<footer>
+  <div class="over-line"></div>
+  <div class="row justify-content-center">
+    <p class="contact-us">CONTACT US</p>
+  </div>
+  <div class="container-form">
+    <div class="input-container">
+      <input type="text" placeholder="NAME*">
+      <input type="text" placeholder="EMAIL*">
+      <input type="text" placeholder="SUBJECT*">
+    </div>
+    <div class="message">
+      <textarea placeholder="MESSAGE"></textarea>
+    </div>
+  </div>
+  <div class="row justify-content-center button-row">
+    <button type="button" class="btn send-message">SEND MESSAGE
+    </button>
+  </div>
+  <hr>
+  <div class="rights">
+    <p>&#169; Infolve | All right reserved</p>
+  </div>
+</footer>

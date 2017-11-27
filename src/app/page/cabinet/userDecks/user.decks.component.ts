@@ -6,6 +6,7 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
+import {DeckService} from "../../categoryInfo/deck/deck.service";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -30,7 +31,7 @@ export class UserDecksComponent implements OnInit {
   public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
     'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
-  constructor(private userDecksService: UserDecksService, private orlp: ORLPService) {
+  constructor(private userDecksService: UserDecksService, private orlp: ORLPService, private deckService: DeckService) {
   }
 
   ngOnInit() {
@@ -102,5 +103,20 @@ export class UserDecksComponent implements OnInit {
 
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
+  }
+
+  private downloadCards(deckId: number, deckName: string) {
+    this.deckService.downloadCards(deckId, deckName);
+  }
+
+  private downloadCardsTemplate() {
+    this.userDecksService.downloadCardsTemplate();
+  }
+
+  private uploadCards(deckId, event) {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+    this.userDecksService.uploadCards(formData, deckId).subscribe();
   }
 }

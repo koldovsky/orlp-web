@@ -59,6 +59,10 @@
                             [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
           </td>
         </ng-template>
+        <td class="alignCenter">
+          <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

@@ -27,6 +27,10 @@
         </td>
       </ng-template>
       <td class="alignCenter">
+        <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
+        </button>
+      </td>
+      <td class="alignCenter">
         <div *ngIf="!deck.status">
           <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button SubscribeCheckboxActive"
                title="Add deck to cabinet"></div>

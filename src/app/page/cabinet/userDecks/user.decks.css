@@ -88,3 +88,11 @@
 .disabled {
   cursor: not-allowed;
 }
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  margin-bottom: auto;
+}

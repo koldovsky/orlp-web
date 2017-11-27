@@ -106,6 +106,7 @@ th {
 }
 textarea{
   height: 150px;
+  width: 100%;
 }
 .category-header {
   color: black;
