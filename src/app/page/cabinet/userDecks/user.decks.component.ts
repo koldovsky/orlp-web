@@ -90,7 +90,6 @@ export class UserDecksComponent implements OnInit {
       this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
-    console.log(this.synthax);
   }
 
   private deleteDeck() {
