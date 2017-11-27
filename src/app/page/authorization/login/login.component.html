@@ -36,20 +36,22 @@
                          placeholder="Password" formControlName="password"
                          [ngClass]="{'is-invalid':(loginForm.get('password').touched|| loginForm.get('password').dirty)
               &&loginForm.get('password').errors}" required>
-                  <div class="invalid-feedback">
-                    Please enter your password.
-                  </div>
-                </div>
-              </div>
-              <div class="recaptcha">
-                <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{siteKey}}"></re-captcha>
-              </div>
-              <button class="btn btn-success btn-login" [disabled]="!validLogin()"
-                      data-toggle="modal" type="submit">
-                <i class="fa fa-sign-in"></i> Login
-              </button>
+            <div class="invalid-feedback">
+              Please enter your password.
+            </div>
             </div>
           </div>
+          <div class="recaptcha">
+            <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{siteKey}}"></re-captcha>
+          </div>
+            <button class="btn btn-success btn-login" [disabled]="!validLogin()"
+                    data-toggle="modal" type="submit">
+              <i class="fa fa-sign-in"></i> Login</button>
+          <div class="">
+            <button type="button" class="btn btn-link px-0" [routerLink]="['/reset/password']" >Forgot password?</button>
+          </div>
+          </div>
+      </div>
 
   </div>
   <div class="row justify-content-center">

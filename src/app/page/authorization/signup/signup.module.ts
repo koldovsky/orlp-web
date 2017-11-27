@@ -17,7 +17,7 @@ import {AuthorizationUserGuardService} from '../authorization.user.guard.service
     ReCaptchaModule,
     CommonModule,
     RouterModule.forRoot([
-      {path: 'registr', canActivate: [AuthorizationUserGuardService], component: SignUpComponent},
+      {path: 'register', canActivate: [AuthorizationUserGuardService], component: SignUpComponent},
       {path: 'registrationConfirm', component: AccountVerificationComponent}
     ])
   ],

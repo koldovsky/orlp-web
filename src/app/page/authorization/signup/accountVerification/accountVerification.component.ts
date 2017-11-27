@@ -29,7 +29,7 @@ export class AccountVerificationComponent implements OnInit {
         this.router.navigate(['login']);
       },
       (error) => {
-        this.router.navigate(['registr']);
+        this.router.navigate(['register']);
       });
   }
 }
