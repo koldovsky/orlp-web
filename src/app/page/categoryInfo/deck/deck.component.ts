@@ -136,7 +136,6 @@ export class DeckComponent implements OnInit {
     this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
     CardComponent.synthax = deckSynthax;
-    console.log(CardComponent.synthax);
   }
 
   changeDeckStatus(deckId: number) {
