@@ -154,4 +154,8 @@ export class CourseInfoComponent implements OnInit {
       this.showComment = false;
     }
   }
+
+  private downloadCards(deckId: number, deckName: string) {
+    this.deckService.downloadCards(deckId, deckName);
+  }
 }

@@ -13,6 +13,7 @@ import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
 import {Rating} from '../../../dto/Rating';
 import {DeckByCategoryAndPageDTO} from '../../../dto/DeckDTO/linkToDeckByCategoryAndPage';
 import {NGXLogger} from 'ngx-logger';
+import {saveAs} from 'file-saver';
 
 @Injectable()
 export class DeckService {
@@ -56,5 +57,16 @@ export class DeckService {
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
     return this.orlp.get('/api/private/decks/' + deckId + '/cards-that-need-repeating/count')
       .map((response: Response) => response.json());
+  }
+
+  downloadCards(deckId: number, deckName: string) {
+    return this.orlp.get('download/deck/' + deckId + '/cards')
+      .subscribe(
+        response => {
+          const blob = new Blob([response.text()], { type: 'application/octet-stream'});
+          const url = window.URL.createObjectURL(blob);
+          saveAs(blob, deckName + '.yml');
+        }
+      );
   }
 }

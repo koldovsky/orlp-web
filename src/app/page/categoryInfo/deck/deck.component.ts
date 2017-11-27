@@ -162,4 +162,8 @@ export class DeckComponent implements OnInit {
     }
   }
 
+  private downloadCards(deckId: number, deckName: string) {
+    this.deckService.downloadCards(deckId, deckName);
+  }
+
 }
