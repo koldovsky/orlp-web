@@ -7,7 +7,8 @@
 
   <div class="list-button-container">
     <div class="decks-list">
-      <div [class.selected]="deck === selectedDeck" class="decks-list-item" *ngFor="let deck of decks; let i = index" (click)="onDeckClicked(deck, i)">
+      <div [class.selected]="deck === selectedDeck" class="decks-list-item" *ngFor="let deck of decks; let i = index"
+           (click)="onDeckClicked(deck, i)">
         <span>{{deck.name}}</span>
         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck">-</button>
       </div>
@@ -50,8 +51,15 @@
       <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
               (click)="prepareEditDialog()">Edit
       </button>
-      <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']" class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck">Manage Cards
+      <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']"
+              class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck">Manage Cards
       </button>
+      <button class="btn btn-primary decks-list-button" (click)="downloadCards(selectedDeck.deckId, selectedDeck.name)">Download cards
+      </button>
+      <button class="btn btn-primary decks-list-button" (click)="downloadCardsTemplate()">Download cards template
+      </button>
+      <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
+      <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
     </div>
   </div>
 
