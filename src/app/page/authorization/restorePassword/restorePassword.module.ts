@@ -13,7 +13,7 @@ import {CreatePasswordComponent} from './createNewPassword/createPassword.compon
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild([
-      {path: 'api/reset/password', component: RestorePasswordComponent},
+      {path: 'reset/password', component: RestorePasswordComponent},
       {path: 'restorePassword', component: CreatePasswordComponent}
     ])
   ],

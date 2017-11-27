@@ -1,7 +1,6 @@
-import {Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {RestorePasswordService} from './restorePassword.service';
-import {Subscription} from 'rxjs/Subscription';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   templateUrl: ('./restorePassword.component.html'),
@@ -10,24 +9,31 @@ import {Subscription} from 'rxjs/Subscription';
 
 export class RestorePasswordComponent implements OnInit {
   public email: string;
-  private sub: Subscription;
   public accountStatus: string;
+  public emailForm: FormGroup;
+  public mailIsNotSent: boolean;
 
-  constructor(private router: Router, private restorePasswordService: RestorePasswordService) {
+  constructor(private restorePasswordService: RestorePasswordService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.emailForm = this.formBuilder.group({
+      email: ['', [Validators.email, Validators.required]],
+    });
 
   }
 
   sendRestorePasswordMail() {
+    this.email = this.emailForm.value.email;
+    this.accountStatus = '';
     this.restorePasswordService.sendRestorePasswordMail(this.email).subscribe(
       (accountStatus) => {
+        this.mailIsNotSent = false;
         this.accountStatus = accountStatus;
-        console.log(accountStatus === 'LOCAL');
-      });
+      }, () => this.mailIsNotSent = true);
   }
 
-  checkDataStatus(data: Response) {
+  isEmailFormValid(): boolean {
+    return this.emailForm.valid;
   }
 }

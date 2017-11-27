@@ -1,9 +1,8 @@
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
 import {CreatePasswordService} from './createPassword.service';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {NewPasswordDTO} from "../../../../dto/UsersDTO/NewPasswordDTO";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NewPasswordDTO} from '../../../../dto/UsersDTO/NewPasswordDTO';
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -21,14 +20,15 @@ function passwordMatcher(c: AbstractControl) {
 
 export class CreatePasswordComponent implements OnInit {
   public email: string;
-  newPassword: string;
-  private sub: Subscription;
-  token: string;
-  public myTemplate: any;
+  public newPassword: string;
+  public token: string;
   public showTemplate = false;
-  PASSWORD_MIN_LENGTH = 8;
-  PASSWORD_MAX_LENGTH = 20;
-  passwordForm: FormGroup;
+  public passwordMinLength = 8;
+  public passwordMaxLength = 20;
+  public passwordForm: FormGroup;
+  public isTokenValid = true;
+  public isPasswordChanged = false;
+  public isPasswordNotChanged = false;
 
   constructor(private createPasswordService: CreatePasswordService, private router: Router,
               private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute) {
@@ -38,9 +38,13 @@ export class CreatePasswordComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.token = params['token'];
     });
-    this.createPasswordService.tokenVerification(this.token).subscribe((data) => {
-        console.log(data);
-        this.showTemplate = true;
+    this.createPasswordService.tokenVerification(this.token).subscribe((email) => {
+        if (email === '') {
+          this.isTokenValid = false;
+        } else {
+          this.email = email;
+          this.showTemplate = true;
+        }
       },
       (error) => {
         this.router.navigate(['login']);
@@ -48,22 +52,28 @@ export class CreatePasswordComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       password: ['', [
         Validators.required,
-        Validators.minLength(this.PASSWORD_MIN_LENGTH),
-        Validators.maxLength(this.PASSWORD_MAX_LENGTH)
+        Validators.minLength(this.passwordMinLength),
+        Validators.maxLength(this.passwordMaxLength)
       ]],
       confirmPassword: ['', [Validators.required]],
     }, {validator: passwordMatcher});
   }
 
-  private changePassword() {
+   changePassword() {
     this.newPassword = this.passwordForm.value.password;
-    this.createPasswordService.changePassword(new NewPasswordDTO(this.email, '311019891'))
+    this.createPasswordService.changePassword(new NewPasswordDTO(this.email, this.newPassword))
       .subscribe(() => {
+        this.showTemplate = false;
+        this.isPasswordNotChanged = false;
+        this.isPasswordChanged = true;
       }, (error) => {
+        this.showTemplate = false;
+        this.isPasswordChanged = false;
+        this.isPasswordNotChanged = true;
       });
   }
 
-  validResetPasswordForm(): boolean {
+  isResetPasswordFormValid(): boolean {
     return this.passwordForm.valid;
   }
 }
