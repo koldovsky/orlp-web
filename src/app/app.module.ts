@@ -35,6 +35,8 @@ import {UserStatusChangeModule} from './page/userStatusChange/user.status.change
 import {UserStatusChangeService} from './page/userStatusChange/user.status.change.service';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {environment} from '../environments/environment';
+import {RestorePasswordService} from './page/authorization/restorePassword/restorePassword.service';
+import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
 
 @NgModule({
   imports: [
@@ -60,9 +62,12 @@ import {environment} from '../environments/environment';
     UserModule,
     ProfileModule,
     UserStatusChangeModule,
-    LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:8080/',
+    RestorePasswordModule,
+    LoggerModule.forRoot({
+      serverLoggingUrl: 'http://localhost:8080/',
       level: environment.logger.level,
-      serverLogLevel: NgxLoggerLevel.ERROR})
+      serverLogLevel: NgxLoggerLevel.ERROR
+    })
   ],
   exports: [],
   declarations: [
@@ -73,7 +78,8 @@ import {environment} from '../environments/environment';
   ],
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
-    CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService],
+    CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService,
+    RestorePasswordService],
   bootstrap: [MainComponent]
 })
 export class AppModule {
