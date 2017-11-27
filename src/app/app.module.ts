@@ -35,6 +35,7 @@ import {UserStatusChangeModule} from './page/userStatusChange/user.status.change
 import {UserStatusChangeService} from './page/userStatusChange/user.status.change.service';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {environment} from '../environments/environment';
+import {AuthorisedModule} from "./page/authorization/authorizated/authorised.module";
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import {environment} from '../environments/environment';
     UserModule,
     ProfileModule,
     UserStatusChangeModule,
+    AuthorisedModule,
     LoggerModule.forRoot({serverLoggingUrl: 'http://localhost:8080/',
       level: environment.logger.level,
       serverLogLevel: NgxLoggerLevel.ERROR})

@@ -8,6 +8,7 @@ import {AccountVerificationComponent} from './accountVerification/accountVerific
 import {AccountVerificationService} from './accountVerification/accountVerification.service';
 import {ReCaptchaModule} from 'angular2-recaptcha';
 import {AuthorizationService} from '../authorization.service';
+import {AuthorizationUserGuardService} from "../authorization.user.guard.service";
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import {AuthorizationService} from '../authorization.service';
     ReCaptchaModule,
     CommonModule,
     RouterModule.forRoot([
-      {path: 'registr', component: SignUpComponent},
+      {path: 'registr', canActivate: [AuthorizationUserGuardService], component: SignUpComponent},
       {path: 'registrationConfirm', component: AccountVerificationComponent}
     ])
   ],
