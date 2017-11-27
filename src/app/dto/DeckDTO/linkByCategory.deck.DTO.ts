@@ -9,8 +9,9 @@ export class DeckLinkByCategory {
   public self: Link;
   public cards: Link;
   public hidden: boolean;
+  public synthax: String;
 
-  constructor(name: String, description: String, rating: number, self: Link, cards: Link, deckId: number, hidden: boolean) {
+  constructor(name: String, description: String, rating: number, self: Link, cards: Link, deckId: number, hidden: boolean, synthax: String) {
     this.name = name;
     this.description = description;
     this.rating = rating;
@@ -18,5 +19,6 @@ export class DeckLinkByCategory {
     this.cards = cards;
     this.deckId = deckId;
     this.hidden = hidden;
+    this.synthax = synthax;
   }
 }

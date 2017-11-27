@@ -10,9 +10,10 @@ export class DeckDTO {
   public owner: string;
   public cards: Link;
   public self: Link;
+  public synthax: String;
 
   constructor(deckId: number, name: string, description: string, category: string, categoryId: number,
-              rating: number, owner: string, cards: Link, self: Link) {
+              rating: number, owner: string, cards: Link, self: Link, synthax: String) {
     this.deckId = deckId;
     this.name = name;
     this.description = description;
@@ -22,6 +23,7 @@ export class DeckDTO {
     this.owner = owner;
     this.cards = cards;
     this.self = self;
+    this.synthax = synthax;
   }
 }
 

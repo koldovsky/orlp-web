@@ -4,8 +4,7 @@ import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
 import {LogoutService} from '../logout/logout.service';
 
-import 'codemirror/mode/clike/clike';
-import {DeckSynthaxDTO} from '../../dto/DeckDTO/deckSynthaxDTO';
+import '../categoryInfo/deck/deckLanguages';
 
 @Component({
   templateUrl: ('./card.component.html'),
@@ -13,7 +12,7 @@ import {DeckSynthaxDTO} from '../../dto/DeckDTO/deckSynthaxDTO';
 })
 export class CardComponent implements OnInit {
   public static deckId: number;
-  public static synthax: string;
+  public static synthax: String;
 
   public routing = false;
   public questionNumber = 0;
@@ -29,6 +28,9 @@ export class CardComponent implements OnInit {
   public badStatusMark: number;
   public normalStatusMark: number;
   public goodStatusMark: number;
+  public config;
+  public answerConfig;
+  public configSynthax: String;
 
   constructor(private route: ActivatedRoute,
               private cardService: CardService,
@@ -36,6 +38,9 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.converSynthax();
+    this.config = {theme: 'xq-dark', mode: (this.configSynthax), lineWrapping : true};
+    this.answerConfig = {readonly: true, theme: 'xq-dark', mode: (this.configSynthax), lineWrapping : true};
    this.route.params.subscribe(
       params => {
         this.url = params['url'];
@@ -87,7 +92,6 @@ export class CardComponent implements OnInit {
     this.cardService.getCards(this.url).subscribe(
       cards => {
         this.cards = cards;
-        console.log('card ' + this.cards[0].question);
         this.maxQuantityCard = this.cards.length;
       }
     );
@@ -116,6 +120,29 @@ export class CardComponent implements OnInit {
       this.normalStatusMark++;
     } else if (status === 'GOOD') {
       this.goodStatusMark++;
+    }
+  }
+  converSynthax() {
+    if (CardComponent.synthax === 'SQL') {
+      this.configSynthax = 'text/x-mysql';
+    } else if (CardComponent.synthax === 'JAVA') {
+      this.configSynthax = 'text/x-java';
+    } else if (CardComponent.synthax === 'C++') {
+      this.configSynthax = 'text/x-c++src';
+    } else if (CardComponent.synthax === 'C') {
+      this.configSynthax = 'text/x-csrc';
+    } else if (CardComponent.synthax === 'C#') {
+      this.configSynthax = 'text/x-csharp';
+    } else if (CardComponent.synthax === 'Scala') {
+      this.configSynthax = 'text/x-scala';
+    } else if (CardComponent.synthax === 'ObjectiveC') {
+      this.configSynthax = 'text/x-objectivec';
+    } else if (CardComponent.synthax === 'HTML') {
+      this.configSynthax = 'text/html';
+    } else if (CardComponent.synthax === 'TypeScript') {
+      this.configSynthax = 'text/typescript';
+    } else {
+      this.configSynthax = CardComponent.synthax.toLowerCase();
     }
   }
 }

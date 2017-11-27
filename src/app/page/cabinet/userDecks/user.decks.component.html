@@ -45,6 +45,10 @@
           <th>DeckOwner</th>
           <td>{{selectedDeck.owner}}</td>
         </tr>
+        <tr>
+          <th>DeckSynthax</th>
+          <td>{{selectedDeck.synthax}}</td>
+        </tr>
         </tbody>
       </table>
       <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
@@ -88,6 +92,16 @@
               <td>
                 <select class="category-select" [(ngModel)]="categoryId">
                   <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label>Choose synthax that should be highlighted:</label>
+              </td>
+              <td>
+                <select class="category-select" [(ngModel)] ="synthax">
+                  <option *ngFor="let synthax of allSynthaxes" >{{synthax}}</option>
                 </select>
               </td>
             </tr>

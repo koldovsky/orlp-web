@@ -111,7 +111,7 @@ export class DeckComponent implements OnInit {
     this.decksWithStatus = [];
     for (const entry of this.decks) {
       this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name,
-        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false));
+        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false, entry.synthax));
     }
     this.setStatusForDecksThatInFolder();
   }
@@ -132,9 +132,11 @@ export class DeckComponent implements OnInit {
     return this.orlpService.decodeLink(shortLink);
   }
 
-  startLearning(deckId: number): void {
+  startLearning(deckId: number, deckSynthax: String): void {
     this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
     CardComponent.deckId = deckId;
+    CardComponent.synthax = deckSynthax;
+    console.log(CardComponent.synthax);
   }
 
   changeDeckStatus(deckId: number) {
