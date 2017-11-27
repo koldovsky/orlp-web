@@ -9,7 +9,7 @@ import {Angular2SocialLoginModule} from 'angular2-social-login';
 import {ReCaptchaModule} from 'angular2-recaptcha';
 import {AuthorizationService} from '../authorization.service';
 import {environment} from '../../../../environments/environment';
-import {AuthorizationUserGuardService} from "../authorization.user.guard.service";
+import {AuthorizationUserGuardService} from '../authorization.user.guard.service';
 
 @NgModule({
     imports: [
