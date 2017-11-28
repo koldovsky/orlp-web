@@ -27,6 +27,9 @@ export class UserDecksComponent implements OnInit {
   dialogButtonName: string;
   private isCreateDialog: boolean;
   private selectedIndex: number;
+  public synthax: String;
+  public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
+    'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
   constructor(private userDecksService: UserDecksService, private orlp: ORLPService, private deckService: DeckService) {
   }
@@ -63,6 +66,7 @@ export class UserDecksComponent implements OnInit {
     this.dialogCategoryId = null;
     this.categoryId = null;
     this.category = '';
+    this.synthax = '';
     this.isCreateDialog = true;
   }
 
@@ -74,15 +78,16 @@ export class UserDecksComponent implements OnInit {
     this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.category = this.selectedDeck.category;
+    this.synthax = this.selectedDeck.synthax;
     this.isCreateDialog = false;
   }
 
   private createDeck() {
     if (this.isCreateDialog) {
-      this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId))
+      this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax))
         .subscribe(() => this.getOnlyDecksCreatedByTheUser());
     } else {
-      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId), this.selectedDeck.deckId)
+      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
   }

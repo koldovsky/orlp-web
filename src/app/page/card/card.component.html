@@ -28,8 +28,11 @@
           </div>
           <div class="content">
             <div class="main">
-              <textarea [(ngModel)]="answer"></textarea>
-            </div>
+                <div>
+                  <codemirror [(ngModel)]="answer"
+                              [config]="config"></codemirror>
+                </div>
+              </div>
 
             <button class="btn btn-primary button-difficult mt-3 mx-auto" (click)="onRotate()">Check</button>
           </div>
@@ -46,13 +49,18 @@
                 <div class="col-sm-6">
                   <div class="card">
                     <h5>Your answer</h5>
-                    <textarea readonly>{{answer}}</textarea>
-                  </div>
+                      <div>
+                        <codemirror [(ngModel)]="answer"
+                                    [config]="answerConfig"></codemirror>
+                      </div>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="card">
                     <h5 class="correct-answer-header">Correct answer</h5>
-                    <textarea readonly>{{cards[questionNumber].answer}}</textarea>
+                      <div >
+                      <codemirror [(ngModel)] = "cards[questionNumber].answer" [config]="answerConfig"></codemirror>
+                      </div>
                   </div>
                 </div>
               </div>

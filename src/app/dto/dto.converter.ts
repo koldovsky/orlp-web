@@ -28,6 +28,7 @@ import {CommentDTO} from './CommentDTO/commentDTO';
 import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
+import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 
 export class DTOConverter {
 
@@ -90,13 +91,13 @@ export class DTOConverter {
   public static jsonToDeck(data: any): DeckDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating, data.owner, cards, self);
+    return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating, data.owner, cards, self, data.synthax);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status, data.synthax);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
@@ -197,4 +198,9 @@ export class DTOConverter {
   public static jsonToRememberingLevel(data: any): RememberingLevelDTO {
     return new RememberingLevelDTO(data.levelId, data.orderNumber, data.name, data.numberOfPostponedDays);
   }
+
+  public static jsonToDeckSynthax(data: any): DeckSynthaxDTO {
+  const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+  return new DeckSynthaxDTO(data.synthax, data.deckId, self);
+}
 }
