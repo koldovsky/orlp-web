@@ -1,3 +1,19 @@
+.title{
+  margin: 25px 0 0 20px;
+}
+.title-signed-in{
+  font-size: 18px;
+}
+.bg {
+  background: url(../../../assets/images/background_home_page.jpg) no-repeat center bottom;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+}
 #forma {
   background-color: white;
 }
@@ -13,7 +29,7 @@ img {
 }
 
 #delete {
-  margin: 60px 0px 0px 0px;
+  margin: 45px 0px 0px 0px;
 }
 
 .accountMessage {
