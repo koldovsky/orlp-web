@@ -37,6 +37,7 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {environment} from '../environments/environment';
 import {RestorePasswordService} from './page/authorization/restorePassword/restorePassword.service';
 import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
+import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {RestorePasswordModule} from './page/authorization/restorePassword/restor
     UserModule,
     ProfileModule,
     UserStatusChangeModule,
+    AuthorisedModule,
     RestorePasswordModule,
     LoggerModule.forRoot({
       serverLoggingUrl: 'http://localhost:8080/',
