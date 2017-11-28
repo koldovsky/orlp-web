@@ -1,5 +1,8 @@
+<div class="bg">
+  <div class="my-container"></div>
+</div>
 <div class="container">
-  <div class="row">
+  <div class="row container-header">
     <div class="col-xs-12 col-sm-3">
       <img *ngIf="imageProfile; else default_image" alt="image" class="img-rounded" alt="Cinque Terre"
            src="{{imageProfile}}">
@@ -12,7 +15,7 @@
         <h1 class="title">My profile</h1>
       </div>
       <div class="row ">
-        <h5 *ngIf="userProfile" class="title">You are signed in as {{userProfile.email}}</h5>
+        <p *ngIf="userProfile" class="title-signed-in">You are signed in as <strong>{{userProfile.email}}</strong></p>
       </div>
     </div>
     <div class="col-xs-12 col-sm-2" id="delete">
