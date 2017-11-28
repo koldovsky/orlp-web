@@ -52,7 +52,7 @@
           <div class="nav-item email">{{userDetails.email}}</div>
         </div>
         <div *ngIf="!isAuthorized" class="nav-item">
-          <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'" (click)="setActiveLink('/registr')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
+          <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'" (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
             UP</a>
         </div>
         <div *ngIf="!isAuthorized" class="nav-item">
