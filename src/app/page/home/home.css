@@ -38,10 +38,14 @@
   transition: 0.7s ease;
 }
 
-.main-container, .categories-container {
-  height: 800px;
-  max-width: 1800px;
+.main-container {
+  height: 100vh;
 }
+
+/*.main-container, .categories-container {*/
+  /*height: 800px;*/
+  /*max-width: 1800px;*/
+/*}*/
 
 .courses-container, .categories-container{
   padding-top: 2%;
@@ -62,7 +66,7 @@
 }
 
 .categories-container, .courses-container {
-  background: rgba(253, 253, 253, 0.6);
+  background: rgb(255, 255, 255);
   position: relative;
   color: #2e4058;
 }
