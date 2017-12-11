@@ -13,7 +13,9 @@ export class CommentDTO {
   listOfChildComments: CommentDTO[] = [];
   self: Link;
 
-  constructor(commentId: number, commentText: string, commentDate: Date, personId: number, personFirstName: string, personLastName: string, imageType: string, imageBase64: string, image: string, listOfChildComments: CommentDTO[], self: Link) {
+  constructor(commentId: number, commentText: string, commentDate: Date, personId: number,
+              personFirstName: string, personLastName: string, imageType: string, imageBase64: string,
+              image: string, listOfChildComments: CommentDTO[], self: Link) {
     this.commentId = commentId;
     this.commentText = commentText;
     this.commentDate = commentDate;

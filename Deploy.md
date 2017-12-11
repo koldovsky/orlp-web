@@ -3,7 +3,7 @@ Instuction for deploy.
 We use Ubuntu server to run our application, so here is description how to do it.
 
 INSTALLATION
-------------
+-------------
 
 * On your server install nginx.
 * Change port in `.angular-cli.json` to `80`.
