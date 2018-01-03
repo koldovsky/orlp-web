@@ -25,7 +25,9 @@
           </div>
           <h1 class="category-header">Question</h1>
           <div class="main">
+            <img style="width: 35vh;height: 35vh;margin-bottom: 2vh" src="data:image/png;base64,{{card.image}}" alt="">
             <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
+            <input type="file" [disabled]="edit" [(ngModel)]=card.image >
           </div>
           <h1 class="category-header">Answer</h1>
           <div class="main">

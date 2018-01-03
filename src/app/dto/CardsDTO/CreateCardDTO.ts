@@ -4,15 +4,13 @@ export class CreateCardDTO {
   title: string;
   question: string;
   answer: string;
-  rating: number;
-  self: Link;
+  image: any;
 
 
-  constructor(title: string, question: string, answer: string, rating: number, self: Link) {
+  constructor(title: string, question: string, answer: string, image: any) {
     this.title = title;
     this.answer = answer;
     this.question = question;
-    this.rating = rating;
-    this.self = self;
+    this.image = image;
   }
 }

@@ -23,6 +23,7 @@ export class ManageCardsComponent implements OnInit {
   public answer: string;
   public title: string;
   public rating: number;
+  public image: string;
   private url: string;
   private sub: Subscription;
   public nameOfPageToBack: string;
@@ -78,11 +79,13 @@ export class ManageCardsComponent implements OnInit {
   }
 
   private onCardClicked(card: CardPublic): void {
+    // console.log(this.card.image);
     this.edit = true;
     this.card = card;
     this.title = card.title;
     this.question = card.question;
     this.answer = card.answer;
+    this.image = card.image;
   }
 
   deleteSelectedCard() {

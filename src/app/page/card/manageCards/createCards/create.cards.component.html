@@ -15,12 +15,16 @@
       <div class="main">
         <textarea [(ngModel)]="question"></textarea>
       </div>
+      <h1 class="category-header">Question image</h1>
+      <div class="main">
+        <input type="file" #image>
+      </div>
       <h1 class="category-header">Answer</h1>
       <div class="main">
         <textarea [(ngModel)]="answer"></textarea>
       </div>
       <button [disabled]="!(question && answer && title)" type="button"
-              class="btn btn-primary btn-create-card" (click)="createCard()" data-toggle="modal"
+              class="btn btn-primary btn-create-card" (click)="createCard(image)" data-toggle="modal"
               data-target="#SuccessCreate">Add card
       </button>
     </div>

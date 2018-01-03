@@ -44,9 +44,17 @@ export class CreateCardsComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  createCard() {
+  createCard(imageInput: any) {
+    const file = imageInput.files[0];
+    const formData = new FormData();
+    formData.append('title', this.title);
+    formData.append('question', this.question);
+    formData.append('answer', this.answer);
+    formData.append('image', file);
+    // console.log(formData);
+    // new CreateCardDTO(this.title, this.question, this.answer, file)
     this.createCardsService.createCard(
-      new CreateCardDTO(this.title, this.question, this.answer, this.rating, null), this.deck.categoryId, this.deck.deckId)
+      formData, this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
         this.createCardMessage = 'Card created!';
         this.clearFields();

@@ -33,8 +33,9 @@ import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
+    console.log(data);
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self);
+    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self, data.image);
   }
 
   public static jsonToImageDTO(data: any): ImageDTO {
@@ -183,7 +184,7 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self);
+    return new CreateCardDTO(data.title, data.question, data.answer, data.image);
   }
 
   public static jsonToCommentDTO(data: any): CommentDTO {
