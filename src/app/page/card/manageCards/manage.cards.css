@@ -123,4 +123,8 @@ input {
   background-color : #0275d8;
   color: white;
 }
-
+.image-container{
+  width: 35vh;
+  height: 35vh;
+  margin-bottom: 2vh;
+}

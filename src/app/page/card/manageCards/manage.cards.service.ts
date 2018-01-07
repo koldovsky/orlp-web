@@ -37,7 +37,7 @@ export class ManageCardsService {
     return this.orlp.delete(cardLink).map((response: Response) => console.log());
   }
 
-  public updateSelectedCard(cardLink: string, card: CardPublic) {
+  public updateSelectedCard(cardLink: string, card: CardPublic, image: any) {
     return this.orlp.put(cardLink, card).map((response: Response) => console.log());
   }
 }

@@ -137,3 +137,8 @@ textarea{
   border-radius: 0.7rem;
   border-top: hidden;
 }
+.image-container{
+  width: 35vh;
+  height: 35vh;
+  margin-bottom: 2vh;
+}

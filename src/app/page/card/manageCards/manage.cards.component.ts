@@ -107,9 +107,11 @@ export class ManageCardsComponent implements OnInit {
     this.card.question = this.question;
   }
 
-  public updateCard() {
+  public updateCard(image: HTMLInputElement) {
     this.edit = true;
-    this.manageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card)
+    const file = image.files[0];
+    console.log(this.decodeCardLink(this.getShortCardLink(this.card.self)));
+    this.manageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card, file)
       .subscribe(() => this.getCardsList());
   }
 
