@@ -8,6 +8,7 @@ import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from "../../categoryInfo/deck/deck.service";
 import {nextTick} from "q";
+import {ERROR_FILE_TYPE_MESSAGE} from "../../../services/orlp.settings";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -120,6 +121,6 @@ export class UserDecksComponent implements OnInit {
     formData.append('file', file);
     this.userDecksService.uploadCards(formData, deckId)
       .subscribe(next => this.errorFileMessage = '',
-          error => this.errorFileMessage = 'File must be *.yml!');
+          error => this.errorFileMessage = ERROR_FILE_TYPE_MESSAGE);
   }
 }
