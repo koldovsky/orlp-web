@@ -7,10 +7,10 @@ export class CardPublic {
   question: string;
   rating: number;
   self: Link;
-  image: string;
+  image: any;
 
 
-  constructor(cardId: number, title: string, answer: string, question: string, rating: number, self: Link, image: string) {
+  constructor(cardId: number, title: string, answer: string, question: string, rating: number, self: Link, image: any) {
     this.cardId = cardId;
     this.title = title;
     this.answer = answer;

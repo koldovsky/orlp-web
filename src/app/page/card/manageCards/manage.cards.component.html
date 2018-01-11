@@ -25,10 +25,9 @@
           </div>
           <h1 class="category-header">Question</h1>
           <div class="main">
-            <img class="image-container" style="" src="data:image/png;base64,{{card.image}}" alt="">
+            <img *ngIf="card.image != null" class="image-container" src="data:image/png;base64,{{card.image}}" alt="">
             <input type="file" [disabled]="edit" #image>
             <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
-
           </div>
           <h1 class="category-header">Answer</h1>
           <div class="main">
@@ -40,7 +39,7 @@
                   data-target="#deleteCard">Delete
           </button>
           <button *ngIf="!edit" [disabled]="!(card.title && card.question && card.answer)"
-                  class="btn btn-primary cards-list-button" (click)="updateCard(image)">Save changes
+                  class="btn btn-primary cards-list-button" (click)="updateCard(card,image)">Save changes
           </button>
           <button *ngIf="!edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
           </button>
@@ -57,7 +56,8 @@
         </div>
         <div class="internal-text"><h2>{{card.title}}</h2> will be deleted !!!</div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteSelectedCard()">Delete</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="deleteSelectedCard()">Delete
+          </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </div>

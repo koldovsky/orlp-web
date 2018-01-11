@@ -167,3 +167,7 @@
     visibility: visible;
   }
 }
+.card-image{
+  width: 80vh;
+  height: 50vh;
+}

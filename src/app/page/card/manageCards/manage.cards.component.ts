@@ -79,7 +79,6 @@ export class ManageCardsComponent implements OnInit {
   }
 
   private onCardClicked(card: CardPublic): void {
-    // console.log(this.card.image);
     this.edit = true;
     this.card = card;
     this.title = card.title;
@@ -107,12 +106,15 @@ export class ManageCardsComponent implements OnInit {
     this.card.question = this.question;
   }
 
-  public updateCard(image: HTMLInputElement) {
+  public updateCard(card: CardPublic, image: any) {
     this.edit = true;
-    const file = image.files[0];
-    console.log(this.decodeCardLink(this.getShortCardLink(this.card.self)));
-    this.manageCardsService.updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), this.card, file)
-      .subscribe(() => this.getCardsList());
+    const formData = new FormData();
+    formData.append('title', card.title);
+    formData.append('question', card.question);
+    formData.append('answer', card.answer);
+    formData.append('image', image.files[0]);
+    this.manageCardsService
+      .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), formData);
   }
 
   public onChangeSelectedItemColor(event, item: number) {

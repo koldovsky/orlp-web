@@ -45,14 +45,11 @@ export class CreateCardsComponent implements OnInit {
   }
 
   createCard(imageInput: any) {
-    const file = imageInput.files[0];
     const formData = new FormData();
     formData.append('title', this.title);
     formData.append('question', this.question);
     formData.append('answer', this.answer);
-    formData.append('image', file);
-    // console.log(formData);
-    // new CreateCardDTO(this.title, this.question, this.answer, file)
+    formData.append('image', imageInput.files[0]);
     this.createCardsService.createCard(
       formData, this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {

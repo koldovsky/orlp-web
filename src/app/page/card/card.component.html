@@ -25,7 +25,7 @@
             <h1 class="motto">
              {{cards[questionNumber].question}}
               <div>
-                <img style="width: 80vh;height: 50vh;" src="data:image/png;base64,{{cards[questionNumber].image}}" alt="">
+                <img *ngIf="cards[questionNumber].image != null" class="card-image" src="data:image/png;base64,{{cards[questionNumber].image}}" alt="">
               </div>
             </h1>
           </div>
@@ -44,6 +44,9 @@
           <div class="header">
             <h1 class="motto">
               {{cards[questionNumber].question}}
+              <div>
+                <img *ngIf="cards[questionNumber].image != null" class="card-image" src="data:image/png;base64,{{cards[questionNumber].image}}" alt="">
+              </div>
             </h1>
           </div>
           <div class="content">

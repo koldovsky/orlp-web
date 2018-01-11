@@ -184,12 +184,13 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.image);
+    return new CreateCardDTO(data.title, data.question, data.answer, data.image, self);
   }
 
   public static jsonToCommentDTO(data: any): CommentDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
+    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName,
+      data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
   }
 
   public static jsonToUserRoleDTO(data: any): UserRoleDTO {
@@ -201,7 +202,7 @@ export class DTOConverter {
   }
 
   public static jsonToDeckSynthax(data: any): DeckSynthaxDTO {
-  const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-  return new DeckSynthaxDTO(data.synthax, data.deckId, self);
-}
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new DeckSynthaxDTO(data.synthax, data.deckId, self);
+  }
 }
