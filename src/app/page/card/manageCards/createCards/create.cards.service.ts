@@ -19,7 +19,7 @@ export class CreateCardsService {
   }
 
   public createCard(createCardDTO: any, categoryId: number, deckId: number) {
-    return this.orlp.post('/api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
+    return this.orlp.post('api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
@@ -30,7 +30,6 @@ export class CreateCardsService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

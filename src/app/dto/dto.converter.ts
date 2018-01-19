@@ -29,13 +29,13 @@ import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
 import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
+import {CardImage} from "./card-image-dto/card-image";
 
 export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
-    console.log(data);
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self, data.image);
+    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self, data.cardImages);
   }
 
   public static jsonToImageDTO(data: any): ImageDTO {

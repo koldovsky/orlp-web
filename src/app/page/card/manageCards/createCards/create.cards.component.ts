@@ -5,7 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../../services/orlp.service';
 import {Link} from '../../../../dto/link';
-import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
+
+
 
 @Component({
   providers: [CreateCardsService],
@@ -14,15 +15,17 @@ import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
 })
 
 export class CreateCardsComponent implements OnInit {
+
   public deck: AdminDeck;
   public question: string;
   public answer: string;
   public title: string;
   public rating: number;
-  private url: string;
-  private sub: Subscription;
   public createCardMessage: string;
   public nameOfPageToBack: string;
+  public imageArray: File[] = [];
+  private url: string;
+  private sub: Subscription;
 
   constructor(private createCardsService: CreateCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
@@ -39,6 +42,18 @@ export class CreateCardsComponent implements OnInit {
     );
     this.takeDeck();
   }
+  loadImage(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (file: any) => {
+          this.imageArray.push(file.target.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+  public showImage(index: number) {
+
+  }
 
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
@@ -49,13 +64,22 @@ export class CreateCardsComponent implements OnInit {
     formData.append('title', this.title);
     formData.append('question', this.question);
     formData.append('answer', this.answer);
-    formData.append('image', imageInput.files[0]);
+    for (let i = 0; i < this.imageArray.length; i++) {
+      formData.append('image', this.imageArray[i]);
+    }
     this.createCardsService.createCard(
       formData, this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
         this.createCardMessage = 'Card created!';
+        this.imageArray = [];
         this.clearFields();
       }, () => this.createCardMessage = 'Error. Please try again!');
+  }
+
+  clearFields() {
+    this.answer = '';
+    this.question = '';
+    this.title = '';
   }
 
   private decodeLink(): void {
@@ -69,12 +93,6 @@ export class CreateCardsComponent implements OnInit {
         this.deck = deck;
       }
     );
-  }
-
-  clearFields() {
-    this.answer = '';
-    this.question = '';
-    this.title = '';
   }
 
 }

@@ -25,8 +25,13 @@
           </div>
           <h1 class="category-header">Question</h1>
           <div class="main">
-            <img *ngIf="card.image != null" class="image-container" src="data:image/png;base64,{{card.image}}" alt="">
-            <input type="file" [disabled]="edit" #image>
+            <div *ngFor="let img of images;let i = index">
+              <img class="image-container" src="{{img.image}}" alt="">
+             <button (click)="deleteCardImage(img.id,i)">delete img</button>
+            </div>
+            <label id = "largeFile" for="file" >
+              <input [disabled]="edit" type="file" (change)="loadImage($event)" id = "file">
+            </label>
             <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
           </div>
           <h1 class="category-header">Answer</h1>
@@ -39,7 +44,7 @@
                   data-target="#deleteCard">Delete
           </button>
           <button *ngIf="!edit" [disabled]="!(card.title && card.question && card.answer)"
-                  class="btn btn-primary cards-list-button" (click)="updateCard(card,image)">Save changes
+                  class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
           </button>
           <button *ngIf="!edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
           </button>

@@ -9,6 +9,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
+import {CardImage} from "../../../dto/card-image-dto/card-image";
 
 
 @Injectable()
@@ -19,7 +20,7 @@ export class ManageCardsService {
 
   public getCards(deckId: number): Observable<CardPublic[]> {
     return this.orlp.get('/api/decks/' + deckId + '/cards').map((response: Response) =>
-      <CardPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminDeckCards, response.json()));
+      <CardPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()));
   }
 
   public getDeck(url: string): Observable<AdminDeck> {
@@ -28,16 +29,19 @@ export class ManageCardsService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
-
   public deleteSelectedCard(cardLink: string) {
     return this.orlp.delete(cardLink).map((response: Response) => console.log());
   }
 
   public updateSelectedCard(cardLink: string, card: any) {
-    return this.orlp.post(cardLink, card).catch(err => Observable.throw(err));
+    return this.orlp.post(cardLink, card).subscribe(next => console.log(next.status));
+  }
+
+  private handleError(error: Response) {
+    return Observable.throw(error.json().error || 'Server error');
+  }
+
+  public deleteCardImage(cardImageId: number) {
+    return this.orlp.delete('api/private/cardImage/' + cardImageId).subscribe(next => console.log(next.statusText));
   }
 }

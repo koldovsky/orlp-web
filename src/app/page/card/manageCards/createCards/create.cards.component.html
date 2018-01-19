@@ -16,8 +16,11 @@
         <textarea [(ngModel)]="question"></textarea>
       </div>
       <h1 class="category-header">Question image</h1>
-      <div class="main">
-        <input type="file" #image>
+      <div class="">
+        <img class="image-container" *ngFor="let image of imageArray" src="{{image}}">
+        <label id = "largeFile" for="file" >
+          <input type="file" (change)="loadImage($event)" id = "file">
+        </label>
       </div>
       <h1 class="category-header">Answer</h1>
       <div class="main">

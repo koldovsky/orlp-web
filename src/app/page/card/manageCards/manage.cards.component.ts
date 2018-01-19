@@ -6,6 +6,8 @@ import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
+import {CardImage} from '../../../dto/card-image-dto/card-image';
+import {isUndefined} from "util";
 
 
 @Component({
@@ -23,7 +25,7 @@ export class ManageCardsComponent implements OnInit {
   public answer: string;
   public title: string;
   public rating: number;
-  public image: string;
+  public images: CardImage[];
   private url: string;
   private sub: Subscription;
   public nameOfPageToBack: string;
@@ -84,7 +86,7 @@ export class ManageCardsComponent implements OnInit {
     this.title = card.title;
     this.question = card.question;
     this.answer = card.answer;
-    this.image = card.image;
+    this.images = card.images;
   }
 
   deleteSelectedCard() {
@@ -106,18 +108,38 @@ export class ManageCardsComponent implements OnInit {
     this.card.question = this.question;
   }
 
-  public updateCard(card: CardPublic, image: any) {
+  loadImage(event) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (file: any) => {
+        this.images.push(new CardImage(null, file.target.result));
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  public updateCard(card: CardPublic) {
     this.edit = true;
     const formData = new FormData();
     formData.append('title', card.title);
     formData.append('question', card.question);
     formData.append('answer', card.answer);
-    formData.append('image', image.files[0]);
+    for (let i = 0; i < this.images.length; i++) {
+      console.log(this.images.filter(image => image.id == null)[i].image);
+      formData.append('images', this.images.filter(image => image.id == null)[i].image);
+    }
     this.manageCardsService
       .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), formData);
   }
 
   public onChangeSelectedItemColor(event, item: number) {
     this.selectedItem = item;
+  }
+
+  public deleteCardImage(cardImageId: number, cardImageIndex: number) {
+    this.images.splice(cardImageIndex, 1);
+    if (this.images[cardImageIndex].id != null) {
+      this.manageCardsService.deleteCardImage(cardImageId);
+    }
   }
 }
