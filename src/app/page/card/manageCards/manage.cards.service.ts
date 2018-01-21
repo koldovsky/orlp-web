@@ -34,7 +34,7 @@ export class ManageCardsService {
   }
 
   public updateSelectedCard(cardLink: string, card: any) {
-    return this.orlp.put(cardLink, card).subscribe(next => {}, error => console.log(error));
+    return this.orlp.post(cardLink, card).subscribe(next => {}, error => console.log(error));
   }
 
   private handleError(error: Response) {
