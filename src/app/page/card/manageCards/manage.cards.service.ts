@@ -30,11 +30,11 @@ export class ManageCardsService {
   }
 
   public deleteSelectedCard(cardLink: string) {
-    return this.orlp.delete(cardLink).map((response: Response) => console.log());
+    return this.orlp.delete(cardLink).map((response: Response) => {});
   }
 
   public updateSelectedCard(cardLink: string, card: any) {
-    return this.orlp.post(cardLink, card).subscribe(next => console.log(next.status));
+    return this.orlp.put(cardLink, card).subscribe(next => {}, error => console.log(error));
   }
 
   private handleError(error: Response) {
@@ -42,6 +42,7 @@ export class ManageCardsService {
   }
 
   public deleteCardImage(cardImageId: number) {
-    return this.orlp.delete('api/private/cardImage/' + cardImageId).subscribe(next => console.log(next.statusText));
+    return this.orlp.delete('api/private/cardImage/' + cardImageId)
+      .subscribe(next => {}, error => console.log(error));
   }
 }

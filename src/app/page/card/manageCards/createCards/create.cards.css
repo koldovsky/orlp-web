@@ -137,11 +137,6 @@ textarea{
   border-radius: 0.7rem;
   border-top: hidden;
 }
-.image-container{
-  width: 35vh;
-  height: 35vh;
-  margin-bottom: 2vh;
-}
 
 label#largeFile{
   width: 20vh;
@@ -172,3 +167,41 @@ label#largeFile input#file {
 #file{
   display: none;
 }
+
+/* start of img container*/
+.img-container {
+  position: relative;
+  float: left;
+}
+a.remImage img {
+  box-shadow: none;
+  position: absolute;
+  right: 7px;
+  top: -5px;
+  margin-top: 4px;
+  opacity: 0;
+  display: block;
+  transition: all .5s ease-in-out;
+}
+.img-container:hover a.remImage img {
+  opacity: 1;
+  z-index: 99;
+  position: absolute;
+  top: 5px;
+}
+.img-container:after {
+  content: '';
+  width: 465px;
+  height: 300px;
+  position: absolute;
+  display: block;
+  background: rgba(0, 0, 0, 0.6);
+  top: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: all .5s ease-in-out;
+}
+.img-container:hover:after{
+  opacity: 1;
+}
+/* end of image container*/

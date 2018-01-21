@@ -95,6 +95,10 @@ export class CreateCardsComponent implements OnInit {
     );
   }
 
+  public deleteCardImage(cardImageIndex: number) {
+    this.imageArray.splice(cardImageIndex, 1);
+  }
+
 }
 
 

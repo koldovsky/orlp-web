@@ -16,8 +16,13 @@
         <textarea [(ngModel)]="question"></textarea>
       </div>
       <h1 class="category-header">Question image</h1>
-      <div class="">
-        <img class="image-container" *ngFor="let image of imageArray" src="{{image}}">
+      <div>
+        <div *ngFor="let image of imageArray; let i = index" class="img-container" id="img-container">
+          <img width="465" height="300" src="{{image}}">
+          <a class="remImage" id="delete" (click)="deleteCardImage(i)">
+            <img src="https://image.flaticon.com/icons/svg/261/261935.svg" style="width:40px;height:40px;">
+          </a>
+        </div>
         <label id = "largeFile" for="file" >
           <input type="file" (change)="loadImage($event)" id = "file">
         </label>

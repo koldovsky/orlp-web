@@ -137,10 +137,12 @@ export class ManageCardsComponent implements OnInit {
     this.selectedItem = item;
   }
 
-  public deleteCardImage(cardImageId: number, cardImageIndex: number) {
-    this.images.splice(cardImageIndex, 1);
-    if (this.images[cardImageIndex].id != null) {
-      this.manageCardsService.deleteCardImage(cardImageId);
+  public deleteCardImage(cardImageIndex: number) {
+    if (!this.edit) {
+      if (this.images[cardImageIndex].id != null) {
+        this.manageCardsService.deleteCardImage(this.images[cardImageIndex].id);
+      }
+      this.images.splice(cardImageIndex, 1);
     }
   }
 }
