@@ -7,7 +7,7 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
 import {CardImage} from '../../../dto/card-image-dto/card-image';
-import {isUndefined} from "util";
+
 
 
 @Component({
@@ -25,7 +25,8 @@ export class ManageCardsComponent implements OnInit {
   public answer: string;
   public title: string;
   public rating: number;
-  public images: CardImage[];
+  public images: CardImage[] = [];
+  public imgArray: File[] = [];
   private url: string;
   private sub: Subscription;
   public nameOfPageToBack: string;
@@ -112,7 +113,8 @@ export class ManageCardsComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (file: any) => {
-        this.images.push(new CardImage(null, file.target.result));
+        this.images.push(new CardImage(file.target.result));
+        this.imgArray.push(file.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -124,9 +126,8 @@ export class ManageCardsComponent implements OnInit {
     formData.append('title', card.title);
     formData.append('question', card.question);
     formData.append('answer', card.answer);
-    for (let i = 0; i < this.images.length; i++) {
-      console.log(this.images.filter(image => image.id == null)[i].image);
-      formData.append('images', this.images.filter(image => image.id == null)[i].image);
+    for (let i = 0; i < this.imgArray.length; i++) {
+      formData.append('images', this.imgArray[i]);
     }
     this.manageCardsService
       .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), formData);
