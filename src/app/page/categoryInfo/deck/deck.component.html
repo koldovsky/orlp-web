@@ -2,7 +2,8 @@
   <table class="table table-striped">
     <thead>
     <tr class="deck-header">
-      <th *ngFor="let column of courseColumns" class="alignCenter" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+      <th *ngFor="let column of courseColumns" class="alignCenter"
+          [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
         {{column.nameColumnForDisplay}} {{column.symbolSorting}}
       </th>
     </thead>
@@ -22,11 +23,12 @@
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
       <ng-template #unAuthorized>
-        <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                          [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
         </td>
       </ng-template>
-      <td class="alignCenter">
+      <td class="alignCenter" *ngIf="isAuthorized">
         <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
         </button>
       </td>
@@ -47,14 +49,19 @@
   </table>
   <nav aria-label="Page navigation">
     <ul class="pagination">
-      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
+      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a>
+      </li>
       <ng-template #disabledFirst>
         <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(1)">First</a></li>
       </ng-template>
-      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDeckByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getDeckByPage(currentPage - 1)">{{currentPage
+        - 1}}</a></li>
       <li class="active"><a class="page-link" (click)="getDeckByPage(currentPage)">{{currentPage}}</a></li>
-      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getDeckByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage"
+                               (click)="getDeckByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
+                                                                                  (click)="getDeckByPage(lastPage)">Last</a>
+      </li>
       <ng-template #disabledLast>
         <li class="page-item disabled"><a class="page-link" (click)="getDeckByPage(lastPage)">Last</a></li>
       </ng-template>
