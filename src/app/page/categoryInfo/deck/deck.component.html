@@ -26,7 +26,7 @@
                           [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
         </td>
       </ng-template>
-      <td class="alignCenter">
+      <td class="alignCenter" *ngIf="isAuthorized">
         <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
         </button>
       </td>

@@ -60,7 +60,7 @@ export class DeckService {
   }
 
   downloadCards(deckId: number, deckName: string) {
-    return this.orlp.get('download/deck/' + deckId + '/cards')
+    return this.orlp.get('api/private/download/deck/' + deckId + '/cards')
       .subscribe(
         response => {
           const blob = new Blob([response.text()], { type: 'application/octet-stream'});
