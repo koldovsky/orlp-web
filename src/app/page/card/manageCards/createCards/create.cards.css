@@ -182,26 +182,19 @@ a.remImage img {
   opacity: 0;
   display: block;
   transition: all .5s ease-in-out;
+
 }
 .img-container:hover a.remImage img {
+  cursor: pointer;
   opacity: 1;
-  z-index: 99;
+  z-index: 2;
   position: absolute;
   top: 5px;
 }
-.img-container:after {
-  content: '';
-  width: 465px;
-  height: 300px;
-  position: absolute;
-  display: block;
-  background: rgba(0, 0, 0, 0.6);
-  top: 0;
-  z-index: 0;
-  opacity: 0;
-  transition: all .5s ease-in-out;
-}
-.img-container:hover:after{
-  opacity: 1;
+
+.img-container img{
+  max-width: 465px;
+  max-height: 465px;
 }
 /* end of image container*/
+
