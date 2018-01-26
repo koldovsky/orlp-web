@@ -188,4 +188,9 @@ a.remImage img {
   top: 5px;
 }
 
+.img-container img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
 /* end of image container*/
