@@ -32,7 +32,7 @@ deploy:
             name: Stop Docker container
             code: |
                 scp check_if_web_run.sh $LOGIN@$REMOTE_HOST:~/orlp-web/
-                # ssh $LOGIN@$REMOTE_HOST "docker container stop orlp-web && docker container rm orlp-web"
+                # ssh $LOGIN@$REMOTE_HOST "sh check_if_web_run.sh"
         - script:
             name: Run Docker container
             code: |
