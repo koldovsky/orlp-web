@@ -22,7 +22,7 @@ deploy:
         - add-to-known_hosts:
             hostname: $REMOTE_HOST
         - script:
-            name: Copy Dist dir
+            name: Copy dist directory
             code: |
                 tar -czvf dist.tar.gz ./dist
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && rm -rf dist*"
@@ -30,7 +30,9 @@ deploy:
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && tar -zxvf dist.tar.gz"
         - script:
             name: Stop Docker container
-            code: ssh $LOGIN@$REMOTE_HOST "docker container stop orlp-web && docker container rm orlp-web"
+            code: |
+                scp check_if_web_run.sh $LOGIN@$REMOTE_HOST:~/orlp-web/scripts/.
+                # ssh $LOGIN@$REMOTE_HOST "docker container stop orlp-web && docker container rm orlp-web"
         - script:
             name: Run Docker container
             code: |
