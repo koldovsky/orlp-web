@@ -21,7 +21,7 @@
         <div class="content">
           <h1 class="category-header">Title</h1>
           <div class="main">
-            <input [disabled]="edit" [(ngModel)]=card.title>
+            <input [disabled]="!edit" [(ngModel)]=card.title>
           </div>
           <h1 class="category-header">Image question</h1>
           <div class="main">
@@ -34,27 +34,27 @@
           </div>
           <div class = "main" style="clear: both">
             <label id="largeFile" for="file">
-              <input [disabled]="edit" type="file" (change)="loadImage($event)" id="file">
+              <input [disabled]="!edit" type="file" (change)="loadImage($event)" id="file">
             </label>
 
           </div>
           <h1 class="category-header" style="clear: both">Question</h1>
           <div class="main">
-            <textarea [disabled]="edit" [(ngModel)]=card.question>{{card.question}}</textarea>
+            <textarea [disabled]="!edit" [(ngModel)]=card.question>{{card.question}}</textarea>
           </div>
           <h1 class="category-header">Answer</h1>
           <div class="main">
-            <textarea [disabled]="edit" [(ngModel)]=card.answer>{{card.answer}}</textarea>
+            <textarea [disabled]="!edit" [(ngModel)]=card.answer>{{card.answer}}</textarea>
           </div>
-          <button [disabled]="!edit" class="btn btn-primary cards-list-button" (click)="changeEditStatus()">Edit
+          <button [disabled]="edit" class="btn btn-primary cards-list-button" (click)="changeEditStatus()">Edit
           </button>
-          <button [disabled]="!edit" class="btn btn-primary cards-list-button" data-toggle="modal"
+          <button [disabled]="edit" class="btn btn-primary cards-list-button" data-toggle="modal"
                   data-target="#deleteCard">Delete
           </button>
-          <button *ngIf="!edit" [disabled]="!(card.title && card.question && card.answer)"
+          <button *ngIf="edit" [disabled]="!(card.title && card.question && card.answer)"
                   class="btn btn-primary cards-list-button" (click)="updateCard(card)">Save changes
           </button>
-          <button *ngIf="!edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
+          <button *ngIf="edit" class="btn btn-primary cards-list-button" (click)="cancelEdit(card)">Cancel
           </button>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../../services/orlp.service';
 import {Link} from '../../../../dto/link';
-import {CardUpdateDTO} from "../../../../dto/CardsDTO/CardUpdateDTO";
+import {CardUpdateDTO} from '../../../../dto/CardsDTO/CardUpdateDTO';
 
 
 @Component({
@@ -61,23 +61,6 @@ export class CreateCardsComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  // createCard(imageInput: any) {
-  //   const formData = new FormData();
-  //   formData.append('title', this.title);
-  //   formData.append('question', this.question);
-  //   formData.append('answer', this.answer);
-  //   for (let i = 0; i < this.imageArray.length; i++) {
-  //     formData.append('image', this.imageArray[i]);
-  //   }
-  //   this.createCardsService.createCard(
-  //     formData, this.deck.categoryId, this.deck.deckId)
-  //     .subscribe(() => {
-  //       this.createCardMessage = 'Card created!';
-  //       this.imageArray = [];
-  //       this.clearFields();
-  //     }, () => this.createCardMessage = 'Error. Please try again!');
-  // }
-
   createCard(imageInput: any) {
     this.createCardsService.createCard(
       new CardUpdateDTO(this.title, this.question, this.answer, this.imageArray),
@@ -111,7 +94,4 @@ export class CreateCardsComponent implements OnInit {
       }
     );
   }
-
 }
-
-

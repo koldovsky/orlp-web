@@ -17,7 +17,7 @@ import {CardUpdateDTO} from '../../../dto/CardsDTO/CardUpdateDTO';
 })
 
 export class ManageCardsComponent implements OnInit {
-  public edit = true;
+  public edit = false;
   public cards: CardPublic[] = [];
   public deck: AdminDeck;
   public card: CardPublic;
@@ -62,11 +62,11 @@ export class ManageCardsComponent implements OnInit {
   }
 
   public changeEditStatus() {
-    this.edit = false;
+    this.edit = true;
   }
 
   public cancelEdit(card: CardPublic) {
-    this.edit = true;
+    this.edit = false;
     this.card.title = this.title;
     this.card.answer = this.answer;
     this.card.question = this.question;
@@ -84,7 +84,7 @@ export class ManageCardsComponent implements OnInit {
   }
 
   public updateCard(card: CardPublic) {
-    this.edit = true;
+    this.edit = false;
     this.manageCardsService
       .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)),
         new CardUpdateDTO(card.title, card.question, card.answer, this.imgArray));
@@ -95,7 +95,7 @@ export class ManageCardsComponent implements OnInit {
   }
 
   public deleteCardImage(cardImageIndex: number) {
-    if (!this.edit) {
+    if (this.edit) {
       if (this.images[cardImageIndex].id != null) {
         this.manageCardsService.deleteCardImage(this.images[cardImageIndex].id);
       }
@@ -132,7 +132,7 @@ export class ManageCardsComponent implements OnInit {
   }
 
   private onCardClicked(card: CardPublic): void {
-    this.edit = true;
+    this.edit = false;
     this.card = card;
     this.title = card.title;
     this.question = card.question;

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Http, RequestMethod, RequestOptions, Response} from '@angular/http';
+import {Response} from '@angular/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,7 +14,7 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 @Injectable()
 export class ManageCardsService {
 
-  constructor(private orlp: ORLPService, private http: Http) {
+  constructor(private orlp: ORLPService) {
   }
 
   public getCards(deckId: number): Observable<CardPublic[]> {
@@ -29,19 +29,22 @@ export class ManageCardsService {
   }
 
   public deleteSelectedCard(cardLink: string) {
-    return this.orlp.delete(cardLink).map((response: Response) => {});
+    return this.orlp.delete(cardLink).map((response: Response) => {
+    });
   }
 
   public updateSelectedCard(cardLink: string, card: any) {
-    return this.orlp.put(cardLink, card).subscribe(next => {}, error => console.log(error));
-  }
-
-  private handleError(error: Response) {
-    return Observable.throw(error.json().error || 'Server error');
+    return this.orlp.put(cardLink, card).subscribe(next => {
+    }, error => console.log(error));
   }
 
   public deleteCardImage(cardImageId: number) {
     return this.orlp.delete('api/private/cardImage/' + cardImageId)
-      .subscribe(next => {}, error => console.log(error));
+      .subscribe(next => {
+      }, error => console.log(error));
+  }
+
+  private handleError(error: Response) {
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
