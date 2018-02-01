@@ -141,8 +141,6 @@ export class CardComponent implements OnInit {
       this.configSynthax = 'text/html';
     } else if (CardComponent.synthax === 'TypeScript') {
       this.configSynthax = 'text/typescript';
-    } else {
-      this.configSynthax = CardComponent.synthax.toLowerCase();
     }
   }
 }
