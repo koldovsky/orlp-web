@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Response} from '@angular/http';
+import {Http, RequestMethod, RequestOptions, Response} from '@angular/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -9,13 +9,12 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {CardPublic} from '../../../dto/CardsDTO/public.card.DTO';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
-import {CardImage} from "../../../dto/card-image-dto/card-image";
 
 
 @Injectable()
 export class ManageCardsService {
 
-  constructor(private orlp: ORLPService) {
+  constructor(private orlp: ORLPService, private http: Http) {
   }
 
   public getCards(deckId: number): Observable<CardPublic[]> {
@@ -34,7 +33,7 @@ export class ManageCardsService {
   }
 
   public updateSelectedCard(cardLink: string, card: any) {
-    return this.orlp.post(cardLink, card).subscribe(next => {}, error => console.log(error));
+    return this.orlp.put(cardLink, card).subscribe(next => {}, error => console.log(error));
   }
 
   private handleError(error: Response) {

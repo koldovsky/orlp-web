@@ -7,7 +7,7 @@ import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../services/orlp.service';
 import {Link} from '../../../dto/link';
 import {CardImage} from '../../../dto/card-image-dto/card-image';
-
+import {CardUpdateDTO} from '../../../dto/CardsDTO/CardUpdateDTO';
 
 
 @Component({
@@ -26,12 +26,12 @@ export class ManageCardsComponent implements OnInit {
   public title: string;
   public rating: number;
   public images: CardImage[] = [];
-  public imgArray: File[] = [];
-  private url: string;
-  private sub: Subscription;
+  public imgArray: string[] = [];
   public nameOfPageToBack: string;
   public selectedItem: number;
   public listOfCardsMessage = 'Loading...';
+  private url: string;
+  private sub: Subscription;
 
   constructor(private manageCardsService: ManageCardsService, private route: ActivatedRoute,
               private orlp: ORLPService) {
@@ -49,45 +49,8 @@ export class ManageCardsComponent implements OnInit {
     this.takeDeck();
   }
 
-  private decodeLink(): void {
-    this.url = this.orlp.decodeLink(this.url);
-  }
-
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
-  }
-
-  private takeDeck(): void {
-    this.decodeLink();
-    this.manageCardsService.getDeck(this.url).subscribe(
-      deck => {
-        this.deck = deck;
-        this.getCardsList();
-      });
-  }
-
-  private getCardsList() {
-    this.manageCardsService.getCards(this.deck.deckId).subscribe(cards => {
-      this.cards = cards;
-      this.listOfCardsMessage = 'List of cards is empty';
-    });
-  }
-
-  private getShortCardLink(linkSelectedCard: Link) {
-    return this.orlp.getShortLink(linkSelectedCard);
-  }
-
-  private decodeCardLink(cardLink: string) {
-    return this.orlp.decodeLink(cardLink);
-  }
-
-  private onCardClicked(card: CardPublic): void {
-    this.edit = true;
-    this.card = card;
-    this.title = card.title;
-    this.question = card.question;
-    this.answer = card.answer;
-    this.images = card.images;
   }
 
   deleteSelectedCard() {
@@ -122,15 +85,9 @@ export class ManageCardsComponent implements OnInit {
 
   public updateCard(card: CardPublic) {
     this.edit = true;
-    const formData = new FormData();
-    formData.append('title', card.title);
-    formData.append('question', card.question);
-    formData.append('answer', card.answer);
-    for (let i = 0; i < this.imgArray.length; i++) {
-      formData.append('images', this.imgArray[i]);
-    }
     this.manageCardsService
-      .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)), formData);
+      .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)),
+        new CardUpdateDTO(card.title, card.question, card.answer, this.imgArray));
   }
 
   public onChangeSelectedItemColor(event, item: number) {
@@ -144,5 +101,42 @@ export class ManageCardsComponent implements OnInit {
       }
       this.images.splice(cardImageIndex, 1);
     }
+  }
+
+  private decodeLink(): void {
+    this.url = this.orlp.decodeLink(this.url);
+  }
+
+  private takeDeck(): void {
+    this.decodeLink();
+    this.manageCardsService.getDeck(this.url).subscribe(
+      deck => {
+        this.deck = deck;
+        this.getCardsList();
+      });
+  }
+
+  private getCardsList() {
+    this.manageCardsService.getCards(this.deck.deckId).subscribe(cards => {
+      this.cards = cards;
+      this.listOfCardsMessage = 'List of cards is empty';
+    });
+  }
+
+  private getShortCardLink(linkSelectedCard: Link) {
+    return this.orlp.getShortLink(linkSelectedCard);
+  }
+
+  private decodeCardLink(cardLink: string) {
+    return this.orlp.decodeLink(cardLink);
+  }
+
+  private onCardClicked(card: CardPublic): void {
+    this.edit = true;
+    this.card = card;
+    this.title = card.title;
+    this.question = card.question;
+    this.answer = card.answer;
+    this.images = card.images;
   }
 }

@@ -1,11 +1,11 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CreateCardsService} from './create.cards.service';
 import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute} from '@angular/router';
 import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
 import {ORLPService} from '../../../../services/orlp.service';
 import {Link} from '../../../../dto/link';
-
+import {CardUpdateDTO} from "../../../../dto/CardsDTO/CardUpdateDTO";
 
 
 @Component({
@@ -23,7 +23,7 @@ export class CreateCardsComponent implements OnInit {
   public rating: number;
   public createCardMessage: string;
   public nameOfPageToBack: string;
-  public imageArray: File[] = [];
+  public imageArray: string[] = [];
   private url: string;
   private sub: Subscription;
 
@@ -42,15 +42,17 @@ export class CreateCardsComponent implements OnInit {
     );
     this.takeDeck();
   }
+
   loadImage(event) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (file: any) => {
-          this.imageArray.push(file.target.result);
+        this.imageArray.push(file.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
   }
+
   public showImage(index: number) {
 
   }
@@ -59,16 +61,27 @@ export class CreateCardsComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
+  // createCard(imageInput: any) {
+  //   const formData = new FormData();
+  //   formData.append('title', this.title);
+  //   formData.append('question', this.question);
+  //   formData.append('answer', this.answer);
+  //   for (let i = 0; i < this.imageArray.length; i++) {
+  //     formData.append('image', this.imageArray[i]);
+  //   }
+  //   this.createCardsService.createCard(
+  //     formData, this.deck.categoryId, this.deck.deckId)
+  //     .subscribe(() => {
+  //       this.createCardMessage = 'Card created!';
+  //       this.imageArray = [];
+  //       this.clearFields();
+  //     }, () => this.createCardMessage = 'Error. Please try again!');
+  // }
+
   createCard(imageInput: any) {
-    const formData = new FormData();
-    formData.append('title', this.title);
-    formData.append('question', this.question);
-    formData.append('answer', this.answer);
-    for (let i = 0; i < this.imageArray.length; i++) {
-      formData.append('image', this.imageArray[i]);
-    }
     this.createCardsService.createCard(
-      formData, this.deck.categoryId, this.deck.deckId)
+      new CardUpdateDTO(this.title, this.question, this.answer, this.imageArray),
+      this.deck.categoryId, this.deck.deckId)
       .subscribe(() => {
         this.createCardMessage = 'Card created!';
         this.imageArray = [];
@@ -82,6 +95,10 @@ export class CreateCardsComponent implements OnInit {
     this.title = '';
   }
 
+  public deleteCardImage(cardImageIndex: number) {
+    this.imageArray.splice(cardImageIndex, 1);
+  }
+
   private decodeLink(): void {
     this.url = this.orlp.decodeLink(this.url);
   }
@@ -93,10 +110,6 @@ export class CreateCardsComponent implements OnInit {
         this.deck = deck;
       }
     );
-  }
-
-  public deleteCardImage(cardImageIndex: number) {
-    this.imageArray.splice(cardImageIndex, 1);
   }
 
 }
