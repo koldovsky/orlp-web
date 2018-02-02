@@ -7,7 +7,7 @@ build:
     - npm-install
     - script:
         name: run build
-        code: npm run production
+        code: npm run build
 
     - script:
         name: echo nodejs information
