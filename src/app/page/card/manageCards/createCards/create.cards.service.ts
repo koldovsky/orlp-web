@@ -19,7 +19,7 @@ export class CreateCardsService {
   }
 
   public createCard(createCardDTO: CreateCardDTO, categoryId: number, deckId: number) {
-    return this.orlp.post('/api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
+    return this.orlp.post('/api/categories/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }

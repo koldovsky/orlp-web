@@ -13,8 +13,8 @@ import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseInfoService {
-  private urlAddCourseToUser = 'api/user/courses/';
-  private urlGettingListOfIdOfTheCourses = 'api/private/user/courses';
+  private urlAddCourseToUser = 'api/users/courses/';
+  private urlGettingListOfIdOfTheCourses = 'api/private/users/courses';
 
   constructor(private orlp: ORLPService,
               private logger: NGXLogger) {

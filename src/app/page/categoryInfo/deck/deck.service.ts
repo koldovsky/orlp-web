@@ -30,7 +30,7 @@ export class DeckService {
   }
 
   addDeckToFolder(deckId: number): Observable<DeckPublic> {
-    return this.orlp.put('api/user/folder/add/deck/' + deckId, {})
+    return this.orlp.put('api/users/folder/add/deck/' + deckId, {})
       .map((response: Response) => {
         response.json();
       })
