@@ -22,9 +22,14 @@
       <div class="card" [ngClass]="{'rotate' : routing == true}">
         <div class="front">
           <div class="header">
-            <h1 class="motto">
-              {{cards[questionNumber].question}}
-            </h1>
+            <markdown>
+              <h1 class="motto">
+                {{cards[questionNumber].question}}
+                <div *ngFor="let cardImage of cards[questionNumber].images">
+                  <img class="card-image" src="{{cardImage.image}}" alt="">
+                </div>
+              </h1>
+            </markdown>
           </div>
           <div class="content">
             <div class="main">
@@ -40,7 +45,13 @@
         <div class="back">
           <div class="header">
             <h1 class="motto">
-              {{cards[questionNumber].question}}
+              <markdown>{{cards[questionNumber].question}}
+              <div *ngIf="cards[questionNumber].images != null">
+                  <div *ngFor="let cardImage of cards[questionNumber].images">
+                    <img class="card-image" src="{{cardImage.image}}" alt="">
+                  </div>
+              </div>
+              </markdown>
             </h1>
           </div>
           <div class="content">
@@ -58,8 +69,8 @@
                 <div class="col-sm-6">
                   <div class="card">
                     <h5 class="correct-answer-header">Correct answer</h5>
-                      <div >
-                      <codemirror [(ngModel)] = "cards[questionNumber].answer" [config]="answerConfig"></codemirror>
+                      <div>
+                          <codemirror [(ngModel)] = "cards[questionNumber].answer" [config]="answerConfig"></codemirror>
                       </div>
                   </div>
                 </div>

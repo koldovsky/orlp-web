@@ -29,12 +29,13 @@ import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
 import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
+import {CardImage} from "./card-image-dto/card-image";
 
 export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self);
+    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self, data.cardImages);
   }
 
   public static jsonToImageDTO(data: any): ImageDTO {
@@ -183,12 +184,13 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self);
+    return new CreateCardDTO(data.title, data.question, data.answer, data.image, self);
   }
 
   public static jsonToCommentDTO(data: any): CommentDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
+    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName,
+      data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
   }
 
   public static jsonToUserRoleDTO(data: any): UserRoleDTO {
@@ -200,7 +202,7 @@ export class DTOConverter {
   }
 
   public static jsonToDeckSynthax(data: any): DeckSynthaxDTO {
-  const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-  return new DeckSynthaxDTO(data.synthax, data.deckId, self);
-}
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new DeckSynthaxDTO(data.synthax, data.deckId, self);
+  }
 }

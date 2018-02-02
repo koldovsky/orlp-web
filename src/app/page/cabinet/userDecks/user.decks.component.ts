@@ -7,6 +7,8 @@ import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from "../../categoryInfo/deck/deck.service";
+import {nextTick} from "q";
+import {ERROR_FILE_TYPE_MESSAGE} from "../../../services/orlp.settings";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -28,6 +30,7 @@ export class UserDecksComponent implements OnInit {
   private isCreateDialog: boolean;
   private selectedIndex: number;
   public synthax: String;
+  public errorFileMessage: String;
   public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
     'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
@@ -116,6 +119,8 @@ export class UserDecksComponent implements OnInit {
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
-    this.userDecksService.uploadCards(formData, deckId).subscribe();
+    this.userDecksService.uploadCards(formData, deckId)
+      .subscribe(next => this.errorFileMessage = '',
+          error => this.errorFileMessage = ERROR_FILE_TYPE_MESSAGE);
   }
 }
