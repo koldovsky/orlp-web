@@ -53,10 +53,6 @@ export class CreateCardsComponent implements OnInit {
     }
   }
 
-  public showImage(index: number) {
-
-  }
-
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
   }
