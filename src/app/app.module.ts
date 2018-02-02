@@ -66,7 +66,7 @@ import {AuthorisedModule} from './page/authorization/authorizated/authorised.mod
     AuthorisedModule,
     RestorePasswordModule,
     LoggerModule.forRoot({
-      serverLoggingUrl: 'http://localhost:8080/',
+      serverLoggingUrl: environment.SERVER_ADDRESS,
       level: environment.logger.level,
       serverLogLevel: NgxLoggerLevel.ERROR
     })

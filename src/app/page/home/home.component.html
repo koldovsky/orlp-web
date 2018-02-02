@@ -1,20 +1,20 @@
 <div class="main-container">
-  <div class="bg">
-    <div class="row justify-content-center">
-      <div class="main-card">
-        <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
-        <p class="sub-title">THE PERFECT WAY TO LEARN</p>
-      </div>
-    </div>
-    <div class="row justify-content-center button-row">
-      <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
-              routerLink="/user/cabinet">START
-        LEARNING
-      </button>
-      <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/login">START LEARNING
-      </button>
+  <div class="bg"></div>
+  <div class="row justify-content-center">
+    <div class="main-card">
+      <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
+      <p class="sub-title">THE PERFECT WAY TO LEARN</p>
     </div>
   </div>
+  <div class="row justify-content-center button-row">
+    <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
+            routerLink="/user/cabinet">START
+      LEARNING
+    </button>
+    <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/user/courses">START LEARNING
+    </button>
+  </div>
+
   <div class="row end-row">
     <div class="col center-col">
       <img class="down scroll-button" id="arrow" (click)="scrollDown()" #arrow/>
@@ -70,7 +70,8 @@
   <div class="row">
     <div *ngFor="let course of courses" class="col">
       <div class="card course-card">
-        <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]" alt="Card image cap">
+        <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]"
+             alt="Card image cap">
         <div class="card-body course-card-body">
           <div class="title-course">
             <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
@@ -86,8 +87,9 @@
                               (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
           </div>
           <ng-template #unAuthorized>
-            <div><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                              [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+            <div>
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="course.rating" [readOnly]="true"></star-rating-comp>
             </div>
           </ng-template>
           <button *ngIf="isAuthorized" (click)="addCourseToUser(course)" type="button"

@@ -139,14 +139,13 @@ div, button:focus, .card-title, img{
   height: 100%;
 }
 
-
 .bg {
   background: url(../../assets/images/background_home_page.jpg) no-repeat center bottom;
   background-size: cover;
-  top: 0;
   right: 0;
   left: 0;
   height: 100%;
+  position: absolute;
 }
 .title {
   margin-top: 20%;

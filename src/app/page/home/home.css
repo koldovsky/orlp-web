@@ -38,9 +38,8 @@
   transition: 0.7s ease;
 }
 
-.main-container, .categories-container {
-  height: 800px;
-  max-width: 1800px;
+.main-container {
+  height: 100vh;
 }
 
 .courses-container, .categories-container{
@@ -62,7 +61,7 @@
 }
 
 .categories-container, .courses-container {
-  background: rgba(253, 253, 253, 0.6);
+  background: rgb(255, 255, 255);
   position: relative;
   color: #2e4058;
 }
@@ -90,9 +89,7 @@
   margin-top: 12%;
   padding-left: 10px;
   padding-right: 10px;
-  /*background-color: rgba(248, 249, 250, 0.81);*/
   color: #2e4058;
-  /*border: 1px solid #9a9b9d;*/
   font-size: 50px;
   font-weight: 600;
   text-align: center;
@@ -112,7 +109,6 @@
   color: black;
   border: 2px solid black;
   cursor: pointer;
-  /*float: right;*/
   width: 240px;
   height: 50px;
   font-size: x-large;
@@ -128,7 +124,6 @@
   color: #ffc91b;
   border: 2px solid #ffc91b;
   cursor: pointer;
-  /*float: right;*/
   width: 100%;
   height: 50px;
   font-size: large;

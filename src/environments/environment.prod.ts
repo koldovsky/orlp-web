@@ -14,6 +14,6 @@ export const environment = {
       apiVersion: 'v2.10'
     }
   },
-  SERVER_ADDRESS: 'https://infolve.com:1443/',
+  SERVER_ADDRESS: 'https://api.infolve.com:443/',
   SITE_KEY: '6LdAGzYUAAAAALKSi0YfeZnUYQFyzdvuJBtRY-D2'
 };
