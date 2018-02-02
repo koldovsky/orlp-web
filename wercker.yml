@@ -36,8 +36,8 @@ deploy:
         - script:
             name: Run Docker container
             code: |
-                ssh $LOGIN@$REMOTE_HOST "docker run -dit --name orlp-web --net=orlp -e 'LETSENCRYPT_EMAIL=holovko.oleksandr@gmail.com' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx"
-                ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && docker cp dist/. orlp-web:/usr/share/nginx/html/"
+                ssh $LOGIN@$REMOTE_HOST "docker create --name orlp-web --net=orlp -e 'LETSENCRYPT_EMAIL=holovko.oleksandr@gmail.com' -e 'LETSENCRYPT_HOST=infolve.com' -e 'VIRTUAL_HOST=infolve.com' nginx && cd ~/orlp-web/ && docker cp default.conf orlp-web:/etc/nginx/conf.d/ && docker cp nginx.conf orlp-web:/etc/nginx/ && docker cp dist/. orlp-web:/usr/share/nginx/html/&& docker start orlp-web"
+                # ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && docker cp dist/. orlp-web:/usr/share/nginx/html/"
                 # ssh $LOGIN@$REMOTE_HOST "cat /tmp/counter.tar | docker import - $REPOSITORY_NAME"
  
         # - script:
