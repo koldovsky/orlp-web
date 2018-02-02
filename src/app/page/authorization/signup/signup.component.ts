@@ -44,6 +44,8 @@ export class SignUpComponent implements OnInit {
   NAMES_MAX_LENGTH = 15;
   PASSWORD_MIN_LENGTH = 8;
   PASSWORD_MAX_LENGTH = 20;
+  EMAIL_MIN_LENGTH = 6;
+  EMAIL_MAX_LENGTH = 254;
 
   constructor(private router: Router,
               private signupService: SignupService,
@@ -63,7 +65,12 @@ export class SignUpComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       firstName: ['', validators],
       lastName: ['', validators],
-      email: ['', [Validators.email, Validators.required]],
+      email: ['', [
+        Validators.required,
+        Validators.minLength(this.EMAIL_MIN_LENGTH),
+        Validators.maxLength(this.EMAIL_MAX_LENGTH),
+        Validators.pattern('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$')
+      ]],
       passwordGroup: this.formBuilder.group({
         password: ['', [
           Validators.required,
