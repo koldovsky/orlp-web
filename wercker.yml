@@ -7,7 +7,7 @@ build:
     - npm-install
     - script:
         name: run build
-        code: npm run build
+        code: npm run build:prod
 
     - script:
         name: echo nodejs information
@@ -36,7 +36,7 @@ deploy:
         - script:
             name: Run Docker container
             code: |
-                ssh $LOGIN@$REMOTE_HOST "docker run -dit --name orlp-web -p 80:80 nginx"
+                ssh $LOGIN@$REMOTE_HOST "docker run -dit --name orlp-web --net=orlp -e 'LETSENCRYPT_EMAIL=holovko.oleksandr@gmail.com' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx"
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && docker cp dist/. orlp-web:/usr/share/nginx/html/"
                 # ssh $LOGIN@$REMOTE_HOST "cat /tmp/counter.tar | docker import - $REPOSITORY_NAME"
  
