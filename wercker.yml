@@ -1,11 +1,6 @@
 # Version: 0.0.2
 box: node
 
-clone-git-production:
-    steps:
-
-
-
 build:
   steps:
     # A step that executes `npm install` command
