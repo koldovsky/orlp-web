@@ -12,11 +12,12 @@ import {DTOConverter} from '../../dto/dto.converter';
 import {Person} from '../../dto/Person';
 import {PasswordDTO} from '../../dto/PasswordDTO';
 import {NGXLogger} from 'ngx-logger';
-import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
+import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
 
 @Injectable()
 export class ProfileService {
-  private url = '/api/private/user' ;
+  private url = '/api/private/user';
+
   constructor(private orlp: ORLPService,
               private logger: NGXLogger) {
   }
@@ -55,28 +56,12 @@ export class ProfileService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  getLearningRegime(): Observable<string> {
-    return this.orlp.get('api/private/account/learning-regime').map((response: Response) => response.json());
+  getAccountDetails(): Observable<AccountDTO> {
+    return this.orlp.get('api/profile/learning-details').map((response: Response) =>
+      DTOConverter.jsonToAccountDTO(response.json()));
   }
 
-  updateLearningRegime(regime: string) {
-    return this.orlp.put('api/private/account/learning-regime', regime);
-  }
-
-  getCardsNumber(): Observable<number> {
-    return this.orlp.get('api/private/account/cards-number').map((response: Response) => response.json());
-  }
-
-  updateCardsNumber(cardsNumber: number): Observable<Response> {
-    return this.orlp.put('api/private/account/cards-number', cardsNumber);
-  }
-
-  getRememberingLevels(): Observable<RememberingLevelDTO[]> {
-    return this.orlp.get('api/private/account/remembering-levels').map((response: Response) =>
-      DTOConverter.jsonArrayToCollection(DTOConverter.jsonToRememberingLevel, response.json()));
-  }
-
-  updateRememberingLevel(id: number, numberOfPostponedDays: number): Observable<Response> {
-    return this.orlp.put('api/private/account/remembering-levels/' + id, numberOfPostponedDays);
+  updateUserProfile(accountDetails: AccountDTO) {
+    return this.orlp.put('api/profile/learning-details', accountDetails).catch(this.handleError);
   }
 }

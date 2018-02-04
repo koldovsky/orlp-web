@@ -29,6 +29,7 @@ import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
 import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
+import {AccountDTO} from "./AccountDTO/accountDTO";
 
 export class DTOConverter {
 
@@ -196,11 +197,16 @@ export class DTOConverter {
   }
 
   public static jsonToRememberingLevel(data: any): RememberingLevelDTO {
-    return new RememberingLevelDTO(data.levelId, data.orderNumber, data.name, data.numberOfPostponedDays);
+    return new RememberingLevelDTO(data.id, data.orderNumber, data.name, data.numberOfPostponedDays);
   }
 
   public static jsonToDeckSynthax(data: any): DeckSynthaxDTO {
-  const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-  return new DeckSynthaxDTO(data.synthax, data.deckId, self);
-}
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new DeckSynthaxDTO(data.synthax, data.deckId, self);
+  }
+
+  public static jsonToAccountDTO(data: any): AccountDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
+  }
 }
