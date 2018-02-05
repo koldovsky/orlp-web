@@ -9,9 +9,9 @@ import {Rating} from '../../dto/Rating';
 import {CourseService} from '../categoryInfo/course/course.service';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
-import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
-import {CourseInfoService} from '../courseInfo/courseInfo.service';
-import {CourseLinkWithStatus} from '../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
+import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {CourseInfoService} from "../courseInfo/courseInfo.service";
+import {CourseLinkWithStatus} from "../../dto/CourseDTO/linkByUserWithStatus.course.DTO";
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
 @Component({

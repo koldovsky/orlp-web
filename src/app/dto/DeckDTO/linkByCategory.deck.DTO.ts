@@ -11,8 +11,7 @@ export class DeckLinkByCategory {
   public hidden: boolean;
   public synthax: String;
 
-  constructor(name: String, description: String, rating: number, self: Link,
-              cards: Link, deckId: number, hidden: boolean, synthax: String) {
+  constructor(name: String, description: String, rating: number, self: Link, cards: Link, deckId: number, hidden: boolean, synthax: String) {
     this.name = name;
     this.description = description;
     this.rating = rating;

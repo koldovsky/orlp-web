@@ -6,7 +6,7 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
-import {DeckService} from '../../categoryInfo/deck/deck.service';
+import {DeckService} from "../../categoryInfo/deck/deck.service";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
