@@ -98,7 +98,7 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  public updatePersonalData() {
+  updatePersonalData() {
     if (this.isNamesEqualToOriginal()) {
       this.personalInfoShowSuccessMessage = true;
       return;
@@ -114,13 +114,13 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  public cancelChanges() {
+  cancelChanges() {
     this.firstName = this.originalFirstName;
     this.lastName = this.originalLastName;
     this.personalInfoShowSuccessMessage = false;
   }
 
-  public changePassword() {
+  changePassword() {
     const data = new ProfilePasswordDTO(this.currentPassword, this.newPassword);
     this.profileService.changePassword(data)
       .subscribe(() => {
