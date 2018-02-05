@@ -27,7 +27,7 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
-  public showComment: boolean;
+  public showComment = false;
   public status: string;
 
   constructor(private route: ActivatedRoute,
