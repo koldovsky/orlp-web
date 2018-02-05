@@ -259,7 +259,7 @@
                            id="confirmPassword" formControlName="confirmPassword">
                   </div>
                   <div class="col-sm-9-align-left" *ngIf="passwordForm.get('confirmPassword').dirty&&
-                  passwordForm.get('confirmPassword').errors">
+                  (passwordForm.get('confirmPassword').errors||passwordForm.errors)">
                     <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">
                       <small class="text-danger">
                         Confirm password can not be empty!<br>
@@ -275,9 +275,7 @@
                         Confirm password can not be more than {{PASSWORD_MAX_LENGTH}} symbols!<br>
                       </small>
                     </span>
-                  </div>
-                  <div class="col-sm-9-align-left" *ngIf="passwordShowFailMatchMessage">
-                    <span>
+                    <span *ngIf="passwordForm.hasError('match')">
                       <small class="text-danger">
                         Confirm and New password should be the same!<br>
                       </small>

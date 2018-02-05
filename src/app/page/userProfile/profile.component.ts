@@ -9,7 +9,7 @@ import {ProfilePersonalInfoDTO} from '../../dto/UserProfileDTO/ProfilePersonalIn
 import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
 
-function passwordMatcher(form: FormGroup) {
+function passwordMatcher(form: AbstractControl) {
   const newPassword = form.get('newPassword').value;
   const confirmPassword = form.get('confirmPassword').value;
   if (newPassword === confirmPassword) {
@@ -45,9 +45,7 @@ export class ProfileComponent implements OnInit {
   personalInfoShowSuccessMessage = false;
   passwordShowSuccessMessage = false;
   passwordShowFailMessage = false;
-  passwordShowFailMatchMessage = false;
   isAccountDeactivated = false;
-  errorMessage: string;
 
   personalInfoForm: FormGroup;
   passwordForm: FormGroup;
@@ -61,8 +59,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getProfileData();
     this.status = sessionStorage.getItem('status');
+    this.getProfileData();
 
     const nameValidator = [
       Validators.required,
@@ -84,7 +82,7 @@ export class ProfileComponent implements OnInit {
       currentPassword: ['', passwordValidator],
       newPassword: ['', passwordValidator],
       confirmPassword: ['', passwordValidator]
-    });
+    }, {validator: passwordMatcher});
   }
 
   private getProfileData() {
@@ -123,22 +121,14 @@ export class ProfileComponent implements OnInit {
   }
 
   public changePassword() {
-    if (!this.isConfirmAndNewPasswordEqual()) {
-      this.passwordShowFailMatchMessage = true;
-      this.passwordShowSuccessMessage = false;
-      this.passwordShowFailMessage = false;
-      return;
-    }
     const data = new ProfilePasswordDTO(this.currentPassword, this.newPassword);
     this.profileService.changePassword(data)
       .subscribe(() => {
         this.passwordShowSuccessMessage = true;
-        this.passwordShowFailMatchMessage = false;
         this.passwordShowFailMessage = false;
         this.passwordForm.reset();
       }, () => {
         this.passwordShowFailMessage = true;
-        this.passwordShowFailMatchMessage = false;
         this.passwordShowSuccessMessage = false;
       });
   }
@@ -174,10 +164,5 @@ export class ProfileComponent implements OnInit {
   private isNamesEqualToOriginal(): boolean {
     return (this.firstName === this.originalFirstName) &&
       (this.lastName === this.originalLastName);
-  }
-
-  private isConfirmAndNewPasswordEqual() {
-    const confirmPassword = this.passwordForm.get('confirmPassword');
-    return this.newPassword === confirmPassword.value;
   }
 }
