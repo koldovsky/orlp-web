@@ -10,7 +10,7 @@
       <div class="cards-list-item" [ngClass]="{'active': selectedItem == item}"
            *ngFor="let card of cards; let item = index" data-target="modal"
            (click)="onCardClicked(card); onChangeSelectedItemColor($event, item)">
-        <markdown>{{card.title}}</markdown>
+        {{card.title}}
       </div>
     </div>
     <div *ngIf="cards.length === 0" class="empty-list-label">{{listOfCardsMessage}}</div>

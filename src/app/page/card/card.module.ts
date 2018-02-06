@@ -16,7 +16,6 @@ import {MarkdownModule} from 'angular2-markdown';
   imports: [
     FormsModule,
     CommonModule,
-    MarkdownModule.forRoot(),
     RouterModule.forChild([
       {path: 'cards/:url', component: CardComponent},
       {path: 'manage/cards/:url/:nameOfPageToBack', component: ManageCardsComponent},

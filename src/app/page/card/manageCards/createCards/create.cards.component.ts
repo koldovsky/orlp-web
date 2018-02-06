@@ -59,8 +59,7 @@ export class CreateCardsComponent implements OnInit {
 
   createCard(imageInput: any) {
     this.createCardsService.createCard(
-      new CardUpdateDTO(this.title, this.question, this.answer, this.imageArray),
-      this.deck.categoryId, this.deck.deckId)
+      new CardUpdateDTO(this.title, this.question, this.answer, this.imageArray), this.deck.deckId)
       .subscribe(() => {
         this.createCardMessage = 'Card created!';
         this.imageArray = [];
