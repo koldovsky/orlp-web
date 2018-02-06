@@ -31,7 +31,7 @@ export class CourseService {
   }
 
   createCourse(privateCourse: PrivateCourseDTO, category_id: number) {
-    return this.orlp.post('api/categories/' + category_id + '/private/user/create/course/', privateCourse)
+    return this.orlp.post('api/categories/' + category_id + '/courses/', privateCourse)
       .map((response: Response) => response.json());
   }
 

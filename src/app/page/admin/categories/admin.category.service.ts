@@ -11,6 +11,10 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
+import {AdminDeck} from "../../../dto/AdminDTO/admin.deck.DTO";
+import {EditDeckDTO} from "../../../dto/DeckDTO/deck.edit.DTO";
+import {Link} from "../../../dto/link";
+import {EditCategoryDTO} from "../../../dto/CategoryDTO/editCategoryDTO";
 
 @Injectable()
 export class AdminCategoryService {
@@ -27,7 +31,7 @@ export class AdminCategoryService {
   }
 
   createCategory(newCategory: CreateCategoryDTO) {
-    return this.orlp.post('api/admin/add/category/', newCategory).map((response: Response) => response.json())
+    return this.orlp.post('api/admin/categories/', newCategory).map((response: Response) => response.json())
       .catch(this.handleError);
   }
   addImage(file: any) {
@@ -42,6 +46,12 @@ export class AdminCategoryService {
 
   deleteImage(imageLink: string) {
     return this.orlp.deleteByLongLink(imageLink).map((response: Response) => this.logger.log(response));
+  }
+
+  updateCategory(link: Link, categoryEdit: EditCategoryDTO) {
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
+    return this.orlp.put(shortLink, categoryEdit)
+      .map((response: Response) =>response.json());
   }
 
   private handleError(error: Response) {

@@ -16,7 +16,7 @@ import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseService {
-  private urlAddCourseToUser = 'api/users/courses/';
+  private urlAddCourseToUser = 'api/cabinet/courses/';
 
   constructor(private orlp: ORLPService,
               private logger: NGXLogger) {
@@ -29,7 +29,7 @@ export class CourseService {
   }
 
   getCoursesIdOfTheUser(): Observable<number[]> {
-    return this.orlp.get('api/private/users/courses')
+    return this.orlp.get('api/private/cabinet/courses')
       .map((response: Response) => {
         return response.json();
       })
