@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
     this.passwordForm = this.formBuilder.group({
       currentPassword: ['', passwordValidator],
       newPassword: ['', passwordValidator],
-      confirmPassword: ['', passwordValidator]
+      confirmPassword: ['']
     }, {validator: passwordMatcher});
   }
 

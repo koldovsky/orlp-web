@@ -258,23 +258,7 @@
                     <input type="password" class="form-control"
                            id="confirmPassword" formControlName="confirmPassword">
                   </div>
-                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('confirmPassword').dirty&&
-                  (passwordForm.get('confirmPassword').errors||passwordForm.errors)">
-                    <span *ngIf="passwordForm.get('confirmPassword').hasError('required')">
-                      <small class="text-danger">
-                        Confirm password can not be empty!<br>
-                      </small>
-                    </span>
-                    <span *ngIf="passwordForm.get('confirmPassword').hasError('minlength')">
-                      <small class="text-danger">
-                        Confirm password can not be less than {{PASSWORD_MIN_LENGTH}} symbols!<br>
-                      </small>
-                    </span>
-                    <span *ngIf="passwordForm.get('confirmPassword').hasError('maxlength')">
-                      <small class="text-danger">
-                        Confirm password can not be more than {{PASSWORD_MAX_LENGTH}} symbols!<br>
-                      </small>
-                    </span>
+                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('confirmPassword').dirty&&passwordForm.errors">
                     <span *ngIf="passwordForm.hasError('match')">
                       <small class="text-danger">
                         Confirm and New password should be the same!<br>
