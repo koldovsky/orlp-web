@@ -21,7 +21,7 @@ export class CommentComponent implements OnInit {
   private url: string;
   public textOfNewComment: string;
   public listOfComments: CommentDTO[] = [];
-  public showFormToAddReply: boolean = false;
+  public showFormToAddReply = false;
   public commentId: number;
   public isAuthorized: boolean;
   public person: UserRoleDTO;

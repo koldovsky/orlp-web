@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  private saveChanges() {
+  saveChanges() {
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
     this.originalFirstName = this.firstName;
@@ -125,7 +125,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  private deleteProfile() {
+  deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
         this.logoutServise.logout();

@@ -9,7 +9,7 @@ import {ReCaptchaComponent} from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
 import {NGXLogger} from 'ngx-logger';
-import {environment} from "../../../../environments/environment";
+import {environment} from '../../../../environments/environment';
 
 @Component({
   templateUrl: ('./login.component.html'),

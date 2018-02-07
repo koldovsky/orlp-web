@@ -27,7 +27,7 @@ import {CoursesByCategoryAndPageDTO} from './CourseDTO/linkToCoursesByCategoryAn
 import {CommentDTO} from './CommentDTO/commentDTO';
 import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
-import {CategoriesByPageDTO} from "./CategoryDTO/link.categories.by.page.DTO";
+import {CategoriesByPageDTO} from './CategoryDTO/link.categories.by.page.DTO';
 import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
 
@@ -92,7 +92,8 @@ export class DTOConverter {
   public static jsonToDeck(data: any): DeckDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating, data.owner, cards, self, data.synthax);
+    return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
+      data.owner, cards, self, data.synthax);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
@@ -189,7 +190,8 @@ export class DTOConverter {
 
   public static jsonToCommentDTO(data: any): CommentDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName, data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
+    return new CommentDTO(data.commentId, data.commentText, new Date(data.commentDate), data.personId, data.personFirstName,
+      data.personLastName, data.imageType, data.imageBase64, data.image, data.listOfChildComments, self);
   }
 
   public static jsonToUserRoleDTO(data: any): UserRoleDTO {
