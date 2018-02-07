@@ -20,5 +20,5 @@ export const environment = {
     }
   },
   SERVER_ADDRESS: 'http://localhost:8080/',
-  SITE_KEY: '6LeS2ykUAAAAAMB0_bP2UKSJgI1U5TU9r_al9ESP'
+  SITE_KEY: '6LernEQUAAAAAJE8PoPmF1TFt09uu9UlRg9TYK6T'
 };
