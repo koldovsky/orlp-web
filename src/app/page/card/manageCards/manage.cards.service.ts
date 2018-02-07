@@ -18,7 +18,7 @@ export class ManageCardsService {
   }
 
   public getCards(deckId: number): Observable<CardPublic[]> {
-    return this.orlp.get('/api/decks/' + deckId + '/cards').map((response: Response) =>
+    return this.orlp.get('api/decks/' + deckId + '/cards').map((response: Response) =>
       <CardPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()));
   }
 
@@ -39,7 +39,7 @@ export class ManageCardsService {
   }
 
   public deleteCardImage(cardImageId: number) {
-    return this.orlp.delete('api/private/cardImage/' + cardImageId)
+    return this.orlp.delete('api/cardImage/' + cardImageId)
       .subscribe(next => {
       }, error => console.log(error));
   }

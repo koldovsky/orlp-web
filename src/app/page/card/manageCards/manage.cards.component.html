@@ -26,17 +26,18 @@
           <h1 class="category-header">Image question</h1>
           <div class="main">
             <div *ngFor="let img of images;let i = index" class="img-container" id="img-container">
-              <img src="{{img.image}}" alt="">
+              <img src="{{img.image}}" alt="Delete Me, PLS">
               <a class="remImage" id="delete" (click)="deleteCardImage(i)">
                 <img src="https://image.flaticon.com/icons/svg/261/261935.svg" style="width:40px;height:40px;">
               </a>
             </div>
           </div>
+          <br>
+          <br>
           <div class = "main" style="clear: both">
             <label id="largeFile" for="file">
               <input [disabled]="!edit" type="file" (change)="loadImage($event)" id="file">
             </label>
-
           </div>
           <h1 class="category-header" style="clear: both">Question</h1>
           <div class="main">

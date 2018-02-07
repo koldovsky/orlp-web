@@ -25,14 +25,14 @@ export class CardService {
   }
 
   public getAdditionalCards(deckId: number): Observable<CardPublic[]> {
-    return this.orlp.get('/api/decks/' + deckId + '/learn/additional')
+    return this.orlp.get('api/decks/' + deckId + '/learn/additional')
       .map((response: Response) => <CardPublic[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()))
       .catch(this.handleError);
   }
 
   public areThereNotPostponedCards(deckId: number): Observable<boolean> {
-    return this.orlp.get('/api/decks/' + deckId + '/not-postponed')
+    return this.orlp.get('api/decks/' + deckId + '/not-postponed')
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
