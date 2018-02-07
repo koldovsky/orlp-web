@@ -33,6 +33,12 @@
             <div>
               <button class="btn btn-secondary" data-toggle="modal" data-target="#formForEditing" (click)="beforeEditing(category)" >
                 <i class="fa fa-eye"></i> Edit</button>
+
+              <button class="btn btn-danger"
+                      data-dismiss="modal"
+                      (click)="deleteCategory(category)" data-toggle="modal"
+                      data-target="#CreateCategory"><i class="fa fa-exclamation-circle"></i> Delete
+              </button>
             </div>
           </td>
         </tr>
@@ -197,9 +203,9 @@
         <button [disabled]="!isFormValid() || !chosenImage " class="btn btn-info"
                 data-dismiss="modal"
                 (click)="editCategory()" data-toggle="modal"
-                data-target="#CreateCategory"><i class="fa fa-dot-circle-o"></i> Edit
+                data-target="#updateCategory"><i class="fa fa-check-square-o"></i> Save changes
         </button>
-        <button type="reset" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        <button type="reset" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
       </div>
     </div>
   </div>

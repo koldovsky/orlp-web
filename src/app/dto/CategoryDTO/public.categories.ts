@@ -1,4 +1,5 @@
 import {Link} from '../link';
+import {CourseLink} from "../CourseDTO/link.course.DTO";
 
 export class CategoriesPublic {
     public name: string;

@@ -54,6 +54,12 @@ export class AdminCategoryService {
       .map((response: Response) =>response.json());
   }
 
+  deleteCategory(link: Link) {
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
+    return this.orlp.delete(shortLink)
+      .map((response: Response) =>response.json());
+  }
+
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');

@@ -111,6 +111,14 @@ export class AdminCategoryComponent implements OnInit {
     });
   }
 
+  deleteCategory(category: CategoriesPublic): void {
+    this.adminCategoryService.deleteCategory(category.self)
+      .subscribe( () => {
+        this.createCategoryMessage = 'Category "' + this.categoryName + '" deleted!';
+        this.getAllCategories();
+      });
+  }
+
   isFormValid(): boolean {
     return this.categoryForm.valid;
   }
