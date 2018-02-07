@@ -1,11 +1,10 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LoginService} from './login.service';
 import {AuthService} from 'angular2-social-login';
 import {Router} from '@angular/router';
 import {AccountVerificationService} from '../signup/accountVerification/accountVerification.service';
 import {LoginAccount} from '../../../dto/LoginAccount';
-import {ViewChild} from '@angular/core';
 import {ReCaptchaComponent} from 'angular2-recaptcha';
 import * as ORLPSettings from '../../../services/orlp.settings';
 import {AuthorizationService} from '../authorization.service';
@@ -20,17 +19,18 @@ export class LoginComponent implements OnInit {
   @ViewChild(ReCaptchaComponent) captchaComponent: ReCaptchaComponent;
   loginForm: FormGroup;
   success = false;
-  error= false;
+  error = false;
   wrongDetails = false;
   public user;
   verificationStat = false;
   account: LoginAccount;
   captcha: string;
   siteKey = environment.SITE_KEY;
-  isDeleted = false;
+  isStatusInvalid = false;
   isInactive = false;
   mailIsSent = false;
   mailIsNotSent = false;
+  statusError:string;
 
   constructor(private fb: FormBuilder,
               private loginService: LoginService,
@@ -53,34 +53,23 @@ export class LoginComponent implements OnInit {
   }
 
   login = () => {
-      this.success = false;
-      this.error = false;
-      this.wrongDetails = false;
-      this.verificationStat = false;
-      this.account = this.loginForm.value;
-      this.account.captcha = this.captcha;
-      this.loginService.signIn(this.account)
-        .subscribe((response) => {
-          this.getStatus();
-        }, (error) => this.ngZone.run(() => {
-          this.processError(error);
-          this.logger.error(error.json());
-          this.captchaComponent.reset();
-          this.captcha = null;
-        }));
-  }
-
-  private getStatus() {
-    this.loginService.getStatus()
+    this.success = false;
+    this.error = false;
+    this.wrongDetails = false;
+    this.verificationStat = false;
+    this.account = this.loginForm.value;
+    this.account.captcha = this.captcha;
+    this.loginService.signIn(this.account)
       .subscribe((response) => {
-        sessionStorage.setItem('status', 'ACTIVE');
         this.success = true;
+        sessionStorage.setItem('status', 'ACTIVE');
         this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
-      }, (error) => {
-        this.statusError(error);
-      });
-  }
+      }, (error => {
+        this.processError(error);
+      }));
+  };
+
 
   private sendMail() {
     this.loginService.sendMail()
@@ -93,9 +82,14 @@ export class LoginComponent implements OnInit {
   }
 
   private processError(response) {
+    this.captchaComponent.reset();
+    this.captcha = null;
     this.success = false;
     if (response.status === ORLPSettings.UNAUTHORIZED) {
       this.wrongDetails = true;
+    } else if (response.status === ORLPSettings.LOCKED) {
+        this.statusError = response.json().message;
+      this.isStatusInvalid = true;
     } else if (response.status === ORLPSettings.METHOD_NOT_ALLOWED) {
       this.isInactive = true;
     } else {
@@ -103,23 +97,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private statusError(response) {
-    if (response.status === ORLPSettings.FORBIDDEN) {
-      sessionStorage.setItem('status', 'BLOCKED');
-      this.success = true;
-      this.authorizationService.emitIsAuthorizedChangeEvent(true);
-      this.router.navigate(['main']);
-    }else if (response.status === ORLPSettings.LOCKED) {
-      this.isDeleted = true;
-      this.success = false;
-      sessionStorage.setItem('status', 'DELETED');
-      this.captchaComponent.reset();
-      this.captcha = null;
-    }
-  }
 
   signInGoogle(provider: string) {
-    this.verificationStat = false;
+    this.verificationStat  = false;
     this.auth.login(provider).subscribe(
       (data) => {
         this.user = data;
@@ -130,8 +110,7 @@ export class LoginComponent implements OnInit {
 
   sendGoogleToken() {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
-      .subscribe((response) =>  this.ngZone.run(() => {
-        this.getStatus();
+      .subscribe((response) => this.ngZone.run(() => {
       }), (error) => this.ngZone.run(() => {
         this.processError(error);
       }));
@@ -150,7 +129,6 @@ export class LoginComponent implements OnInit {
   sendFacebookToken() {
     this.authorizationService.sendFacebookToken(this.user.token)
       .subscribe((response) => this.ngZone.run(() => {
-        this.getStatus();
       }), (error) => this.ngZone.run(() => {
         this.processError(error);
       }));

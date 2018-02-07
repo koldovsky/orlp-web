@@ -23,7 +23,7 @@ export class ProfileService {
   }
 
   getUserProfile(): Observable<UserDetailsDto> {
-    return this.orlp.get(this.url + '/details')
+    return this.orlp.get('/api/user/details')
       .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }

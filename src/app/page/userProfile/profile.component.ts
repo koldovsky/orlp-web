@@ -10,6 +10,7 @@ import {UserStatusChangeService} from '../userStatusChange/user.status.change.se
 import {AuthorizationService} from '../authorization/authorization.service';
 import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
 import {RememberingLevelDTO} from "../../dto/remembering.level.dto";
+import {LogoutService} from "../logout/logout.service";
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -57,7 +58,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
-              private authorizationService: AuthorizationService) {
+              private authorizationService: AuthorizationService,
+              private logoutServise: LogoutService) {
   }
 
   ngOnInit(): void {
@@ -126,8 +128,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
+        this.logoutServise.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
-        sessionStorage.setItem('status', 'INACTIVE');
         this.router.navigate(['user/status/change']);
       });
   }
@@ -140,15 +142,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       .subscribe(() => {
         this.chosenImage = true;
         this.imageProfile = this.userProfile.self.href + '/image' + '?' + new Date().getTime();
-      });
-  }
-
-  private getStatus() {
-    this.loginService.getStatus()
-      .subscribe((response) => {
-        sessionStorage.setItem('status', 'ACTIVE');
-      }, (error) => {
-        this.userStatusChangeService.setUserStatus(error.status);
       });
   }
 
