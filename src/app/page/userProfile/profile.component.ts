@@ -5,10 +5,12 @@ import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
-import {RememberingLevelDTO} from '../../dto/remembering.level.dto';
 import {LoginService} from '../authorization/login/login.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {AuthorizationService} from '../authorization/authorization.service';
+import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
+import {RememberingLevelDTO} from "../../dto/remembering.level.dto";
+import {LogoutService} from "../logout/logout.service";
 
 function passwordMatcher(c: AbstractControl) {
   const passwordControl = c.get('password');
@@ -40,14 +42,12 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public authenticationType: string;
   public imageProfile: string;
   public showMessageData = false;
-  lastSelectedRegime: string;
   public currentPasswordMessage: boolean;
-  selectedRegime: string;
-  lastCardsNumber: number;
-  cardsNumber: number;
+
+  public accountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
+  public lastAccountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
+
   public status: string;
-  lastRememberingLevels: RememberingLevelDTO[] = [];
-  rememberingLevels: RememberingLevelDTO[] = [];
   savingResultMessage: string;
   isFocused: boolean;
 
@@ -58,12 +58,14 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
-              private authorizationService: AuthorizationService) {
+              private authorizationService: AuthorizationService,
+              private logoutServise: LogoutService) {
   }
 
   ngOnInit(): void {
-    this.status = sessionStorage.getItem('status');
     this.getProfile();
+    this.status = sessionStorage.getItem('status');
+
     this.userForm = this.formBuilder.group({
       passwordGroup: this.formBuilder.group({
         password: ['', [Validators.required, Validators.minLength(8)]],
@@ -73,8 +75,21 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   }
 
   getProfile(): void {
+    this.profileService.getAccountDetails().subscribe(
+
+      accountDTO => {
+        this.accountLearningDetail=accountDTO;
+
+        this.lastAccountLearningDetail.cardsNumber = this.accountLearningDetail.cardsNumber;
+        this.lastAccountLearningDetail.learningRegime = this.accountLearningDetail.learningRegime;
+             this.lastAccountLearningDetail.rememberingLevels = [];
+             this.accountLearningDetail.rememberingLevels.forEach((level) => this.lastAccountLearningDetail.rememberingLevels.push(
+               new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
+      });
+
     this.profileService.getUserProfile()
-      .subscribe(user => {
+      .subscribe(
+        user => {
         this.userProfile = user;
         this.firstName = user.firstName;
         this.lastName = user.lastName;
@@ -86,22 +101,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
           this.imageProfile = user.image;
         }
         this.authenticationType = user.authenticationType;
-
-        this.profileService.getLearningRegime().subscribe(regime => {
-          this.selectedRegime = regime;
-          this.lastSelectedRegime = regime;
-        });
-        this.profileService.getCardsNumber().subscribe(cardsNumber => {
-          this.cardsNumber = cardsNumber;
-          this.lastCardsNumber = cardsNumber;
-        });
-        this.profileService.getRememberingLevels().subscribe(
-          (rememberingLevels) => {
-            this.rememberingLevels = rememberingLevels;
-            this.lastRememberingLevels = [];
-            this.rememberingLevels.forEach((level) => this.lastRememberingLevels.push(
-              new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays)));
-          });
       });
   }
 
@@ -121,18 +120,18 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.profileService.changePassword(new PasswordDTO(this.currentPassword, this.newPassword))
       .subscribe(() => {
         this.currentPasswordMessage = true;
-        }, (error) => {
+      }, (error) => {
         this.currentPasswordMessage = false;
-        });
+      });
   }
 
   deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
+        this.logoutServise.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
-        sessionStorage.setItem('status', 'INACTIVE');
-      this.router.navigate(['user/status/change']);
-    });
+        this.router.navigate(['user/status/change']);
+      });
   }
 
   loadFile(fileInput: any) {
@@ -146,133 +145,25 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  private getStatus() {
-    this.loginService.getStatus()
-      .subscribe((response) => {
-        sessionStorage.setItem('status', 'ACTIVE');
-      }, (error) => {
-        this.userStatusChangeService.setUserStatus(error.status);
-      });
-  }
-
   updateLearningRegime(regime: string): void {
-    this.selectedRegime = regime;
+    this.accountLearningDetail.learningRegime = regime;
   }
 
   saveChangesInLearningRegimeTab(): void {
     this.savingResultMessage = '';
-    if (this.cardsNumber !== this.lastCardsNumber) {
-      this.saveCardsNumber();
-    }
-    if (this.selectedRegime !== this.lastSelectedRegime) {
-      this.saveLearningRegime();
-    }
-    if (this.selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION') {
-      this.saveRememberingLevels();
-    }
+      this.saveAccountLearningDetail();
     this.isFocused = true;
   }
 
-  private saveCardsNumber(): void {
-    if (this.cardsNumber > 0) {
-      this.profileService.updateCardsNumber(this.cardsNumber).subscribe(
-        () => {
-          this.lastCardsNumber = this.cardsNumber;
-          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-            this.savingResultMessage = this.SUCCESS;
-          }
-        },
-        () => {
-          this.cardsNumber = this.lastCardsNumber;
-          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-            this.savingResultMessage = this.FAILURE;
-          }
-          this.savingResultMessage += ' Error while saving number of cards in the database.';
-        });
-    } else {
-      this.cardsNumber = this.lastCardsNumber;
-      if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-        this.savingResultMessage = this.FAILURE;
-      }
-      this.savingResultMessage += ' Number of cards in one learning session should be greater than 0.';
-    }
-  }
-
-  private saveLearningRegime(): void {
-    this.profileService.updateLearningRegime(this.selectedRegime).subscribe(
-      () => {
-        this.lastSelectedRegime = this.selectedRegime;
-        if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-          this.savingResultMessage = this.SUCCESS;
-        }
-      },
-      () => {
-        this.selectedRegime = this.lastSelectedRegime;
-        if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-          this.savingResultMessage = this.FAILURE;
-        }
-        this.savingResultMessage += ' Error while saving learning regime in the database.';
-      }
-    );
-  }
-
-  private saveRememberingLevels(): void {
-    for (const index in this.rememberingLevels) {
-      if (this.rememberingLevels.hasOwnProperty(index)) {
-        const rememberingLevel = this.rememberingLevels[index];
-        if (!rememberingLevel.equals(this.lastRememberingLevels[index])) {
-          if (rememberingLevel.numberOfPostponedDays > 0 &&
-            !(Number.parseInt(index) > 0 && !(rememberingLevel.numberOfPostponedDays >
-              this.rememberingLevels[Number.parseInt(index) - 1].numberOfPostponedDays)) &&
-            !(Number.parseInt(index) < this.rememberingLevels.length - 1 && !(rememberingLevel.numberOfPostponedDays <
-              this.rememberingLevels[Number.parseInt(index) + 1].numberOfPostponedDays))) {
-            this.profileService.updateRememberingLevel(rememberingLevel.levelId,
-              rememberingLevel.numberOfPostponedDays).subscribe(
-              () => {
-                const level = this.rememberingLevels[index];
-                this.lastRememberingLevels[index] =
-                  new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-                if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-                  this.savingResultMessage = this.SUCCESS;
-                }
-              },
-              () => {
-                const level = this.lastRememberingLevels[index];
-                this.rememberingLevels[index] =
-                  new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-                if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-                  this.savingResultMessage = this.FAILURE;
-                }
-                this.savingResultMessage += ' Error while saving number of postponed cards for ' + level.name +
-                  ' level in the database.';
-              });
-          } else {
-            const level = this.lastRememberingLevels[index];
-            this.rememberingLevels[index] =
-              new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-            if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-              this.savingResultMessage = this.FAILURE;
-            }
-            if (!this.savingResultMessage.includes(' Number of days to postpone for should be greater than 0,' +
-                ' greater than number of days to postpone for in a previous level and less than number of days to' +
-                ' postpone for in a next level.')) {
-              this.savingResultMessage += ' Number of days to postpone for should be greater than 0,' +
-                ' greater than number of days to postpone for in a previous level and less than number of days to' +
-                ' postpone for in a next level.';
-            }
-          }
-        }
-      }
-    }
-  }
-
   cancelChangesInLearningRegimeTab(): void {
-    this.cardsNumber = this.lastCardsNumber;
-    this.selectedRegime = this.lastSelectedRegime;
-    this.rememberingLevels = [];
-    this.lastRememberingLevels.forEach((level) => this.rememberingLevels.push(
-      new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays)));
+    this.accountLearningDetail.learningRegime = this.lastAccountLearningDetail.learningRegime;
+    this.accountLearningDetail.cardsNumber = this.lastAccountLearningDetail.cardsNumber;
+
+    this.accountLearningDetail.rememberingLevels = [];
+      this.lastAccountLearningDetail.rememberingLevels.forEach((level) => this.accountLearningDetail.rememberingLevels.push(
+        new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
   }
+
 
   ngAfterViewChecked() {
     const element = document.getElementById('save-changes-alert');
@@ -283,7 +174,9 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   }
 
   areArraysEqual(): boolean {
-    return this.rememberingLevels.every((v, i) => v.equals(this.lastRememberingLevels[i]));
+    return JSON.stringify(this.accountLearningDetail.rememberingLevels) === JSON.stringify(this.lastAccountLearningDetail.rememberingLevels) &&
+      this.accountLearningDetail.learningRegime===this.lastAccountLearningDetail.learningRegime &&
+      this.accountLearningDetail.cardsNumber===this.lastAccountLearningDetail.cardsNumber ;
   }
 
   closeAlert(): void {
@@ -293,5 +186,54 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   public cancelChanges() {
     this.firstName = this.originalFirstName;
     this.lastName = this.originalLastName;
+  }
+
+  saveAccountLearningDetail() {
+    if(this.areArraysEqual()){
+      if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+        this.savingResultMessage = this.FAILURE;
+        this.savingResultMessage += ' You haven\'t not changed anything!';
+      }
+    }else
+    if (this.validateAccountLDetails()) {
+      this.profileService.updateUserProfile(this.accountLearningDetail).subscribe(
+        () => {
+          this.lastAccountLearningDetail.learningRegime = this.accountLearningDetail.learningRegime;
+          this.lastAccountLearningDetail.cardsNumber = this.accountLearningDetail.cardsNumber;
+          this.lastAccountLearningDetail.rememberingLevels = [];
+          this.accountLearningDetail.rememberingLevels.forEach((level) => this.lastAccountLearningDetail.rememberingLevels.push(
+            new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
+
+
+          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+            this.savingResultMessage = this.SUCCESS;
+          }
+        },
+        () => {
+          this.cancelChangesInLearningRegimeTab();
+          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+            this.savingResultMessage = this.FAILURE;
+          }
+          this.savingResultMessage += ' Error while saving account details in the database.';
+        });
+    } else {
+      this.cancelChangesInLearningRegimeTab();
+      if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+        this.savingResultMessage = this.FAILURE;
+      }
+      this.savingResultMessage += ' All number should be greater then 0 and '+ 'number of days to postpone for should be '+
+        ' greater than number of days to postpone for in a previous level and less than number of days to' +
+                  ' postpone for in a next level';
+    }
+  }
+
+  private validateAccountLDetails(): boolean {
+    for(let i=0;i<this.accountLearningDetail.rememberingLevels.length-1;i++){
+      if(!(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays<this.accountLearningDetail.rememberingLevels[i + 1].numberOfPostponedDays)
+      || !(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays>0)){
+      return false;
+      }
+    }
+    return this.accountLearningDetail.cardsNumber > 0;
   }
 }

@@ -16,20 +16,8 @@ export class LoginService {
     return this.orlp.post('api/auth', account);
   }
 
-  getStatus(): Observable<Response> {
-    return this.orlp.get('api/status');
-  }
-
   sendMail(): Observable<Response> {
     return this.orlp.get('api/confirmation-mail');
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body;
-  }
-
-  private handleErrorObservable(error: Response | any) {
-    return Observable.throw(error.message || error);
-  }
 }
