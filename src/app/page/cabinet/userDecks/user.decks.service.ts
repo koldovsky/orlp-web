@@ -33,7 +33,7 @@ export class UserDecksService {
   }
 
   getDeckCreatedByTheUser(deckId: number): Observable<DeckDTO> {
-    return this.orlp.get('api/users/folders/decks/' + deckId).map((response: Response) =>
+    return this.orlp.get('api/users/folders/decks/own/' + deckId).map((response: Response) =>
       <DeckDTO> DTOConverter.jsonToDeck(response.json()));
   }
 
