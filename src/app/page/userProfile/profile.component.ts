@@ -105,7 +105,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  private saveChanges() {
+  saveChanges() {
     this.person.firstName = this.firstName;
     this.person.lastName = this.lastName;
     this.originalFirstName = this.firstName;
@@ -126,7 +126,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
         });
   }
 
-  private deleteProfile() {
+  deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
@@ -218,46 +218,48 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
 
   private saveRememberingLevels(): void {
     for (const index in this.rememberingLevels) {
-      const rememberingLevel = this.rememberingLevels[index];
-      if (!rememberingLevel.equals(this.lastRememberingLevels[index])) {
-        if (rememberingLevel.numberOfPostponedDays > 0 &&
-          !(Number.parseInt(index) > 0 && !(rememberingLevel.numberOfPostponedDays >
-            this.rememberingLevels[Number.parseInt(index) - 1].numberOfPostponedDays)) &&
-          !(Number.parseInt(index) < this.rememberingLevels.length - 1 && !(rememberingLevel.numberOfPostponedDays <
-            this.rememberingLevels[Number.parseInt(index) + 1].numberOfPostponedDays))) {
-          this.profileService.updateRememberingLevel(rememberingLevel.levelId,
-            rememberingLevel.numberOfPostponedDays).subscribe(
-            () => {
-              const level = this.rememberingLevels[index];
-              this.lastRememberingLevels[index] =
-                new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-              if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-                this.savingResultMessage = this.SUCCESS;
-              }
-            },
-            () => {
-              const level = this.lastRememberingLevels[index];
-              this.rememberingLevels[index] =
-                new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-              if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-                this.savingResultMessage = this.FAILURE;
-              }
-              this.savingResultMessage += ' Error while saving number of postponed cards for ' + level.name +
-                ' level in the database.';
-            });
-        } else {
-          const level = this.lastRememberingLevels[index];
-          this.rememberingLevels[index] =
-            new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
-          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
-            this.savingResultMessage = this.FAILURE;
-          }
-          if (!this.savingResultMessage.includes(' Number of days to postpone for should be greater than 0,' +
-              ' greater than number of days to postpone for in a previous level and less than number of days to' +
-              ' postpone for in a next level.')) {
-            this.savingResultMessage += ' Number of days to postpone for should be greater than 0,' +
-              ' greater than number of days to postpone for in a previous level and less than number of days to' +
-              ' postpone for in a next level.';
+      if (this.rememberingLevels.hasOwnProperty(index)) {
+        const rememberingLevel = this.rememberingLevels[index];
+        if (!rememberingLevel.equals(this.lastRememberingLevels[index])) {
+          if (rememberingLevel.numberOfPostponedDays > 0 &&
+            !(Number.parseInt(index) > 0 && !(rememberingLevel.numberOfPostponedDays >
+              this.rememberingLevels[Number.parseInt(index) - 1].numberOfPostponedDays)) &&
+            !(Number.parseInt(index) < this.rememberingLevels.length - 1 && !(rememberingLevel.numberOfPostponedDays <
+              this.rememberingLevels[Number.parseInt(index) + 1].numberOfPostponedDays))) {
+            this.profileService.updateRememberingLevel(rememberingLevel.levelId,
+              rememberingLevel.numberOfPostponedDays).subscribe(
+              () => {
+                const level = this.rememberingLevels[index];
+                this.lastRememberingLevels[index] =
+                  new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
+                if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+                  this.savingResultMessage = this.SUCCESS;
+                }
+              },
+              () => {
+                const level = this.lastRememberingLevels[index];
+                this.rememberingLevels[index] =
+                  new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
+                if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+                  this.savingResultMessage = this.FAILURE;
+                }
+                this.savingResultMessage += ' Error while saving number of postponed cards for ' + level.name +
+                  ' level in the database.';
+              });
+          } else {
+            const level = this.lastRememberingLevels[index];
+            this.rememberingLevels[index] =
+              new RememberingLevelDTO(level.levelId, level.orderNumber, level.name, level.numberOfPostponedDays);
+            if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+              this.savingResultMessage = this.FAILURE;
+            }
+            if (!this.savingResultMessage.includes(' Number of days to postpone for should be greater than 0,' +
+                ' greater than number of days to postpone for in a previous level and less than number of days to' +
+                ' postpone for in a next level.')) {
+              this.savingResultMessage += ' Number of days to postpone for should be greater than 0,' +
+                ' greater than number of days to postpone for in a previous level and less than number of days to' +
+                ' postpone for in a next level.';
+            }
           }
         }
       }
