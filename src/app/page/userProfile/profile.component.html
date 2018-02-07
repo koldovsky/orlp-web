@@ -79,6 +79,11 @@
                     First Name can not be empty.
                   </small>
                 </div>
+                <div *ngIf="firstName.length>15" class="col-sm-6">
+                  <small class="text-danger">
+                    First Name is too large.
+                  </small>
+                </div>
               </div>
             </div>
           </div>
@@ -99,10 +104,15 @@
                     Last Name can not be empty.
                   </small>
                 </div>
+                <div *ngIf="lastName.length>15" class="col-sm-6">
+                  <small class="text-danger">
+                    Last Name is too large.
+                  </small>
+                </div>
               </div>
             </div>
           </div>
-          <button [disabled]="(firstName=='')||(lastName=='')" (click)="saveChanges()" type="button"
+          <button [disabled]="nonValidFields()" (click)="saveChanges()" type="button"
                   class="btn btn-outline-info">Save changes
           </button>
           <button (click)="cancelChanges()" type="button"

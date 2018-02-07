@@ -292,4 +292,8 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.firstName = this.originalFirstName;
     this.lastName = this.originalLastName;
   }
+
+  public nonValidFields(): boolean {
+    return (this.firstName === '' || this.firstName.length > 15 || this.lastName === '' || this.lastName.length > 15);
+  }
 }
