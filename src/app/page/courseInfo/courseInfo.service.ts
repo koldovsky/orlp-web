@@ -35,7 +35,7 @@ export class CourseInfoService {
   }
 
   addCourseToUser(courseId: number) {
-    return this.orlp.put(this.urlAddCourseToUser + courseId, {})
+    return this.orlp.post(this.urlAddCourseToUser + courseId, {})
       .map((response: Response) => this.logger.log(response))
       .catch(this.handleError);
   }
