@@ -70,6 +70,7 @@ export class ManageCardsComponent implements OnInit {
     this.card.title = this.title;
     this.card.answer = this.answer;
     this.card.question = this.question;
+    this.imgArray = [];
   }
 
   loadImage(event) {
@@ -88,6 +89,7 @@ export class ManageCardsComponent implements OnInit {
     this.manageCardsService
       .updateSelectedCard(this.decodeCardLink(this.getShortCardLink(this.card.self)),
         new CardUpdateDTO(card.title, card.question, card.answer, this.imgArray));
+    this.imgArray = [];
   }
 
   public onChangeSelectedItemColor(event, item: number) {

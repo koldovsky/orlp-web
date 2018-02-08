@@ -17,10 +17,8 @@ export class CreateCardsService {
   constructor(private orlp: ORLPService) {
   }
 
-  public createCard(createCardDTO: any, categoryId: number, deckId: number) {
-    return this.orlp.post('api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
-      .map((response: Response) => response.json())
-      .catch(this.handleError);
+  public createCard(createCardDTO: any, deckId: number) {
+    return this.orlp.post('api/decks/' + deckId + '/cards', createCardDTO);
   }
 
   public getDeck(url: string): Observable<AdminDeck> {
