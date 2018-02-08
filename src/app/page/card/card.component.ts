@@ -41,6 +41,7 @@ export class CardComponent implements OnInit {
     this.converSynthax();
     this.config = {theme: 'xq-dark', mode: (this.configSynthax), lineWrapping : true};
     this.answerConfig = {readonly: true, theme: 'xq-dark', mode: (this.configSynthax), lineWrapping : true};
+    this.isAuthorized = this.logoutService.isAuthorized();
    this.route.params.subscribe(
       params => {
         this.url = params['url'];
@@ -49,7 +50,6 @@ export class CardComponent implements OnInit {
     this.badStatusMark = 0;
     this.normalStatusMark = 0;
     this.goodStatusMark = 0;
-    this.isAuthorized = this.logoutService.isAuthorized();
   }
 
   onRotate() {
