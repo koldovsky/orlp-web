@@ -24,12 +24,6 @@ export class ProfileService {
               private logger: NGXLogger) {
   }
 
-  getUserProfile(): Observable<UserDetailsDto> {
-    return this.orlp.get('/api/user/details')
-      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
-      .catch(this.handleError);
-  }
-
   updatePersonalInfo(person: ProfilePersonalInfoDTO): Observable<ProfilePersonalInfoDTO> {
     return this.orlp.put(this.url + '/personal-info', person)
       .map((response: Response) => <ProfilePersonalInfoDTO> DTOConverter.jsonToProfilePersonalInfoDTO(response.json()))
