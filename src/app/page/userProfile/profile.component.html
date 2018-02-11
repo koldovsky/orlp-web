@@ -311,12 +311,14 @@
       <div role="tabpanel" class="tab-pane learning-regime-tab fade" id="regime" aria-labelledby="regime-tab">
         <div class="cards-number">
           <label>Number of cards in one learning session:
-            <input type="number" [(ngModel)]="cardsNumber">
+            <input type="number" [(ngModel)]="accountLearningDetail.cardsNumber">
           </label>
         </div>
         <div class="regimes-container">
-          <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')" class="radio-button-container"
-               [class.checked]="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">Cards postponing
+          <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')"
+               class="radio-button-container"
+               [class.checked]="accountLearningDetail.learningRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">
+            Cards postponing
             <div class="explanation">
               In this regime learning is going using spaced repetition. Cards that need repeating are shown first and
               then the new cards. After each answer the card is postponed on some period of time. The better you know
@@ -326,7 +328,8 @@
             </div>
           </div>
           <div (click)="updateLearningRegime('BAD_NORMAL_GOOD_STATUS_DEPENDING')" class="radio-button-container"
-               [class.checked]="selectedRegime === 'BAD_NORMAL_GOOD_STATUS_DEPENDING'">Using status
+               [class.checked]="accountLearningDetail.learningRegime === 'BAD_NORMAL_GOOD_STATUS_DEPENDING'">Using
+            status
             <div class="explanation">
               In this regime learning is going using special statuses. There are three of them - good, normal and bad.
               These statuses go with the following buttons correspondingly, so everything is clear here. Cards for
@@ -335,7 +338,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'"
+        <div *ngIf="accountLearningDetail.learningRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'"
              class="remembering-level-container">
           <div class="regimes-container">
             <div class="alert alert-info explanation">
@@ -347,14 +350,14 @@
           <table>
             <thead>
             <tr>
-              <th class="centered-container" *ngFor="let level of rememberingLevels">
+              <th class="centered-container" *ngFor="let level of accountLearningDetail.rememberingLevels">
                 {{level.name}}
               </th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td *ngFor="let level of rememberingLevels">
+              <td *ngFor="let level of accountLearningDetail.rememberingLevels">
                 <input class="remembering-level" type="number" [(ngModel)]="level.numberOfPostponedDays">
               </td>
             </tr>
@@ -362,18 +365,12 @@
           </table>
         </div>
         <div class="buttons">
-          <button [disabled]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())"
-                  [class.forbidden]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())" type="button"
+          <button type="button"
                   class="btn btn-primary btn-pointer" data-dismiss="modal"
                   (click)="saveChangesInLearningRegimeTab()"
                   data-toggle="modal" data-target="#save-changes">Save changes
           </button>
-          <button [disabled]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())"
-                  [class.forbidden]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())" type="button"
+          <button type="button"
                   class="btn btn-default btn-pointer" data-dismiss="modal"
                   (click)="cancelChangesInLearningRegimeTab()">Cancel
           </button>

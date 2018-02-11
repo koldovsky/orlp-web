@@ -110,7 +110,7 @@ export class AdminDecksComponent implements OnInit {
     this.categoryForDeck.id = deviceValue.value;
   }
 
-  private beforeCreate() {
+  beforeCreate() {
     this.deckName = '';
     this.deckDescription = '';
     this.categoryForDeck.id = null;

@@ -14,6 +14,7 @@ import {ProfileDataDTO} from '../../dto/UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
 import {MessageDTO} from '../../dto/MessageDTO';
+import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
 
 @Injectable()
 export class ProfileService {
@@ -23,9 +24,9 @@ export class ProfileService {
               private logger: NGXLogger) {
   }
 
-  getProfileData(): Observable<ProfileDataDTO> {
-    return this.orlp.get(this.url)
-      .map((response: Response) => <ProfileDataDTO> DTOConverter.jsonToProfileDataDTO(response.json()))
+  getUserProfile(): Observable<UserDetailsDto> {
+    return this.orlp.get('/api/user/details')
+      .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }
 
@@ -62,5 +63,14 @@ export class ProfileService {
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  getAccountDetails(): Observable<AccountDTO> {
+    return this.orlp.get('api/profile/learning-details').map((response: Response) =>
+      DTOConverter.jsonToAccountDTO(response.json()));
+  }
+
+  updateUserProfile(accountDetails: AccountDTO) {
+    return this.orlp.put('api/profile/learning-details', accountDetails).catch(this.handleError);
   }
 }

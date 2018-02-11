@@ -2,12 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProfileService} from './profile.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PasswordDTO} from '../../dto/PasswordDTO';
 import {LoginService} from '../authorization/login/login.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {AuthorizationService} from '../authorization/authorization.service';
+import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
+import {RememberingLevelDTO} from "../../dto/remembering.level.dto";
 import {ProfilePersonalInfoDTO} from '../../dto/UserProfileDTO/ProfilePersonalInfoDTO';
 import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
+import {LogoutService} from "../logout/logout.service";
 
 function passwordMatcher(form: AbstractControl) {
   const newPassword = form.get('newPassword').value;
@@ -24,12 +28,14 @@ function passwordMatcher(form: AbstractControl) {
   styleUrls: ['profile.component.css']
 })
 
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewChecked {
   private NAME_MIN_LENGTH = 2;
   private NAME_MAX_LENGTH = 15;
   private NAME_PATTERN = '[^`~!@#$%^&*()\\-_=\\+\\[\\]{};:\'\".>/?,<\|]*';
   private PASSWORD_MIN_LENGTH = 8;
   private PASSWORD_MAX_LENGTH = 20;
+  SUCCESS = 'Your changes have been successfully saved!';
+  FAILURE = 'Some of your changes haven\'t been saved!';
 
   email: string;
   firstName: string;
@@ -41,6 +47,12 @@ export class ProfileComponent implements OnInit {
   imageBase64: string;
   authenticationType: string;
   status: string;
+  
+  public accountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
+  public lastAccountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
+  
+  savingResultMessage: string;
+  isFocused: boolean;
 
   personalInfoShowSuccessMessage = false;
   passwordShowSuccessMessage = false;
@@ -55,12 +67,14 @@ export class ProfileComponent implements OnInit {
               private loginService: LoginService,
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
-              private authorizationService: AuthorizationService) {
+              private authorizationService: AuthorizationService,
+              private logoutServise: LogoutService) {
   }
 
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
     this.getProfileData();
+    this.getProfile();
 
     const nameValidator = [
       Validators.required,
@@ -119,6 +133,20 @@ export class ProfileComponent implements OnInit {
     this.lastName = this.originalLastName;
     this.personalInfoShowSuccessMessage = false;
   }
+  
+  getProfile(): void {
+    this.profileService.getAccountDetails().subscribe(
+
+      accountDTO => {
+        this.accountLearningDetail=accountDTO;
+
+        this.lastAccountLearningDetail.cardsNumber = this.accountLearningDetail.cardsNumber;
+        this.lastAccountLearningDetail.learningRegime = this.accountLearningDetail.learningRegime;
+             this.lastAccountLearningDetail.rememberingLevels = [];
+             this.accountLearningDetail.rememberingLevels.forEach((level) => this.lastAccountLearningDetail.rememberingLevels.push(
+               new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
+      });  
+  }
 
   changePassword() {
     const data = new ProfilePasswordDTO(this.currentPassword, this.newPassword);
@@ -152,17 +180,100 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  updateLearningRegime(regime: string): void {
+    this.accountLearningDetail.learningRegime = regime;
+  }
+
+  saveChangesInLearningRegimeTab(): void {
+    this.savingResultMessage = '';
+      this.saveAccountLearningDetail();
+    this.isFocused = true;
+  }
+
+  cancelChangesInLearningRegimeTab(): void {
+    this.accountLearningDetail.learningRegime = this.lastAccountLearningDetail.learningRegime;
+    this.accountLearningDetail.cardsNumber = this.lastAccountLearningDetail.cardsNumber;
+
+    this.accountLearningDetail.rememberingLevels = [];
+      this.lastAccountLearningDetail.rememberingLevels.forEach((level) => this.accountLearningDetail.rememberingLevels.push(
+        new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
+  }
+
+
+  ngAfterViewChecked() {
+    const element = document.getElementById('save-changes-alert');
+    if (element && this.isFocused) {
+      element.scrollIntoView();
+      this.isFocused = false;
+    }
+  }
+
+  areArraysEqual(): boolean {
+    return JSON.stringify(this.accountLearningDetail.rememberingLevels) === JSON.stringify(this.lastAccountLearningDetail.rememberingLevels) &&
+      this.accountLearningDetail.learningRegime===this.lastAccountLearningDetail.learningRegime &&
+      this.accountLearningDetail.cardsNumber===this.lastAccountLearningDetail.cardsNumber ;
+  }
+
   deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
+        this.logoutServise.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
-        sessionStorage.setItem('status', 'DELETED');
-      this.router.navigate(['home']);
-    });
+        this.router.navigate(['user/status/change']);
+      });
   }
 
   private isNamesEqualToOriginal(): boolean {
     return (this.firstName === this.originalFirstName) &&
       (this.lastName === this.originalLastName);
+  }
+
+  saveAccountLearningDetail() {
+    if(this.areArraysEqual()){
+      if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+        this.savingResultMessage = this.FAILURE;
+        this.savingResultMessage += ' You haven\'t not changed anything!';
+      }
+    }else
+    if (this.validateAccountLDetails()) {
+      this.profileService.updateUserProfile(this.accountLearningDetail).subscribe(
+        () => {
+          this.lastAccountLearningDetail.learningRegime = this.accountLearningDetail.learningRegime;
+          this.lastAccountLearningDetail.cardsNumber = this.accountLearningDetail.cardsNumber;
+          this.lastAccountLearningDetail.rememberingLevels = [];
+          this.accountLearningDetail.rememberingLevels.forEach((level) => this.lastAccountLearningDetail.rememberingLevels.push(
+            new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
+
+
+          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+            this.savingResultMessage = this.SUCCESS;
+          }
+        },
+        () => {
+          this.cancelChangesInLearningRegimeTab();
+          if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+            this.savingResultMessage = this.FAILURE;
+          }
+          this.savingResultMessage += ' Error while saving account details in the database.';
+        });
+    } else {
+      this.cancelChangesInLearningRegimeTab();
+      if (!this.savingResultMessage.startsWith(this.FAILURE)) {
+        this.savingResultMessage = this.FAILURE;
+      }
+      this.savingResultMessage += ' All number should be greater then 0 and '+ 'number of days to postpone for should be '+
+        ' greater than number of days to postpone for in a previous level and less than number of days to' +
+                  ' postpone for in a next level';
+    }
+  }
+
+  private validateAccountLDetails(): boolean {
+    for(let i=0;i<this.accountLearningDetail.rememberingLevels.length-1;i++){
+      if(!(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays<this.accountLearningDetail.rememberingLevels[i + 1].numberOfPostponedDays)
+      || !(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays>0)){
+      return false;
+      }
+    }
+    return this.accountLearningDetail.cardsNumber > 0;
   }
 }
