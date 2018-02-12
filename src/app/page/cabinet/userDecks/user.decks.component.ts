@@ -6,9 +6,7 @@ import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
-import {DeckService} from "../../categoryInfo/deck/deck.service";
-import {nextTick} from "q";
-import {ERROR_FILE_TYPE_MESSAGE} from "../../../services/orlp.settings";
+import {DeckService} from '../../categoryInfo/deck/deck.service';
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -61,7 +59,7 @@ export class UserDecksComponent implements OnInit {
     this.selectedDeck = deck;
   }
 
-  private prepareCreateDialog() {
+  prepareCreateDialog() {
     this.dialogName = 'Create new deck';
     this.dialogButtonName = 'Create';
     this.name = '';

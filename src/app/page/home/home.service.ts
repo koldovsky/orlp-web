@@ -9,7 +9,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
-import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Injectable()
 export class HomeService {

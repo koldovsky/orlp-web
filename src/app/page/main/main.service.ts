@@ -18,7 +18,7 @@ export class MainService {
   }
 
   getUserDetails(): Observable<UserDetailsDto> {
-    return this.orlp.get('api/private/user/details')
+    return this.orlp.get('api/user/details')
       .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }

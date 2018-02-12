@@ -53,7 +53,7 @@ export class DeckService {
   }
 
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
-    return this.orlp.get('/api/private/decks/' + deckId + '/cards-that-need-repeating/count')
+    return this.orlp.get('api/decks/' + deckId + '/cards-that-need-repeating/count')
       .map((response: Response) => response.json());
   }
 

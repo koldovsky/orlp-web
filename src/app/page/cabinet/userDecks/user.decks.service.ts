@@ -18,7 +18,7 @@ export class UserDecksService {
   }
 
   getUser(): Observable<UserDTO> {
-    return this.orlp.get('api/private/user')
+    return this.orlp.get('api/user')
       .map((response: Response) => <UserDTO> DTOConverter.jsonToUserDTO(response.json()));
   }
 

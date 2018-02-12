@@ -4,8 +4,8 @@
 <div class="container">
   <div class="row container-header">
     <div class="col-xs-12 col-sm-3">
-      <img *ngIf="imageProfile; else default_image" alt="image" class="img-rounded" alt="Cinque Terre"
-           src="{{imageProfile}}">
+      <img *ngIf="imageBase64; else default_image" alt="image" class="img-rounded" alt="Cinque Terre"
+           src="{{imageBase64}}">
       <ng-template #default_image>
         <img class="user-image" src="../../../assets/images/avatar.png">
       </ng-template>
@@ -15,7 +15,7 @@
         <h1 class="title">My profile</h1>
       </div>
       <div class="row ">
-        <p *ngIf="userProfile" class="title-signed-in">You are signed in as <strong>{{userProfile.email}}</strong></p>
+        <p class="title-signed-in">You are signed in as <strong>{{email}}</strong>.</p>
       </div>
     </div>
     <div class="col-xs-12 col-sm-2" id="delete">
@@ -34,7 +34,7 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-6">
-      <div *ngIf="showModal" class="alert alert-danger">
+      <div *ngIf="isAccountDeactivated" class="alert alert-danger">
         Your account is deactivated.
       </div>
     </div>
@@ -47,7 +47,7 @@
           <a class="nav-link active" href="#home" data-toggle="tab" aria-expanded="true">Personal data</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#hats" data-toggle="tab">Change password</a>
+          <a class="nav-link" href="#password" data-toggle="tab">Change password</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#image" data-toggle="tab">Change image</a>
@@ -58,75 +58,115 @@
           </a>
       </ul>
     </div>
+
     <div id="clothing-nav-content" class="tab-content">
-
       <div role="tabpanel" class="tab-pane fade show active" id="home" aria-labelledby="home-tab">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-3 field-label-responsive">
-              <label for="name">First Name</label>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                  <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i>
+        <form class="form-horizontal" (ngSubmit)=updatePersonalData() [formGroup]="personalInfoForm" novalidate>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 field-label-responsive">
+                <label for="firstName">First Name</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i>
+                    </div>
+                    <input class="form-control " type="text" id="firstName"
+                           [(ngModel)]="firstName" formControlName="firstName">
                   </div>
-                  <input class="form-control " type="text" id="name"
-                         [(ngModel)]="firstName">
+                  <div class="col-sm-9-align-left" *ngIf="personalInfoForm.get('firstName').dirty&&
+                  personalInfoForm.get('firstName').errors">
+                    <span *ngIf="personalInfoForm.get('firstName').hasError('required')">
+                      <small class="text-danger">
+                        First Name can not be empty!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="personalInfoForm.get('firstName').hasError('minlength')">
+                      <small class="text-danger">
+                        First Name can not be less than {{NAME_MIN_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="(personalInfoForm.get('firstName').hasError('maxlength'))">
+                      <small class="text-danger">
+                        First Name can not be more than {{NAME_MAX_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="(personalInfoForm.get('firstName').hasError('pattern'))">
+                      <small class="text-danger">
+                        First Name can not contain special symbols!<br>
+                      </small>
+                    </span>
+                  </div>
                 </div>
-                <div *ngIf="firstName==''" class="col-sm-6">
-                  <small class="text-danger">
-                    First Name can not be empty.
-                  </small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 field-label-responsive">
+                <label for="lastName">Last Name</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                    <input type="text" class="form-control" id="lastName"
+                           [(ngModel)]="lastName" formControlName="lastName">
+                  </div>
+                  <div class="col-sm-9-align-left" *ngIf="personalInfoForm.get('lastName').dirty&&
+                  personalInfoForm.get('lastName').errors">
+                    <span *ngIf="personalInfoForm.get('lastName').hasError('required')">
+                      <small class="text-danger">
+                        Last Name can not be empty!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="personalInfoForm.get('lastName').hasError('minlength')">
+                      <small class="text-danger">
+                        Last Name can not be less than {{NAME_MIN_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="(personalInfoForm.get('lastName').hasError('maxlength'))">
+                      <small class="text-danger">
+                        Last Name can not be more than {{NAME_MAX_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="(personalInfoForm.get('lastName').hasError('pattern'))">
+                      <small class="text-danger">
+                        Last Name can not contain special symbols!<br>
+                      </small>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-info"
+                    type="submit"
+                    [disabled]="!personalInfoForm.valid">
+              Save changes
+            </button>
+            <button class="btn btn-outline-info"
+                    type="button"
+                    (click)="cancelChanges()">
+              Cancel
+            </button>
+            <div class="row">
+              <div class="col-sm-3">
+              </div>
+              <div class="col-sm-6">
+                <div *ngIf="personalInfoShowSuccessMessage" class="alert alert-success">
+                  Your data is successfully updated.
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-3 field-label-responsive">
-              <label for="last_name">Last Name</label>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group"
-              >
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                  <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                  <input type="text" class="form-control" id="last_name"
-                         [(ngModel)]="lastName">
-                </div>
-                <div *ngIf="lastName==''" class="col-sm-6">
-                  <small class="text-danger">
-                    Last Name can not be empty.
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button [disabled]="(firstName=='')||(lastName=='')" (click)="saveChanges()" type="button"
-                  class="btn btn-outline-info">Save changes
-          </button>
-          <button (click)="cancelChanges()" type="button"
-                  class="btn btn-outline-info">Cancel
-          </button>
-          <div class="row">
-            <div class="col-sm-3">
-            </div>
-            <div class="col-sm-6">
-              <div *ngIf="showMessageData" class="alert alert-success">
-                Your data is successfully updated.
-              </div>
-            </div>
-          </div>
-
-        </div>
+        </form>
       </div>
 
-      <div role="tabpanel" class="tab-pane fade" id="hats" aria-labelledby="hats-tab">
+      <div role="tabpanel" class="tab-pane fade" id="password" aria-labelledby="password-tab">
         <div *ngIf="this.authenticationType==='GOOGLE'">
           <div class="row">
             <div class="col">
               <p class=accountMessage>You are signed in via GOOGLE so you can not change password, but you
-                change password google account.</p>
+                can change password google account.</p>
             </div>
           </div>
         </div>
@@ -134,132 +174,151 @@
           <div class="row">
             <div class="col">
               <p class=accountMessage>You are signed in via FACEBOOK so you can not change password, but you
-                change password facebook account.</p>
+                can change password facebook account.</p>
             </div>
           </div>
         </div>
         <div *ngIf="this.authenticationType==='LOCAL'">
-          <div class="row">
-            <div class="col-md-6 field-label-responsive">
-              <p class=accountMessage>To continue, first verify that it's you</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 field-label-responsive">
-              <label for="password">Current password</label>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                  <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                  <input type="password" class="form-control" id="currentpassword" [(ngModel)]="currentPassword">
-                </div>
-                <div *ngIf="currentPassword==''" class="col-sm-6">
-                  <small class="text-danger">
-                    Please enter your current password.
-                  </small>
-                </div>
+          <form class="form-horizontal" role="form" (ngSubmit)="changePassword()" [formGroup]="passwordForm"
+                novalidate>
+            <div class="row">
+              <div class="col-md-3 field-label-responsive">
+                <label for="currentPassword">Current password</label>
               </div>
-            </div>
-          </div>
-          <form class="form-horizontal" role="form" (ngSubmit)="changePassword()" [formGroup]="userForm" novalidate>
-            <div formGroupName="passwordGroup"
-                 [ngClass]="{'has-danger': userForm.get('passwordGroup').errors}">
-              <div class="row">
-                <div class="col-md-3 field-label-responsive">
-                  <label for="password">New password</label>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                      <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                      <input type="password" class="form-control" id="password"
-                             formControlName="password">
-                    </div>
-                    <div class="col-sm-9-align-left"
-                         *ngIf="(userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)&&userForm.get('passwordGroup.password').errors">
-                <span *ngIf="userForm.get('passwordGroup.password').hasError('required')"><small class="text-danger">
-                  Password is Required field
-                </small></span>
-                      <span
-                        *ngIf="userForm.get('passwordGroup.password').hasError('minlength')"><small class="text-danger">
-                  Password must be more than 8 symbols
-                </small></span>
-                    </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                    <input class="form-control" type="password" id="currentPassword"
+                           [(ngModel)]="currentPassword" formControlName="currentPassword">
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-3 field-label-responsive">
-                  <label for="password">Confirm password</label>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                      <div class="input-group-addon" style="width: 2.6rem">
-                        <i class="fa fa-repeat"></i>
-                      </div>
-                      <input type="password" class="form-control"
-                             id="password-confirm" formControlName="confirmPassword">
-                    </div>
-                    <div class="col-sm-9-align-left"
-                         *ngIf="(userForm.get('passwordGroup.confirmPassword').touched||userForm.get('passwordGroup.confirmPassword').dirty)&&(userForm.get('passwordGroup.confirmPassword').errors||userForm.get('passwordGroup').errors)">
-              <span
-                *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect"><small
-                class="text-danger">
-                 Please confirm your password
-                </small><br></span>
-                      <ng-template #incorrect>
-                  <span *ngIf="(userForm.get('passwordGroup').hasError('match'))"><small class="text-danger">
-                    Confirmation password is incorrect
-                   </small><br></span>
-                      </ng-template>
-                    </div>
+                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('currentPassword').dirty&&
+                  passwordForm.get('currentPassword').errors">
+                    <span *ngIf="passwordForm.get('currentPassword').hasError('required')">
+                      <small class="text-danger">
+                        Current password can not be empty!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="passwordForm.get('currentPassword').hasError('minlength')">
+                      <small class="text-danger">
+                        Current password can not be less than {{PASSWORD_MIN_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="passwordForm.get('currentPassword').hasError('maxlength')">
+                      <small class="text-danger">
+                        Current password can not be more than {{PASSWORD_MAX_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
-            <button (click)="changePassword()" type="button" class="btn btn-outline-info" [disabled]="!userForm.valid">
+            <div class="row">
+              <div class="col-md-3 field-label-responsive">
+                <label for="newPassword">New password</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                    <input type="password" class="form-control" id="newPassword"
+                           [(ngModel)]="newPassword" formControlName="newPassword">
+                  </div>
+                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('newPassword').dirty&&
+                  passwordForm.get('newPassword').errors">
+                    <span *ngIf="passwordForm.get('newPassword').hasError('required')">
+                      <small class="text-danger">
+                        New password can not be empty!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="passwordForm.get('newPassword').hasError('minlength')">
+                      <small class="text-danger">
+                        New password can not be less than {{PASSWORD_MIN_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                    <span *ngIf="passwordForm.get('newPassword').hasError('maxlength')">
+                      <small class="text-danger">
+                        New password can not be more than {{PASSWORD_MAX_LENGTH}} symbols!<br>
+                      </small>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 field-label-responsive">
+                <label for="confirmPassword">Confirm password</label>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group-addon" style="width: 2.6rem">
+                      <i class="fa fa-repeat"></i>
+                    </div>
+                    <input type="password" class="form-control"
+                           id="confirmPassword" formControlName="confirmPassword">
+                  </div>
+                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('confirmPassword').dirty&&passwordForm.errors">
+                    <span *ngIf="passwordForm.hasError('match')">
+                      <small class="text-danger">
+                        Confirm and New password should be the same!<br>
+                      </small>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-outline-info" [disabled]="!passwordForm.valid">
               Change password
             </button>
+            <div class="row" *ngIf="passwordShowSuccessMessage">
+              <div class="col-sm-3">
+              </div>
+              <div class="col-sm-6">
+                <div class="alert alert-success">
+                  Your password was successfully changed.
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="passwordShowFailMessage">
+              <div class="col-sm-3">
+              </div>
+              <div class="col-sm-6">
+                <div class="alert alert-danger">
+                  Current password is incorrect!
+                </div>
+              </div>
+            </div>
           </form>
-          <div class="row">
-            <div class="col-sm-3">
-            </div>
-            <div class="col-sm-6">
-              <div *ngIf="currentPasswordMessage" class="alert alert-success">
-                Your password was successfully changed.
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-3">
-            </div>
-            <div class="col-sm-6">
-              <div *ngIf="currentPasswordMessage==false" class="alert alert-danger">
-                Current password not match.
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
       <div role="tabpanel" class="tab-pane fade" id="image" aria-labelledby="image-tab">
-        <label class="custom-file">
-          <input type="file" id="file" class="custom-file-input" (change)="loadFile($event)" required>
-          <span class="custom-file-control"></span>
-        </label>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="custom-file">
+              <input type="file" id="file" class="custom-file-input" (change)="uploadProfileImage($event)" required>
+              <span class="custom-file-control"></span>
+            </label>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-danger" [disabled]="!imageBase64" (click)="deleteProfileImage()">
+          Remove profile image
+        </button>
+        <div class="row"></div>
       </div>
 
       <div role="tabpanel" class="tab-pane learning-regime-tab fade" id="regime" aria-labelledby="regime-tab">
         <div class="cards-number">
           <label>Number of cards in one learning session:
-            <input type="number" [(ngModel)]="cardsNumber">
+            <input type="number" [(ngModel)]="accountLearningDetail.cardsNumber">
           </label>
         </div>
         <div class="regimes-container">
-          <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')" class="radio-button-container"
-               [class.checked]="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">Cards postponing
+          <div (click)="updateLearningRegime('CARDS_POSTPONING_USING_SPACED_REPETITION')"
+               class="radio-button-container"
+               [class.checked]="accountLearningDetail.learningRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'">
+            Cards postponing
             <div class="explanation">
               In this regime learning is going using spaced repetition. Cards that need repeating are shown first and
               then the new cards. After each answer the card is postponed on some period of time. The better you know
@@ -269,7 +328,8 @@
             </div>
           </div>
           <div (click)="updateLearningRegime('BAD_NORMAL_GOOD_STATUS_DEPENDING')" class="radio-button-container"
-               [class.checked]="selectedRegime === 'BAD_NORMAL_GOOD_STATUS_DEPENDING'">Using status
+               [class.checked]="accountLearningDetail.learningRegime === 'BAD_NORMAL_GOOD_STATUS_DEPENDING'">Using
+            status
             <div class="explanation">
               In this regime learning is going using special statuses. There are three of them - good, normal and bad.
               These statuses go with the following buttons correspondingly, so everything is clear here. Cards for
@@ -278,7 +338,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'"
+        <div *ngIf="accountLearningDetail.learningRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION'"
              class="remembering-level-container">
           <div class="regimes-container">
             <div class="alert alert-info explanation">
@@ -290,14 +350,14 @@
           <table>
             <thead>
             <tr>
-              <th class="centered-container" *ngFor="let level of rememberingLevels">
+              <th class="centered-container" *ngFor="let level of accountLearningDetail.rememberingLevels">
                 {{level.name}}
               </th>
             </tr>
             </thead>
             <tbody>
             <tr>
-              <td *ngFor="let level of rememberingLevels">
+              <td *ngFor="let level of accountLearningDetail.rememberingLevels">
                 <input class="remembering-level" type="number" [(ngModel)]="level.numberOfPostponedDays">
               </td>
             </tr>
@@ -305,18 +365,12 @@
           </table>
         </div>
         <div class="buttons">
-          <button [disabled]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())"
-                  [class.forbidden]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())" type="button"
+          <button type="button"
                   class="btn btn-primary btn-pointer" data-dismiss="modal"
                   (click)="saveChangesInLearningRegimeTab()"
                   data-toggle="modal" data-target="#save-changes">Save changes
           </button>
-          <button [disabled]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())"
-                  [class.forbidden]="cardsNumber === lastCardsNumber && selectedRegime === lastSelectedRegime
-           && !(selectedRegime === 'CARDS_POSTPONING_USING_SPACED_REPETITION' && !areArraysEqual())" type="button"
+          <button type="button"
                   class="btn btn-default btn-pointer" data-dismiss="modal"
                   (click)="cancelChangesInLearningRegimeTab()">Cancel
           </button>
@@ -339,7 +393,7 @@
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-          <h5 class="modal-title">You really want to delete your profile?</h5>
+          <h5 class="modal-title">Do you want to delete your profile?</h5>
         </div>
         <div class="modal-footer">
           <button type="button"
