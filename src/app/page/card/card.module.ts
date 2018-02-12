@@ -9,6 +9,7 @@ import {ManageCardsComponent} from './manageCards/manage.cards.component';
 import {CreateCardsService} from './manageCards/createCards/create.cards.service';
 import {ManageCardsService} from './manageCards/manage.cards.service';
 import { CodemirrorModule } from 'ng2-codemirror';
+import {MarkdownModule} from 'angular2-markdown';
 
 
 @NgModule({

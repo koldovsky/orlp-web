@@ -6,7 +6,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import {ORLPService} from '../../../../services/orlp.service';
-import {CreateCardDTO} from '../../../../dto/CardsDTO/CreateCardDTO';
 import {AdminDeck} from '../../../../dto/AdminDTO/admin.deck.DTO';
 import {DTOConverter} from '../../../../dto/dto.converter';
 
@@ -18,10 +17,8 @@ export class CreateCardsService {
   constructor(private orlp: ORLPService) {
   }
 
-  public createCard(createCardDTO: CreateCardDTO, categoryId: number, deckId: number) {
-    return this.orlp.post('/api/category/' + categoryId + '/decks/' + deckId + '/cards', createCardDTO)
-      .map((response: Response) => response.json())
-      .catch(this.handleError);
+  public createCard(createCardDTO: any, deckId: number) {
+    return this.orlp.post('api/decks/' + deckId + '/cards', createCardDTO);
   }
 
   public getDeck(url: string): Observable<AdminDeck> {
@@ -30,7 +27,6 @@ export class CreateCardsService {
   }
 
   private handleError(error: Response) {
-    console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 }

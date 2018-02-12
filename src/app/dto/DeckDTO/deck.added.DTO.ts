@@ -10,6 +10,5 @@ export class NewDeckDTO {
     this.description = description;
     this.categoryId = categoryId;
     this.synthaxToHighlight = synthaxToHighlight;
-
   }
 }

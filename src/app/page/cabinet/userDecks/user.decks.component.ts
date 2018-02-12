@@ -28,6 +28,7 @@ export class UserDecksComponent implements OnInit {
   private isCreateDialog: boolean;
   private selectedIndex: number;
   public synthax: String;
+  public errorFileMessage: String;
   public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
     'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
@@ -116,6 +117,8 @@ export class UserDecksComponent implements OnInit {
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
-    this.userDecksService.uploadCards(formData, deckId).subscribe();
+    this.userDecksService.uploadCards(formData, deckId)
+      .subscribe(next => this.errorFileMessage = '',
+          error => this.errorFileMessage = ERROR_FILE_TYPE_MESSAGE);
   }
 }

@@ -51,7 +51,7 @@ export class DTOConverter {
 
   public static jsonToPublicCards(data: any): CardPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self);
+    return new CardPublic(data.cardId, data.title, data.answer, data.question, data.rating, self, data.cardImages);
   }
 
   public static jsonToImageDTO(data: any): ImageDTO {
@@ -201,7 +201,7 @@ export class DTOConverter {
 
   public static jsonToAdminDeckCards(data: any): CreateCardDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CreateCardDTO(data.title, data.question, data.answer, data.rating, self);
+    return new CreateCardDTO(data.title, data.question, data.answer, data.image, self);
   }
 
   public static jsonToCommentDTO(data: any): CommentDTO {
