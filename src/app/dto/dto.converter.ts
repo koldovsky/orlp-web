@@ -29,9 +29,25 @@ import {UserRoleDTO} from './CommentDTO/UeserRoleDTO';
 import {RememberingLevelDTO} from './remembering.level.dto';
 import {CategoriesByPageDTO} from './CategoryDTO/link.categories.by.page.DTO';
 import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
+import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
+import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
+import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
 
 export class DTOConverter {
+
+  public static jsonToProfileDataDTO(data: any): ProfileDataDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new ProfileDataDTO(data.email, data.firstName, data.lastName, data.imageBase64, data.authenticationType, self);
+  }
+
+  public static jsonToProfilePersonalInfoDTO(data: any): ProfilePersonalInfoDTO {
+    return new ProfilePersonalInfoDTO(data.firstName, data.lastName);
+  }
+
+  public static jsonToProfileImageDTO(data: any): ProfileImageDTO {
+    return new ProfileImageDTO(data.imageBase64);
+  }
 
   public static jsonToPublicCards(data: any): CardPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);

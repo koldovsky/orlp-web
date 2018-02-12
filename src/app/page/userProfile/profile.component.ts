@@ -1,8 +1,6 @@
-import {AfterViewChecked, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProfileService} from './profile.service';
-import {UserDetailsDto} from '../../dto/UserDetailsDto';
-import {Person} from '../../dto/Person';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PasswordDTO} from '../../dto/PasswordDTO';
 import {LoginService} from '../authorization/login/login.service';
@@ -10,12 +8,15 @@ import {UserStatusChangeService} from '../userStatusChange/user.status.change.se
 import {AuthorizationService} from '../authorization/authorization.service';
 import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
 import {RememberingLevelDTO} from "../../dto/remembering.level.dto";
+import {ProfilePersonalInfoDTO} from '../../dto/UserProfileDTO/ProfilePersonalInfoDTO';
+import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
+import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
 import {LogoutService} from "../logout/logout.service";
 
-function passwordMatcher(c: AbstractControl) {
-  const passwordControl = c.get('password');
-  const confirmPassword = c.get('confirmPassword');
-  if (passwordControl.value === confirmPassword.value) {
+function passwordMatcher(form: AbstractControl) {
+  const newPassword = form.get('newPassword').value;
+  const confirmPassword = form.get('confirmPassword').value;
+  if (newPassword === confirmPassword) {
     return null;
   }
   return {'match': true};
@@ -26,32 +27,40 @@ function passwordMatcher(c: AbstractControl) {
   templateUrl: ('./profile.component.html'),
   styleUrls: ['profile.component.css']
 })
+
 export class ProfileComponent implements OnInit, AfterViewChecked {
+  private NAME_MIN_LENGTH = 2;
+  private NAME_MAX_LENGTH = 15;
+  private NAME_PATTERN = '[^`~!@#$%^&*()\\-_=\\+\\[\\]{};:\'\".>/?,<\|]*';
+  private PASSWORD_MIN_LENGTH = 8;
+  private PASSWORD_MAX_LENGTH = 20;
   SUCCESS = 'Your changes have been successfully saved!';
   FAILURE = 'Some of your changes haven\'t been saved!';
-  public userProfile: UserDetailsDto;
-  public firstName: string;
-  public lastName: string;
-  public originalFirstName: string;
-  public originalLastName: string;
-  public person: Person = new Person();
-  public currentPassword: string;
-  public newPassword: string;
-  public showModal: boolean;
-  public chosenImage = false;
-  public authenticationType: string;
-  public imageProfile: string;
-  public showMessageData = false;
-  public currentPasswordMessage: boolean;
 
+  email: string;
+  firstName: string;
+  lastName: string;
+  originalFirstName: string;
+  originalLastName: string;
+  currentPassword: string;
+  newPassword: string;
+  imageBase64: string;
+  authenticationType: string;
+  status: string;
+  
   public accountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
   public lastAccountLearningDetail: AccountDTO = new AccountDTO(undefined,undefined,undefined,undefined);
-
-  public status: string;
+  
   savingResultMessage: string;
   isFocused: boolean;
 
-  userForm: FormGroup;
+  personalInfoShowSuccessMessage = false;
+  passwordShowSuccessMessage = false;
+  passwordShowFailMessage = false;
+  isAccountDeactivated = false;
+
+  personalInfoForm: FormGroup;
+  passwordForm: FormGroup;
 
   constructor(private profileService: ProfileService,
               private router: Router,
@@ -63,17 +72,68 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    this.getProfile();
     this.status = sessionStorage.getItem('status');
+    this.getProfileData();
+    this.getProfile();
 
-    this.userForm = this.formBuilder.group({
-      passwordGroup: this.formBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPassword: ['', [Validators.required]],
-      }, {validator: passwordMatcher})
+    const nameValidator = [
+      Validators.required,
+      Validators.minLength(this.NAME_MIN_LENGTH),
+      Validators.maxLength(this.NAME_MAX_LENGTH),
+      Validators.pattern(this.NAME_PATTERN)
+    ];
+    const passwordValidator = [
+      Validators.required,
+      Validators.minLength(this.PASSWORD_MIN_LENGTH),
+      Validators.maxLength(this.PASSWORD_MAX_LENGTH)
+    ];
+
+    this.personalInfoForm = this.formBuilder.group({
+      firstName: ['', nameValidator],
+      lastName: ['', nameValidator]
     });
+    this.passwordForm = this.formBuilder.group({
+      currentPassword: ['', passwordValidator],
+      newPassword: ['', passwordValidator],
+      confirmPassword: ['']
+    }, {validator: passwordMatcher});
   }
 
+  private getProfileData() {
+    this.profileService.getProfileData()
+      .subscribe((data) => {
+        this.email = data.email;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.originalFirstName = this.firstName;
+        this.originalLastName = this.lastName;
+        this.imageBase64 = data.imageBase64;
+        this.authenticationType = data.authenticationType;
+      });
+  }
+
+  updatePersonalData() {
+    if (this.isNamesEqualToOriginal()) {
+      this.personalInfoShowSuccessMessage = true;
+      return;
+    }
+    const data = new ProfilePersonalInfoDTO(this.firstName, this.lastName);
+    this.profileService.updatePersonalInfo(data)
+      .subscribe((personalData) => {
+        this.firstName = personalData.firstName;
+        this.lastName = personalData.lastName;
+        this.originalFirstName = this.firstName;
+        this.originalLastName = this.lastName;
+        this.personalInfoShowSuccessMessage = true;
+      });
+  }
+
+  cancelChanges() {
+    this.firstName = this.originalFirstName;
+    this.lastName = this.originalLastName;
+    this.personalInfoShowSuccessMessage = false;
+  }
+  
   getProfile(): void {
     this.profileService.getAccountDetails().subscribe(
 
@@ -85,63 +145,38 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
              this.lastAccountLearningDetail.rememberingLevels = [];
              this.accountLearningDetail.rememberingLevels.forEach((level) => this.lastAccountLearningDetail.rememberingLevels.push(
                new RememberingLevelDTO(level.id, level.orderNumber, level.name, level.numberOfPostponedDays)));
-      });
-
-    this.profileService.getUserProfile()
-      .subscribe(
-        user => {
-        this.userProfile = user;
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
-        this.originalFirstName = user.firstName;
-        this.originalLastName = user.lastName;
-        if (user.imageType === 'BASE64') {
-          this.imageProfile = user.self.href + '/image' + '?' + new Date().getTime();
-        } else {
-          this.imageProfile = user.image;
-        }
-        this.authenticationType = user.authenticationType;
-      });
+      });  
   }
 
-  saveChanges() {
-    this.person.firstName = this.firstName;
-    this.person.lastName = this.lastName;
-    this.originalFirstName = this.firstName;
-    this.originalLastName = this.lastName;
-    this.profileService.changePersonalData(this.person)
-      .subscribe(user => {
-        this.showMessageData = true;
-      });
-  }
-
-  private changePassword() {
-    this.newPassword = this.userForm.value.passwordGroup.password;
-    this.profileService.changePassword(new PasswordDTO(this.currentPassword, this.newPassword))
+  changePassword() {
+    const data = new ProfilePasswordDTO(this.currentPassword, this.newPassword);
+    this.profileService.changePassword(data)
       .subscribe(() => {
-        this.currentPasswordMessage = true;
-      }, (error) => {
-        this.currentPasswordMessage = false;
+        this.passwordShowSuccessMessage = true;
+        this.passwordShowFailMessage = false;
+        this.passwordForm.reset();
+      }, () => {
+        this.passwordShowFailMessage = true;
+        this.passwordShowSuccessMessage = false;
       });
   }
 
-  deleteProfile() {
-    this.profileService.deleteProfile()
-      .subscribe(() => {
-        this.logoutServise.logout();
-        this.authorizationService.emitIsAuthorizedChangeEvent(false);
-        this.router.navigate(['user/status/change']);
-      });
+  uploadProfileImage(event) {
+    const reader = new FileReader();
+    reader.onload = (file: any) => {
+      const data = new ProfileImageDTO(file.target.result);
+      this.profileService.uploadProfileImage(data)
+        .subscribe((imageData) => {
+          this.imageBase64 = imageData.imageBase64;
+        });
+    };
+    reader.readAsDataURL(event.target.files[0]);
   }
 
-  loadFile(fileInput: any) {
-    const file = fileInput.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
-    this.profileService.addImage(formData)
+  deleteProfileImage() {
+    this.profileService.deleteProfileImage()
       .subscribe(() => {
-        this.chosenImage = true;
-        this.imageProfile = this.userProfile.self.href + '/image' + '?' + new Date().getTime();
+        this.imageBase64 = null;
       });
   }
 
@@ -179,13 +214,18 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       this.accountLearningDetail.cardsNumber===this.lastAccountLearningDetail.cardsNumber ;
   }
 
-  closeAlert(): void {
-    this.savingResultMessage = '';
+  deleteProfile() {
+    this.profileService.deleteProfile()
+      .subscribe(() => {
+        this.logoutServise.logout();
+        this.authorizationService.emitIsAuthorizedChangeEvent(false);
+        this.router.navigate(['user/status/change']);
+      });
   }
 
-  public cancelChanges() {
-    this.firstName = this.originalFirstName;
-    this.lastName = this.originalLastName;
+  private isNamesEqualToOriginal(): boolean {
+    return (this.firstName === this.originalFirstName) &&
+      (this.lastName === this.originalLastName);
   }
 
   saveAccountLearningDetail() {
