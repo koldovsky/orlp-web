@@ -302,9 +302,29 @@
             </label>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-danger" [disabled]="!imageBase64" (click)="deleteProfileImage()">
-          Remove profile image
+        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteProfileImage"
+                [disabled]="!imageBase64">
+        Remove profile image
         </button>
+        <div class="modal fade" id="deleteProfileImage" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title">Do you want to delete your profile image?</h5>
+              </div>
+              <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        (click)="deleteProfileImage()">Yes
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row"></div>
       </div>
 

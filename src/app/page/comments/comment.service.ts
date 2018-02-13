@@ -37,7 +37,7 @@ export class CommentService {
   }
 
   getPersonRole(): Observable<UserRoleDTO> {
-    return this.orlp.get('api/private/user/details')
+    return this.orlp.get('api/user/details')
       .map((response: Response) => <UserRoleDTO> DTOConverter.jsonToUserRoleDTO(response.json()))
       .catch(this.handleError);
   }
