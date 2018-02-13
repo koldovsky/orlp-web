@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewChecked} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ProfileService} from './profile.service';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -269,4 +269,9 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     }
     return this.accountLearningDetail.cardsNumber > 0;
   }
+
+  closeAlert(): void {
+    this.savingResultMessage = '';
+  }
+
 }
