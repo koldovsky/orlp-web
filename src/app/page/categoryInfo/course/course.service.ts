@@ -16,7 +16,7 @@ import {NGXLogger} from 'ngx-logger';
 
 @Injectable()
 export class CourseService {
-  private urlAddCourseToUser = 'api/user/courses/';
+  private urlAddCourseToUser = 'api/cabinet/courses/';
 
   constructor(private orlp: ORLPService,
               private logger: NGXLogger) {
@@ -29,7 +29,7 @@ export class CourseService {
   }
 
   getCoursesIdOfTheUser(): Observable<number[]> {
-    return this.orlp.get('api/private/user/courses')
+    return this.orlp.get('api/private/cabinet/courses')
       .map((response: Response) => {
         return response.json();
       })
@@ -45,7 +45,7 @@ export class CourseService {
 
   getCourses(categoryId: number, numberPage: number,
              selectedSortingParam: string, ascending: boolean): Observable<CoursesByCategoryAndPageDTO> {
-    return this.orlp.get('api/category/' + categoryId + '/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam +
+    return this.orlp.get('api/categories/' + categoryId + '/courses?p=' + numberPage + '&sortBy=' + selectedSortingParam +
       '&asc=' + ascending)
       .map((response: Response) => <CoursesByCategoryAndPageDTO> DTOConverter
         .jsonToCourseByCategoryAndPage(response.json()))
