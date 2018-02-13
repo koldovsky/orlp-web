@@ -31,6 +31,8 @@ export class SignUpComponent implements OnInit {
   userForm: FormGroup;
   user: User = new User();
   mailNotSended: boolean;
+  wrongDetails = false;
+  verificationStat = false;
   success: boolean;
   error: boolean;
   public userSignIn;

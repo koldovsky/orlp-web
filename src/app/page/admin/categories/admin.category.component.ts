@@ -45,7 +45,8 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   createCategory() {
-    this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription, this.chosenImage)).subscribe(() => {
+    this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription,
+      this.chosenImage)).subscribe(() => {
       this.createCategoryMessage = 'Category "' + this.categoryName + '" created!';
       this.getAllCategories();
     }, () => this.createCategoryMessage = 'Error. Please try again!');

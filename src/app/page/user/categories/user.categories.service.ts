@@ -5,7 +5,7 @@ import {Response} from '@angular/http';
 import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
-import {CategoriesByPageDTO} from "../../../dto/CategoryDTO/link.categories.by.page.DTO";
+import {CategoriesByPageDTO} from '../../../dto/CategoryDTO/link.categories.by.page.DTO';
 
 @Injectable()
 export class UserCategoriesService {

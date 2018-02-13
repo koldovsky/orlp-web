@@ -14,7 +14,7 @@ export class LogoutService {
 
   isAuthorized(): boolean {
     if (this.cookie.get(this.cookieWithToken) != null) {
-      this.getStatus();
+      // this.getStatus();
       return true;
     }
     return false;
@@ -29,22 +29,6 @@ export class LogoutService {
     return false;
   }
 
-  getStatus() {
-    return this.orlp.get('api/status')
-      .subscribe((response) => {
-        this.ngZone.run(() => {
-          sessionStorage.setItem('status', 'ACTIVE');
-        });
-      }, (error) => {
-        if (error.status === ORLPSettings.LOCKED) {
-          sessionStorage.setItem('status', 'DELETED');
-        } else if (error.status === ORLPSettings.FORBIDDEN) {
-          sessionStorage.setItem('status', 'BLOCKED');
-        } else if (error.status === ORLPSettings.METHOD_NOT_ALLOWED) {
-          sessionStorage.setItem('status', 'INACTIVE');
-        }
-      });
-  }
 }
 
 

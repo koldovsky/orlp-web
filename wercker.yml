@@ -1,0 +1,46 @@
+# Version: 0.0.2
+box: node
+
+build:
+  steps:
+    # A step that executes `npm install` command
+    - npm-install
+    - script:
+        name: run build
+        code: npm run build
+
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+
+deploy:
+    steps:
+        - wercker/add-ssh-key:
+            keyname: SSH_KEY
+        - add-to-known_hosts:
+            hostname: $REMOTE_HOST
+        - script:
+            name: Copy dist directory
+            code: |
+                tar -czvf dist.tar.gz ./dist
+                ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && rm -rf dist*"
+                scp dist.tar.gz $LOGIN@$REMOTE_HOST:~/orlp-web/dist.tar.gz
+                ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && tar -zxvf dist.tar.gz"
+        - script:
+            name: Stop Docker container
+            code: |
+                scp check_if_web_run.sh $LOGIN@$REMOTE_HOST:~/orlp-web/
+                ssh $LOGIN@$REMOTE_HOST "sh check_if_web_run.sh"
+        - script:
+            name: Run Docker container
+            code: |
+                ssh $LOGIN@$REMOTE_HOST "docker run -dit --name orlp-web --net=orlp -e 'LETSENCRYPT_EMAIL=holovko.oleksandr@gmail.com' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx"
+                ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && docker cp dist/. orlp-web:/usr/share/nginx/html/"
+                # ssh $LOGIN@$REMOTE_HOST "cat /tmp/counter.tar | docker import - $REPOSITORY_NAME"
+ 
+        # - script:
+        #     name: Run Containers
+        #     code: |
+        #         CID=$(ssh root@$REMOTE_HOST "docker run -d -p 80:5000 $REPOSITORY_NAME /var/www/main --host=0.0.0.0 --port=5000")

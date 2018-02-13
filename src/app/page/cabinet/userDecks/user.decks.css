@@ -96,3 +96,10 @@ input[type="file"] {
 label {
   margin-bottom: auto;
 }
+
+.wrong-format-file-exception{
+  width: 40vh;
+  text-align: center;
+  background: hotpink;
+  color: rebeccapurple;
+}

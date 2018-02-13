@@ -12,7 +12,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      {path: 'user/profile', component: ProfileComponent}
+      {path: 'profile', component: ProfileComponent}
     ])],
   exports: [],
   declarations: [ProfileComponent],

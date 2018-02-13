@@ -64,6 +64,9 @@
       </button>
       <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
       <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
+      <div class = "wrong-format-file-exception">
+        <p>{{errorFileMessage}}</p>
+      </div>
     </div>
   </div>
 
