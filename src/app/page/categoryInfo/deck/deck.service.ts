@@ -30,7 +30,7 @@ export class DeckService {
   }
 
   addDeckToFolder(deckId: number): Observable<DeckPublic> {
-    return this.orlp.put('api/user/folder/add/deck/' + deckId, {})
+    return this.orlp.put('api/cabinet/folder/add/deck/' + deckId, {})
       .map((response: Response) => {
         response.json();
       })
@@ -53,12 +53,12 @@ export class DeckService {
   }
 
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
-    return this.orlp.get('/api/private/decks/' + deckId + '/cards-that-need-repeating/count')
+    return this.orlp.get('api/decks/' + deckId + '/cards-that-need-repeating/count')
       .map((response: Response) => response.json());
   }
 
   downloadCards(deckId: number, deckName: string) {
-    return this.orlp.get('api/private/download/deck/' + deckId + '/cards')
+    return this.orlp.get('api/download/deck/' + deckId + '/cards')
       .subscribe(
         response => {
           const blob = new Blob([response.text()], {type: 'application/octet-stream'});

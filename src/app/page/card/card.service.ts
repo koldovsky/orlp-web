@@ -25,30 +25,24 @@ export class CardService {
   }
 
   public getAdditionalCards(deckId: number): Observable<CardPublic[]> {
-    return this.orlp.get('/api/private/decks/' + deckId + '/learn/additional')
+    return this.orlp.get('api/decks/' + deckId + '/learn/additional')
       .map((response: Response) => <CardPublic[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()))
       .catch(this.handleError);
   }
 
   public areThereNotPostponedCards(deckId: number): Observable<boolean> {
-    return this.orlp.get('/api/private/decks/' + deckId + '/not-postponed')
+    return this.orlp.get('api/decks/' + deckId + '/not-postponed')
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 
   public sendStatus(status: string, card_id: number, deckId: number) {
-    return this.orlp.put('api/private/decks/' + deckId + '/cards/' + card_id + '/queue', status);
+    return this.orlp.put('api/decks/' + deckId + '/cards/' + card_id + '/queue', status);
   }
 
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
-  }
-
-  public getDeckSynthax(deckId: number): Observable<DeckSynthaxDTO> {
-    return this.orlp.get('/api/private/decks/' + deckId + '/synthax')
-      .map((response: Response) => DTOConverter.jsonToDeckSynthax(response.json()))
-      .catch(this.handleError);
   }
 }

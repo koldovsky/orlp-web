@@ -22,14 +22,12 @@
       <div class="card" [ngClass]="{'rotate' : routing == true}">
         <div class="front">
           <div class="header">
-            <markdown>
               <h1 class="motto">
                 {{cards[questionNumber].question}}
                 <div *ngFor="let cardImage of cards[questionNumber].images">
                   <img class="card-image" src="{{cardImage.image}}" alt="">
                 </div>
               </h1>
-            </markdown>
           </div>
           <div class="content">
             <div class="main">
@@ -45,13 +43,12 @@
         <div class="back">
           <div class="header">
             <h1 class="motto">
-              <markdown>{{cards[questionNumber].question}}
+              {{cards[questionNumber].question}}
               <div *ngIf="cards[questionNumber].images != null">
                   <div *ngFor="let cardImage of cards[questionNumber].images">
                     <img class="card-image" src="{{cardImage.image}}" alt="">
                   </div>
               </div>
-              </markdown>
             </h1>
           </div>
           <div class="content">
