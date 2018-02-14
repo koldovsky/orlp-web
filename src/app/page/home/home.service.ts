@@ -19,13 +19,13 @@ export class HomeService {
   }
 
   getCategories(): Observable<CategoryTop[]> {
-    return this.orlp.get('api/category/top/')
+    return this.orlp.get('api/categories/top/')
       .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
       .catch(this.handleError);
   }
 
   getCourses(): Observable<CourseLink[]> {
-    return this.orlp.get('api/course/top/')
+    return this.orlp.get('api/courses/top/')
       .map((response: Response) => <CourseLink[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
       .catch(this.handleError);

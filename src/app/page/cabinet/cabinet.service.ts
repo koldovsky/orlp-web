@@ -38,33 +38,33 @@ export class CabinetService {
   }
 
   public getCategoryDecks(categoryId: number): Observable<DeckLinkByCategory[]> {
-    return this.orlp.get('/api/category/' + categoryId + '/decks')
+    return this.orlp.get('/api/categories/' + categoryId + '/decks')
       .map((response: Response) => <DeckLinkByCategory[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()));
   }
 
   public updateCourse(course: CourseLink) {
-    return this.orlp.put('/api/user/courses/' + course.courseId + '/update/access', course)
+    return this.orlp.put('/api/cabinet/' + course.courseId + '/update/access', course)
       .map((response: Response) => this.logger.log(response));
   }
 
   public addDeckToCourse(courseId: number, deckId: number) {
-    return this.orlp.put('api/category/courses/' + courseId + '/decks/' + deckId, {})
+    return this.orlp.put('api/categories/courses/' + courseId + '/decks/' + deckId, {})
       .map((response: Response) => this.logger.log(response));
   }
 
   public deleteGlobalCourse(course: CourseLink) {
-    return this.orlp.delete('api/user/global/courses/' + course.courseId)
+    return this.orlp.delete('api/cabinet/global/courses/' + course.courseId)
       .map((response: Response) => this.logger.log(response));
   }
 
   public deleteLocalCourse(course: CourseLink) {
-    return this.orlp.delete('api/user/local/courses/' + course.courseId)
+    return this.orlp.delete('api/cabinet/local/courses/' + course.courseId)
       .map((response: Response) => this.logger.log(response));
   }
 
   public deleteDeck(deckId: number) {
-    return this.orlp.delete('api/user/folder/decks/' + deckId)
+    return this.orlp.delete('api/cabinet/folder/decks/' + deckId)
       .map((response: Response) => this.logger.log(response));
   }
 }

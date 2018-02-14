@@ -25,13 +25,13 @@ export class CourseService {
   }
 
   getCategories(): Observable<CategoryLink[]> {
-    return this.orlp.get('api/category/')
+    return this.orlp.get('api/categories/')
       .map((response: Response) => <CategoryLink[]>
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
   createCourse(privateCourse: PrivateCourseDTO, category_id: number) {
-    return this.orlp.post('api/category/' + category_id + '/private/user/create/course/', privateCourse)
+    return this.orlp.post('api/categories/' + category_id + '/courses/', privateCourse)
       .map((response: Response) => response.json());
   }
 

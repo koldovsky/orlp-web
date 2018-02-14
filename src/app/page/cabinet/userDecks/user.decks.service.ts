@@ -23,7 +23,7 @@ export class UserDecksService {
   }
 
   getCategories(): Observable<CategoryLink[]> {
-    return this.orlp.get('api/category').map((response: Response) =>
+    return this.orlp.get('api/categories').map((response: Response) =>
       <CategoryLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 

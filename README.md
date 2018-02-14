@@ -45,3 +45,9 @@ Now you can work with the server. Last command will open the browser's window wi
 - [**Vlad Kuhivchak**](https://github.com/Vkiro)
 - [**Askold Baran**](https://github.com/askoldbaran)
 - [**Taras Predzymyrskyi**](https://github.com/tararas124)
+
+***The DevOps Team***
+- [**Oleksandr Holovko**](https://github.com/oholovko)
+- [**Zakhar Salamin**](https://github.com/zakharSal)
+- [**Sofia Mykytuk**](https://github.com/SofiiaMyk)
+- [**Zenoviy Kharkhalis**](https://github.com/ZenykK)
