@@ -67,6 +67,6 @@ export class CourseService {
   }
 
   addCourseRating(rating: Rating, courseId: number): Observable<Response> {
-    return this.orlp.post('/api/private/course/' + courseId, rating);
+    return this.orlp.post('/api/courses/' + courseId + '/ratings/',  rating);
   }
 }
