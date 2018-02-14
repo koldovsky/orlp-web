@@ -18,12 +18,12 @@ export class UserDecksService {
   }
 
   getUser(): Observable<UserDTO> {
-    return this.orlp.get('api/private/user')
+    return this.orlp.get('api/user')
       .map((response: Response) => <UserDTO> DTOConverter.jsonToUserDTO(response.json()));
   }
 
   getCategories(): Observable<CategoryLink[]> {
-    return this.orlp.get('api/category').map((response: Response) =>
+    return this.orlp.get('api/categories').map((response: Response) =>
       <CategoryLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }
 
@@ -53,7 +53,7 @@ export class UserDecksService {
   }
 
   downloadCardsTemplate() {
-    return this.orlp.get('api/private/download/template/cards')
+    return this.orlp.get('api/download/template/cards')
       .subscribe(
         response => {
           const blob = new Blob([response.text()], { type: 'application/octet-stream'});
@@ -64,7 +64,7 @@ export class UserDecksService {
   }
 
   uploadCards(file: any, deckId: number) {
-    return this.orlp.post('api/private/upload/deck/' + deckId + '/cards', file)
+    return this.orlp.post('api/upload/deck/' + deckId + '/cards', file)
       .map((response: Response) => this.logger.log(response));
   }
 }

@@ -31,7 +31,14 @@
           <td>{{category.description}}</td>
           <td>
             <div>
-              <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#formForEditing" (click)="beforeEditing(category)" >
+                <i class="fa"></i> Edit</button>
+
+              <button class="btn btn-danger"
+                      data-dismiss="modal"
+                      (click)="deleteCategory(category)" data-toggle="modal"
+                      data-target="#CreateCategory"><i class="fa"></i> Delete
+              </button>
             </div>
           </td>
         </tr>
@@ -39,6 +46,9 @@
     </div>
   </div>
 </div>
+
+
+
 <div class="modal fade" id="formForCreation" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -117,6 +127,90 @@
     </div>
   </div>
 </div>
+
+
+
+<div class="modal fade" id="formForEditing" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header card-header">
+        <h4 class="modal-title">Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="card-body">
+        <div class="row form-group" [formGroup]="categoryForm">
+          <label class="col-md-3 col-form-label" for="name">Name</label>
+          <div class="col-md-9">
+            <input type="text" id="names" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
+                       (categoryForm.get('name').touched||categoryForm.get('name').dirty)&&categoryForm.get('name').errors}"
+                   [(ngModel)]="categoryName"
+                   required>
+            <div *ngIf="categoryForm.get('name').hasError('required')" class="invalid-feedback">
+              Name is required field!
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('pattern')" class="invalid-feedback">
+              You wrote incorrect characters. (Only letters and +# are allowed)
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('minlength')" class="invalid-feedback">
+              Name is too short! (not less than 2 characters)
+            </div>
+            <div *ngIf="categoryForm.get('name').hasError('maxlength')" class="invalid-feedback">
+              Name is too long! (not more than 15 characters)
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row" [formGroup]="categoryForm">
+          <label class="col-md-3 col-form-label" for="textarea-input">Description</label>
+          <div class="col-md-9">
+              <textarea id="textarea-inputs" rows="6" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
+              (categoryForm.get('description').touched||categoryForm.get('description').dirty)&&categoryForm.get('description').errors}"
+                        required [(ngModel)]="categoryDescription"></textarea>
+            <div *ngIf="categoryForm.get('description').hasError('required')" class="invalid-feedback">
+              Description is required field!
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('pattern')" class="invalid-feedback">
+              You wrote incorrect characters. (Only letters and #+., are allowed)
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('minlength')" class="invalid-feedback">
+              Description is too short! (not less than 10 characters)
+            </div>
+            <div *ngIf="categoryForm.get('description').hasError('maxlength')" class="invalid-feedback">
+              Description is too long! (not more than 200 characters)
+            </div>
+          </div>
+        </div>
+        <div *ngIf="categoryImage"> Current image: <img [src]="categoryImage" class="category-image"></div>
+        <div class="form-group row" [formGroup]="categoryForm">
+          <label class="col-md-3 col-form-label" for="textarea-input">Image</label>
+          <div class="col-md-9">
+            <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
+              <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
+              <ng-template #chosenContent>
+                <img [src]="chosenImage.self.href" alt="image" class="chosen-image"/>
+              </ng-template>
+              <ng-template #chooseContent>
+                <div class="choose-image">
+                  Choose new image...
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!isFormValid() || !chosenImage " class="btn btn-info"
+                data-dismiss="modal"
+                (click)="editCategory()" data-toggle="modal"
+                data-target="#updateCategory"><i class="fa fa-check-square-o"></i> Save changes
+        </button>
+        <button type="reset" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -125,6 +219,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body">
+
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
                data-dismiss="modal"/>

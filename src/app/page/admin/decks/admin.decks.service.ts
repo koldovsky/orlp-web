@@ -39,7 +39,7 @@ export class AdminDecksService {
   }
 
   getCategories(): Observable<CategoryLink[]> {
-    return this.orlp.get('api/category/')
+    return this.orlp.get('api/categories/')
       .map((response: Response) => <CategoryLink[]>
         DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCategory, response.json()));
   }

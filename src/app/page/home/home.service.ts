@@ -9,7 +9,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
-import {CourseLink} from "../../dto/CourseDTO/link.course.DTO";
+import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 
 @Injectable()
 export class HomeService {
@@ -19,13 +19,13 @@ export class HomeService {
   }
 
   getCategories(): Observable<CategoryTop[]> {
-    return this.orlp.get('api/category/top/')
+    return this.orlp.get('api/categories/top/')
       .map((response: Response) => <CourseLink[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToTopCategory, response.json()))
       .catch(this.handleError);
   }
 
   getCourses(): Observable<CourseLink[]> {
-    return this.orlp.get('api/course/top/')
+    return this.orlp.get('api/courses/top/')
       .map((response: Response) => <CourseLink[]> DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicLinkCourse, response.json()))
       .catch(this.handleError);

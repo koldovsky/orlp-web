@@ -138,3 +138,64 @@ textarea{
   border-radius: 0.7rem;
   border-top: hidden;
 }
+
+label#largeFile{
+  width: 20vh;
+  height: 20vh;
+}
+label#largeFile:after {
+  float:left;
+  width:20vh;
+  height: 20vh;
+  content:"Upload your image";
+  text-align:center;
+  border-radius:10px;
+  border:5px dashed #ccc;
+  font-size:30px;
+}
+
+label#largeFile:hover:after {
+  background:#4CAF50;
+  color:#fff;
+  cursor:pointer;
+}
+
+
+label#largeFile input#file {
+  width: 0;
+  height: 0;
+}
+#file{
+  display: none;
+}
+
+/* start of img container*/
+.img-container {
+  position: relative;
+  float: left;
+}
+a.remImage img {
+  box-shadow: none;
+  position: absolute;
+  right: 7px;
+  top: -5px;
+  margin-top: 4px;
+  opacity: 0;
+  display: block;
+  transition: all .5s ease-in-out;
+
+}
+.img-container:hover a.remImage img {
+  cursor: pointer;
+  opacity: 1;
+  z-index: 2;
+  position: absolute;
+  top: 5px;
+}
+
+.img-container img{
+  max-width: 465px;
+  max-height: 465px;
+}
+/* end of image container*/
+

@@ -10,7 +10,6 @@ import {CreateCardsService} from './manageCards/createCards/create.cards.service
 import {ManageCardsService} from './manageCards/manage.cards.service';
 import { CodemirrorModule } from 'ng2-codemirror';
 
-
 @NgModule({
   imports: [
     FormsModule,

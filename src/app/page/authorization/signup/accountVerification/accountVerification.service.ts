@@ -7,7 +7,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class AccountVerificationService {
   private subject = new BehaviorSubject(false);
-  private _controllerUrl = 'api/registrationConfirm';
+  private _controllerUrl = 'api/registration-confirm';
 
   constructor(private orlp: ORLPService) {
   }
