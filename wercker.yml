@@ -17,10 +17,10 @@ build:
 
   after-steps:
     - slack-notifier:
-      url: $SLACK_URL
-      channel: notifications
-      username: werckerbot
-      # notify_on: "failed"
+        url: $SLACK_URL
+        channel: notifications
+        username: werckerbot
+        # notify_on: "failed"
 
 deploy:
   steps:
@@ -47,7 +47,7 @@ deploy:
 
     after-steps:
       - slack-notifier:
-        url: $SLACK_URL
-        channel: notifications
-        username: werckerbot
-        # notify_on: "failed"
+          url: $SLACK_URL
+          channel: notifications
+          username: werckerbot
+          # notify_on: "failed"
