@@ -37,10 +37,9 @@ deploy:
             name: Run Docker container
             code: |
                 ssh $LOGIN@$REMOTE_HOST "docker create --name orlp-web --net=orlp --restart=always -e 'LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx && cd ~/orlp-web/ && docker cp default.conf orlp-web:/etc/nginx/conf.d/ && docker cp nginx.conf orlp-web:/etc/nginx/ && docker cp dist/. orlp-web:/usr/share/nginx/html/&& docker start orlp-web"
-
-after-steps:
-        - slack-notifier:
-            url: $SLACK_URL
-            channel: notifications
-            username: werckerbot
-            notify_on: "failed"
+    after-steps:
+         - slack-notifier:
+        url: $SLACK_URL
+        channel: notifications
+        username: werckerbot
+        notify_on: "failed"
