@@ -50,7 +50,6 @@ deploy:
             packages: ruby
         - wantedly/pretty-slack-notify:
             webhook_url: $SLACK_URL
-            # url: $SLACK_URL
             channel: notifications
             username: Wercker Event Notifier
             # notify_on: "failed"
