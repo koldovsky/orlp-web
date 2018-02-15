@@ -51,3 +51,4 @@ deploy:
             channel: notifications
             username: Wercker Event Notifier
             # notify_on: "failed"
+            passed_message: yay :smile:
