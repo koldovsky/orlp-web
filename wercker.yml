@@ -2,25 +2,25 @@
 box: node
 
 build:
-  steps:
-  # A step that executes `npm install` command
-    - npm-install
-    - script:
-        name: run build
-        code: npm run build
+    steps:
+    # A step that executes `npm install` command
+        - npm-install
+        - script:
+            name: run build
+            code: npm run build
 
-    - script:
-        name: echo nodejs information
-        code: |
-            echo "node version $(node -v) running"
-            echo "npm version $(npm -v) running"
+        - script:
+            name: echo nodejs information
+            code: |
+                echo "node version $(node -v) running"
+                echo "npm version $(npm -v) running"
 
-  after-steps:
-    - slack-notifier:
-        url: $SLACK_URL
-        channel: notifications
-        username: werckerbot
-        # notify_on: "failed"
+    after-steps:
+        - slack-notifier:
+            url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
+            # notify_on: "failed"
 
 deploy:
     steps:
@@ -45,9 +45,9 @@ deploy:
             code: |
                 ssh $LOGIN@$REMOTE_HOST "docker create --name orlp-web --net=orlp --restart=always -e 'LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx && cd ~/orlp-web/ && docker cp default.conf orlp-web:/etc/nginx/conf.d/ && docker cp nginx.conf orlp-web:/etc/nginx/ && docker cp dist/. orlp-web:/usr/share/nginx/html/&& docker start orlp-web"
 
-                after-steps:
-                    - slack-notifier:
-                        url: $SLACK_URL
-                        channel: notifications
-                        username: werckerbot
-                        # notify_on: "failed"y
+    after-steps:
+        - slack-notifier:
+            url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
+            # notify_on: "failed"
