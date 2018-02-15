@@ -23,7 +23,8 @@ export class DeckService {
 
   getDecks(categoryId: number, numberPage: number,
            selectedSortingParam: string, ascending: boolean): Observable<DeckByCategoryAndPageDTO> {
-    return this.orlp.get('/api/category/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+    return this.
+    orlp.get('/api/categories/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
       .map((response: Response) => <DeckByCategoryAndPageDTO> DTOConverter
         .jsonToDeckByCategoryAndPage(response.json()))
       .catch(this.handleError);
@@ -40,12 +41,6 @@ export class DeckService {
   getIdDecksInYourFolder(): Observable<number[]> {
     return this.orlp.get('api/private/user/folder/decks/id')
       .map((response: Response) => response.json());
-  }
-
-  private handleError(error: Response) {
-    this.logger.error(error);
-
-    return Observable.throw(error.json().error || 'Server error');
   }
 
   addDeckRating(rating: Rating, deckId: number) {
@@ -66,5 +61,11 @@ export class DeckService {
           saveAs(blob, deckName + '.yml');
         }
       );
+  }
+
+  private handleError(error: Response) {
+    this.logger.error(error);
+
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
