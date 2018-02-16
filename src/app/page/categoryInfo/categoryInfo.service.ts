@@ -18,7 +18,6 @@ export class CategoryInfoService {
     }
 
     public getCategory(url: string): Observable<CategoryLink> {
-      console.log(url + ' - getCategory   - CategoryInfo.service.ts');
         return this.orlp.get(url)
             .map((response: Response) => <CategoryLink> DTOConverter
               .jsonToPublicCategory(response.json()))

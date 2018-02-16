@@ -23,7 +23,8 @@ export class DeckService {
 
   getDecks(categoryId: number, numberPage: number,
            selectedSortingParam: string, ascending: boolean): Observable<DeckByCategoryAndPageDTO> {
-    return this.orlp.get('/api/category/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+    return this.orlp.get('api/categories/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' +
+      selectedSortingParam + '&asc=' + ascending)
       .map((response: Response) => <DeckByCategoryAndPageDTO> DTOConverter
         .jsonToDeckByCategoryAndPage(response.json()))
       .catch(this.handleError);
