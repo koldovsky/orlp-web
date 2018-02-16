@@ -28,12 +28,12 @@ export class UserDecksService {
   }
 
   getOnlyDecksCreatedByTheUser(): Observable<DeckDTO[]> {
-    return this.orlp.get('api/user/folder/decks/own').map((response: Response) =>
+    return this.orlp.get('api/users/folders/decks/own').map((response: Response) =>
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
   }
 
   getDeckCreatedByTheUser(deckId: number): Observable<DeckDTO> {
-    return this.orlp.get('api/user/folder/decks/own/' + deckId).map((response: Response) =>
+    return this.orlp.get('api/users/folders/decks/own/' + deckId).map((response: Response) =>
       <DeckDTO> DTOConverter.jsonToDeck(response.json()));
   }
 
