@@ -21,6 +21,7 @@ export class CourseInfoService {
   }
 
   getCourse(url: string): Observable<CourseLinkWithId> {
+    console.log(url + 'getCourse - courseInfo.service.ts');
     return this.orlp.get(url)
       .map((response: Response) => DTOConverter.jsonToPublicLinkCourseWithId(response.json()))
       .catch(this.handleError);
@@ -28,6 +29,7 @@ export class CourseInfoService {
 
   getDecks(course: CourseLinkWithId): Observable<DeckPublic[]> {
     const url = this.orlp.decodeLink(this.orlp.getShortLink(course.decks));
+    console.log(url + 'getDecks - courseInfo.service.ts');
     return this.orlp.get(url)
       .map((response: Response) => <DeckPublic[]>(DTOConverter
         .jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json())))
