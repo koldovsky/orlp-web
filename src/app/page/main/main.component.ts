@@ -77,7 +77,7 @@ export class MainComponent implements OnInit {
         this.isAuthorizedAdmin = user.authorities.includes('ROLE_ADMIN');
         this.setAdmin();
         if (user.imageType === 'BASE64') {
-          this.image = user.self.href + '/image' + '?' + new Date().getTime();
+          this.image = user.imageBase64;
         } else if (user.imageType === 'LINK') {
           this.image = user.image;
         } else {

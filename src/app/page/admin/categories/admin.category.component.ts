@@ -4,6 +4,9 @@ import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
+import {Link} from "../../../dto/link";
+import {toNumber} from "ngx-bootstrap/timepicker/timepicker.utils";
+import {EditCategoryDTO} from "../../../dto/CategoryDTO/editCategoryDTO";
 
 @Component({
   providers: [AdminCategoryService],
@@ -17,11 +20,13 @@ export class AdminCategoryComponent implements OnInit {
   public category: CategoriesPublic;
   public categoryName: string;
   public categoryDescription: string;
+  public categoryImage: string;
   public userImages: ImageDTO[];
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
   public categoryForm: FormGroup;
   public errorImageFile: boolean;
+  public categoryLink: Link;
 
 
   constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
@@ -29,9 +34,9 @@ export class AdminCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     const nameValidators = [Validators.required, Validators.minLength(2),
-      Validators.maxLength(15), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
+      Validators.maxLength(15), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
     const descriptionValidators = [Validators.required, Validators.minLength(10),
-      Validators.maxLength(150), Validators.pattern('[^`~!@$%^&*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
+      Validators.maxLength(150), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
     this.categoryForm = this.formBuilder.group({
       name: ['', nameValidators],
       description: ['', descriptionValidators]
@@ -40,7 +45,8 @@ export class AdminCategoryComponent implements OnInit {
   }
 
   createCategory() {
-    this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription, this.chosenImage)).subscribe(() => {
+    this.adminCategoryService.createCategory(new CreateCategoryDTO(this.categoryName, this.categoryDescription,
+      this.chosenImage)).subscribe(() => {
       this.createCategoryMessage = 'Category "' + this.categoryName + '" created!';
       this.getAllCategories();
     }, () => this.createCategoryMessage = 'Error. Please try again!');
@@ -87,6 +93,31 @@ export class AdminCategoryComponent implements OnInit {
     this.categoryName = '';
     this.categoryDescription = '';
     this.chosenImage = null;
+  }
+
+  beforeEditing(category: CategoriesPublic) {
+    this.categoryName = category.name;
+    this.categoryDescription = category.description;
+    this.categoryLink = category.self;
+    this.categoryImage = category.image;
+    this.chosenImage = null;
+
+  }
+
+  editCategory() {
+    this.adminCategoryService.updateCategory(this.categoryLink,
+      new EditCategoryDTO(this.categoryName, this.categoryDescription, this.chosenImage, this.categoryLink)).subscribe(() => {
+      this.createCategoryMessage = 'Category "' + this.categoryName + '" edited!';
+      this.getAllCategories();
+    });
+  }
+
+  deleteCategory(category: CategoriesPublic): void {
+    this.adminCategoryService.deleteCategory(category.self)
+      .subscribe( () => {
+        this.createCategoryMessage = 'Category "' + this.categoryName + '" deleted!';
+        this.getAllCategories();
+      });
   }
 
   isFormValid(): boolean {

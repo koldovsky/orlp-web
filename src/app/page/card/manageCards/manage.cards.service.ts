@@ -18,8 +18,8 @@ export class ManageCardsService {
   }
 
   public getCards(deckId: number): Observable<CardPublic[]> {
-    return this.orlp.get('/api/decks/' + deckId + '/cards').map((response: Response) =>
-      <CardPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToAdminDeckCards, response.json()));
+    return this.orlp.get('api/decks/' + deckId + '/cards').map((response: Response) =>
+      <CardPublic[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToPublicCards, response.json()));
   }
 
   public getDeck(url: string): Observable<AdminDeck> {
@@ -28,16 +28,23 @@ export class ManageCardsService {
       .catch(this.handleError);
   }
 
-  private handleError(error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
-
   public deleteSelectedCard(cardLink: string) {
-    return this.orlp.delete(cardLink).map((response: Response) => console.log());
+    return this.orlp.delete(cardLink).map((response: Response) => {
+    });
   }
 
-  public updateSelectedCard(cardLink: string, card: CardPublic) {
-    return this.orlp.put(cardLink, card).map((response: Response) => console.log());
+  public updateSelectedCard(cardLink: string, card: any) {
+    return this.orlp.put(cardLink, card).subscribe(next => {
+    }, error => console.log(error));
+  }
+
+  public deleteCardImage(cardImageId: number) {
+    return this.orlp.delete('api/cardImage/' + cardImageId)
+      .subscribe(next => {
+      }, error => console.log(error));
+  }
+
+  private handleError(error: Response) {
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
