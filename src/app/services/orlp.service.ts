@@ -41,7 +41,9 @@ export class ORLPService {
 
   public decodeLink(url: string) {
     url = decodeURI(url);
+    console.log(url + ' --- this.url  decodeURI');
     url = atob(url);
+    console.log(url + ' --- this.url  atob');
     return url;
   }
 }
