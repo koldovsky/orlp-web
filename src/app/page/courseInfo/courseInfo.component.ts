@@ -45,6 +45,7 @@ export class CourseInfoComponent implements OnInit {
     this.sub = this.route.params.subscribe(
       params => {
         this.url = params['url'];
+        console.log(this.url + ' --- this.url   CourseInfo.service.ts');
       }
     );
     this.takeCourse();
