@@ -9,7 +9,6 @@
             </li>
         </ul>
     </div>
-
   <app-course-table [url]="getLinkForCourses()" [categoryId]="category.categoryId" *ngIf="table1 && category"></app-course-table>
   <app-deck-table [url]="getLinkForDecks()" [categoryId]="category.categoryId" *ngIf="table2 && category"></app-deck-table>
 </div>
