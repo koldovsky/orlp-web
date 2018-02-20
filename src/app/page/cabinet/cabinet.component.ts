@@ -40,10 +40,12 @@ export class CabinetComponent implements OnInit {
               private router: Router,
               private userStatusChangeService: UserStatusChangeService,
               private logger: NGXLogger) {
+    console.log('1 --- in cabinet.component.ts');
 
   }
 
   ngOnInit(): void {
+    console.log('2 --- in cabinet.component.ts');
     this.status = sessionStorage.getItem('status');
     console.log(this.status + ' --- status in cabinet.component.ts');
     this.getUser();
