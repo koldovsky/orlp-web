@@ -45,7 +45,9 @@ export class CabinetComponent implements OnInit {
 
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
+    console.log(this.status + ' --- status in cabinet.component.ts');
     this.getUser();
+    console.log(this.user.firstName + ' --- firstName in cabinet.component.ts');
   }
 
   getUser(): void {
