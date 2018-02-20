@@ -44,10 +44,12 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('init in main.component.html');
     this.isAuthorized = false;
     this.isAuthorizedAdmin = false;
     this.userDetails = null;
     this.isAuthenticated = this.logoutService.isAuthorized();
+    console.log(this.isAuthenticated + ' ---- isAuthenticated in main.component.html');
     if (this.isAuthenticated) {
       this.getRole();
     }
@@ -57,9 +59,12 @@ export class MainComponent implements OnInit {
     this.authorizationService.getIsAuthorizedChangeEmitter()
       .subscribe(item => this.ngZone.run(() => {
         this.isAuthenticated = item;
+        console.log(' ---- getIsAuthorizedChangeEmitter |main| in main.component.html');
         if (this.isAuthenticated) {
           this.getRole();
+          console.log(' ---- getIsAuthorizedChangeEmitter |if| in main.component.html');
         } else {
+          console.log(' ---- getIsAuthorizedChangeEmitter |else| in main.component.html');
           this.isAuthorized = false;
           this.isAuthorizedAdmin = false;
           this.userDetails = null;
