@@ -36,6 +36,7 @@ export class ORLPService {
     url = url.replace(environment.SERVER_ADDRESS, '');
     url = btoa(url);
     url = encodeURI(url);
+    url = url.replace('https://api.infolve.com/', '');
     return url;
   }
 
