@@ -29,7 +29,7 @@ export class AdminDecksService {
   }
   deleteDeck(link: Link) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
-    return this.orlp.delete( shortLink)
+    return this.orlp.delete(shortLink)
       .map((response: Response) => this.logger.log(response));
   }
 
