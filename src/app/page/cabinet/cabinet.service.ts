@@ -49,7 +49,7 @@ export class CabinetService {
   }
 
   public addDeckToCourse(courseId: number, deckId: number) {
-    return this.orlp.put('api/categories/courses/' + courseId + '/decks/' + deckId, {})
+    return this.orlp.put('api/courses/' + courseId + '/decks', {})
       .map((response: Response) => this.logger.log(response));
   }
 
