@@ -16,7 +16,7 @@ build:
                 scp $LOGIN@$REMOTE_HOST:~/orlp-web/orlp-gitcrypt.zip orlp-gitcrypt.zip;
                 unzip -P $GIT_CRYPT_KEY orlp-gitcrypt.zip;
         - script:
-            name: git-crypt unlock
+            name: git-crypt unlock repository
             code: |
                 wget $GIT_CRYPT_LINK/$GIT_CRYPT_ARCHIVE -P /pipeline/git-crypt
                 cd /pipeline/git-crypt; mkdir git-crypt; tar -zxvf $GIT_CRYPT_ARCHIVE; cd $GIT_CRYPT_VERSION; sudo make; sudo make install PREFIX=/usr/local;
@@ -26,7 +26,6 @@ build:
         - script:
             name: run build
             code: npm run build
-
         - script:
             name: echo nodejs information
             code: |
@@ -47,19 +46,19 @@ deploy:
         - add-to-known_hosts:
             hostname: $REMOTE_HOST
         - script:
-            name: Copy dist directory
+            name: copy dist directory
             code: |
                 tar -czvf dist.tar.gz ./dist
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && rm -rf dist*"
                 scp dist.tar.gz $LOGIN@$REMOTE_HOST:~/orlp-web/dist.tar.gz
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && tar -zxvf dist.tar.gz"
         - script:
-            name: Stop Docker container
+            name: stop docker container
             code: |
                 scp check_if_web_run.sh $LOGIN@$REMOTE_HOST:~/orlp-web/
                 ssh $LOGIN@$REMOTE_HOST "sh check_if_web_run.sh"
         - script:
-            name: Run Docker container
+            name: run docker container
             code: |
                 ssh $LOGIN@$REMOTE_HOST "docker create --name orlp-web --net=orlp --restart=always -e 'LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx && cd ~/orlp-web/ && docker cp default.conf orlp-web:/etc/nginx/conf.d/ && docker cp nginx.conf orlp-web:/etc/nginx/ && docker cp dist/. orlp-web:/usr/share/nginx/html/&& docker start orlp-web"
 
