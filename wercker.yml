@@ -7,7 +7,7 @@ build:
             name: git-crypt
             code: |
                 wget &GIT_CRYPT_LINK&GIT_CRYPT_ARCHIVE /pipeline/git-crypt
-                cd /pipeline/git-crypt; tar -zxvf &GIT_CRYPT_ARCHIVE; sudo make; sudo make install PREFIX=/usr/local/bin/;
+                cd /pipeline/git-crypt; tar -zxvf &GIT_CRYPT_ARCHIVE; cd git-crypt; sudo make; sudo make install PREFIX=/usr/local/bin/;
                 git crypt status
     # A step that executes `npm install` command
         - npm-install
