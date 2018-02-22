@@ -6,8 +6,8 @@ build:
         - script:
             name: git-crypt
             code: |
-                git clone https://github.com/AGWA/git-crypt.git /pipeline/git-crypt
-                cd /pipeline/git-crypt; sudo make; sudo cp git-crypt /usr/local/bin/;
+                wget https://www.agwa.name/projects/git-crypt/downloads/git-crypt-0.6.0.tar.gz /pipeline/git-crypt
+                cd /pipeline/git-crypt; sudo make; sudo make install PREFIX=/usr/local/bin/;
                 git crypt status
     # A step that executes `npm install` command
         - npm-install
