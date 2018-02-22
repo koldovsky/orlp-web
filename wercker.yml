@@ -6,7 +6,7 @@ build:
         - script:
             name: git-crypt
             code: |
-                wget -O /pipeline/git-crypt/$GIT_CRYPT_ARCHIVE $GIT_CRYPT_LINK/$GIT_CRYPT_ARCHIVE 
+                wget $GIT_CRYPT_LINK/$GIT_CRYPT_ARCHIVE -P /pipeline/git-crypt
                 cd /pipeline/git-crypt; tar -zxvf &GIT_CRYPT_ARCHIVE; cd git-crypt; sudo make; sudo make install PREFIX=/usr/local/bin/;
                 git crypt status
     # A step that executes `npm install` command
