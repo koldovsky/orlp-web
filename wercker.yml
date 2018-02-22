@@ -3,6 +3,7 @@ box: node
 
 build:
     steps:
+        - git-crypt
     # A step that executes `npm install` command
         - npm-install
         - script:
