@@ -3,6 +3,8 @@ box: node
 
 build:
     steps:
+        - install-packages:
+            packages: unzip
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
