@@ -10,7 +10,7 @@ build:
         - script:
             name: Copy git-crypt key
             code: |
-                mkdir /pipeline/git-crypt/orlp-gitcrypt; cd /pipeline/git-crypt/orlp-gitcrypt;
+                mkdir -p /pipeline/git-crypt/orlp-gitcrypt; cd /pipeline/git-crypt/orlp-gitcrypt;
                 scp $LOGIN@$REMOTE_HOST:~/orlp-web/orlp-gitcrypt.zip orlp-gitcrypt.zip;
                 unzip -P $GIT_CRYPT_KEY orlp-gitcrypt.zip;
         - script:
