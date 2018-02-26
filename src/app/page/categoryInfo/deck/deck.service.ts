@@ -23,14 +23,14 @@ export class DeckService {
 
   getDecks(categoryId: number, numberPage: number,
            selectedSortingParam: string, ascending: boolean): Observable<DeckByCategoryAndPageDTO> {
-    return this.orlp.get('/api/category/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
+    return this.orlp.get('/api/categories/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
       .map((response: Response) => <DeckByCategoryAndPageDTO> DTOConverter
         .jsonToDeckByCategoryAndPage(response.json()))
       .catch(this.handleError);
   }
 
   addDeckToFolder(deckId: number): Observable<DeckPublic> {
-    return this.orlp.put('api/cabinet/folder/add/deck/' + deckId, {})
+    return this.orlp.put('api/cabinet/folder/add/decks/' + deckId, {})
       .map((response: Response) => {
         response.json();
       })
