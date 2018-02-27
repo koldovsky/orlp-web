@@ -64,7 +64,7 @@ export class CabinetService {
   }
 
   public deleteDeck(deckId: number) {
-    return this.orlp.delete('api/cabinet/folder/decks/' + deckId)
+    return this.orlp.delete('api/user/folder/decks/' + deckId)
       .map((response: Response) => this.logger.log(response));
   }
 }
