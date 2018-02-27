@@ -38,18 +38,12 @@ export class DeckService {
   }
 
   getIdDecksInYourFolder(): Observable<number[]> {
-    return this.orlp.get('api/private/user/folder/decks/id')
+    return this.orlp.get('api/user/folder/decksId')
       .map((response: Response) => response.json());
   }
 
-  private handleError(error: Response) {
-    this.logger.error(error);
-
-    return Observable.throw(error.json().error || 'Server error');
-  }
-
   addDeckRating(rating: Rating, deckId: number) {
-    return this.orlp.post('/api/decks/' + deckId, rating);
+    return this.orlp.post('/api/private/deck/' + deckId, rating);
   }
 
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
@@ -66,5 +60,11 @@ export class DeckService {
           saveAs(blob, deckName + '.yml');
         }
       );
+  }
+
+  private handleError(error: Response) {
+    this.logger.error(error);
+
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
