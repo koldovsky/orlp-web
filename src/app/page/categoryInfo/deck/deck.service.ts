@@ -43,7 +43,7 @@ export class DeckService {
   }
 
   addDeckRating(rating: Rating, deckId: number) {
-    return this.orlp.post('/api/private/deck/' + deckId, rating);
+    return this.orlp.post('/api/decks/' + deckId, rating);
   }
 
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
