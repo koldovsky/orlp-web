@@ -1,0 +1,2 @@
+*.gitcrypt filter=git-crypt diff=git-crypt
+environment.* filter=git-crypt diff=git-crypt

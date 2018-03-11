@@ -1,19 +1,43 @@
 # Version: 0.0.2
+# Demo4
 box: node
 
 build:
-  steps:
+    steps:
+        - install-packages:
+            packages: unzip
+        - wercker/add-ssh-key:
+            keyname: SSH_KEY
+        - add-to-known_hosts:
+            hostname: $REMOTE_HOST
+        - script:
+            name: copy git-crypt key
+            code: |
+                mkdir -p /pipeline/git-crypt/orlp-gitcrypt; cd /pipeline/git-crypt/orlp-gitcrypt;
+                scp $LOGIN@$REMOTE_HOST:~/orlp-web/orlp-gitcrypt.zip orlp-gitcrypt.zip;
+                unzip -P $GIT_CRYPT_KEY orlp-gitcrypt.zip;
+        - script:
+            name: git-crypt unlock repository
+            code: |
+                cd /pipeline/git-crypt; mkdir git-crypt; scp $LOGIN@$REMOTE_HOST:~/git-crypt/$GIT_CRYPT_ARCHIVE $GIT_CRYPT_ARCHIVE; tar -zxvf $GIT_CRYPT_ARCHIVE; cd $GIT_CRYPT_VERSION; sudo make; sudo make install PREFIX=/usr/local;
+                cd $WERCKER_SOURCE_DIR; git-crypt unlock /pipeline/git-crypt/orlp-gitcrypt/orlpkey; git crypt status -e
     # A step that executes `npm install` command
-    - npm-install
-    - script:
-        name: run build
-        code: npm run build
+        - npm-install
+        - script:
+            name: run build
+            code: npm run build
+        - script:
+            name: echo nodejs information
+            code: |
+                echo "node version $(node -v) running"
+                echo "npm version $(npm -v) running"
 
-    - script:
-        name: echo nodejs information
-        code: |
-          echo "node version $(node -v) running"
-          echo "npm version $(npm -v) running"
+    after-steps:
+        - slack-notifier:
+            url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
+            # notify_on: "failed"
 
 deploy:
     steps:
@@ -22,18 +46,27 @@ deploy:
         - add-to-known_hosts:
             hostname: $REMOTE_HOST
         - script:
-            name: Copy dist directory
+            name: copy dist directory
             code: |
                 tar -czvf dist.tar.gz ./dist
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && rm -rf dist*"
                 scp dist.tar.gz $LOGIN@$REMOTE_HOST:~/orlp-web/dist.tar.gz
                 ssh $LOGIN@$REMOTE_HOST "cd ~/orlp-web/ && tar -zxvf dist.tar.gz"
         - script:
-            name: Stop Docker container
+            name: stop docker container
             code: |
                 scp check_if_web_run.sh $LOGIN@$REMOTE_HOST:~/orlp-web/
                 ssh $LOGIN@$REMOTE_HOST "sh check_if_web_run.sh"
         - script:
-            name: Run Docker container
+            name: run docker container
             code: |
                 ssh $LOGIN@$REMOTE_HOST "docker create --name orlp-web --net=orlp --restart=always -e 'LETSENCRYPT_EMAIL=$LETSENCRYPT_EMAIL' -e 'LETSENCRYPT_HOST=$REMOTE_HOST' -e 'VIRTUAL_HOST=$REMOTE_HOST' nginx && cd ~/orlp-web/ && docker cp default.conf orlp-web:/etc/nginx/conf.d/ && docker cp nginx.conf orlp-web:/etc/nginx/ && docker cp dist/. orlp-web:/usr/share/nginx/html/&& docker start orlp-web"
+
+    after-steps:
+        - install-packages:
+            packages: ruby
+        - wantedly/pretty-slack-notify:
+            webhook_url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
+            # notify_on: "failed"
