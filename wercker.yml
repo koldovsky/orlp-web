@@ -4,7 +4,7 @@ box: ubuntu:xenial
 build:
     steps:
         - install-packages:
-            packages: unzip nodejs npm openssh-client
+            packages: unzip nodejs npm openssh-client git
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
