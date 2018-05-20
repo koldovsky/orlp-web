@@ -1,5 +1,6 @@
 # Version: 0.0.3
-box: node
+box:
+  id: node:latest
 
 build:
     steps:
