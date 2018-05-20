@@ -26,6 +26,7 @@ build:
             name: run build
             code: |
                 npm install npm@latest -g
+                echo $PWD
                 npm run build
         - script:
             name: echo nodejs information
