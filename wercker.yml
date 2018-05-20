@@ -24,7 +24,8 @@ build:
         #- npm-install
         - script:
             name: run build
-            code: npm run build
+            code: npm install npm@latest -g
+            #code: npm run build
         - script:
             name: echo nodejs information
             code: |
