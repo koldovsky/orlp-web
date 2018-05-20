@@ -41,6 +41,8 @@ build:
 
 deploy:
     steps:
+        - install-packages:
+            packages: unzip openssh-client
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
