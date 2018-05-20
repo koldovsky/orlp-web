@@ -1,11 +1,10 @@
-# Version: 0.0.3
-box:
-  id: node:latest
+# Version: 0.0.4
+box: ubuntu/xenial
 
 build:
     steps:
         - install-packages:
-            packages: unzip
+            packages: unzip npm
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
