@@ -27,6 +27,7 @@ build:
             code: |
                 npm install npm@latest -g
                 echo $PWD
+                cd $WERCKER_ROOT
                 npm run build
         - script:
             name: echo nodejs information
