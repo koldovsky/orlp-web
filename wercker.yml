@@ -1,10 +1,11 @@
-# Version: 0.0.4
-box: ubuntu:xenial
+# Version: 0.0.2
+# Demo4
+box: node
 
 build:
     steps:
         - install-packages:
-            packages: unzip nodejs npm openssh-client git
+            packages: unzip
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
@@ -21,20 +22,15 @@ build:
                 cd /pipeline/git-crypt; mkdir git-crypt; scp $LOGIN@$REMOTE_HOST:~/git-crypt/$GIT_CRYPT_ARCHIVE $GIT_CRYPT_ARCHIVE; tar -zxvf $GIT_CRYPT_ARCHIVE; cd $GIT_CRYPT_VERSION; sudo make; sudo make install PREFIX=/usr/local;
                 cd $WERCKER_SOURCE_DIR; git-crypt unlock /pipeline/git-crypt/orlp-gitcrypt/orlpkey; git crypt status -e
     # A step that executes `npm install` command
-        #- npm-install
+        - npm-install npm@latest -g
         - script:
             name: run build
-            code: |
-                npm install npm@latest -g
-                echo $PWD
-                cd $WERCKER_ROOT
-                npm run build
+            code: npm run build
         - script:
             name: echo nodejs information
             code: |
                 echo "node version $(node -v) running"
                 echo "npm version $(npm -v) running"
-                echo $PWD
 
     after-steps:
         - slack-notifier:
@@ -45,8 +41,6 @@ build:
 
 deploy:
     steps:
-        - install-packages:
-            packages: unzip openssh-client
         - wercker/add-ssh-key:
             keyname: SSH_KEY
         - add-to-known_hosts:
