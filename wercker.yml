@@ -1,7 +1,7 @@
 # Version: 0.0.2
 # Demo4
-box: node
-
+box:
+  id: node:latest
 build:
     steps:
         - install-packages:
