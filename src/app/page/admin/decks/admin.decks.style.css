@@ -1,12 +1,21 @@
-.pagination{
+.pagination {
   width: 20%;
   margin: auto;
 }
 
-.pagination li.active > a{
-  background-color:#eee;
+.pagination li.active > a {
+  background-color: #eee;
 }
 
 #row-button {
   margin-top: 20px;
 }
+
+.form-control {
+  height: auto
+}
+
+#Category {
+  padding-top: 0;
+}
+
