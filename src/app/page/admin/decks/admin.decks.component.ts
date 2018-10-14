@@ -111,6 +111,7 @@ export class AdminDecksComponent implements OnInit {
     this.adminDecksService.editDeck(new EditDeckDTO(this.category, this.deckId, this.deckName, this.deckDescription, this.categoryId,
       this.deckSelected.self))
       .subscribe(deckUpdate => {
+        this.getCategories();
         this.deckSelected.deckId = this.deckId;
         this.deckSelected.name = this.deckName;
         this.deckSelected.description = this.deckDescription;
