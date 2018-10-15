@@ -22,12 +22,12 @@ export class AdminDecksComponent implements OnInit {
   public deckForm: FormGroup;
   public deckSelected: AdminDeck;
   public categoryId: number;
+  public category: string;
   public categories: CategoryLink[];
   public deckList: AdminDeck[];
-  public categoryForDeck: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public deckName: string;
   public deckDescription: string;
-  public categorySelectedId: number;
+  public deckId: number;
   public actionSort = true;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Deck Name', '\u2191'),
     new TableColumnDTO('description', 'Deck Description', ''),
@@ -108,11 +108,14 @@ export class AdminDecksComponent implements OnInit {
   }
 
   editDeck() {
-    this.adminDecksService.editDeck(this.deckSelected.self,
-      new EditDeckDTO(this.deckName, this.deckDescription, this.categoryForDeck, this.deckSelected.self))
+    this.adminDecksService.editDeck(new EditDeckDTO(this.category, this.deckId, this.deckName, this.deckDescription, this.categoryId,
+      this.deckSelected.self))
       .subscribe(deckUpdate => {
+        this.getCategories();
+        this.deckSelected.deckId = this.deckId;
         this.deckSelected.name = this.deckName;
         this.deckSelected.description = this.deckDescription;
+        this.deckSelected.categoryId = this.categoryId;
         this.deckSelected.category = deckUpdate.category;
       });
   }
@@ -132,10 +135,12 @@ export class AdminDecksComponent implements OnInit {
     this.categoryId = null;
   }
 
-  private beforeEdit(deck: AdminDeck) {
+  beforeEdit(deck: AdminDeck) {
+    this.category = deck.category;
+    this.deckId = deck.deckId;
     this.deckName = deck.name;
     this.deckDescription = deck.description;
-    this.categorySelectedId = deck.categoryId;
+    this.categoryId = deck.categoryId;
     this.deckSelected = deck;
   }
 
