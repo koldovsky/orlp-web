@@ -51,9 +51,8 @@ export class AdminDecksService {
       .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()));
   }
 
-  editDeck(link: Link, deckEdit: EditDeckDTO) {
-    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
-    return this.orlp.put(shortLink, deckEdit)
+  editDeck(deckEdit: EditDeckDTO) {
+    return this.orlp.put('api/admin/decks/' + deckEdit.deckId, deckEdit)
       .map((response: Response) => <AdminDeck> DTOConverter.jsonToAdminDeck(response.json()));
   }
 }
