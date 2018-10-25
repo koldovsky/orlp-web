@@ -11,6 +11,8 @@ import {Rating} from '../../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
+import {Router} from "@angular/router";
+import {CardComponent} from "../../card/card.component";
 
 @Component({
   selector: 'app-course-table',
@@ -36,6 +38,7 @@ export class CourseComponent implements OnInit {
 
   constructor(private deckService: DeckService,
               private courseService: CourseService,
+              private router: Router,
               private orlpService: ORLPService,
               private logoutService: LogoutService,
               private userStatusChangeService: UserStatusChangeService,
@@ -148,6 +151,12 @@ export class CourseComponent implements OnInit {
       deck.rating = event.rating; }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
+  }
+
+  startLearning(deckId: number, deckSynthax: String): void {
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
+    CardComponent.deckId = deckId;
+    CardComponent.synthax = deckSynthax;
   }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
