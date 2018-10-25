@@ -76,6 +76,9 @@
             <div class="question-was">
               <h5>The question was:</h5>
             </div>
+            <div>
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"></star-rating-comp>
+            </div>
             <div class=" row justify-content-center align-items-center">
               <button class="btn btn-danger button-difficult mx-1" (click)="sendStatus('BAD')" data-toggle="modal" data-target="#modal">TOO HARD</button>
               <button class="btn btn-warning button-difficult mx-1" (click)="sendStatus('NORMAL')" data-toggle="modal" data-target="#modal">MEDIUM</button>
