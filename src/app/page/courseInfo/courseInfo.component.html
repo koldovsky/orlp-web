@@ -59,7 +59,7 @@
                             [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
           </td>
         </ng-template>
-        <td class="alignCenter">
+        <td class="alignCenter" *ngIf="isAuthorized">
           <div class="dropdown">
             <button class="btn btn-light threeDotsButton" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
