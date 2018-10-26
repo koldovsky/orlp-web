@@ -38,6 +38,7 @@ import {environment} from '../environments/environment';
 import {RestorePasswordService} from './page/authorization/restorePassword/restorePassword.service';
 import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
+import {AboutModule} from "./page/about/about.module";
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import {AuthorisedModule} from './page/authorization/authorizated/authorised.mod
       {path: '**', redirectTo: 'home', pathMatch: 'full'}
     ]),
 
+    AboutModule,
     CategoryInfoModule,
     CourseInfoModule,
     SignUpModule,
