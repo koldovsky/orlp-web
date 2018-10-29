@@ -9,6 +9,7 @@ import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
 import {DeckSynthaxDTO} from '../../dto/DeckDTO/deckSynthaxDTO';
+import {Rating} from '../../dto/Rating';
 
 @Injectable()
 export class CardService {
@@ -44,5 +45,9 @@ export class CardService {
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  public addCardRating(rating: Rating, cardId: number) {
+    return this.orlp.post('api/decks/cards/' + cardId + '/rate', rating);
   }
 }
