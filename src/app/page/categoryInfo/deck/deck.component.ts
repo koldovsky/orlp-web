@@ -18,7 +18,7 @@ import {NGXLogger} from 'ngx-logger';
 @Component({
   selector: 'app-deck-table',
   templateUrl: ('./deck.component.html'),
-  styleUrls: ['../categoryInfo.css']
+  styleUrls: ['../categoryInfo.css', '../../courseInfo/courseInfo.css']
 })
 export class DeckComponent implements OnInit {
 

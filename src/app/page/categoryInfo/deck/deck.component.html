@@ -29,8 +29,17 @@
         </td>
       </ng-template>
       <td class="alignCenter" *ngIf="isAuthorized">
-        <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
-        </button>
+        <div class="dropdown">
+          <button class="btn btn-light threeDotsButton" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
+              <i class="fa fa-download" aria-hidden="true"></i>Download cards
+            </a>
+          </div>
+        </div>
       </td>
       <td class="alignCenter">
         <div *ngIf="!deck.status">
