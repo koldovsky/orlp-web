@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wrapper">
   <div class="vertical-menu" *ngIf="deck">
     <a [routerLink]="['/manage/cards/', getDeckLink(deck.self), nameOfPageToBack]" class="active">Manage cards</a>
     <a [routerLink]="['/create/cards/', getDeckLink(deck.self), nameOfPageToBack]">Create card</a>
@@ -34,7 +34,7 @@
           </div>
           <br>
           <br>
-          <div class = "main" style="clear: both">
+          <div class="main" style="clear: both">
             <label id="largeFile" for="file">
               <input [disabled]="!edit" type="file" (change)="loadImage($event)" id="file">
             </label>
@@ -77,3 +77,4 @@
       </div>
     </div>
   </div>
+</div>

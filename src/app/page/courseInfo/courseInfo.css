@@ -1,3 +1,7 @@
+.wrapper {
+  min-height: calc(76% + 1px);
+}
+
 .table {
   margin: 25px 25px 10px 25px;
   background-color: white;
@@ -80,10 +84,10 @@ td img {
   background-color: #e1d7e8;
 }
 
-.btn-comments{
+.btn-comments {
   margin-left: 3%;
 }
 
-.text-light{
+.text-light {
   margin-bottom: auto;
 }

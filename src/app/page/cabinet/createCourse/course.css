@@ -1,3 +1,7 @@
+.wrapper {
+  min-height: calc(77% - 1px);
+}
+
 .container {
   margin-top: 20px;
 }

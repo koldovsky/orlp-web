@@ -1,4 +1,8 @@
-.card{
+.container-fluid {
+  height: 13%;
+}
+
+.card {
   margin-top: 20px;
   background-color: rgba(46, 62, 87, 0.59);
   color: white;
@@ -14,6 +18,3 @@
   background: transparent;
   border-bottom: 1px solid #677182
 }
-
-
-

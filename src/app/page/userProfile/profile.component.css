@@ -1,9 +1,15 @@
-.title{
-  margin: 25px 0 0 20px;
+.wrapper {
+  min-height: calc(77% - 1px);
 }
-.title-signed-in{
+
+.title {
+  margin: 16px 0 0 20px;
+}
+
+.title-signed-in {
   font-size: 18px;
 }
+
 .bg {
   background: url(../../../assets/images/background_home_page.jpg) no-repeat center bottom;
   background-size: cover;
@@ -11,9 +17,9 @@
   top: 0;
   right: 0;
   left: 0;
-  height: 100%;
   z-index: -1;
 }
+
 #forma {
   background-color: white;
 }

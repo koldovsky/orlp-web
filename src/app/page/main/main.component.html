@@ -11,13 +11,16 @@
       <div class="ml-auto mr-auto nav-menu-items">
         <ul class=" navbar-nav custom-navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/user/categories']" [class.active]="activeLink === '/user/categories'" (click)="setActiveLink('/user/categories')">CATEGORIES</a>
+            <a class="nav-link" [routerLink]="['/user/categories']" [class.active]="activeLink === '/user/categories'"
+               (click)="setActiveLink('/user/categories')">CATEGORIES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/user/courses']" [class.active]="activeLink === '/user/courses'" (click)="setActiveLink('/user/courses')">COURSES</a>
+            <a class="nav-link" [routerLink]="['/user/courses']" [class.active]="activeLink === '/user/courses'"
+               (click)="setActiveLink('/user/courses')">COURSES</a>
           </li>
           <li class="nav-item" *ngIf="isAuthorized">
-            <a class="nav-link" [routerLink]="['/user/cabinet']" [class.active]="activeLink === '/user/cabinet'" (click)="setActiveLink('/user/cabinet')">CABINET</a>
+            <a class="nav-link" [routerLink]="['/user/cabinet']" [class.active]="activeLink === '/user/cabinet'"
+               (click)="setActiveLink('/user/cabinet')">CABINET</a>
           </li>
           <li *ngIf="isAuthorizedAdmin && isAuthorized" class="dropdown nav-item">
             <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
@@ -32,7 +35,8 @@
             </div>
           </li>
           <li *ngIf="isAuthorized" class="nav-item">
-            <a class="nav-link" [routerLink]="['/user/profile']" [class.active]="activeLink === '/user/profile'" (click)="setActiveLink('/user/profile')">PROFILE</a>
+            <a class="nav-link" [routerLink]="['/user/profile']" [class.active]="activeLink === '/user/profile'"
+               (click)="setActiveLink('/user/profile')">PROFILE</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/home']">ABOUT</a>
@@ -52,11 +56,13 @@
           <div class="nav-item email">{{userDetails.email}}</div>
         </div>
         <div *ngIf="!isAuthorized" class="nav-item">
-          <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'" (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
+          <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'"
+             (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
             UP</a>
         </div>
         <div *ngIf="!isAuthorized" class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']" [class.active]="activeLink === '/login'" (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
+          <a class="nav-link" [routerLink]="['/login']" [class.active]="activeLink === '/login'"
+             (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
             IN</a>
         </div>
         <div *ngIf="isAuthorized" class="nav-item logout-item">
@@ -68,3 +74,10 @@
   </nav>
 </div>
 <router-outlet></router-outlet>
+<footer class="footer">
+  <div class="container-footer">
+    <p class="rights">
+      &#169; Infolve | All right reserved
+    </p>
+  </div>
+</footer>

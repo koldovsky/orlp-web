@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container wrapper">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 font-color-white header-text">
+    <div class="col-lg-8 col-xs-12 col-sm-4 font-color-white header-text">
       <h1>All Categories</h1>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-lg-4 col-xs-12 col-sm-6">
       <input type="text" placeholder="Search by Name" [(ngModel)]="listFilter"/>
     </div>
   </div>
@@ -15,8 +15,9 @@
           <th>Category Name</th>
           <th>Category Description</th>
           <th>
-            <button class="btn btn-secondary" data-toggle="modal" data-target="#formForCreation" (click)="beforeCreate()">
-            <i class="fa fa-plus" aria-hidden="true"></i>
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#formForCreation"
+                    (click)="beforeCreate()">
+              <i class="fa fa-plus" aria-hidden="true"></i>
               Create
             </button>
           </th>
@@ -31,8 +32,10 @@
           <td>{{category.description}}</td>
           <td>
             <div>
-              <button class="btn btn-secondary" data-toggle="modal" data-target="#formForEditing" (click)="beforeEditing(category)" >
-                <i class="fa"></i> Edit</button>
+              <button class="btn btn-secondary" data-toggle="modal" data-target="#formForEditing"
+                      (click)="beforeEditing(category)">
+                <i class="fa"></i> Edit
+              </button>
 
               <button class="btn btn-danger"
                       data-dismiss="modal"
@@ -46,7 +49,6 @@
     </div>
   </div>
 </div>
-
 
 
 <div class="modal fade" id="formForCreation" tabindex="-1" role="dialog">
@@ -84,7 +86,7 @@
           <div class="col-md-9">
               <textarea id="textarea-input" rows="6" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
               (categoryForm.get('description').touched||categoryForm.get('description').dirty)&&categoryForm.get('description').errors}"
-               required [(ngModel)]="categoryDescription"></textarea>
+                        required [(ngModel)]="categoryDescription"></textarea>
             <div *ngIf="categoryForm.get('description').hasError('required')" class="invalid-feedback">
               Description is required field!
             </div>
@@ -127,7 +129,6 @@
     </div>
   </div>
 </div>
-
 
 
 <div class="modal fade" id="formForEditing" tabindex="-1" role="dialog">

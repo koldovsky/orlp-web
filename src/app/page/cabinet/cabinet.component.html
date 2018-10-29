@@ -1,4 +1,4 @@
-<main class="container">
+<main class="container wrapper">
 
   <div class="vertical-menu">
     <a [routerLink]="['/user/cabinet']" class="active">My learning</a>
@@ -6,19 +6,19 @@
     <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
   </div>
   <!--ALERT-->
-    <table id="alert" class="table table-striped folder">
+  <table id="alert" class="table table-striped folder">
     <div *ngIf="showAlertdeck" class="alert alert-info">
       Folder "My deck" is empty now. You can subscribe to deck in section
       <a [routerLink]="['/user/categories']">Categories</a>
       decks and it appears in your folder.
     </div>
-      <div *ngIf="showAlertcouse" class="alert alert-info">
-        You don't have any courses in your cabinet. You can subscribe to course in section
-        <a [routerLink]="['/user/courses']">Courses</a>
-        or create own course in section
-        <a [routerLink]="['/user/cabinet/create/course']">Create course</a>.
-      </div>
-    </table>
+    <div *ngIf="showAlertcouse" class="alert alert-info">
+      You don't have any courses in your cabinet. You can subscribe to course in section
+      <a [routerLink]="['/user/courses']">Courses</a>
+      or create own course in section
+      <a [routerLink]="['/user/cabinet/create/course']">Create course</a>.
+    </div>
+  </table>
   <!--FOLDER-->
   <div>
     <table class="table table-striped folder">
@@ -49,10 +49,10 @@
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
         </td>
-          <ng-template #unAuthorized>
-            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                              [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
-          </ng-template>
+        <ng-template #unAuthorized>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+        </ng-template>
 
         <td>
           <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>

@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container wrapper">
   <div class="row">
     <div class="col-xs-12">
       <h1 class="font-color-white header-text">User info:</h1>
     </div>
   </div>
   <div class="row" *ngIf="user">
-    <div class="col-xs-12 col-sm-9">
+    <div class="col-lg-8 col-xs-12 col-sm-9">
       <table class="table table-striped admins-tables admins-tables-header">
         <tbody>
         <tr>
@@ -27,23 +27,19 @@
         </tbody>
       </table>
     </div>
-    <div class="col-xs-12 col-sm-3">
-      <div class="row">
-        <img src="../../../../../assets/images/avatar.png" class="user-image">
+    <div class="col-lg-4 col-xs-12 col-sm-3 justify-content-center">
+      <img src="../../../../../assets/images/avatar.png" class="user-image mx-auto d-block">
+      <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'BLOCKED')" class="mt-2">
+        <button class="btn btn-warning btn-wide" data-toggle="modal" data-target="#confirmModal"
+                (click)="toggleUpdate(user)">
+          {{user.accountStatus == 'BLOCKED' ? 'UNBLOCK' : 'BLOCK'}}
+        </button>
       </div>
-      <div class="row">
-        <div *ngIf="(user.accountStatus == 'ACTIVE' || user.accountStatus == 'BLOCKED')">
-          <button class="btn btn-secondary btn-wide" data-toggle="modal" data-target="#confirmModal"
-                  (click)="toggleUpdate(user)">
-            {{user.accountStatus == 'BLOCKED' ? 'UNBLOCK' : 'BLOCK'}}
-          </button>
-        </div>
-        <div *ngIf="(user.accountStatus == 'ACTIVE'|| user.accountStatus == 'DELETED')">
-          <button class="btn btn-secondary btn-wide" data-toggle="modal" data-target="#confirmModal"
-                  (click)="toggleDelete()">
-            {{user.accountStatus == 'DELETED' ? 'ACTIVATE' : 'DELETE'}}
-          </button>
-        </div>
+      <div *ngIf="(user.accountStatus == 'ACTIVE'|| user.accountStatus == 'DELETED')">
+        <button class="btn btn-danger btn-wide" data-toggle="modal" data-target="#confirmModal"
+                (click)="toggleDelete()">
+          {{user.accountStatus == 'DELETED' ? 'ACTIVATE' : 'DELETE'}}
+        </button>
       </div>
 
       <div class="modal fade" role="dialog" id="confirmModal" aria-labelledby="exampleModalLabel">
@@ -65,3 +61,4 @@
       </div>
     </div>
   </div>
+</div>

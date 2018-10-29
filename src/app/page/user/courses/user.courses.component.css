@@ -1,3 +1,8 @@
+.wrapper{
+  margin-top: calc(1% - 2px);
+  min-height: 78%;
+}
+
 .pagination{
   width: 20%;
   margin: auto;

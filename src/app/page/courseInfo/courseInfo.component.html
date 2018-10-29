@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 wrapper">
   <div class="col-md-12 mt-4 font-color-white text-center">
     <h2 class="header-text" *ngIf="course">{{course.name.toString()}}</h2>
   </div>
@@ -19,9 +19,10 @@
                           [rating]="course.rating" (onClick)="onCourseRatingClick($event)"></star-rating-comp>
       </td>
       <ng-template #unAuthorized>
-       <td> <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                          [rating]="course.rating" [readOnly]="true"></star-rating-comp>
-       </td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+        </td>
       </ng-template>
       <td class="alignCenter">
         <div>
@@ -47,7 +48,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let deck of decks"  class="table-row">
+      <tr *ngFor="let deck of decks" class="table-row">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
         <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
@@ -55,19 +56,22 @@
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
         </td>
         <ng-template #unAuthorized>
-          <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+          <td>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
           </td>
         </ng-template>
         <td class="alignCenter">
-          <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
+          <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download
+            cards
           </button>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="btn-comments">
-    <button class="btn btn-warning" aria-hidden="true" (click)="tabClick()" ><h6 class="text-light">Comments</h6></button>
+      <button class="btn btn-warning" aria-hidden="true" (click)="tabClick()"><h6 class="text-light">Comments</h6>
+      </button>
     </div>
   </div>
 </div>

@@ -1,4 +1,8 @@
 /* CATEGORY PAGE CSS */
+.wrapper {
+  min-height: calc(76% + 1px);
+}
+
 .table {
   margin: 25px;
   background-color: white;
@@ -97,51 +101,64 @@
   cursor: pointer;
   background-color: #e1d7e8;
 }
-.pagination{
+
+.pagination {
   width: 20%;
   margin: auto;
 }
-.row th, li{
+
+.row th, li {
   cursor: pointer;
 }
+
 .row th:hover, .pagination li:hover {
   color: #000;
   background-color: #e1d7e8;
 }
-.pagination li.active > a:hover{
+
+.pagination li.active > a:hover {
   cursor: pointer;
 }
-.pagination li.active > a{
-  background-color:#eee;
+
+.pagination li.active > a {
+  background-color: #eee;
 }
-.active-page-link:hover{
+
+.active-page-link:hover {
   background-color: #bcbcbc;
 }
-.disabled{
+
+.disabled {
   cursor: default;
 }
-th, li{
+
+th, li {
   cursor: pointer;
 }
+
 .table-row:hover {
   cursor: pointer;
   background-color: #e1d7e8;
 }
+
 .deck-header th:hover {
   cursor: pointer;
   background-color: #e1d7e8;
 }
+
 .header-item {
   background-color: #e6e6e6;
 }
+
 .deck-header th.alignCenter:hover {
   background-color: white;
 }
+
 .cards-number-container {
   text-align: center;
 }
 
-.cards-number{
+.cards-number {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
@@ -149,5 +166,6 @@ th, li{
   height: 30px;
   background-color: #66c1fa;
   border: 2px solid black;
-  border-radius: 50px;cursor: default;
+  border-radius: 50px;
+  cursor: default;
 }
