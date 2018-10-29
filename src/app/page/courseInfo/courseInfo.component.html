@@ -48,8 +48,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let deck of decks"  class="table-row">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
+        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.name}}</td>
+        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.description}}</td>
         <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
@@ -59,7 +59,7 @@
                             [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
           </td>
         </ng-template>
-        <td class="alignCenter">
+        <td class="alignCenter" *ngIf="isAuthorized">
           <div class="dropdown">
             <button class="btn btn-light threeDotsButton" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
