@@ -81,6 +81,16 @@
               <button class="btn btn-warning button-difficult mx-1" (click)="sendStatus('NORMAL')" data-toggle="modal" data-target="#modal">MEDIUM</button>
               <button class="btn btn-success button-difficult mx-1" (click)="sendStatus('GOOD')" data-toggle="modal" data-target="#modal">EASY</button>
             </div>
+            <div *ngIf="isAuthorized;else unAuthorized">
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="cards[questionNumber].rating" (onClick)="onCardRatingClick(cards[questionNumber], $event)"></star-rating-comp>
+            </div>
+            <ng-template #unAuthorized>
+              <div>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                  [rating]="cards[questionNumber].rating" [readOnly]="true"></star-rating-comp>
+              </div>
+            </ng-template>
           </div>
         </div> <!-- end back panel -->
       </div> <!-- end card -->

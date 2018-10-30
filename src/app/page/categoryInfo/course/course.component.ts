@@ -11,8 +11,8 @@ import {Rating} from '../../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
-import {Router} from "@angular/router";
-import {CardComponent} from "../../card/card.component";
+import {Router} from '@angular/router';
+import {CardComponent} from '../../card/card.component';
 
 @Component({
   selector: 'app-course-table',

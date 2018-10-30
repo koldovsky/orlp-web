@@ -1,12 +1,13 @@
-.container-fluid{
+.container-fluid {
   padding: 0;
 }
-.custom-navbar-nav, .nav-link{
+
+.custom-navbar-nav, .nav-link {
   padding-right: 15px;
   padding-left: 15px;
 }
 
-.navbar{
+.navbar {
   border-left: 1px solid #9a9b9d;
   border-right: 1px solid #9a9b9d;
   border-bottom: 1px solid #9a9b9d;
@@ -15,10 +16,12 @@
   left: 0;
   padding: 1% 5% 1% 5%;
 }
-.navbar-brand{
+
+.navbar-brand {
   margin-right: 0;
 }
-.navbar-brand .label-name{
+
+.navbar-brand .label-name {
   color: black;
   border: 2px solid black;
   font-size: 25px;
@@ -27,6 +30,7 @@
   max-width: 120px;
   font-family: "Helvetica Neue", sans-serif;
 }
+
 .username, .email {
   text-align: center;
   font-size: 13px;
@@ -46,11 +50,11 @@
   margin-right: 5px;
 }
 
-.logout-item{
+.logout-item {
   cursor: pointer;
 }
 
-img{
+img {
   height: 39px;
   width: 42px;
 }
@@ -62,19 +66,56 @@ ul li a, .my-navbar-nav a {
   margin-left: 10px;
 }
 
-form{
+form {
   margin: 13px 5px 0 30px;
 }
-input{
+
+input {
   width: 100%;
   height: 25px;
   border: 1px solid black;
   border-radius: 20px;
 }
-.active{
+
+.active {
   border-bottom: 2px solid #ffc91b;
 }
+
 .navbar-toggler {
   border: 1px solid black;
   color: black;
+}
+
+.dropdown-menu > .dropdown-item {
+  margin-left: 0;
+}
+
+.footer p {
+  color: #aaaaaa;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+
+}
+
+.main-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 7%; /* height of footer */
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  background-color: #444444;
+  margin-top: 1%;
+  width: 100%;
+  height: 7%;
+  max-height: 60px;
+}
+
+.container-footer {
+  padding-top: 1%;
 }
