@@ -59,6 +59,7 @@ export class CourseComponent implements OnInit {
         this.currentPage = numberPage;
         this.courses = value.courseLinks;
         this.lastPage = value.totalPages;
+        this.createCoursesWithStatus();
         if (this.isAuthorized) {
           this.getCoursesIdOfTheUser();
         }
