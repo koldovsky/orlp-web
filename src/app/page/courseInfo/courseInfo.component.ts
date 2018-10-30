@@ -12,7 +12,7 @@ import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
-import {CardComponent} from "../card/card.component";
+import {CardComponent} from '../card/card.component';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -33,7 +33,7 @@ export class CourseInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
-              private router:Router,
+              private router: Router,
               private courseInfoService: CourseInfoService,
               private logoutService: LogoutService,
               private deckService: DeckService,

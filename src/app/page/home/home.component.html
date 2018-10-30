@@ -1,5 +1,5 @@
 <div class="main-container">
-  <div class="bg"></div>
+  <div class="bg">
   <div class="row justify-content-center">
     <div class="main-card">
       <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
@@ -20,6 +20,7 @@
       <img class="down scroll-button" id="arrow" (click)="scrollDown()" #arrow/>
     </div>
   </div>
+</div>
 </div>
 <div class="categories-container" id="categories" #categoriesContainer>
   <div class="over-line"></div>
@@ -100,10 +101,10 @@
     </div>
   </div>
 </div>
-<footer>
+<div class="contact-us">
   <div class="over-line"></div>
   <div class="row justify-content-center">
-    <p class="contact-us">CONTACT US</p>
+    <p class="contact-us-text">CONTACT US</p>
   </div>
   <div class="container-form">
     <div class="input-container">
@@ -115,12 +116,8 @@
       <textarea placeholder="MESSAGE"></textarea>
     </div>
   </div>
-  <div class="row justify-content-center button-row">
-    <button type="button" class="btn send-message">SEND MESSAGE
+  <div class="row justify-content-center button-row push">
+    <button type="button" class="btn btn-block send-message">SEND MESSAGE
     </button>
   </div>
-  <hr>
-  <div class="rights">
-    <p>&#169; Infolve | All right reserved</p>
-  </div>
-</footer>
+</div>
