@@ -1,8 +1,4 @@
 /* CATEGORY PAGE CSS */
-.wrapper {
-  min-height: calc(76% + 1px);
-}
-
 .table {
   margin: 25px;
   background-color: white;

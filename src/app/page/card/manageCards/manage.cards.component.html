@@ -1,4 +1,4 @@
-<div class="container wrapper">
+<div class="container">
   <div class="vertical-menu" *ngIf="deck">
     <a [routerLink]="['/manage/cards/', getDeckLink(deck.self), nameOfPageToBack]" class="active">Manage cards</a>
     <a [routerLink]="['/create/cards/', getDeckLink(deck.self), nameOfPageToBack]">Create card</a>

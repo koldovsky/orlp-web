@@ -1,8 +1,3 @@
-.wrapper {
-  margin-top: calc(1% - 2px);
-  min-height: 78%;
-}
-
 .table-row:hover {
   cursor: pointer;
   background-color: #e1d7e8;

@@ -5,25 +5,6 @@ body, html {
   height: 100%;
 }
 
-.wrapper {
-  /* margin-top, footer height, navbar, margin-top, padding in footer*/
-  /*min-height: calc(100% - 1% - 7% - 11% - 2% - 1%);*/
-  min-height: calc(78% - 1px);
-  height: auto !important;
-}
-
-.footer {
-  background-color: #444444;
-  position: relative;
-  margin-top: 1%;
-  width: 100%;
-  height: 7%;
-}
-
-.container-footer {
-  padding-top: 1%;
-}
-
 .header-text {
   color: white;
   text-shadow: 0 1px white;

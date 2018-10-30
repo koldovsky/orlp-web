@@ -2,7 +2,8 @@
   right: 0;
   left: 0;
   height: 100%;
-  position: absolute;
+  z-index: -1;
+  position: relative;
 }
 
 .header-text {
@@ -157,7 +158,8 @@
 }
 
 .contact-us {
-  padding-top: 5%;
+  padding-top: 2%;
+  margin-bottom: -3%;
   background-color: #444444;
 }
 
@@ -259,7 +261,8 @@
   }
 
   .contact-us {
-    padding-top: 5%;
+    padding-top: 2%;
+    margin-bottom: 0;
     position: relative;
     left: 0;
     bottom: 0;
