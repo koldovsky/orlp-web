@@ -9,6 +9,7 @@ import {ManageCardsComponent} from './manageCards/manage.cards.component';
 import {CreateCardsService} from './manageCards/createCards/create.cards.service';
 import {ManageCardsService} from './manageCards/manage.cards.service';
 import { CodemirrorModule } from 'ng2-codemirror';
+import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { CodemirrorModule } from 'ng2-codemirror';
       {path: 'manage/cards/:url/:nameOfPageToBack', component: ManageCardsComponent},
       {path: 'create/cards/:url/:nameOfPageToBack', component: CreateCardsComponent}
     ]),
-    CodemirrorModule
+    CodemirrorModule,
+    StarRatingModule
   ],
   exports: [],
   declarations: [
