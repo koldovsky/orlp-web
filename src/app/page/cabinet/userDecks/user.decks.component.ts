@@ -8,6 +8,7 @@ import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
+import {CabinetService} from "../cabinet.service";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -33,7 +34,10 @@ export class UserDecksComponent implements OnInit {
   public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
     'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
-  constructor(private userDecksService: UserDecksService, private orlp: ORLPService, private deckService: DeckService) {
+  constructor(private userDecksService: UserDecksService,
+              private cabinetService: CabinetService,
+              private orlp: ORLPService,
+              private deckService: DeckService) {
   }
 
   ngOnInit() {
@@ -104,6 +108,17 @@ export class UserDecksComponent implements OnInit {
 
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
+  }
+
+  changeAccessDeck(deck: DeckDTO, access: boolean) {
+    deck.hidden = access;
+
+    this.cabinetService.toggleDeck(deck)
+      .subscribe((response) => console.log());
+  }
+
+  isOwnerDeck(deck: DeckDTO): boolean {
+    return deck.ownerId === this.user.id;
   }
 
   private downloadCards(deckId: number, deckName: string) {
