@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row container-header">
     <div class="col-xs-12 col-sm-3">
-      <img *ngIf="imageBase64; else default_image" alt="image" class="img-rounded" alt="Cinque Terre"
+      <img *ngIf="imageBase64; else default_image" class="img-rounded" alt="Cinque Terre"
            src="{{imageBase64}}">
       <ng-template #default_image>
         <img class="user-image" src="../../../assets/images/avatar.png">
@@ -258,7 +258,8 @@
                     <input type="password" class="form-control"
                            id="confirmPassword" formControlName="confirmPassword">
                   </div>
-                  <div class="col-sm-9-align-left" *ngIf="passwordForm.get('confirmPassword').dirty&&passwordForm.errors">
+                  <div class="col-sm-9-align-left"
+                       *ngIf="passwordForm.get('confirmPassword').dirty&&passwordForm.errors">
                     <span *ngIf="passwordForm.hasError('match')">
                       <small class="text-danger">
                         Confirm and New password should be the same!<br>
@@ -304,7 +305,7 @@
         </div>
         <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteProfileImage"
                 [disabled]="!imageBase64">
-        Remove profile image
+          Remove profile image
         </button>
         <div class="modal fade" id="deleteProfileImage" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -343,7 +344,8 @@
               In this regime learning is going using spaced repetition. Cards that need repeating are shown first and
               then the new cards. After each answer the card is postponed on some period of time. The better you know
               that card - the greater amount of time this card will not be displayed for you. It is recommended
-              practice for you to repeat new cards as soon as they need to be repeated, so there are notification icons
+              practice for you to repeat new cards as soon as they need to be repeated, so there are notification
+              icons
               for you to see when there are some cards that need repeating.
             </div>
           </div>
@@ -363,7 +365,8 @@
           <div class="regimes-container">
             <div class="alert alert-info explanation">
               <h6 class="explanation-header">Edit remembering levels</h6>
-              Edit numbers of days for each remembering level to postpone cards of that level for. After each bad answer
+              Edit numbers of days for each remembering level to postpone cards of that level for. After each bad
+              answer
               remembering level is being decreased, after normal - kept the same and after good - increased.
             </div>
           </div>

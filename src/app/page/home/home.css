@@ -1,3 +1,11 @@
+.bg {
+  right: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+  position: relative;
+}
+
 .header-text {
   color: white;
   text-shadow: 0 1px white;
@@ -42,20 +50,23 @@
   height: 100vh;
 }
 
-.courses-container, .categories-container{
+.courses-container, .categories-container {
   padding-top: 2%;
 }
+
 .courses-container p.our-courses, .categories-container p.our-categories {
   font-size: 20px;
   font-weight: bold;
   font-family: "Helvetica Neue", sans-serif;
   color: black;
 }
-.over-line{
+
+.over-line {
   margin: auto;
-  width: 8%;
+  width: 40%;
   border-bottom: 2px solid #ffc91b;
 }
+
 .courses-container {
   height: 800px;
 }
@@ -74,15 +85,17 @@
   border: 1px solid #ffc91b;
   font-family: "Helvetica Neue", sans-serif;
 }
-.cat-main-card ul{
+
+.cat-main-card ul {
   margin: auto;
   width: 80%;
   list-style: none;
 }
+
 .cat-main-card ul li:before {
-  content:  "-";
+  content: "-";
   position: relative;
-  left:     -5px;
+  left: -5px;
 }
 
 .main-card {
@@ -119,6 +132,7 @@
   background-color: black;
   color: white;
 }
+
 .subscribe-button {
   background-color: transparent;
   color: #ffc91b;
@@ -129,6 +143,7 @@
   font-size: large;
   float: none;
 }
+
 .subscribe-button:hover, .subscribe-button:focus {
   background-color: #ffc91b;
   color: white;
@@ -141,73 +156,94 @@
   font-size: xx-large;
   float: none;
 }
-footer{
+
+.contact-us {
   padding-top: 2%;
+  margin-bottom: -3%;
   background-color: #444444;
 }
-footer p.contact-us{
+
+.contact-us-text {
   font-size: 20px;
   font-weight: bold;
   font-family: "Helvetica Neue", sans-serif;
   color: white;
 }
-footer .container-form{
-  width: 70%;
+
+.contact-us > .container-form {
   margin: auto;
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
-footer .input-container {
-  width: 45%;
+
+.input-container {
+  justify-content: left;
+  padding-left: 20px;
 }
-footer .message{
-  margin-left: 20px;
+
+.contact-us .message {
   width: 45%;
+  margin-right: 30px;
 }
-.input-container input[type="text"]{
-  margin-top: 15px;
+
+.input-container input[type="text"] {
+  margin-top: 10px;
+  padding: 5px 5px;
   width: 95%;
-  background-color: #444444;
-  border: 1px solid lightgray;
-  color: white;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
 }
-.message textarea{
-  margin-top: 5px;
+
+.input-container input[type="text"]:nth-child(1) {
+  margin-top: 0;
+}
+
+.message textarea {
   width: 100%;
   height: 100%;
   margin-left: 10px;
-  background-color: #444444;
-  color: white;
+  padding: 5px 5px;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
 }
-.input-container input[type="text"]::placeholder, .message textarea::placeholder{
-  color: lightgray;
-  padding-left: 5px;
+
+.input-container input[type="text"]:placeholder-shown, .message textarea::placeholder {
+  text-overflow: ellipsis;
 }
-footer hr{
+
+.contact-us hr {
   display: block;
   height: 1px;
   border: 0;
   border-top: 2px solid #aaaaaa;
 }
-footer .send-message{
+
+.contact-us .send-message {
   background-color: #ffc91b;
+  border: 1px solid black;
+  font-weight: bold;
   color: white;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 40%;
 }
-footer .send-message:hover{
-  background-color: gainsboro;
+
+.contact-us .send-message:hover {
+  background-color: white;
   color: #ffc91b;
 }
-footer .rights p{
-  margin-top: 30px;
-  color: #aaaaaa;
-  text-align: center;
-  margin-bottom: 0px;
-  padding: 15px;
+
+.wrapper {
+  margin-top: 0;
+  margin-bottom: -1%;
 }
-@media (max-width: 476px) {
+
+@media (max-width: 576px) {
   .main-card {
     margin-top: 10px;
   }
@@ -215,87 +251,167 @@ footer .rights p{
   .button-row {
     margin-top: 5px;
   }
+
   .courses-container {
     height: 2100px;
   }
-  .row > .col{
+
+  .row > .col {
     height: 500px;
   }
-  footer{
+
+  .contact-us {
     padding-top: 2%;
-    background-color: #444444;
+    margin-bottom: 0;
     position: relative;
-    left: 0; bottom: 0;
+    left: 0;
+    bottom: 0;
     width: 100%;
   }
-  footer .container-form{
+
+  .over-line {
+    width: 40%;
+  }
+
+  .contact-us .container-form {
     flex-direction: column;
   }
-  .message textarea{
-    margin-top: 15px;
-    margin-left: 0px;
-  }
-  footer .message, footer .input-container{
+
+  .contact-us .message {
     margin: auto;
+    width: 100%;
+    padding: 0 20px;
   }
+
+  .message textarea {
+    margin-top: 15px;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .input-container {
+    padding-right: 20px;
+  }
+
+  .input-container input[type="text"] {
+    width: 100%;
+  }
+
+  .contact-us > .row {
+    margin: 0 20px;
+  }
+
+  .contact-us .send-message {
+    min-width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
   .center-col {
     text-align: -webkit-center;
   }
-  .end-row{
+
+  .end-row {
     height: 100px;
   }
 }
-@media (min-width: 476px) and (max-width: 576px) {
+
+@media (min-width: 576px) and (max-width: 768px) {
   .main-card {
     margin-top: 10px;
   }
+
   .courses-container {
     height: 1100px;
   }
+
   .button-row {
     margin-top: 5px;
   }
-  .row > .col{
-    height: 500px;
+
+  .contact-us .container-form {
+    flex-direction: column;
+    margin: 0 10px;
   }
-  footer{
-    padding-top: 2%;
-    background-color: #444444;
-    position: relative;
-    left: 0; bottom: 0;
+
+  .contact-us .message {
+    margin: auto;
+    width: 100%;
+    padding: 5px 30px;
+  }
+
+  .message textarea {
+    margin-top: 5px;
+    margin-left: 0;
+    width: 100%;
+    min-height: 100px;
+  }
+
+  .input-container {
+    padding: 5px 30px;
+    margin: 0;
+  }
+
+  .input-container input[type="text"] {
     width: 100%;
   }
-  footer .container-form{
-    flex-direction: column;
+
+  .contact-us > .row {
+    margin: 0 40px;
   }
-  .message textarea{
-    margin-top: 15px;
-    margin-left: 0px;
-  }
-  footer .message, footer .input-container{
-    margin: auto;
-  }
-  .center-col {
-    text-align: -webkit-center;
-  }
-  .end-row{
-    height: 100px;
+
+  .contact-us .send-message {
+    min-width: 100%;
+    margin: 20px 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
-@media (min-width: 577px) and (max-width: 937px) {
+
+@media (min-width: 768px) and (max-width: 992px) {
   .courses-container {
     height: 1050px;
   }
-  .row .col{
+
+  .row .col {
     height: 500px;
   }
+
   .center-col {
     text-align: -webkit-center;
   }
-  .end-row{
+
+  .end-row {
     height: 100px;
   }
+
+  .contact-us .message {
+    width: 100%;
+    padding: 5px 0;
+  }
+
+  .message textarea {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .input-container {
+    padding: 5px 25px;
+  }
+
+  .input-container input[type="text"] {
+    width: 100%;
+  }
+
+  .contact-us > .row {
+    margin: 0 25px;
+  }
+
+  .contact-us .send-message {
+    max-width: 40%;
+  }
 }
+
 .scroll-button {
   transition: all 0.15s ease-in-out;
   border: none;
@@ -319,23 +435,23 @@ footer .rights p{
   margin-right: auto;
   background-color: transparent;
 }
-.title-course{
+
+.title-course {
   height: 20px;
   overflow: hidden;
 }
-.description-course{
+
+.description-course {
   height: 40px;
   overflow: hidden;
 }
-.course-card .card-description{
+
+.course-card .card-description {
   font-size: 15px;
 }
 
 .course-card-body {
-  padding-top: 1.25rem;
-  padding-right: 1.25rem;
-  padding-bottom: 0;
-  padding-left: 1.25rem;
+  padding: 1.25rem 1.25rem 0;
 }
 
 .cat-width {
@@ -372,28 +488,30 @@ footer .rights p{
   text-shadow: 0 0 1px green;
 }
 
-.row{
+.row {
   margin-left: 0;
   margin-right: 0;
 }
 
-.down, .top{
+.down, .top {
   width: 70px;
   height: 70px;
 }
 
-.down{
+.down {
   background: url(../../../assets/images/down.png) no-repeat center;
   background-size: contain;
   opacity: 0.4;
   border: none;
   border-radius: 50px
 }
-.top{
+
+.top {
   background: url(../../../assets/images/top.png) no-repeat center;
   background-size: contain;
   display: none;
 }
+
 .end-row {
   bottom: 0;
   position: absolute;
@@ -403,6 +521,7 @@ footer .rights p{
 .center-col {
   text-align: -webkit-center;
 }
+
 .next-icon {
   background-image: url(../../../assets/images/next.png);
 }

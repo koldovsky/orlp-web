@@ -5,6 +5,9 @@ import {CardService} from './card.service';
 import {LogoutService} from '../logout/logout.service';
 
 import '../categoryInfo/deck/deckLanguages';
+import {IStarRatingOnClickEvent} from 'angular-star-rating';
+import {Rating} from '../../dto/Rating';
+import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 
 @Component({
   templateUrl: ('./card.component.html'),
@@ -34,6 +37,7 @@ export class CardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private cardService: CardService,
+              private userStatusChangeService: UserStatusChangeService,
               private logoutService: LogoutService) {
   }
 
@@ -90,72 +94,70 @@ export class CardComponent implements OnInit {
     } else {
       this.getCards();
     }
-}
+  }
 
-getCards()
-{
-  this.cardService.getCards(this.url).subscribe(
-    cards => {
-      this.cards = cards;
-      this.maxQuantityCard = this.cards.length;
+  getCards() {
+    this.cardService.getCards(this.url).subscribe(
+      cards => {
+        this.cards = cards;
+        this.maxQuantityCard = this.cards.length;
+      }
+    );
+  }
+
+  getAdditionalCards() {
+    this.cardService.getAdditionalCards(CardComponent.deckId).subscribe(additionalCards => {
+        this.cards = additionalCards;
+        this.maxQuantityCard = additionalCards.length;
+      }
+    );
+  }
+
+  sendStatus(status: string) {
+    if (this.isAuthorized) {
+      this.cardService.sendStatus(status, this.cards[this.questionNumber].cardId, CardComponent.deckId).subscribe();
     }
-  );
-}
+    this.onRotateBack();
+    this.evaluationCards(status);
+  }
 
-getAdditionalCards()
-{
-  this.cardService.getAdditionalCards(CardComponent.deckId).subscribe(additionalCards => {
-      this.cards = additionalCards;
-      this.maxQuantityCard = additionalCards.length;
+  evaluationCards(status: string) {
+    if (status === 'BAD') {
+      this.badStatusMark++;
+    } else if (status === 'NORMAL') {
+      this.normalStatusMark++;
+    } else if (status === 'GOOD') {
+      this.goodStatusMark++;
     }
-  );
-}
+  }
 
-sendStatus(status
-:
-string
-)
-{
-  if (this.isAuthorized) {
-    this.cardService.sendStatus(status, this.cards[this.questionNumber].cardId, CardComponent.deckId).subscribe();
+  converSynthax() {
+    if (CardComponent.synthax === 'SQL') {
+      this.configSynthax = 'text/x-mysql';
+    } else if (CardComponent.synthax === 'JAVA') {
+      this.configSynthax = 'text/x-java';
+    } else if (CardComponent.synthax === 'C++') {
+      this.configSynthax = 'text/x-c++src';
+    } else if (CardComponent.synthax === 'C') {
+      this.configSynthax = 'text/x-csrc';
+    } else if (CardComponent.synthax === 'C#') {
+      this.configSynthax = 'text/x-csharp';
+    } else if (CardComponent.synthax === 'Scala') {
+      this.configSynthax = 'text/x-scala';
+    } else if (CardComponent.synthax === 'ObjectiveC') {
+      this.configSynthax = 'text/x-objectivec';
+    } else if (CardComponent.synthax === 'HTML') {
+      this.configSynthax = 'text/html';
+    } else if (CardComponent.synthax === 'TypeScript') {
+      this.configSynthax = 'text/typescript';
+    }
   }
-  this.onRotateBack();
-  this.evaluationCards(status);
-}
 
-evaluationCards(status
-:
-string
-)
-{
-  if (status === 'BAD') {
-    this.badStatusMark++;
-  } else if (status === 'NORMAL') {
-    this.normalStatusMark++;
-  } else if (status === 'GOOD') {
-    this.goodStatusMark++;
+  onCardRatingClick = (card: CardPublic, event: IStarRatingOnClickEvent) => {
+    const cardRating: Rating = new Rating(event.rating);
+    this.cardService.addCardRating(cardRating,  card.cardId).subscribe(() => {
+      card.rating = event.rating; }, (error) => {
+      this.userStatusChangeService.handleUserStatusError(error.status);
+    });
   }
-}
-converSynthax()
-{
-  if (CardComponent.synthax === 'SQL') {
-    this.configSynthax = 'text/x-mysql';
-  } else if (CardComponent.synthax === 'JAVA') {
-    this.configSynthax = 'text/x-java';
-  } else if (CardComponent.synthax === 'C++') {
-    this.configSynthax = 'text/x-c++src';
-  } else if (CardComponent.synthax === 'C') {
-    this.configSynthax = 'text/x-csrc';
-  } else if (CardComponent.synthax === 'C#') {
-    this.configSynthax = 'text/x-csharp';
-  } else if (CardComponent.synthax === 'Scala') {
-    this.configSynthax = 'text/x-scala';
-  } else if (CardComponent.synthax === 'ObjectiveC') {
-    this.configSynthax = 'text/x-objectivec';
-  } else if (CardComponent.synthax === 'HTML') {
-    this.configSynthax = 'text/html';
-  } else if (CardComponent.synthax === 'TypeScript') {
-    this.configSynthax = 'text/typescript';
-  }
-}
 }
