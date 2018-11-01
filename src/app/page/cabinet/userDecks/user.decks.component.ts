@@ -9,6 +9,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
 import {CabinetService} from "../cabinet.service";
+import {logger} from "codelyzer/util/logger";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -114,7 +115,7 @@ export class UserDecksComponent implements OnInit {
     deck.hidden = access;
 
     this.cabinetService.toggleDeck(deck)
-      .subscribe((response) => console.log());
+      .subscribe((response) => this.logger.log(response));
   }
 
   isOwnerDeck(deck: DeckDTO): boolean {
