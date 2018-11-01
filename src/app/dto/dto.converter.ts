@@ -115,7 +115,7 @@ export class DTOConverter {
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,data.hidden, data.synthax, data.deckOwner);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,data.hidden, data.synthax, data.userId);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
