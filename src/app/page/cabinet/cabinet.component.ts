@@ -128,7 +128,7 @@ export class CabinetComponent implements OnInit {
     course.published = access;
 
     this.cabinetService.updateCourse(course)
-      .subscribe((response) => console.log());
+      .subscribe((response) => this.logger.log(response));
   }
 
   changeAccessDeck(deck: DeckLinkByCategory, access: boolean) {

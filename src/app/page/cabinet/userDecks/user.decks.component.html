@@ -63,11 +63,11 @@
       </button>
       <button class="btn btn-primary decks-list-button" (click)="downloadCardsTemplate()">Download cards template
       </button>
-      <button *ngIf="selectedDeck.hidden===true && isOwnerDeck(selectedDeck)" class="btn btn-danger decks-list-button"
-              (click)="changeAccessDeck(selectedDeck, false)">PRIVATE</button>
+      <button *ngIf="selectedDeck.hidden===true && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
+              (click)="changeAccessDeck(selectedDeck, false)">Private</button>
 
       <button *ngIf="selectedDeck.hidden===false && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
-              (click)="changeAccessDeck(selectedDeck, true)">PUBLIC</button>
+              (click)="changeAccessDeck(selectedDeck, true)">Public</button>
 
       <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
       <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
