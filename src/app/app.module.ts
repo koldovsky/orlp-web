@@ -10,7 +10,6 @@ import {SignUpModule} from './page/authorization/signup/signup.module';
 import {HomeModule} from './page/home/home.module';
 import {LoginModule} from './page/authorization/login/login.module';
 import {AdminModule} from './page/admin/admin.module';
-import {CardModule} from './page/card/card.module';
 import {CookieService} from 'angular2-cookie/core';
 import {ORLPService} from './services/orlp.service';
 import {StarRatingModule} from 'angular-star-rating';
@@ -39,6 +38,7 @@ import {RestorePasswordService} from './page/authorization/restorePassword/resto
 import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
 import {AboutModule} from "./page/about/about.module";
+import {CardModule} from './page/card/card.module';
 
 @NgModule({
   imports: [
@@ -46,6 +46,7 @@ import {AboutModule} from "./page/about/about.module";
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+    StarRatingModule,
     CommonModule,
     RouterModule.forRoot([
       {path: '', redirectTo: 'home', pathMatch: 'full'},

@@ -37,7 +37,7 @@
                 </div>
               </div>
 
-            <button class="btn btn-primary button-difficult mt-3 mx-auto" (click)="onRotate()">Check</button>
+            <button class="btn btn-primary button-difficult mt-3 mb-3 mx-auto" (click)="onRotate()">Check</button>
           </div>
         </div> <!-- end front panel -->
         <div class="back">
@@ -73,13 +73,33 @@
                 </div>
               </div>
             </div>
-            <div class="question-was">
-              <h5>The question was:</h5>
-            </div>
-            <div class=" row justify-content-center align-items-center">
-              <button class="btn btn-danger button-difficult mx-1" (click)="sendStatus('BAD')" data-toggle="modal" data-target="#modal">TOO HARD</button>
-              <button class="btn btn-warning button-difficult mx-1" (click)="sendStatus('NORMAL')" data-toggle="modal" data-target="#modal">MEDIUM</button>
-              <button class="btn btn-success button-difficult mx-1" (click)="sendStatus('GOOD')" data-toggle="modal" data-target="#modal">EASY</button>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="question-was">
+                  <h5>The question was:</h5>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class=" row justify-content-center align-items-center">
+                  <button class="btn btn-danger button-difficult mx-1" (click)="sendStatus('BAD')" data-toggle="modal" data-target="#modal">TOO HARD</button>
+                  <button class="btn btn-warning button-difficult mx-1" (click)="sendStatus('NORMAL')" data-toggle="modal" data-target="#modal">MEDIUM</button>
+                  <button class="btn btn-success button-difficult mx-1" (click)="sendStatus('GOOD')" data-toggle="modal" data-target="#modal">EASY</button>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="row justify-content-end mr-1">
+                  <div *ngIf="isAuthorized;else unAuthorized">
+                    <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                      [rating]="cards[questionNumber].rating" (onClick)="onCardRatingClick(cards[questionNumber], $event)"></star-rating-comp>
+                  </div>
+                  <ng-template #unAuthorized>
+                    <div>
+                    <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                      [rating]="cards[questionNumber].rating" [readOnly]="true"></star-rating-comp>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
             </div>
           </div>
         </div> <!-- end back panel -->

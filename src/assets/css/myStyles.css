@@ -1,57 +1,59 @@
 /*TODO*/
-body, html{
+body, html {
   margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 .header-text {
-    color:white;
-    text-shadow: 0 1px white;
+  color: white;
+  text-shadow: 0 1px white;
 }
 
 .mp-card {
-    width: 100%;
-    border: 1px solid #f7f7f7;
-    box-shadow: 0 1px 10px 1px white;
+  width: 100%;
+  border: 1px solid #f7f7f7;
+  box-shadow: 0 1px 10px 1px white;
 }
 
 .mp-card:hover {
-    cursor:pointer;
-    background-color:#f7f7f7;
+  cursor: pointer;
+  background-color: #f7f7f7;
 }
 
 .alertMessage {
-    padding: 0.5rem 1.25rem;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    color: #e8241e;
-    margin-top: 10px;
-    text-align: center;
-    z-index: 1;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: #e8241e;
+  margin-top: 10px;
+  text-align: center;
+  z-index: 1;
 }
 
-.alert-danger{
+.alert-danger {
   border: 1px solid red;
 }
 
-.alert-success{
+.alert-success {
   border: 1px solid green;
 }
 
-.alert-warning{
+.alert-warning {
   border: 1px solid yellow;
 }
 
-.custom-btn-google{
+.custom-btn-google {
   color: white;
   background: rgb(220, 78, 65);
 }
 
-.custom-btn-facebook{
+.custom-btn-facebook {
   background: #3b5998;
   color: white;
 }
 
-.custom-btn-google, .custom-btn-facebook{
+.custom-btn-google, .custom-btn-facebook {
   display: inline-block;
   width: 49%;
   border-radius: 5px;
@@ -75,7 +77,7 @@ span.googleIcon, span.facebookIcon {
   margin-top: 2px;
 }
 
-span.googleIcon{
+span.googleIcon {
   background: url('../images/google.png') transparent 100% no-repeat;
   margin-left: 5px;
   background-size: contain;
@@ -85,53 +87,53 @@ span.facebookIcon {
   background: url('../images/facebook.png') transparent 100% no-repeat;
 }
 
-.textSpan{
+.textSpan {
   white-space: pre-line;
 }
 
-.input-group-addon{
+.input-group-addon {
   float: left;
   display: inline;
   min-height: 33px;
 }
 
-.invalid-feedback{
+.invalid-feedback {
   color: #fd0505;
   font-weight: 500;
 }
 
-.form-control.is-invalid{
+.form-control.is-invalid {
   border-color: #fd0505;
 }
 
-.custom-input{
+.custom-input {
   display: flow-root;
 
 }
 
-.close{
+.close {
   display: inline-block;
 }
 
-.recaptcha{
+.recaptcha {
   display: inline-block;
 }
 
-.row{
+.row {
   margin-right: auto;
   margin-left: auto;
 }
 
-star-rating-comp > div{
+star-rating-comp > div {
   outline: none;
   cursor: pointer;
 }
 
-div, button:focus, .card-title, img{
+div, button:focus, .card-title, img {
   outline: none;
 }
 
-.btn:hover{
+.btn:hover {
   cursor: pointer;
 }
 
@@ -147,6 +149,7 @@ div, button:focus, .card-title, img{
   height: 100%;
   position: absolute;
 }
+
 .title {
   margin-top: 20%;
   color: black;
@@ -154,6 +157,7 @@ div, button:focus, .card-title, img{
   font-weight: bold;
   font-family: "Helvetica Neue", sans-serif;
 }
+
 .sub-title {
   color: #ffc91b;
   font-size: 23px;

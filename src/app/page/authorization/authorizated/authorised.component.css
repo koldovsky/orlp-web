@@ -1,4 +1,4 @@
-.container{
+.container {
   margin: 10px auto;
   width: 50%;
   background-color: white;
@@ -6,13 +6,15 @@
   text-align: center;
   padding: 15px 15px;
 }
-.info-additional-footer button{
+
+.info-additional-footer button {
   background-color: white;
   color: black;
   border: 2px solid black;
   border-radius: 5px;
 }
-.info-additional-footer button:hover{
+
+.info-additional-footer button:hover {
   background-color: black;
   color: white;
   border: 2px solid gray;
