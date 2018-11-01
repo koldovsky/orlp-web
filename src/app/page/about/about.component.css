@@ -1,5 +1,12 @@
-.bg {
+.background-image {
   z-index: -1;
+  background: url(../../../assets/images/background_home_page.jpg) no-repeat center bottom;
+  background-size: cover;
+  right: 0;
+  left: 0;
+  height: 600px;
+  width: 100%;
+  position: absolute;
 }
 
 .title {
