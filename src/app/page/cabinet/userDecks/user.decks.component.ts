@@ -9,7 +9,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
 import {CabinetService} from "../cabinet.service";
-import {logger} from "codelyzer/util/logger";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -38,7 +38,8 @@ export class UserDecksComponent implements OnInit {
   constructor(private userDecksService: UserDecksService,
               private cabinetService: CabinetService,
               private orlp: ORLPService,
-              private deckService: DeckService) {
+              private deckService: DeckService,
+              private logger: NGXLogger) {
   }
 
   ngOnInit() {
