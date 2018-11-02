@@ -58,13 +58,20 @@
       <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']"
               class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck">Manage Cards
       </button>
-      <button class="btn btn-primary decks-list-button" (click)="downloadCards(selectedDeck.deckId, selectedDeck.name)">Download cards
+      <button class="btn btn-primary decks-list-button" (click)="downloadCards(selectedDeck.deckId, selectedDeck.name)">
+        Download cards
       </button>
       <button class="btn btn-primary decks-list-button" (click)="downloadCardsTemplate()">Download cards template
       </button>
+      <button *ngIf="selectedDeck.hidden===true && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
+              (click)="changeAccessDeck(selectedDeck, false)">Private</button>
+
+      <button *ngIf="selectedDeck.hidden===false && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
+              (click)="changeAccessDeck(selectedDeck, true)">Public</button>
+
       <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
       <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
-      <div class = "wrong-format-file-exception">
+      <div class="wrong-format-file-exception">
         <p>{{errorFileMessage}}</p>
       </div>
     </div>
@@ -111,8 +118,8 @@
                 <label>Choose syntax that should be highlighted:</label>
               </td>
               <td>
-                <select class="category-select" [(ngModel)] ="synthax">
-                  <option *ngFor="let synthax of allSynthaxes" >{{synthax}}</option>
+                <select class="category-select" [(ngModel)]="synthax">
+                  <option *ngFor="let synthax of allSynthaxes">{{synthax}}</option>
                 </select>
               </td>
             </tr>
