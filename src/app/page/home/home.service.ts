@@ -10,6 +10,7 @@ import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
+import {ContuctUsEmail} from '../../dto/ContuctUsEmail';
 
 @Injectable()
 export class HomeService {
@@ -34,5 +35,10 @@ export class HomeService {
   private handleError(error: Response) {
     this.logger.log(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  sendEmailMessage(contuctUsEmail: ContuctUsEmail): Observable<Response> {
+    console.log(contuctUsEmail);
+    return this.orlp.post('api/contactus/', contuctUsEmail);
   }
 }
