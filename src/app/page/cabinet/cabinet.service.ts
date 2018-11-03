@@ -48,6 +48,11 @@ export class CabinetService {
       .map((response: Response) => this.logger.log(response));
   }
 
+  public toggleDeck(deck: DeckLinkByCategory) {
+    return this.orlp.put('/api/cabinet/decks/' + deck.deckId + '/toggle/access', {})
+      .map((response: Response) => this.logger.log(response));
+  }
+
   public addDeckToCourse(courseId: number, deckId: number) {
     return this.orlp.put('api/categories/courses/' + courseId + '/decks/' + deckId, {})
       .map((response: Response) => this.logger.log(response));

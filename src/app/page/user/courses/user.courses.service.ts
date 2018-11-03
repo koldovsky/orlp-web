@@ -6,6 +6,7 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {CoursePageDTO} from '../../../dto/CourseDTO/linkToCourseByPageDTO';
 import {NGXLogger} from 'ngx-logger';
+import {Link} from '../../../dto/link';
 
 @Injectable()
 export class UserCoursesService {
@@ -24,5 +25,11 @@ export class UserCoursesService {
   private handleError(error: Response) {
     this.logger.error(error);
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  deleteCourse(link: Link) {
+    const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
+    return this.orlp.delete(shortLink)
+      .map((response: Response) =>response.json());
   }
 }
