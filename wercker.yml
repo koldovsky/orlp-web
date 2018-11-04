@@ -24,8 +24,8 @@ build:
     # A step that executes `npm install` command
         - npm-install
         - script:
-            name: rebuild node-sass
-            code: npm rebuild node-sass
+            name: install node-sass
+            code: npm install node-sass --sass-binary-site=https://github.com/sass/node-sass/releases/download/v4.6.0/linux-x64-47_binding.node
         - script:
             name: run build
             code: npm run build
