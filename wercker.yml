@@ -24,6 +24,9 @@ build:
     # A step that executes `npm install` command
         - npm-install
         - script:
+            name: rebuild node-sass
+            code: npm rebuild node-sass
+        - script:
             name: run build
             code: npm run build
         - script:
