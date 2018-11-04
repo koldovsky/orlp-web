@@ -38,7 +38,6 @@ export class HomeService {
   }
 
   sendEmailMessage(contuctUsEmail: ContuctUsEmail): Observable<Response> {
-    console.log(contuctUsEmail);
     return this.orlp.post('api/contactus/', contuctUsEmail);
   }
 }

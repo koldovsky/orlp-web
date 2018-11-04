@@ -163,13 +163,6 @@
   background-color: #444444;
 }
 
-.contact-us-text {
-  font-size: 20px;
-  font-weight: bold;
-  font-family: "Helvetica Neue", sans-serif;
-  color: white;
-}
-
 .contact-us .container-form {
   margin: auto;
   display: flex;
@@ -241,6 +234,23 @@
 .wrapper {
   margin-top: 0;
   margin-bottom: -1%;
+}
+
+.contact-us-text {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", sans-serif;
+  color: white;
+}
+
+.email-sent {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Helvetica Neue", sans-serif;
+  color: white;
+  margin-bottom: 20px;
+  border: 1px solid white;
+  padding: 5px 40px;
 }
 
 @media (max-width: 576px) {

@@ -32,8 +32,11 @@ export class HomeComponent implements OnInit {
   public subscriptionButtonText: string[] = [];
   coursesWithStatus: CourseLinkWithStatus[] = [];
   private coursesIdOfTheUser: number[] = [];
-  // contactUsForm: FormGroup;
-  contuctUsEmail: ContuctUsEmail;
+  name: string;
+  email: string;
+  subject: string;
+  text: string;
+  emailSended: boolean;
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
@@ -146,7 +149,12 @@ export class HomeComponent implements OnInit {
     }
     this.setStatusForCoursesOfTheUser();
   }
-
+  clearInputFields(){
+    this.name = '';
+    this.text = '';
+    this.email = '';
+    this.subject = '';
+  }
   setStatusForCoursesOfTheUser() {
     for (const course of this.coursesWithStatus) {
       for (const id of this.coursesIdOfTheUser) {
@@ -183,7 +191,8 @@ export class HomeComponent implements OnInit {
     }
   }
   sendEmailMessage(form: any) {
-    this.contuctUsEmail = form;
-    this.mainService.sendEmailMessage(this.contuctUsEmail).subscribe();
+    this.mainService.sendEmailMessage(form).subscribe();
+    this.clearInputFields();
+    this.emailSended = true;
   }
 }
