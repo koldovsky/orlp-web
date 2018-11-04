@@ -94,6 +94,7 @@
 
 .card-container, .front, .back {
   width: 100%;
+  min-height: 500px;
   height: auto;
   border-radius: 4px;
 }
