@@ -13,7 +13,7 @@ import {StarRatingModule} from 'angular-star-rating';
         StarRatingModule,
         RouterModule.forChild([
             {path: 'home', component: HomeComponent}
-        ])
+        ]),
     ],
     exports: [],
     declarations: [
