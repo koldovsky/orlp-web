@@ -1,161 +1,161 @@
-<div class="bg">
-  <div class="container">
-    <form class="form-horizontal" role="form" [formGroup]="userForm" (ngSubmit)="register()" novalidate>
-      <div class="row justify-content-center">
-        <div class="card border border-secondary">
-          <div class="card-header">
-            <span><h2>Sign Up</h2></span>
+<div class="bg"></div>
+<div class="container">
+  <form class="form-horizontal" role="form" [formGroup]="userForm" (ngSubmit)="register()" novalidate>
+    <div class="row justify-content-center">
+      <div class="card border border-secondary">
+        <div class="card-header">
+          <span><h2>Sign Up</h2></span>
+        </div>
+        <div class="card-body">
+          <div (click)="signInFacebook('facebook')" class="custom-btn-facebook">
+            <span class="facebookIcon"></span>
+            <span class="textSpan">Sign up with Facebook</span>
           </div>
-          <div class="card-body">
-            <div (click)="signInFacebook('facebook')" class="custom-btn-facebook">
-              <span class="facebookIcon"></span>
-              <span class="textSpan">Sign up with Facebook</span>
-            </div>
-            <div (click)="signInGoogle('google')" class="custom-btn-google">
-              <span class="googleIcon"></span>
-              <span class="textSpan">Sign up with Google</span>
-            </div>
-            <div class="label mt-1 mb-1">or</div>
-            <div class="form-group">
-              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <div class="custom-input">
-                <input type="text" class="form-control" id="name"
-                       placeholder="John" formControlName="firstName" [ngClass]="{'is-invalid':
+          <div (click)="signInGoogle('google')" class="custom-btn-google">
+            <span class="googleIcon"></span>
+            <span class="textSpan">Sign up with Google</span>
+          </div>
+          <div class="label mt-1 mb-1">or</div>
+          <div class="form-group">
+            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+            <div class="custom-input">
+              <input type="text" class="form-control" id="name"
+                     placeholder="John" formControlName="firstName" [ngClass]="{'is-invalid':
                        (userForm.get('firstName').touched||userForm.get('firstName').dirty)&&userForm.get('firstName').errors}"
-                       required>
-                <div *ngIf="userForm.get('firstName').hasError('required')" class="invalid-feedback">
-                  Please write your full name
-                </div>
-                <div *ngIf="userForm.get('firstName').hasError('minlength')" class="invalid-feedback">
-                  Name can’t contain less than 2 characters
-                </div>
-                <div *ngIf="userForm.get('firstName').hasError('maxlength')" class="invalid-feedback">
-                  Name can’t contain more than 15 characters
-                </div>
-                <div *ngIf="userForm.get('firstName').hasError('pattern')" class="invalid-feedback">
-                  Name should contain only letters
-                </div>
+                     required>
+              <div *ngIf="userForm.get('firstName').hasError('required')" class="invalid-feedback">
+                Please write your full name
+              </div>
+              <div *ngIf="userForm.get('firstName').hasError('minlength')" class="invalid-feedback">
+                Name can’t contain less than 2 characters
+              </div>
+              <div *ngIf="userForm.get('firstName').hasError('maxlength')" class="invalid-feedback">
+                Name can’t contain more than 15 characters
+              </div>
+              <div *ngIf="userForm.get('firstName').hasError('pattern')" class="invalid-feedback">
+                Name should contain only letters
               </div>
             </div>
-            <div class="form-group">
-              <div class="input-group-addon"><i class="fa fa-user"></i></div>
-              <div class="custom-input">
-                <input type="text" class="form-control" id="last_name"
-                       placeholder="Doe" formControlName="lastName"
-                       [ngClass]="{'is-invalid': (userForm.get('lastName').touched||userForm.get('lastName').dirty)
+          </div>
+          <div class="form-group">
+            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+            <div class="custom-input">
+              <input type="text" class="form-control" id="last_name"
+                     placeholder="Doe" formControlName="lastName"
+                     [ngClass]="{'is-invalid': (userForm.get('lastName').touched||userForm.get('lastName').dirty)
                        &&userForm.get('lastName').errors}" required>
-                <div *ngIf="userForm.get('lastName').hasError('required')" class="invalid-feedback">
-                  Please write your full last name
+              <div *ngIf="userForm.get('lastName').hasError('required')" class="invalid-feedback">
+                Please write your full last name
+              </div>
+              <div *ngIf="userForm.get('lastName').hasError('minlength')"
+                   class="invalid-feedback">
+                Last Name can’t contain less than 2 characters
+              </div>
+              <div *ngIf="userForm.get('lastName').hasError('maxlength')"
+                   class="invalid-feedback">
+                Last Name can’t contain more than 15 characters
+              </div>
+              <div *ngIf="userForm.get('lastName').hasError('pattern')" class="invalid-feedback">
+                Last Name should contain only letters
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-group-addon"><i class="fa fa-at"></i></div>
+            <div class="custom-input">
+              <input type="email" class="form-control" id="email"
+                     placeholder="you@example.com" formControlName="email"
+                     [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
+                       &&userForm.get('email').errors}" required>
+              <div *ngIf="userForm.get('email').hasError('required')" class="invalid-feedback">
+                Enter your e-mail address
+              </div>
+              <div *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required"
+                   class="invalid-feedback">
+                Please enter valid email address
+              </div>
+            </div>
+          </div>
+          <div formGroupName="passwordGroup">
+            <div class="form-group">
+              <div class="input-group-addon"><i class="fa fa-key"></i></div>
+              <div class="custom-input">
+                <input type="password" class="form-control" id="password"
+                       placeholder="Password" formControlName="password"
+                       [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
+                &&userForm.get('passwordGroup.password').errors}" required>
+                <div *ngIf="userForm.get('passwordGroup.password').hasError('required')" class="invalid-feedback">
+                  Enter your password
                 </div>
-                <div *ngIf="userForm.get('lastName').hasError('minlength')"
-                     class="invalid-feedback">
-                  Last Name can’t contain less than 2 characters
+                <div *ngIf="userForm.get('passwordGroup.password').hasError('minlength')" class="invalid-feedback">
+                  Password can't be shorter than 8 symbols
                 </div>
-                <div *ngIf="userForm.get('lastName').hasError('maxlength')"
-                     class="invalid-feedback">
-                  Last Name can’t contain more than 15 characters
-                </div>
-                <div *ngIf="userForm.get('lastName').hasError('pattern')" class="invalid-feedback">
-                  Last Name should contain only letters
+                <div *ngIf="userForm.get('passwordGroup.password').hasError('maxlength')" class="invalid-feedback">
+                  Password can't be longer than 20 symbols
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <div class="input-group-addon"><i class="fa fa-at"></i></div>
+              <div class="input-group-addon">
+                <i class="fa fa-repeat"></i>
+              </div>
               <div class="custom-input">
-                <input type="email" class="form-control" id="email"
-                       placeholder="you@example.com" formControlName="email"
-                       [ngClass]="{'is-invalid': (userForm.get('email').touched||userForm.get('email').dirty)
-                       &&userForm.get('email').errors}" required>
-                <div *ngIf="userForm.get('email').hasError('required')" class="invalid-feedback">
-                  Enter your e-mail address
-                </div>
-                <div *ngIf="userForm.get('email').errors&&!userForm.get('email').errors.required"
-                     class="invalid-feedback">
-                  Please enter valid email address
-                </div>
-              </div>
-            </div>
-            <div formGroupName="passwordGroup">
-              <div class="form-group">
-                <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                <div class="custom-input">
-                  <input type="password" class="form-control" id="password"
-                         placeholder="Password" formControlName="password"
-                         [ngClass]="{'is-invalid': (userForm.get('passwordGroup.password').touched||userForm.get('passwordGroup.password').dirty)
-                &&userForm.get('passwordGroup.password').errors}" required>
-                  <div *ngIf="userForm.get('passwordGroup.password').hasError('required')" class="invalid-feedback">
-                    Enter your password
-                  </div>
-                  <div *ngIf="userForm.get('passwordGroup.password').hasError('minlength')" class="invalid-feedback">
-                    Password can't be shorter than 8 symbols
-                  </div>
-                  <div *ngIf="userForm.get('passwordGroup.password').hasError('maxlength')" class="invalid-feedback">
-                    Password can't be longer than 20 symbols
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-repeat"></i>
-                </div>
-                <div class="custom-input">
-                  <input type="password" class="form-control"
-                         id="password-confirm" placeholder="Confirm password" formControlName="confirmPassword"
-                         [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
+                <input type="password" class="form-control"
+                       id="password-confirm" placeholder="Confirm password" formControlName="confirmPassword"
+                       [ngClass]="{'is-invalid': (userForm.get('passwordGroup.confirmPassword').touched
                        ||userForm.get('passwordGroup.confirmPassword').dirty)
                        &&(userForm.get('passwordGroup.confirmPassword').errors
                        ||userForm.get('passwordGroup').errors)}" required>
-                  <div *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect"
-                       class="invalid-feedback">
-                    Please confirm your password
-                  </div>
-                  <ng-template #incorrect>
-                    <div *ngIf="(userForm.get('passwordGroup').hasError('match'))" class="invalid-feedback">
-                      Password and confirm password should be the same
-                    </div>
-                  </ng-template>
+                <div *ngIf="userForm.get('passwordGroup.confirmPassword').hasError('required');else incorrect"
+                     class="invalid-feedback">
+                  Please confirm your password
                 </div>
+                <ng-template #incorrect>
+                  <div *ngIf="(userForm.get('passwordGroup').hasError('match'))" class="invalid-feedback">
+                    Password and confirm password should be the same
+                  </div>
+                </ng-template>
               </div>
             </div>
-            <div class="recaptcha">
-              <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{siteKey}}"></re-captcha>
-            </div>
-            <button class="btn btn-success btn-signup" [disabled]="!validSignUp()"
-                    data-toggle="modal" type="submit"><i
-              class="fa fa-user-plus"></i>
-              Register
-            </button>
           </div>
+          <div class="recaptcha">
+            <re-captcha (captchaResponse)="handleCorrectCaptcha($event)" site_key="{{siteKey}}"></re-captcha>
+          </div>
+          <button class="btn btn-success btn-signup" [disabled]="!validSignUp()"
+                  data-toggle="modal" type="submit"><i
+            class="fa fa-user-plus"></i>
+            Register
+          </button>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="alertMessage">
-          <div class="alert alert-danger" *ngIf="errorEmailExists">
-            <span>Email already exists</span>
-          </div>
-          <div class="alert alert-danger" *ngIf="error">
-            <span><b>Registration failed!</b> Try again.</span>
-          </div>
-          <div class="alert alert-success" *ngIf="success">
-            <span>Registration <b>successful!</b></span>
-            <span>Check you email for confirmation</span>
-          </div>
-          <div class="alert alert-warning" *ngIf="mailNotSended">
-            <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
-          </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="alertMessage">
+        <div class="alert alert-danger" *ngIf="errorEmailExists">
+          <span>Email already exists</span>
+        </div>
+        <div class="alert alert-danger" *ngIf="error">
+          <span><b>Registration failed!</b> Try again.</span>
+        </div>
+        <div class="alert alert-success" *ngIf="success">
+          <span>Registration <b>successful!</b></span>
+          <span>Check you email for confirmation</span>
+        </div>
+        <div class="alert alert-warning" *ngIf="mailNotSended">
+          <span><b>Sending of confirmation email failed.</b><br>Confirmation email will be send during process of authorization</span>
+        </div>
 
-          <div class="alert alert-danger" *ngIf="wrongDetails">
-            <span>Not valid email or password</span>
-          </div>
-          <div class="alert alert-danger" *ngIf="error">
-            <span><b>Authorization failed!</b> Try again.</span>
-          </div>
-          <div class="alert alert-success" *ngIf="verificationStat">
-            <span>Your account successfully activated</span>
-          </div>
+        <div class="alert alert-danger" *ngIf="wrongDetails">
+          <span>Not valid email or password</span>
+        </div>
+        <div class="alert alert-danger" *ngIf="error">
+          <span><b>Authorization failed!</b> Try again.</span>
+        </div>
+        <div class="alert alert-success" *ngIf="verificationStat">
+          <span>Your account successfully activated</span>
         </div>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
+

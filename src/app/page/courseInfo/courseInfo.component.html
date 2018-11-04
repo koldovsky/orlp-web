@@ -7,7 +7,7 @@
     <tbody>
     <tr>
       <th>Course Name</th>
-      <th>Coourse Description</th>
+      <th>Course Description</th>
       <th class="alignCenter">Rating</th>
       <th class="alignCenter">Subscribe</th>
     </tr>
@@ -19,9 +19,10 @@
                           [rating]="course.rating" (onClick)="onCourseRatingClick($event)"></star-rating-comp>
       </td>
       <ng-template #unAuthorized>
-       <td> <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                          [rating]="course.rating" [readOnly]="true"></star-rating-comp>
-       </td>
+        <td>
+          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+        </td>
       </ng-template>
       <td class="alignCenter">
         <div>
@@ -47,27 +48,38 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let deck of decks"  class="table-row">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
+      <tr *ngFor="let deck of decks" class="table-row">
+        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.name}}</td>
+        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.description}}</td>
         <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
         </td>
         <ng-template #unAuthorized>
-          <td><star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+          <td>
+            <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                              [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
           </td>
         </ng-template>
-        <td class="alignCenter">
-          <button class="btn btn-primary decks-list-button" (click)="downloadCards(deck.deckId, deck.name)">Download cards
-          </button>
+        <td class="alignCenter" *ngIf="isAuthorized">
+          <div class="dropdown">
+            <button class="btn btn-light threeDotsButton" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
+                <i class="fa fa-download" aria-hidden="true"></i>Download cards
+              </a>
+            </div>
+          </div>
         </td>
       </tr>
       </tbody>
     </table>
     <div class="btn-comments">
-    <button class="btn btn-warning" aria-hidden="true" (click)="tabClick()" ><h6 class="text-light">Comments</h6></button>
+      <button class="btn btn-warning" aria-hidden="true" (click)="tabClick()"><h6 class="text-light">Comments</h6>
+      </button>
     </div>
   </div>
 </div>

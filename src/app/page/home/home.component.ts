@@ -1,4 +1,4 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Injectable, NgZone, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from './home.service';
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
@@ -12,6 +12,8 @@ import {UserStatusChangeService} from '../userStatusChange/user.status.change.se
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {CourseInfoService} from '../courseInfo/courseInfo.service';
 import {CourseLinkWithStatus} from '../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
+import {ContuctUsEmail} from '../../dto/ContuctUsEmail';
+import {FormBuilder, FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
 @Component({
@@ -30,6 +32,11 @@ export class HomeComponent implements OnInit {
   public subscriptionButtonText: string[] = [];
   coursesWithStatus: CourseLinkWithStatus[] = [];
   private coursesIdOfTheUser: number[] = [];
+  name: string;
+  email: string;
+  subject: string;
+  text: string;
+  emailSended: boolean;
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
@@ -38,7 +45,7 @@ export class HomeComponent implements OnInit {
               private authorizationService: AuthorizationService,
               private ngZone: NgZone,
               private userStatusChangeService: UserStatusChangeService,
-              private  courseInfoService: CourseInfoService) {
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -142,7 +149,12 @@ export class HomeComponent implements OnInit {
     }
     this.setStatusForCoursesOfTheUser();
   }
-
+  clearInputFields(){
+    this.name = '';
+    this.text = '';
+    this.email = '';
+    this.subject = '';
+  }
   setStatusForCoursesOfTheUser() {
     for (const course of this.coursesWithStatus) {
       for (const id of this.coursesIdOfTheUser) {
@@ -177,5 +189,10 @@ export class HomeComponent implements OnInit {
     for (const course of this.courses) {
         this.subscriptionButtonText[course.courseId] = SUBSCRIBE;
     }
+  }
+  sendEmailMessage(form: any) {
+    this.mainService.sendEmailMessage(form).subscribe();
+    this.clearInputFields();
+    this.emailSended = true;
   }
 }

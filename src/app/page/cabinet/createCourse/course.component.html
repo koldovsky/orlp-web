@@ -51,7 +51,8 @@
           </div>
           <div class="modal-body">
             <div *ngFor="let image of userImages">
-              <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image" data-dismiss="modal"/>
+              <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
+                   data-dismiss="modal"/>
               <button type="button" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">x</button>
             </div>
             <div>

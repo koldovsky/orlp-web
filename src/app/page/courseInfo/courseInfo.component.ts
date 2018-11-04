@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CourseInfoService} from './courseInfo.service';
 import {Subscription} from 'rxjs/Subscription';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {LogoutService} from '../logout/logout.service';
@@ -12,6 +12,7 @@ import {CourseService} from '../categoryInfo/course/course.service';
 import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
+import {CardComponent} from '../card/card.component';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -32,6 +33,7 @@ export class CourseInfoComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
+              private router: Router,
               private courseInfoService: CourseInfoService,
               private logoutService: LogoutService,
               private deckService: DeckService,
@@ -145,6 +147,12 @@ export class CourseInfoComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
+  }
+
+  startLearning(deckId: number, deckSynthax: String): void {
+    this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
+    CardComponent.deckId = deckId;
+    CardComponent.synthax = deckSynthax;
   }
 
   tabClick() {

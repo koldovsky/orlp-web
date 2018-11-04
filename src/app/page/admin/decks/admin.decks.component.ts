@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 import {EditDeckDTO} from '../../../dto/DeckDTO/deck.edit.DTO';
 import {DeckEditCategoryDTO} from '../../../dto/DeckDTO/deck.edit.category.DTO';
 import {TableColumnDTO} from '../../../dto/TableColumnDTO';
+import {CreateDeckDTO} from '../../../dto/DeckDTO/deck.create.DTO';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 @Component({
   providers: [AdminDecksService],
   templateUrl: ('./admin.decks.component.html'),
@@ -16,13 +19,15 @@ import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 
 export class AdminDecksComponent implements OnInit {
 
+  public deckForm: FormGroup;
   public deckSelected: AdminDeck;
+  public categoryId: number;
+  public category: string;
   public categories: CategoryLink[];
   public deckList: AdminDeck[];
-  public categoryForDeck: DeckEditCategoryDTO = new DeckEditCategoryDTO();
   public deckName: string;
   public deckDescription: string;
-  public categorySelectedId: number;
+  public deckId: number;
   public actionSort = true;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Deck Name', '\u2191'),
     new TableColumnDTO('description', 'Deck Description', ''),
@@ -33,10 +38,19 @@ export class AdminDecksComponent implements OnInit {
   public currentPage = 1;
   public lastPage: number;
 
-  constructor(private orlp: ORLPService, private adminDecksService: AdminDecksService, private router: Router) {
+  constructor(private orlp: ORLPService, private formBuilder: FormBuilder,
+              private adminDecksService: AdminDecksService, private router: Router) {
   }
 
   ngOnInit(): void {
+    const nameValidators = [Validators.required, Validators.minLength(2),
+      Validators.maxLength(50), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
+    const descriptionValidators = [Validators.required, Validators.minLength(10),
+      Validators.maxLength(200), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
+    this.deckForm = this.formBuilder.group({
+      name: ['', nameValidators],
+      description: ['', descriptionValidators]
+    });
     this.getDecks(this.currentPage);
     this.getCategories();
   }
@@ -49,10 +63,11 @@ export class AdminDecksComponent implements OnInit {
         this.currentPage = numberPage;
       });
   }
+
   public sortBy(param: TableColumnDTO) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
-    }else {
+    } else {
       this.actionSort = true;
       this.selectedSortedParam.symbolSorting = '';
     }
@@ -78,13 +93,13 @@ export class AdminDecksComponent implements OnInit {
 
   createDeck() {
     this.adminDecksService.createDeckAdmin(
-      (new EditDeckDTO( this.deckName, this.deckDescription, this.categoryForDeck, null )) )
-      .subscribe( deckNew => this.deckList.push(deckNew) );
+      (new CreateDeckDTO(this.deckName, this.deckDescription, this.categoryId, null)))
+      .subscribe(deckNew => this.deckList.push(deckNew));
   }
 
   deleteDeck(): void {
-    this.adminDecksService.deleteDeck( this.deckSelected.self)
-      .subscribe( () => {
+    this.adminDecksService.deleteDeck(this.deckSelected.self)
+      .subscribe(() => {
         const index: number = this.deckList.indexOf(this.deckSelected);
         if (index !== -1) {
           this.deckList.splice(index, 1);
@@ -92,12 +107,17 @@ export class AdminDecksComponent implements OnInit {
       });
   }
 
-  editDeck () {
-    this.adminDecksService.editDeck (this.deckSelected.self,
-      new EditDeckDTO(this.deckName, this.deckDescription, this.categoryForDeck, this.deckSelected.self))
-      .subscribe( deckUpdate => {this.deckSelected.name = this.deckName;
+  editDeck() {
+    this.adminDecksService.editDeck(new EditDeckDTO(this.category, this.deckId, this.deckName, this.deckDescription, this.categoryId,
+      this.deckSelected.self))
+      .subscribe(deckUpdate => {
+        this.getCategories();
+        this.deckSelected.deckId = this.deckId;
+        this.deckSelected.name = this.deckName;
         this.deckSelected.description = this.deckDescription;
-      this.deckSelected.category = deckUpdate.category; }) ;
+        this.deckSelected.categoryId = this.categoryId;
+        this.deckSelected.category = deckUpdate.category;
+      });
   }
 
   assignDeck(deck: AdminDeck): void {
@@ -105,24 +125,28 @@ export class AdminDecksComponent implements OnInit {
   }
 
 
-
   onCategorySelect(deviceValue) {
-    this.categoryForDeck.id = deviceValue.value;
+    this.categoryId = deviceValue.value;
   }
 
   beforeCreate() {
     this.deckName = '';
     this.deckDescription = '';
-    this.categoryForDeck.id = null;
+    this.categoryId = null;
   }
 
-  private beforeEdit(deck: AdminDeck) {
+  beforeEdit(deck: AdminDeck) {
+    this.category = deck.category;
+    this.deckId = deck.deckId;
     this.deckName = deck.name;
     this.deckDescription = deck.description;
-    this.categorySelectedId = deck.categoryId;
+    this.categoryId = deck.categoryId;
     this.deckSelected = deck;
   }
 
+  isFormValid(): boolean {
+    return this.deckForm.valid;
+  }
 }
 
 

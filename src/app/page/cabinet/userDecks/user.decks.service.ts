@@ -28,27 +28,27 @@ export class UserDecksService {
   }
 
   getOnlyDecksCreatedByTheUser(): Observable<DeckDTO[]> {
-    return this.orlp.get('api/private/user/folder/decks/own').map((response: Response) =>
+    return this.orlp.get('api/users/folders/decks/own').map((response: Response) =>
       <DeckDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToDeck, response.json()));
   }
 
   getDeckCreatedByTheUser(deckId: number): Observable<DeckDTO> {
-    return this.orlp.get('api/private/user/folder/decks/own/' + deckId).map((response: Response) =>
+    return this.orlp.get('api/users/folders/decks/own/' + deckId).map((response: Response) =>
       <DeckDTO> DTOConverter.jsonToDeck(response.json()));
   }
 
   createDeck(deck: NewDeckDTO) {
-    return this.orlp.post('api/private/category/' + deck.categoryId + '/decks', deck)
+    return this.orlp.post('api/categories/' + deck.categoryId + '/decks', deck)
       .map((response: Response) => response.json());
   }
 
   editDeck(deck: NewDeckDTO, deckId: number) {
-    return this.orlp.put('api/private/category/' + deck.categoryId + '/deck/' + deckId, deck)
+    return this.orlp.put('api/categories/' + deck.categoryId + '/decks/' + deckId, deck)
       .map((response: Response) => response.json());
   }
 
   deleteDeck(deckId: number) {
-    return this.orlp.delete('api/private/deck/' + deckId)
+    return this.orlp.delete('api/decks/' + deckId)
       .map((response: Response) => response.json());
   }
 

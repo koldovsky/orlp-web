@@ -1,46 +1,54 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-lg-8 col-xs-12 col-sm-6">
       <h1 class="font-color-white header-text">All Users</h1>
     </div>
-    <div class="col-xs-12 col-sm-6">
+    <div class="col-lg-4 col-xs-12 col-sm-6">
       <input type="text" placeholder="Search by e-mail" [(ngModel)]="usersListFilter"/>
     </div>
   </div>
   <div class="row">
-    <table class="table table-striped admins-tables col-12">
-      <tr class="admins-tables-header">
-        <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
-          {{column.nameColumnForDisplay}} {{column.symbolSorting}}
-        </th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let user of users | usersFilter:usersListFilter">
-        <td>{{user.firstName}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.accountStatus}}</td>
-        <td>
-          <div [routerLink]="['/admin/users', getUserLink(user.self)]">
-            <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
-          </div>
-        </td>
-      </tr>
-    </table>
+    <div class="col">
+      <table class="table table-striped admins-tables">
+        <tr class="admins-tables-header">
+          <th *ngFor="let column of courseColumns"
+              [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
+              (click)="sortBy(column)">
+            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+          </th>
+        </tr>
+        <tr *ngFor="let user of users | usersFilter:usersListFilter">
+          <td>{{user.firstName}}</td>
+          <td>{{user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.accountStatus}}</td>
+          <td>
+            <div [routerLink]="['/admin/users', getUserLink(user.self)]">
+              <button class="btn btn-secondary"><i class="fa fa-eye"></i> More</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <nav aria-label="Page navigation">
+        <ul class="pagination">
+          <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
+                                                                               (click)="getUsers(1)">First</a></li>
+          <ng-template #disabledFirst>
+            <li class="page-item disabled"><a class="page-link" (click)="getUsers(1)">First</a></li>
+          </ng-template>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getUsers(currentPage - 1)">{{currentPage
+            - 1}}</a></li>
+          <li class="active"><a class="page-link" (click)="getUsers(currentPage)">{{currentPage}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getUsers(currentPage + 1)">{{currentPage
+            + 1}}</a></li>
+          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
+                                                                                      (click)="getUsers(lastPage)">Last</a>
+          </li>
+          <ng-template #disabledLast>
+            <li class="page-item disabled"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
   </div>
-  <nav aria-label="Page navigation">
-    <ul class="pagination">
-      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getUsers(1)">First</a></li>
-      <ng-template #disabledFirst>
-        <li class="page-item disabled"><a class="page-link" (click)="getUsers(1)">First</a></li>
-      </ng-template>
-      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getUsers(currentPage - 1)">{{currentPage - 1}}</a></li>
-      <li class="active"><a class="page-link" (click)="getUsers(currentPage)">{{currentPage}}</a></li>
-      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getUsers(currentPage + 1)">{{currentPage + 1}}</a></li>
-      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
-      <ng-template #disabledLast>
-        <li class="page-item disabled"><a class="page-link" (click)="getUsers(lastPage)">Last</a></li>
-      </ng-template>
-    </ul>
-  </nav>
 </div>

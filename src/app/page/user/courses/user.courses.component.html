@@ -3,21 +3,26 @@
     <div *ngIf="courses" class="col-12">
       <table class="table table-striped admins-tables">
         <thead>
-        <tr  class="admins-courses-header">
+        <tr class="admins-courses-header">
           <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
             {{column.nameColumnForDisplay}} {{column.symbolSorting}}
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr class="table-row" *ngFor="let course of courses" [routerLink]="['/course', getCourseLink(course.self)]">
-          <td>
+        <tr class="table-row" *ngFor="let course of courses">
+          <td [routerLink]="['/course', getCourseLink(course.self)]">
             <div>
               <img [src]="course.image" style="height: 50px">
             </div>
           </td>
-          <td>{{course.name}}</td>
-          <td>{{course.description}}</td>
+          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
+          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
+          <td *ngIf="isAuthorizedAdmin">
+            <button class="btn btn btn-danger" (click)="assignCourse(course)" data-toggle="modal"
+                    data-target="#deleteCourse">Delete
+            </button>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -36,6 +41,26 @@
           </ng-template>
         </ul>
       </nav>
+    </div>
+  </div>
+  <div bsModal id="deleteCourse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+      <div class="modal-content" *ngIf="courseSelected">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Course?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{courseSelected.name}} will be deleted.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="deleteCourse(courseSelected)" data-dismiss="modal" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

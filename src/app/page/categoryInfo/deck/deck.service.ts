@@ -23,15 +23,14 @@ export class DeckService {
 
   getDecks(categoryId: number, numberPage: number,
            selectedSortingParam: string, ascending: boolean): Observable<DeckByCategoryAndPageDTO> {
-    return this.orlp.get('api/categories/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' +
-      selectedSortingParam + '&asc=' + ascending)
+    return this.orlp.get('/api/categories/' + categoryId + '/decks?p=' + numberPage + '&sortBy=' + selectedSortingParam + '&asc=' + ascending)
       .map((response: Response) => <DeckByCategoryAndPageDTO> DTOConverter
         .jsonToDeckByCategoryAndPage(response.json()))
       .catch(this.handleError);
   }
 
   addDeckToFolder(deckId: number): Observable<DeckPublic> {
-    return this.orlp.put('api/cabinet/folder/add/deck/' + deckId, {})
+    return this.orlp.put('/api/user/folder/add/deck/' + deckId, {})
       .map((response: Response) => {
         response.json();
       })
@@ -39,18 +38,12 @@ export class DeckService {
   }
 
   getIdDecksInYourFolder(): Observable<number[]> {
-    return this.orlp.get('api/private/user/folder/decks/id')
+    return this.orlp.get('api/user/folder/decksId')
       .map((response: Response) => response.json());
   }
 
-  private handleError(error: Response) {
-    this.logger.error(error);
-
-    return Observable.throw(error.json().error || 'Server error');
-  }
-
   addDeckRating(rating: Rating, deckId: number) {
-    return this.orlp.post('/api/private/deck/' + deckId, rating);
+    return this.orlp.post('/api/decks/' + deckId, rating);
   }
 
   countCardsThatNeedRepeating(deckId: number): Observable<number> {
@@ -67,5 +60,11 @@ export class DeckService {
           saveAs(blob, deckName + '.yml');
         }
       );
+  }
+
+  private handleError(error: Response) {
+    this.logger.error(error);
+
+    return Observable.throw(error.json().error || 'Server error');
   }
 }
