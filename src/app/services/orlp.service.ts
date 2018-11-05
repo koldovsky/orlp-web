@@ -42,6 +42,7 @@ export class ORLPService {
   public decodeLink(url: string) {
     url = decodeURI(url);
     url = atob(url);
+    url = url.replace('https://api.infolve.com/', '');
     return url;
   }
 }
