@@ -109,13 +109,13 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner);
+      data.owner, cards, self, data.synthax);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,data.hidden, data.synthax, data.createdBy);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status, data.synthax);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
@@ -186,7 +186,6 @@ export class DTOConverter {
     data.forEach(element => {
       array.push(callback(element));
     });
-
     return array;
   }
 
