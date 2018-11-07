@@ -7,22 +7,22 @@ import {RouterModule} from '@angular/router';
 import {StarRatingModule} from 'angular-star-rating';
 
 @NgModule({
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        CommonModule,
-        StarRatingModule,
-        RouterModule.forChild([
-            {path: 'home', component: HomeComponent}
-        ]),
-    ],
-    exports: [],
-    declarations: [
-        HomeComponent
-    ],
-    providers: [
-        HomeService
-    ],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    StarRatingModule,
+    RouterModule.forChild([
+      {path: 'home', component: HomeComponent}
+    ]),
+  ],
+  exports: [],
+  declarations: [
+    HomeComponent
+  ],
+  providers: [
+    HomeService
+  ],
 })
 export class HomeModule {
 }

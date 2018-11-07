@@ -243,11 +243,11 @@
   padding: 5px 40px;
 }
 
-.is-invalid{
+.is-invalid {
   color: red;
 }
 
-.alert{
+.alert {
   position: absolute;
   margin-top: 20px;
   margin-bottom: 0;
@@ -259,13 +259,12 @@
   text-align: center;
 }
 
-.alert-success{
+.alert-success {
   border: none;
   background-color: #ffc91b;
-
 }
 
-.alert-danger{
+.alert-danger {
   border: none;
   background-color: red;
 }
@@ -296,7 +295,7 @@
     flex-direction: column;
   }
 
-  .container-form > .col-5, .col-7{
+  .container-form > .col-5, .col-7 {
     max-width: none;
   }
 
@@ -374,7 +373,7 @@
     width: 100%;
   }
 
-  .container-form > .col-5, .col-7{
+  .container-form > .col-5, .col-7 {
     max-width: none;
   }
 

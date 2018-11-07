@@ -112,7 +112,7 @@
         <input type="text" placeholder="Name*" formControlName="name" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
                                         && contactUsForm.controls['name'].hasError('minlength')">
-          Name is too short! (not less than 2 characters)
+          Name is too short! (not less than 2 characters).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
                                         && contactUsForm.controls['name'].hasError('required')">
@@ -120,11 +120,11 @@
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
                                         && contactUsForm.controls['name'].hasError('pattern')">
-          You wrote incorrect characters. (Only letters and +# are allowed)
+          You wrote incorrect characters. (Only letters and +# are allowed).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
                                         && contactUsForm.controls['name'].hasError('maxlength')">
-          Name is too long! (not more than 50 characters)
+          Name is too long! (not more than 50 characters).
         </div>
         <input type="text" placeholder="Email*" formControlName="email" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
@@ -142,7 +142,7 @@
         <input type="text" placeholder="Subject*" formControlName="subject" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
                                         && contactUsForm.controls['subject'].hasError('minlength')">
-          Subject is too short! (not less than 2 characters)
+          Subject is too short! (not less than 2 characters).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
                                         && contactUsForm.controls['subject'].hasError('required')">
@@ -150,18 +150,18 @@
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
                                         && contactUsForm.controls['subject'].hasError('pattern')">
-          You wrote incorrect characters. (Only letters and +# are allowed)
+          You wrote incorrect characters. (Only letters and +# are allowed).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
                                         && contactUsForm.controls['subject'].hasError('maxlength')">
-          Subject is too long! (not more than 50 characters)
+          Subject is too long! (not more than 50 characters).
         </div>
       </div>
       <div class="message col-7">
         <textarea placeholder="Message*" name="text" formControlName="text" required></textarea>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('minlength')">
-          Message is too short! (not less than 10 characters)
+          Message is too short! (not less than 10 characters).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('required')">
@@ -169,7 +169,7 @@
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('maxlength')">
-          Message is too long! (not more than 500 characters)
+          Message is too long! (not more than 500 characters).
         </div>
       </div>
     </div>
@@ -177,13 +177,13 @@
       <button type="submit" class="btn btn-block send-message" [disabled]="!contactUsForm.valid">SEND MESSAGE
       </button>
       <div class="justify-content-center alert alert-success " role="alert" *ngIf="emailSent">
-        Email sent <i class="fa fa-check-circle" aria-hidden="true"></i>
+        Email sent. <i class="fa fa-check-circle" aria-hidden="true"></i>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="justify-content-center alert alert-danger" role="alert" *ngIf="emailNotSent">
-        Sending of message failed. Please try again
+        Sending of message failed. Please try again.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
