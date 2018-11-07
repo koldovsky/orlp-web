@@ -25,7 +25,7 @@ build:
         - npm-install
         - script:
             name: install node-sass
-            code: npm install node-sass --sass-binary-site=https://github.com/sass/node-sass/releases/download/v4.6.0/linux-x64-47_binding.node
+            code: npm install node-sass@4.10.0
         - script:
             name: run build
             code: npm run build
