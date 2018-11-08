@@ -10,7 +10,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
-import {SearchResults} from '../../dto/search.results.DTO';
+import {SearchResults} from '../../dto/SearchDTO/search.results.DTO';
 
 @Injectable()
 export class MainService {

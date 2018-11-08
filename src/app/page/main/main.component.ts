@@ -13,7 +13,7 @@ import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {SearchService} from '../search/search.service';
 import {SearchComponent} from '../search/search.component';
-import {SearchResults} from '../../dto/search.results.DTO';
+import {SearchResults} from '../../dto/SearchDTO/search.results.DTO';
 
 @Component({
   selector: 'app-page',

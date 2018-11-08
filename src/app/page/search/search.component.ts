@@ -1,6 +1,6 @@
 
 import {SearchService} from './search.service';
-import {SearchResults} from '../../dto/search.results.DTO';
+import {SearchResults} from '../../dto/SearchDTO/search.results.DTO';
 import {Component, OnInit} from '@angular/core';
 
 @Component({

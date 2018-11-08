@@ -33,7 +33,10 @@ import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from './AccountDTO/accountDTO';
-import {SearchResults} from './search.results.DTO';
+import {SearchResults} from './SearchDTO/search.results.DTO';
+import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
+import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
+import {DeckSearchDTO} from './SearchDTO/deck.search.DTO';
 
 
 export class DTOConverter {
@@ -234,8 +237,25 @@ export class DTOConverter {
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
   }
 
-  public static jsonToSearchResultsDTO (data: any): SearchResults {
+  public static jsonToDecksSearchDTO (data: any): DeckSearchDTO {
     const self: Link = DTOConverter.jsonToLinkSearch('self', data);
-    return new SearchResults(data.name, data.description, data.rating, data.image, data.resultType, self);
+    return new DeckSearchDTO(data.name, data.description, data.rating, data.image, self);
+  }
+
+  public static jsonToCoursesSearchDTO (data: any): CourseSearchDTO {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new CourseSearchDTO(data.name, data.description, data.rating, data.image, self);
+  }
+
+  public static jsonToCategoriesSearchDTO (data: any): CategorySearchDTO {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new CategorySearchDTO(data.name, data.description, data.image, self);
+  }
+
+  public static jsonToSearchResultsDTO (data: any): SearchResults {
+    const categories: CategorySearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCategoriesSearchDTO, data.category);
+    const courses: CourseSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCoursesSearchDTO, data.course);
+    const decks: DeckSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToDecksSearchDTO, data.deck);
+    return new SearchResults(courses, categories, decks);
   }
 }

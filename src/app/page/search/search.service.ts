@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {ORLPService} from '../../services/orlp.service';
 import {NGXLogger} from 'ngx-logger';
 import {Observable} from 'rxjs/Observable';
-import {SearchResults} from '../../dto/search.results.DTO';
+import {SearchResults} from '../../dto/SearchDTO/search.results.DTO';
 import {DTOConverter} from '../../dto/dto.converter';
 import {Response} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
@@ -17,13 +17,12 @@ export class SearchService {
   constructor(private orlp: ORLPService, private logger: NGXLogger) {
   }
 
-  public results: SearchResults[];
-  searchString = '';
+  public results: SearchResults;
 
-  getSearchResults(searchString: string): Observable<SearchResults[]> {
+  getSearchResults(searchString: string): Observable<SearchResults> {
    return this.orlp.get('api/search/' + searchString)
-      .map((response: Response) => <SearchResults[]>
-        (DTOConverter.jsonArrayToCollection(DTOConverter.jsonToSearchResultsDTO, response.json())))
+      .map((response: Response) => <SearchResults>
+        (DTOConverter.jsonToSearchResultsDTO(response.json())))
       .catch(this.handleError);
   }
 
@@ -36,7 +35,4 @@ export class SearchService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  setSearchString(searchString: string) {
-    this.searchString = searchString;
-  }
 }
