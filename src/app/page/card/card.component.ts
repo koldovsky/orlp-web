@@ -18,7 +18,7 @@ export class CardComponent implements OnInit {
   public static synthax: String;
 
   public routing = false;
-  public questionNumber = 0;
+  public questionNumber;
   public maxQuantityCard;
 
   public answer = '';
@@ -34,6 +34,7 @@ export class CardComponent implements OnInit {
   public answerConfig;
   public configSynthax: String;
   private isAuthorized: boolean;
+  private cardTitle: string;
 
   constructor(private route: ActivatedRoute,
               private cardService: CardService,
@@ -42,6 +43,7 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.questionNumber = 0;
     this.converSynthax();
     this.config = {theme: 'xq-dark', mode: (this.configSynthax), lineWrapping: true};
     this.answerConfig = {readonly: true, theme: 'xq-dark', mode: (this.configSynthax), lineWrapping: true};
@@ -58,6 +60,7 @@ export class CardComponent implements OnInit {
 
   onRotate() {
     this.routing = true;
+    this.setRatingTitle();
   }
 
   onRotateBack() {
@@ -154,10 +157,23 @@ export class CardComponent implements OnInit {
   }
 
   onCardRatingClick = (card: CardPublic, event: IStarRatingOnClickEvent) => {
+    this.cardTitle = 'You gave this card ' + event.rating + ' stars';
     const cardRating: Rating = new Rating(event.rating);
     this.cardService.addCardRating(cardRating,  card.cardId).subscribe(() => {
       card.rating = event.rating; }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
+  }
+
+  setRatingTitle(): void {
+    if (this.isAuthorized) {
+      if (this.cards[this.questionNumber].rating > 0) {
+        this.cardTitle = 'Average rating';
+      } else {
+        this.cardTitle = 'Looks like nobody has rated this card yet';
+      }
+    } else {
+      this.cardTitle = 'Login to rate card';
+      }
   }
 }
