@@ -32,7 +32,9 @@ import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
-import {AccountDTO} from "./AccountDTO/accountDTO";
+import {AccountDTO} from './AccountDTO/accountDTO';
+import {SearchResults} from './search.results.DTO';
+
 
 export class DTOConverter {
 
@@ -181,6 +183,10 @@ export class DTOConverter {
     return new Link(rel, data.href);
   }
 
+  public static jsonToLinkSearch(rel: string, data: any): Link {
+    return new Link(rel, data.selfLink);
+  }
+
   public static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any> {
     const array: Array<any> = [];
     data.forEach(element => {
@@ -226,5 +232,10 @@ export class DTOConverter {
   public static jsonToAccountDTO(data: any): AccountDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
+  }
+
+  public static jsonToSearchResultsDTO (data: any): SearchResults {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new SearchResults(data.name, data.description, data.rating, data.image, data.resultType, self);
   }
 }

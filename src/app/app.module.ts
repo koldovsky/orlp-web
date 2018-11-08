@@ -38,6 +38,9 @@ import {RestorePasswordService} from './page/authorization/restorePassword/resto
 import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
 import {CardModule} from './page/card/card.module';
+import {SearchModule} from './page/search/search.module';
+import {SearchComponent} from './page/search/search.component';
+
 
 @NgModule({
   imports: [
@@ -66,6 +69,7 @@ import {CardModule} from './page/card/card.module';
     UserStatusChangeModule,
     AuthorisedModule,
     RestorePasswordModule,
+    SearchModule,
     LoggerModule.forRoot({
       serverLoggingUrl: environment.SERVER_ADDRESS,
       level: environment.logger.level,
@@ -82,7 +86,7 @@ import {CardModule} from './page/card/card.module';
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
     CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService,
-    RestorePasswordService],
+    RestorePasswordService, SearchComponent],
   bootstrap: [MainComponent]
 })
 export class AppModule {

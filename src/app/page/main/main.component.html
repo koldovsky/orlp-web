@@ -45,7 +45,10 @@
           </ul>
         </div>
         <div class="navbar-nav my-navbar-nav">
-          <a class="nav-link" [routerLink]="['/home']"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
+          <div class = "search-box">
+            <span class = "icon"><a class="nav-link" [routerLink]="['/search']" (click)="onSearchClick()"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a></span>
+            <input [(ngModel)] = "searchString" type = "search" id = "search"/>
+          </div>
           <a *ngIf="isAuthorized" [routerLink]="['/user/profile']">
             <img *ngIf="image; else default_image" class="user-image" src="{{image}}">
             <ng-template #default_image>
