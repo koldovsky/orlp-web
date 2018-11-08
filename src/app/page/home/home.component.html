@@ -111,65 +111,59 @@
       <div class="input-container col-5">
         <input type="text" placeholder="Name*" formControlName="name" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
-                                        && contactUsForm.controls['name'].hasError('minlength')">
-          Name is too short! (not less than 2 characters).
+                                          && (contactUsForm.controls['name'].hasError('minlength') || contactUsForm.controls['name'].hasError('pattern'))">
+          Enter a combination of at least 2 letters and punctuation marks (like + and #).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
-                                        && contactUsForm.controls['name'].hasError('required')">
-          Name is required field!
+                                          && contactUsForm.controls['name'].hasError('required')">
+          Required field cannot be left blank.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
-                                        && contactUsForm.controls['name'].hasError('pattern')">
-          You wrote incorrect characters. (Only letters and +# are allowed).
-        </div>
-        <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
-                                        && contactUsForm.controls['name'].hasError('maxlength')">
-          Name is too long! (not more than 50 characters).
+                                          && contactUsForm.controls['name'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
         </div>
         <input type="text" placeholder="Email*" formControlName="email" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
-                                      && contactUsForm.controls['email'].hasError('required')">
-          Email is required field!
+                                        && contactUsForm.controls['email'].hasError('required')">
+          Required field cannot be left blank.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
-                                      && (contactUsForm.controls['email'].hasError('pattern') || contactUsForm.controls['email'].hasError('minlength'))">
-          Incorrect email address, please try again.
+                                        && (contactUsForm.controls['email'].hasError('pattern')
+                                          || contactUsForm.controls['email'].hasError('minlength'))">
+          The email you gave is incorrect.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
-                                      && contactUsForm.controls['email'].hasError('maxlength')">
-          Email is too long! Please enter a valid one.
+                                        && contactUsForm.controls['email'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
         </div>
         <input type="text" placeholder="Subject*" formControlName="subject" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
-                                        && contactUsForm.controls['subject'].hasError('minlength')">
-          Subject is too short! (not less than 2 characters).
+                                          && (contactUsForm.controls['subject'].hasError('minlength')
+                                            || contactUsForm.controls['subject'].hasError('pattern'))">
+          Enter a combination of at least 2 letters and punctuation marks (like + and #).
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
-                                        && contactUsForm.controls['subject'].hasError('required')">
-          Subject is required field!
+                                          && contactUsForm.controls['subject'].hasError('required')">
+          Required field cannot be left blank.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
-                                        && contactUsForm.controls['subject'].hasError('pattern')">
-          You wrote incorrect characters. (Only letters and +# are allowed).
-        </div>
-        <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
-                                        && contactUsForm.controls['subject'].hasError('maxlength')">
-          Subject is too long! (not more than 50 characters).
+                                          && contactUsForm.controls['subject'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
         </div>
       </div>
       <div class="message col-7">
         <textarea placeholder="Message*" name="text" formControlName="text" required></textarea>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('minlength')">
-          Message is too short! (not less than 10 characters).
+          Enter a combination of at least 10 numbers, letters and punctuation marks.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('required')">
-          Message is required field!
+          Required field cannot be left blank.
         </div>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('maxlength')">
-          Message is too long! (not more than 500 characters).
+          This field cannot contain more than 500 characters.
         </div>
       </div>
     </div>
@@ -183,7 +177,7 @@
         </button>
       </div>
       <div class="justify-content-center alert alert-danger" role="alert" *ngIf="emailNotSent">
-        Sending of message failed. Please try again.
+        Message not sent. Please try again.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

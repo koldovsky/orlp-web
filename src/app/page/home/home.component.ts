@@ -11,7 +11,7 @@ import {AuthorizationService} from '../authorization/authorization.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {CourseLinkWithStatus} from '../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
-import {ContuctUsEmail} from '../../dto/ContuctUsEmail';
+import {ContactUsEmail} from '../../dto/ContactUsEmail';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 export const SUBSCRIBE = 'SUBSCRIBE';
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   coursesWithStatus: CourseLinkWithStatus[] = [];
   private coursesIdOfTheUser: number[] = [];
   contactUsForm: FormGroup;
-  contactForm: ContuctUsEmail;
+  contactForm: ContactUsEmail;
   emailSent: boolean;
   emailNotSent: boolean;
 
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  };
+  }
 
   scrollDown() {
     if (window.pageYOffset < this.categoriesContainer.nativeElement.offsetTop) {
@@ -200,14 +200,11 @@ export class HomeComponent implements OnInit {
   }
 
   sendEmailMessage(form: any) {
-    this.contactForm = new ContuctUsEmail(form.name, form.email, form.subject, form.text);
-    this.mainService.sendEmailMessage(form).subscribe(response => {
-      if (response.ok) {
+    this.contactForm = new ContactUsEmail(form.name, form.email, form.subject, form.text);
+    this.mainService.sendEmailMessage(form).subscribe(() => {
         this.emailSent = true;
         this.contactUsForm.reset();
-      } else {
-        this.emailNotSent = true;
-      }
-    });
+      }, () => this.emailNotSent = true
+    );
   }
 }
