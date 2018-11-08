@@ -36,3 +36,7 @@ th, li {
 .header-item {
   background-color: #e6e6e6;
 }
+
+td {
+  vertical-align: middle;
+}

@@ -44,13 +44,18 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th class="col-1"></th>
         <th class="alignCenter">Rating</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let deck of decks" class="table-row">
-        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.name}}</td>
-        <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.description}}</td>
+        <td>{{deck.name}}</td>
+        <td>{{deck.description}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
+          </button>
+        </td>
         <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>

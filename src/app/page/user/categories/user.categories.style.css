@@ -3,6 +3,10 @@
   background-color: #e1d7e8;
 }
 
+td {
+  vertical-align: middle;
+}
+
 .admins-tables-header th:hover {
   cursor: pointer;
   background-color: #e1d7e8;
