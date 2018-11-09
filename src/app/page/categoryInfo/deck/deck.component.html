@@ -11,7 +11,7 @@
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>
-      <td class="col-1">
+      <td class="start">
         <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
         </button>
       </td>
@@ -22,7 +22,7 @@
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
       </td>
-      <td class="alignCenter col-1" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
+      <td class="alignCenter" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>

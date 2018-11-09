@@ -8,7 +8,7 @@
               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
               (click)="sortBy(column)">
             {{column.nameColumnForDisplay}} {{column.symbolSorting}}
-          <th class="disabled-header"></th>
+          <th class="disabled-header view"></th>
         </tr>
         <tr class="table-row" *ngFor="let category of categories">
           <td>
@@ -18,7 +18,7 @@
           </td>
           <td>{{category.name}}</td>
           <td>{{category.description}}</td>
-          <td class="col-1">
+          <td>
             <button class="btn btn-primary" [routerLink]="['/category', getCategoryLink(category.self)]">View category</button>
           </td>
         </tr>

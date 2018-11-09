@@ -5,7 +5,7 @@
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
       <td>{{course.name}}</td>
       <td>{{course.description}}</td>
-      <td></td>
+      <td class="start"></td>
       <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>

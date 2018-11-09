@@ -3,6 +3,10 @@
   background-color: #e1d7e8;
 }
 
+.view {
+  width: 1%;
+}
+
 td {
   vertical-align: middle;
 }

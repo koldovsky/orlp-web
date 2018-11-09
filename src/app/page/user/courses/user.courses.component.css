@@ -19,6 +19,10 @@
   cursor: default;
 }
 
+.view {
+  width: 1%;
+}
+
 th, li {
   cursor: pointer;
 }
