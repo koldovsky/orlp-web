@@ -68,7 +68,7 @@
 }
 
 .courses-container {
-  height: 800px;
+  padding-bottom: 50px;
 }
 
 .categories-container, .courses-container {
@@ -159,15 +159,11 @@
 
 .contact-us {
   padding-top: 2%;
-  margin-bottom: -3%;
   background-color: #444444;
 }
 
 .contact-us .container-form {
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
+  margin: 0 30px;
 }
 
 .input-container {
@@ -175,15 +171,10 @@
   padding-left: 20px;
 }
 
-.contact-us .message {
-  width: 45%;
-  margin-right: 30px;
-}
-
 .input-container input[type="text"] {
   margin-top: 10px;
   padding: 5px 5px;
-  width: 95%;
+  width: 100%;
   background-color: white;
   border: 1px solid black;
   color: black;
@@ -196,7 +187,6 @@
 .message textarea {
   width: 100%;
   height: 100%;
-  margin-left: 10px;
   padding: 5px 5px;
   background-color: white;
   border: 1px solid black;
@@ -253,6 +243,32 @@
   padding: 5px 40px;
 }
 
+.is-invalid {
+  color: #FFC91B;
+}
+
+.alert {
+  position: absolute;
+  margin-top: 20px;
+  margin-bottom: 0;
+  width: 100%;
+  color: white;
+  font-weight: 600;
+  font-size: large;
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+
+.alert-success {
+  border: none;
+  background-color: #ffc91b;
+}
+
+.alert-danger {
+  border: none;
+  background-color: red;
+}
+
 @media (max-width: 576px) {
   .main-card {
     margin-top: 10px;
@@ -260,14 +276,6 @@
 
   .button-row {
     margin-top: 5px;
-  }
-
-  .courses-container {
-    height: 2100px;
-  }
-
-  .row > .col {
-    height: 500px;
   }
 
   .contact-us {
@@ -285,6 +293,10 @@
 
   .contact-us .container-form {
     flex-direction: column;
+  }
+
+  .container-form > .col-5, .col-7 {
+    max-width: none;
   }
 
   .contact-us .message {
@@ -312,9 +324,8 @@
   }
 
   .contact-us .send-message {
-    min-width: 100%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    max-width: none;
+    margin: 30px 50px;
   }
 
   .center-col {
@@ -329,10 +340,6 @@
 @media (min-width: 576px) and (max-width: 768px) {
   .main-card {
     margin-top: 10px;
-  }
-
-  .courses-container {
-    height: 1100px;
   }
 
   .button-row {
@@ -366,26 +373,37 @@
     width: 100%;
   }
 
+  .container-form > .col-5, .col-7 {
+    max-width: none;
+  }
+
   .contact-us > .row {
     margin: 0 40px;
   }
 
   .contact-us .send-message {
-    min-width: 100%;
-    margin: 20px 0;
+    max-width: none;
+    margin: 20px 35px;
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+
+  .alert {
+    margin-top: 10px;
+  }
+}
+
+@media (width: 576px) {
+  .push {
+    margin-bottom: 0;
+  }
+
+  .contact-us .send-message {
+    min-width: 0;
   }
 }
 
 @media (min-width: 768px) and (max-width: 992px) {
-  .courses-container {
-    height: 1050px;
-  }
-
-  .row .col {
-    height: 500px;
-  }
 
   .center-col {
     text-align: -webkit-center;
@@ -397,16 +415,11 @@
 
   .contact-us .message {
     width: 100%;
-    padding: 5px 0;
   }
 
   .message textarea {
     margin-left: 0;
     width: 100%;
-  }
-
-  .input-container {
-    padding: 5px 25px;
   }
 
   .input-container input[type="text"] {
@@ -436,7 +449,6 @@
 }
 
 .course-card {
-  height: 410px;
   max-width: 200px;
   cursor: pointer;
   border: none;
