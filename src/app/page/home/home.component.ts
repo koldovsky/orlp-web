@@ -201,8 +201,8 @@ export class HomeComponent implements OnInit {
 
   sendEmailMessage(form: any) {
     this.contactForm = new ContactUsEmail(form.name, form.email, form.subject, form.text);
-    this.mainService.sendEmailMessage(form).subscribe(() => {
-        this.emailSent = true;
+    this.mainService.sendEmailMessage(form).subscribe((response) => {
+        response.ok ? this.emailSent = true : this.emailNotSent = true;
         this.contactUsForm.reset();
       }, () => this.emailNotSent = true
     );
