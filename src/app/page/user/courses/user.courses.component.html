@@ -11,13 +11,17 @@
         </thead>
         <tbody>
         <tr class="table-row" *ngFor="let course of courses">
-          <td [routerLink]="['/course', getCourseLink(course.self)]">
+          <td>
             <div>
               <img [src]="course.image" style="height: 50px">
             </div>
           </td>
-          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
-          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
+          <td>{{course.name}}</td>
+          <td>{{course.description}}</td>
+          <td class="view">
+            <button class="btn btn-primary" [routerLink]="['/course', getCourseLink(course.self)]">View course
+            </button>
+          </td>
           <td *ngIf="isAuthorizedAdmin">
             <button class="btn btn btn-danger" (click)="assignCourse(course)" data-toggle="modal"
                     data-target="#deleteCourse">Delete
