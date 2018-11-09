@@ -106,23 +106,82 @@
   <div class="row justify-content-center">
     <p class="contact-us-text">CONTACT US</p>
   </div>
-  <form #f="ngForm" (ngSubmit)="sendEmailMessage(f.value)">
-    <div class="container-form">
-      <div class="input-container">
-        <input type="text" placeholder="NAME*" name="name" required [(ngModel)]="name">
-        <input type="text" placeholder="EMAIL*" name="email" required [(ngModel)]="email">
-        <input type="text" placeholder="SUBJECT*" name="subject" required [(ngModel)]="subject">
+  <form class="was-validated" [formGroup]="contactUsForm" (ngSubmit)="sendEmailMessage(contactUsForm.value)">
+    <div class="container-form row">
+      <div class="input-container col-5">
+        <input type="text" placeholder="Name*" formControlName="name" required>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
+                                          && (contactUsForm.controls['name'].hasError('minlength') || contactUsForm.controls['name'].hasError('pattern'))">
+          Enter a combination of at least 2 letters and punctuation marks (like + and #).
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
+                                          && contactUsForm.controls['name'].hasError('required')">
+          Required field cannot be left blank.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
+                                          && contactUsForm.controls['name'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
+        </div>
+        <input type="text" placeholder="Email*" formControlName="email" required>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
+                                        && contactUsForm.controls['email'].hasError('required')">
+          Required field cannot be left blank.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
+                                        && (contactUsForm.controls['email'].hasError('pattern')
+                                          || contactUsForm.controls['email'].hasError('minlength'))">
+          The email you gave is incorrect.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['email'].touched || contactUsForm.controls['email'].dirty)
+                                        && contactUsForm.controls['email'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
+        </div>
+        <input type="text" placeholder="Subject*" formControlName="subject" required>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
+                                          && (contactUsForm.controls['subject'].hasError('minlength')
+                                            || contactUsForm.controls['subject'].hasError('pattern'))">
+          Enter a combination of at least 2 letters and punctuation marks (like + and #).
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
+                                          && contactUsForm.controls['subject'].hasError('required')">
+          Required field cannot be left blank.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['subject'].touched || contactUsForm.controls['subject'].dirty)
+                                          && contactUsForm.controls['subject'].hasError('maxlength')">
+          This field cannot contain more than 50 characters.
+        </div>
       </div>
-      <div class="message">
-        <textarea placeholder="MESSAGE*" name="text" required [(ngModel)]="text"></textarea>
+      <div class="message col-7">
+        <textarea placeholder="Message*" name="text" formControlName="text" required></textarea>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
+                                          && contactUsForm.controls['text'].hasError('minlength')">
+          Enter a combination of at least 10 numbers, letters and punctuation marks.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
+                                          && contactUsForm.controls['text'].hasError('required')">
+          Required field cannot be left blank.
+        </div>
+        <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
+                                          && contactUsForm.controls['text'].hasError('maxlength')">
+          This field cannot contain more than 500 characters.
+        </div>
       </div>
     </div>
     <div class="row justify-content-center button-row push">
-      <button type="submit" class="btn btn-block send-message">SEND MESSAGE
+      <button type="submit" class="btn btn-block send-message" [disabled]="!contactUsForm.valid">SEND MESSAGE
       </button>
+      <div class="justify-content-center alert alert-success " role="alert" *ngIf="emailSent">
+        Email sent. <i class="fa fa-check-circle" aria-hidden="true"></i>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="justify-content-center alert alert-danger" role="alert" *ngIf="emailNotSent">
+        Message not sent. Please try again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     </div>
   </form>
-  <div class="row justify-content-center">
-    <p class="email-sent" *ngIf="emailSended">Email sent</p>
-  </div>
 </div>

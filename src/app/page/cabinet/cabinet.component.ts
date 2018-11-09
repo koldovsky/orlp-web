@@ -131,11 +131,10 @@ export class CabinetComponent implements OnInit {
       .subscribe((response) => this.logger.log(response));
   }
 
-  changeAccessDeck(deck: DeckLinkByCategory, access: boolean) {
-     deck.hidden = access;
-
-    this.cabinetService.toggleDeck(deck)
-      .subscribe((response) => console.log());
+  changeAccessDeck(deck: DeckLinkByCategory) {
+    this.cabinetService.toggleDeck(deck).subscribe(response => {
+      deck.hidden = response.hidden;
+    });
   }
 
   getCategoryDecks(course: CourseLink) {

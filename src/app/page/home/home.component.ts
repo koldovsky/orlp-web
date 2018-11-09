@@ -1,4 +1,4 @@
-import {Component, ElementRef, Injectable, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {HomeService} from './home.service';
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
@@ -10,12 +10,13 @@ import {CourseService} from '../categoryInfo/course/course.service';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
-import {CourseInfoService} from '../courseInfo/courseInfo.service';
 import {CourseLinkWithStatus} from '../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
-import {ContuctUsEmail} from '../../dto/ContuctUsEmail';
-import {FormBuilder, FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
+import {ContactUsEmail} from '../../dto/ContactUsEmail';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
+
 @Component({
   templateUrl: ('./home.component.html'),
   styleUrls: ['./home.css']
@@ -32,11 +33,10 @@ export class HomeComponent implements OnInit {
   public subscriptionButtonText: string[] = [];
   coursesWithStatus: CourseLinkWithStatus[] = [];
   private coursesIdOfTheUser: number[] = [];
-  name: string;
-  email: string;
-  subject: string;
-  text: string;
-  emailSended: boolean;
+  contactUsForm: FormGroup;
+  contactForm: ContactUsEmail;
+  emailSent: boolean;
+  emailNotSent: boolean;
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
               private authorizationService: AuthorizationService,
               private ngZone: NgZone,
               private userStatusChangeService: UserStatusChangeService,
-              private formBuilder: FormBuilder) {
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    window.onscroll = ( () => this.scrollFunction());
+    window.onscroll = (() => this.scrollFunction());
     this.isAuthorized = this.logoutService.isAuthorized();
     this.status = sessionStorage.getItem('status');
     this.mainService.getCategories()
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
           this.courses = courses;
           this.setDefaultTextForButtonSubscribe();
           if (this.isAuthorized) {
-              this.getCoursesIdOfTheUser();
+            this.getCoursesIdOfTheUser();
           }
         },
         error => this.errorMessage = <any>error);
@@ -69,6 +69,17 @@ export class HomeComponent implements OnInit {
         this.isAuthorized = item;
         this.status = sessionStorage.getItem('status');
       }));
+    const inputValidator = [Validators.required, Validators.minLength(2),
+      Validators.maxLength(50), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
+    const emailValidator = [Validators.required, Validators.minLength(10),
+      Validators.maxLength(200), Validators.pattern(new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))];
+    const textValidator = [Validators.required, Validators.minLength(10), Validators.maxLength(500)];
+    this.contactUsForm = this.fb.group({
+      'name': [null, inputValidator],
+      'email': [null, emailValidator],
+      'subject': [null, inputValidator],
+      'text': [null, textValidator]
+    });
   }
 
   setSlider(array: any, categories: any) {
@@ -133,6 +144,7 @@ export class HomeComponent implements OnInit {
         this.createCoursesWithStatus();
       });
   }
+
   createCoursesWithStatus() {
     this.coursesWithStatus = [];
     for (const course of this.courses) {
@@ -149,12 +161,7 @@ export class HomeComponent implements OnInit {
     }
     this.setStatusForCoursesOfTheUser();
   }
-  clearInputFields(){
-    this.name = '';
-    this.text = '';
-    this.email = '';
-    this.subject = '';
-  }
+
   setStatusForCoursesOfTheUser() {
     for (const course of this.coursesWithStatus) {
       for (const id of this.coursesIdOfTheUser) {
@@ -185,14 +192,19 @@ export class HomeComponent implements OnInit {
       }
     }
   }
+
   setDefaultTextForButtonSubscribe() {
     for (const course of this.courses) {
-        this.subscriptionButtonText[course.courseId] = SUBSCRIBE;
+      this.subscriptionButtonText[course.courseId] = SUBSCRIBE;
     }
   }
+
   sendEmailMessage(form: any) {
-    this.mainService.sendEmailMessage(form).subscribe();
-    this.clearInputFields();
-    this.emailSended = true;
+    this.contactForm = new ContactUsEmail(form.name, form.email, form.subject, form.text);
+    this.mainService.sendEmailMessage(form).subscribe((response) => {
+        response.ok ? this.emailSent = true : this.emailNotSent = true;
+        this.contactUsForm.reset();
+      }, () => this.emailNotSent = true
+    );
   }
 }
