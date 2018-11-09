@@ -25,7 +25,7 @@
             <h1 class="motto">
               {{cards[questionNumber].question}}
               <div *ngFor="let cardImage of cards[questionNumber].images">
-                <img class="card-image" src="{{cardImage.image}}" alt="">
+                <img class="card-image" src="{{cardImage.image}}" alt="card image">
               </div>
             </h1>
           </div>
@@ -46,7 +46,7 @@
               {{cards[questionNumber].question}}
               <div *ngIf="cards[questionNumber].images != null">
                 <div *ngFor="let cardImage of cards[questionNumber].images">
-                  <img class="card-image" src="{{cardImage.image}}" alt="">
+                  <img class="card-image" src="{{cardImage.image}}" alt="card image">
                 </div>
               </div>
             </h1>
