@@ -57,10 +57,10 @@
           <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
         </td>
         <td *ngIf="deck.hidden===true && isOwnerDeck(deck)">
-          <button type=" button" class="btn btn-danger btn-sm" (click)="changeAccessDeck(deck, false)">PRIVATE</button>
+          <button type=" button" class="btn btn-danger btn-sm" (click)="changeAccessDeck(deck)">PRIVATE</button>
         </td>
         <td *ngIf="deck.hidden===false && isOwnerDeck(deck)">
-          <button type=" button" class="btn btn-primary btn-sm" (click)="changeAccessDeck(deck, true)">PUBLIC</button>
+          <button type=" button" class="btn btn-primary btn-sm" (click)="changeAccessDeck(deck)">PUBLIC</button>
         </td>
         <td *ngIf="!isOwnerDeck(deck)"></td>
         <td class="right-column">
