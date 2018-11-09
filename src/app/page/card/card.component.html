@@ -87,10 +87,11 @@
                 </div>
               </div>
               <div class="col-sm-3">
-                <div class="row justify-content-end mr-1" title="{{cardTitle}}" >
+                <div class="row justify-content-end mr-1" title="{{cardTitle}}">
                   <div *ngIf="isAuthorized;else unAuthorized">
                     <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                                      [rating]="cards[questionNumber].rating" (onClick)="onCardRatingClick(cards[questionNumber], $event)"></star-rating-comp>
+                                      [rating]="cards[questionNumber].rating" (onClick)="onCardRatingClick(cards[questionNumber], $event)">
+                    </star-rating-comp>
                   </div>
                   <ng-template #unAuthorized>
                     <star-rating-comp class="myNewClass" [starType]="'svg'" [showHalfStars]="true"
