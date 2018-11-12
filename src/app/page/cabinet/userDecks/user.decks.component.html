@@ -39,19 +39,19 @@
           <td>{{selectedDeck.rating}}</td>
         </tr>
         <tr>
-          <th>DeckCategory</th>
+          <th>Deck Category</th>
           <td>{{selectedDeck.category}}</td>
         </tr>
         <tr>
-          <th>DeckOwner</th>
+          <th>Deck Owner</th>
           <td>{{selectedDeck.owner}}</td>
         </tr>
         <tr>
-          <th>DeckSyntax</th>
+          <th>Deck Syntax</th>
           <td>{{selectedDeck.synthax}}</td>
         </tr>
         <tr>
-          <th>DeckPrice</th>
+          <th>Deck Price</th>
           <td>{{selectedDeck.points}}</td>
         </tr>
         </tbody>
@@ -90,62 +90,56 @@
             aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <table class="table">
-            <tr>
-              <td>
-                <label>Input deck name:</label>
-              </td>
-              <td>
+          <div class="input-container col-sm-12">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Deck name:</label>
+              <div class="col-sm-3">
                 <input type="text" [(ngModel)]="name"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Input deck description:</label>
-              </td>
-              <td>
+              </div>
+            </div>
+            <hr class="col-sm-11">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Deck description:</label>
+              <div class="col-sm-3">
                 <input type="text" [(ngModel)]="description"/>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Choose a category:</label>
-              </td>
-              <td>
+              </div>
+            </div>
+            <hr class="col-sm-11">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose a category:</label>
+              <div class="col-sm-3">
                 <select class="category-select" [(ngModel)]="categoryId">
                   <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
                 </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Choose syntax that should be highlighted:</label>
-              </td>
-              <td>
+              </div>
+            </div>
+            <hr class="col-sm-11">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Choose syntax:</label>
+              <div class="col-sm-3">
                 <select class="category-select" [(ngModel)]="synthax">
                   <option *ngFor="let synthax of allSynthaxes">{{synthax}}</option>
                 </select>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label>Input deck price:</label>
-              </td>
-              <td>
-                <input type="number" [(ngModel)]="points"/>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button *ngIf="name && description && categoryId && points" class="btn btn-primary btn-pointer"
-                  data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
-          </button>
-          <button *ngIf="!name || !description || !categoryId || !points"
-                  class="btn btn-primary btn-pointer disabled" aria-label="Close">
-            {{dialogButtonName}}
-          </button>
-          <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+            <hr class="col-sm-11">
+            <div class="form-group row">
+              <label class="col-sm-6 col-form-label">Deck price:</label>
+              <div class="col-sm-3">
+                <input type="number" min="0" [(ngModel)]="points" pattern="^[0-9]{1,6}$" ngModel/>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button *ngIf="name && description && categoryId " class="btn btn-primary btn-pointer"
+                      data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
+              </button>
+              <button *ngIf="!name || !description || !categoryId"
+                      class="btn btn-primary btn-pointer disabled" aria-label="Close">
+                {{dialogButtonName}}
+              </button>
+              <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

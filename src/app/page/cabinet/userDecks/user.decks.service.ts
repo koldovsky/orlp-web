@@ -4,8 +4,7 @@ import {UserDTO} from '../../../dto/UsersDTO/UserDTO';
 import {Observable} from 'rxjs/Observable';
 import {DTOConverter} from '../../../dto/dto.converter';
 import {DeckDTO} from '../../../dto/DeckDTO/DeckDTO';
-import {Link} from '../../../dto/link';
-import {Response, ResponseContentType} from '@angular/http';
+import {Response} from '@angular/http';
 import {CategoryLink} from '../../../dto/CategoryDTO/link.category.DTO';
 import {NewDeckDTO} from '../../../dto/DeckDTO/deck.added.DTO';
 import {saveAs} from 'file-saver';
@@ -39,7 +38,7 @@ export class UserDecksService {
 
   createDeck(deck: NewDeckDTO) {
     return this.orlp.post('api/categories/' + deck.categoryId + '/decks', deck)
-      .map((response: Response) => console.log(response.json()));
+      .map((response: Response) => response.json());
   }
 
   editDeck(deck: NewDeckDTO, deckId: number) {
