@@ -19,6 +19,10 @@
   cursor: default;
 }
 
+.view {
+  width: 1%;
+}
+
 th, li {
   cursor: pointer;
 }
@@ -35,4 +39,8 @@ th, li {
 
 .header-item {
   background-color: #e6e6e6;
+}
+
+td {
+  vertical-align: middle;
 }

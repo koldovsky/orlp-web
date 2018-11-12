@@ -164,3 +164,7 @@ div, button:focus, .card-title, img {
   font-family: "Helvetica Neue", sans-serif;
   font-weight: lighter;
 }
+
+.pagination {
+  margin-bottom: 20px !important;
+}

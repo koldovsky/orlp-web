@@ -3,6 +3,14 @@
   background-color: #e1d7e8;
 }
 
+.view {
+  width: 1%;
+}
+
+td {
+  vertical-align: middle;
+}
+
 .admins-tables-header th:hover {
   cursor: pointer;
   background-color: #e1d7e8;
