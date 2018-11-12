@@ -39,7 +39,7 @@ export class UserDecksService {
 
   createDeck(deck: NewDeckDTO) {
     return this.orlp.post('api/categories/' + deck.categoryId + '/decks', deck)
-      .map((response: Response) => response.json());
+      .map((response: Response) => console.log(response.json()));
   }
 
   editDeck(deck: NewDeckDTO, deckId: number) {

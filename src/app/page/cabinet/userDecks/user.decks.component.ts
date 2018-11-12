@@ -10,6 +10,7 @@ import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
 import {CabinetService} from "../cabinet.service";
 import {NGXLogger} from "ngx-logger";
+import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -26,6 +27,7 @@ export class UserDecksComponent implements OnInit {
   categoryId: number;
   dialogCategoryId: number;
   category: string;
+  points: number;
   dialogName: string;
   dialogButtonName: string;
   private isCreateDialog: boolean;
@@ -75,6 +77,7 @@ export class UserDecksComponent implements OnInit {
     this.categoryId = null;
     this.category = '';
     this.synthax = '';
+    this.points = 0;
     this.isCreateDialog = true;
   }
 
@@ -87,15 +90,16 @@ export class UserDecksComponent implements OnInit {
     this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.category = this.selectedDeck.category;
     this.synthax = this.selectedDeck.synthax;
+    this.points = this.selectedDeck.points;
     this.isCreateDialog = false;
   }
 
   private createDeck() {
     if (this.isCreateDialog) {
-      this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax))
+      this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax,this.points))
         .subscribe(() => this.getOnlyDecksCreatedByTheUser());
     } else {
-      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax), this.selectedDeck.deckId)
+      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax,this.points), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
   }

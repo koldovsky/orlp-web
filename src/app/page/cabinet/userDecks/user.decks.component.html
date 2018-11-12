@@ -50,6 +50,10 @@
           <th>DeckSyntax</th>
           <td>{{selectedDeck.synthax}}</td>
         </tr>
+        <tr>
+          <th>DeckPrice</th>
+          <td>{{selectedDeck.points}}</td>
+        </tr>
         </tbody>
       </table>
       <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
@@ -123,13 +127,21 @@
                 </select>
               </td>
             </tr>
+            <tr>
+              <td>
+                <label>Input deck price:</label>
+              </td>
+              <td>
+                <input type="number" [(ngModel)]="points"/>
+              </td>
+            </tr>
           </table>
         </div>
         <div class="modal-footer">
-          <button *ngIf="name && description && categoryId" class="btn btn-primary btn-pointer"
+          <button *ngIf="name && description && categoryId && points" class="btn btn-primary btn-pointer"
                   data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
           </button>
-          <button *ngIf="!name || !description || !categoryId"
+          <button *ngIf="!name || !description || !categoryId || !points"
                   class="btn btn-primary btn-pointer disabled" aria-label="Close">
             {{dialogButtonName}}
           </button>
