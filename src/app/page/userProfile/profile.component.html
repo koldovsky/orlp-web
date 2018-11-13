@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-2" id="delete">
-      <button class="btn btn-outline-dark"
+      <button class="btn btn-outline-danger"
               data-toggle="modal" data-target="#deleteModel">Delete profile
       </button>
     </div>
@@ -56,6 +56,10 @@
           <a class="nav-link" href="#regime" role="tab" id="regime-tab" data-toggle="tab"
              aria-controls="regime">Learning regime
           </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#wallet" data-toggle="tab">My wallet</a>
+        </li>
       </ul>
     </div>
 
@@ -405,6 +409,26 @@
           <div class="centered-container">
             <button class="btn btn-info" (click)="closeAlert()">Close</button>
           </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" id="wallet" class="tab-content tab-pane fade">
+        <div class="col-lg-12">
+          <p> Dear, <span> {{firstName}} {{lastName}} ! </span></p>
+        </div>
+        <div class="container align-middle">
+        <div class="row align-middle">
+          <div class="col align-self-center">
+            <label class="m-0"> You have <span>####</span> points</label>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-outline-info ">Buy points</button>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-outline-info" data-toggle="modal"
+                    data-target="#sendToFriend">Send points to friend</button>
+          </div>
+        </div>
         </div>
       </div>
     </div>
