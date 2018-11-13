@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {FormsModule}   from '@angular/forms';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {UserCoursesService} from './user.courses.service';
 import {ORLPService} from '../../../services/orlp.service';
@@ -6,6 +7,7 @@ import {Link} from '../../../dto/link';
 import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {LogoutService} from '../../logout/logout.service';
 import {MainComponent} from '../../main/main.component';
+import {CoursePriceDTO} from "../../../dto/CourseDTO/price.course.DTO";
 
 @Component({
   templateUrl: ('./user.courses.component.html'),
@@ -66,6 +68,13 @@ export class UserCoursesComponent implements OnInit {
 
   assignCourse(course: CoursePublic): void {
     this.courseSelected = course;
+  }
+
+  updatePrice(courseId: number, points: number): void{
+    this.userCoursesService.updatePrice(new CoursePriceDTO(courseId, points))
+      .subscribe( () => {
+        this.getCoursesByPage(this.currentPage);
+      });
   }
 
   deleteCourse(course: CoursePublic): void {

@@ -23,6 +23,9 @@
             </button>
           </td>
           <td *ngIf="isAuthorizedAdmin">
+            <button class="btn btn btn-warning" (click)="assignCourse(course)" data-toggle="modal"
+                    data-target="#updatePrice">Update price
+            </button>
             <button class="btn btn btn-danger" (click)="assignCourse(course)" data-toggle="modal"
                     data-target="#deleteCourse">Delete
             </button>
@@ -62,6 +65,26 @@
         </div>
         <div class="modal-footer">
           <button type="button" (click)="deleteCourse(courseSelected)" data-dismiss="modal" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div bsModal id="updatePrice" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-danger" role="document">
+      <div class="modal-content" *ngIf="courseSelected">
+        <div class="modal-header">
+          <h4 class="modal-title">Update price?</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            Enter new price for {{courseSelected.name}} <input type="number" name="price" [(ngModel)]="price" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="updatePrice(courseSelected.courseId, price)" data-dismiss="modal" class="btn btn-danger">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>
