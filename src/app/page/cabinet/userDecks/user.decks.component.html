@@ -52,7 +52,7 @@
         </tr>
         <tr>
           <th>Deck Price</th>
-          <td>{{selectedDeck.points}}</td>
+          <td>{{selectedDeck.price}}</td>
         </tr>
         </tbody>
       </table>
@@ -90,62 +90,80 @@
             aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
-          <div class="input-container col-sm-12">
+          <form class="was-validated" [formGroup]="deckGroup">
+          <div class="input-container col-lg-12">
             <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Deck name:</label>
-              <div class="col-sm-3">
-                <input type="text" [(ngModel)]="name"/>
+              <label class="col-sm-6 col-form-label">Deck name*:</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="name"
+                       [class.error]="deckGroup.controls['name'].touched && !deckGroup.controls['name'].valid"/>
+                <div class="is-invalid error-text"
+                     *ngIf="deckGroup.controls['name'].touched && deckGroup.controls['name'].hasError('required')">
+                  Enter name
+                </div>
               </div>
             </div>
-            <hr class="col-sm-11">
+            <hr class="col-11">
             <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Deck description:</label>
-              <div class="col-sm-3">
-                <input type="text" [(ngModel)]="description"/>
+              <label class="col-sm-6 col-form-label">Deck description*:</label>
+              <div class="col-sm-4">
+                <input type="text" formControlName="description"
+                       [class.error]="deckGroup.controls['description'].touched && !deckGroup.controls['description'].valid"/>
+                <div class="is-invalid error-text"
+                     *ngIf="deckGroup.controls['description'].touched && deckGroup.controls['description'].hasError('required')">
+                  Enter description
+                </div>
               </div>
             </div>
-            <hr class="col-sm-11">
+            <hr class="col-11">
             <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Choose a category:</label>
-              <div class="col-sm-3">
-                <select class="category-select" [(ngModel)]="categoryId">
-                  <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
+              <label class="col-sm-6 col-form-label">Choose a category*:</label>
+              <div class="col-sm-4">
+                <select class="category-select" formControlName="categoryId"
+                        [class.error]="deckGroup.controls['categoryId'].touched && !deckGroup.controls['categoryId'].valid">
+                <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
                 </select>
+                <div class="is-invalid error-text"
+                     *ngIf="deckGroup.controls['categoryId'].touched && deckGroup.controls['categoryId'].hasError('required')">
+                  Choose category
+                </div>
               </div>
             </div>
-            <hr class="col-sm-11">
+            <hr class="col-11">
             <div class="form-group row">
               <label class="col-sm-6 col-form-label">Choose syntax:</label>
               <div class="col-sm-3">
-                <select class="category-select" [(ngModel)]="synthax">
-                  <option *ngFor="let synthax of allSynthaxes">{{synthax}}</option>
+                <select class="category-select" formControlName="syntax">
+                  <option *ngFor="let syntax of allSynthaxes">{{syntax}}</option>
                 </select>
               </div>
             </div>
-            <hr class="col-sm-11">
+            <hr class="col-11">
             <div class="form-group row">
               <label class="col-sm-6 col-form-label">Deck price:</label>
-              <div class="col-sm-3">
-                <input type="number" min="0" [(ngModel)]="points" pattern="^[0-9]{1,6}$" ngModel/>
-              </div>
+              <div class="col-sm-4">
+                <input type="text" formControlName="price"
+                       [class.error]="deckGroup.controls['price'].touched && !deckGroup.controls['price'].valid"/>
+                <div class="is-invalid error-text" *ngIf="deckGroup.controls['price'].hasError('pattern')">
+                  Enter positive value
+                </div>
+            </div>
             </div>
             <div class="modal-footer">
-              <button *ngIf="name && description && categoryId " class="btn btn-primary btn-pointer"
-                      data-dismiss="modal" aria-label="Close" (click)="createDeck()">{{dialogButtonName}}
-              </button>
-              <button *ngIf="!name || !description || !categoryId"
-                      class="btn btn-primary btn-pointer disabled" aria-label="Close">
-                {{dialogButtonName}}
+              <button type="submit" class="btn btn-primary btn-pointer"
+                      data-dismiss="modal" aria-label="Close" [disabled] ="!deckGroup.valid"
+                      (click)="createDeck()">{{dialogButtonName}}
               </button>
               <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
             </div>
           </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="selectedDeck">
+    <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="selectedDeck">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

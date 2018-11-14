@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {CabinetComponent} from './cabinet.component';
@@ -13,6 +13,7 @@ import {UserGuardService} from '../user/user.guard.service';
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     FormsModule,
     CommonModule,
     StarRatingModule,
