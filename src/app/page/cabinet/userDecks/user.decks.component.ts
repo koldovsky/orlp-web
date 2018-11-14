@@ -111,12 +111,12 @@ export class UserDecksComponent implements OnInit {
   private createDeck() {
     if (this.isCreateDialog) {
       this.userDecksService.createDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
-        this.deckGroup.value.categoryId, this.deckGroup.value.synthax,
+        this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
         (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)))
         .subscribe(() => {this.getOnlyDecksCreatedByTheUser();});
     } else {
       this.userDecksService.editDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
-        this.deckGroup.value.categoryId, this.deckGroup.value.synthax,
+        this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
         (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
