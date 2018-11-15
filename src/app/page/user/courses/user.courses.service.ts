@@ -7,6 +7,7 @@ import {CoursePageDTO} from '../../../dto/CourseDTO/linkToCourseByPageDTO';
 import {NGXLogger} from 'ngx-logger';
 import {Link} from "../../../dto/link";
 import {CoursePriceDTO} from "../../../dto/CourseDTO/price.course.DTO";
+import {CoursePublic} from "../../../dto/CourseDTO/public.course.DTO";
 
 @Injectable()
 export class UserCoursesService {
@@ -27,8 +28,8 @@ export class UserCoursesService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  updatePrice(coursePrice: CoursePriceDTO){
-    return this.orlp.put('/api/courses/' + coursePrice.courseId + '/', coursePrice)
+  updatePrice(course: CoursePublic){
+    return this.orlp.put('/api/courses/' + course.courseId + '/', course)
       .map((response: Response) =>response.json());
   }
 

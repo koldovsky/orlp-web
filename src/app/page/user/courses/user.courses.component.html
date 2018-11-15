@@ -72,7 +72,7 @@
   </div>
   <div bsModal id="updatePrice" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
        aria-hidden="true">
-    <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-dialog modal-warning" role="document">
       <div class="modal-content" *ngIf="courseSelected">
         <div class="modal-header">
           <h4 class="modal-title">Update price?</h4>
@@ -81,10 +81,19 @@
           </button>
         </div>
         <div class="modal-body">
-            Enter new price for {{courseSelected.name}} <input type="number" name="price" [(ngModel)]="price" />
+          <form [formGroup]="reactiveForm" (ngSubmit)="onSubmit(reactiveForm.value)">
+            <label> Set price for {{courseSelected.name}}:
+              <input type="number" name="price" [formControl]="reactiveForm.controls['price']">
+            </label>
+            <div *ngIf="reactiveForm.controls['price'].hasError('required')">
+              Leave empty to make the course free</div>
+            <div *ngIf="reactiveForm.controls['price'].hasError('pattern')">
+              Please specify a positive number from 0 to 999 999 </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" (click)="updatePrice(courseSelected.courseId, price)" data-dismiss="modal" class="btn btn-danger">Update</button>
+          <button *ngIf="reactiveForm.valid" input type="submit" aria-label="Close" class="btn btn-primary btn-warning" type="button" (click)="updatePrice(courseSelected, reactiveForm.value.price)" data-dismiss="modal">Update</button>
+          <button *ngIf="!reactiveForm.valid" class="btn btn-primary btn-warning disabled" aria-label="Close">Update</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>

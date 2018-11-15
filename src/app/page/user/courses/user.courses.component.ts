@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormsModule}   from '@angular/forms';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {UserCoursesService} from './user.courses.service';
 import {ORLPService} from '../../../services/orlp.service';
@@ -8,6 +8,7 @@ import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {LogoutService} from '../../logout/logout.service';
 import {MainComponent} from '../../main/main.component';
 import {CoursePriceDTO} from "../../../dto/CourseDTO/price.course.DTO";
+
 
 @Component({
   templateUrl: ('./user.courses.component.html'),
@@ -27,9 +28,14 @@ export class UserCoursesComponent implements OnInit {
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Course Name', '')
     , new TableColumnDTO('description', 'Course Description', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
+  reactiveForm: FormGroup;
+  formVal: any;
 
   constructor(private userCoursesService: UserCoursesService, private logoutService: LogoutService,
-              private mainComponent: MainComponent, private orlpService: ORLPService) {
+              private mainComponent: MainComponent, private orlpService: ORLPService, private fb: FormBuilder) {
+    this.reactiveForm = fb.group({
+      'price': ['', [Validators.pattern('^([0-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9])$')]]
+    })
   }
 
   ngOnInit(): void {
@@ -70,8 +76,10 @@ export class UserCoursesComponent implements OnInit {
     this.courseSelected = course;
   }
 
-  updatePrice(courseId: number, points: number): void{
-    this.userCoursesService.updatePrice(new CoursePriceDTO(courseId, points))
+  updatePrice(course: CoursePublic, price: number): void{
+    course.price = price;
+    console.log(course.price, price, course)
+    this.userCoursesService.updatePrice(course)
       .subscribe( () => {
         this.getCoursesByPage(this.currentPage);
       });
@@ -82,5 +90,9 @@ export class UserCoursesComponent implements OnInit {
       .subscribe( () => {
         this.getCoursesByPage(this.currentPage);
       });
+  }
+
+  onSubmit(val: any){
+    this.formVal = val;
   }
 }
