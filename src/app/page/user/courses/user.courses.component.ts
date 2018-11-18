@@ -26,10 +26,11 @@ export class UserCoursesComponent implements OnInit {
   currentPage = 1;
   lastPage: number;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Course Name', '')
-    , new TableColumnDTO('description', 'Course Description', '')];
+    , new TableColumnDTO('description', 'Course Description', ''), new TableColumnDTO('coursePrice.price', 'Course price', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   reactiveForm: FormGroup;
-  formVal: any;
+  coursePriceDTO: CoursePriceDTO;
+
 
   constructor(private userCoursesService: UserCoursesService, private logoutService: LogoutService,
               private mainComponent: MainComponent, private orlpService: ORLPService, private fb: FormBuilder) {
@@ -76,10 +77,9 @@ export class UserCoursesComponent implements OnInit {
     this.courseSelected = course;
   }
 
-  updatePrice(course: CoursePublic, price: number): void{
-    course.price = price;
-    console.log(course.price, price, course)
-    this.userCoursesService.updatePrice(course)
+  updatePrice(courseid: string, price: number): void{
+    this.coursePriceDTO = new CoursePriceDTO(courseid, price);
+    this.userCoursesService.updatePrice(this.coursePriceDTO)
       .subscribe( () => {
         this.getCoursesByPage(this.currentPage);
       });
@@ -92,7 +92,12 @@ export class UserCoursesComponent implements OnInit {
       });
   }
 
-  onSubmit(val: any){
-    this.formVal = val;
+  togglePaidOrFree(course: CoursePublic): void {
+    if(course.coursePrice == null) {
+      this.updatePrice(course.courseId, 0)
+    }
+    else {
+      this.updatePrice(course.courseId, null)
+    }
   }
 }

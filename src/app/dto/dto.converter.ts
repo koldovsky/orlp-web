@@ -92,7 +92,7 @@ export class DTOConverter {
 
   public static jsonToPublicCourse(data: any): CoursePublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CoursePublic(data.courseId, data.name, data.description, data.image, data.price, self);
+    return new CoursePublic(data.courseId, data.name, data.description, data.image, data.coursePrice, self);
   }
 
   public static jsonToCourseByPage(data: any): CoursePageDTO {

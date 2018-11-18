@@ -28,8 +28,8 @@ export class UserCoursesService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  updatePrice(course: CoursePublic){
-    return this.orlp.put('/api/courses/' + course.courseId + '/', course)
+  updatePrice(coursePriceDTO: CoursePriceDTO){
+    return this.orlp.put('/api/cabinet/courses/' + coursePriceDTO.courseId + '/', coursePriceDTO)
       .map((response: Response) =>response.json());
   }
 

@@ -1,8 +1,8 @@
 export class CoursePriceDTO {
-  public courseId: number;
+  public courseId: string;
   public price: number;
 
-  constructor(courseId: number, price: number) {
+  constructor(courseId: string, price: number) {
     this.courseId = courseId;
     this.price = price;
   }
