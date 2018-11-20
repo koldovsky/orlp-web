@@ -80,7 +80,8 @@ export class UserDecksComponent implements OnInit {
   private onDeckClicked(deck: DeckDTO, index: number): void {
     this.selectedIndex = index;
     this.selectedDeck = deck;
-    this.selectedDeck.deckPrice == null ? 0 : this.selectedDeck.deckPrice.price;
+    if(this.selectedDeck.deckPrice == null)
+      this.selectedDeck.deckPrice = new DeckPriceDTO(0);
   }
 
   prepareCreateDialog() {
