@@ -80,6 +80,7 @@ export class UserDecksComponent implements OnInit {
   private onDeckClicked(deck: DeckDTO, index: number): void {
     this.selectedIndex = index;
     this.selectedDeck = deck;
+    this.selectedDeck.deckPrice == null ? 0 : this.selectedDeck.deckPrice.price;
   }
 
   prepareCreateDialog() {
@@ -103,7 +104,7 @@ export class UserDecksComponent implements OnInit {
     this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.deckGroup.controls['categoryId'].setValue( this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null);
     this.deckGroup.controls['syntax'].setValue(this.selectedDeck.synthax);
-    this.deckGroup.controls['price'].setValue(this.selectedDeck.price);
+    this.deckGroup.controls['price'].setValue(this.selectedDeck.deckPrice != null ? this.selectedDeck.deckPrice.price : null);
     this.category = this.selectedDeck.category;
     this.isCreateDialog = false;
   }

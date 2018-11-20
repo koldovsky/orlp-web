@@ -1,4 +1,5 @@
 import {Link} from '../link';
+import {DeckPriceDTO} from "./DeckPriceDTO";
 
 export class DeckDTO {
   public deckId: number;
@@ -13,11 +14,12 @@ export class DeckDTO {
   public hidden: boolean;
   public synthax: string;
   public ownerId: number;
-  public price: number;
+  public deckPrice: DeckPriceDTO;
 
   constructor(deckId: number, name: string, description: string, category: string, categoryId: number,
               rating: number, owner: string, cards: Link, self: Link, hidden: boolean, synthax: string,
-              ownerId: number, price: number) {
+              ownerId: number, deckPrice: DeckPriceDTO
+  ) {
     this.deckId = deckId;
     this.name = name;
     this.description = description;
@@ -30,7 +32,7 @@ export class DeckDTO {
     this.hidden = hidden;
     this.synthax = synthax;
     this.ownerId = ownerId;
-    this.price=price;
+    this.deckPrice=deckPrice;
 
   }
 }
