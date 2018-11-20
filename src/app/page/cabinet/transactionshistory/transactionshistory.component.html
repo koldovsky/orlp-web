@@ -1,0 +1,32 @@
+<div class="container">
+  <!-- Page Navigation menu -->
+  <div class="vertical-menu">
+    <a [routerLink]="['/user/cabinet']">My learning</a>
+    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+    <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
+    <a [routerLink]="['/user/cabinet/transactionshistory']" class="active" >Transactions History</a>
+  </div>
+  <!-- list of transactions -->
+  <div class="row justify-content-center align-items-center">
+    <h1 class="font-color-white header-text">Transactions history</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped admins-tables">
+        <tr class="admins-tables-header">
+          <th               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
+              (click)="sortBy(column)">
+            test
+          </th>
+        </tr>
+        <tr>
+          <td> 1</td>
+          <td>2</td>
+          <td>3</td>
+          <td> 4</td>
+          <td> 5</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

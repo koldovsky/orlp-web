@@ -18,6 +18,7 @@ import {AdminDecksService} from './decks/admin.decks.service';
 import {AdminDeckComponent} from './decks/deck/admin.deck.component';
 import {AdminDeckService} from './decks/deck/admin.deck.service';
 import {StarRatingModule} from 'angular-star-rating';
+import {AdminTransactionsAuditComponent} from './transactionsAudit/admin.transactionsAudit.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import {StarRatingModule} from 'angular-star-rating';
       {path: 'admin/users', canActivate: [AdminGuardService], component: AdminUsersComponent},
       {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent},
       {path: 'admin/decks', canActivate: [AdminGuardService], component: AdminDecksComponent},
-      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent}
+      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent},
+      {path: 'admin/transactionsaudit', canActivate: [AdminGuardService], component: AdminTransactionsAuditComponent}
     ])],
   exports: [],
   declarations: [
@@ -42,7 +44,8 @@ import {StarRatingModule} from 'angular-star-rating';
     AdminUserComponent,
     AdminAuditComponent,
     AdminDecksComponent,
-    AdminDeckComponent
+    AdminDeckComponent,
+    AdminTransactionsAuditComponent
   ],
   providers: [
     AdminCategoryService,
