@@ -35,7 +35,7 @@ export class UserCoursesComponent implements OnInit {
   constructor(private userCoursesService: UserCoursesService, private logoutService: LogoutService,
               private mainComponent: MainComponent, private orlpService: ORLPService, private fb: FormBuilder) {
     this.reactiveForm = fb.group({
-      'price': ['', [Validators.pattern('^([0-9]|[0-9][0-9]|[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9])$')]]
+      'price': ['', [Validators.pattern('([0-9]{0,6})')]]
     })
   }
 
