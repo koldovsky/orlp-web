@@ -29,8 +29,7 @@ export class UserCoursesService {
   }
 
   updatePrice(coursePriceDTO: CoursePriceDTO){
-    return this.orlp.put('/api/cabinet/courses/' + coursePriceDTO.courseId + '/', coursePriceDTO)
-      .map((response: Response) =>response.json());
+    return this.orlp.put('/api/courses/' + coursePriceDTO.courseId + '/', coursePriceDTO);
   }
 
 
