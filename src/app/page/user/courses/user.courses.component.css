@@ -44,3 +44,15 @@ th, li {
 td {
   vertical-align: middle;
 }
+
+.deletecoursebutton{
+  width: 100%;
+}
+
+.updatecoursepricebutton{
+  width: 100%;
+}
+
+.freeorpaidtoggle{
+  width: 100%;
+}

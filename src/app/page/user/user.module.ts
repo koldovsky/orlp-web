@@ -8,9 +8,12 @@ import {UserCoursesComponent} from './courses/user.courses.component';
 import {UserCoursesService} from './courses/user.courses.service';
 import {UserGuardService} from './user.guard.service';
 import {ProfileComponent} from '../userProfile/profile.component';
+import {ReactiveFormsModule} from '@angular/forms';
+
 
 @NgModule({
   imports: [
+    ReactiveFormsModule,
     FormsModule,
     CommonModule,
     RouterModule.forChild([
