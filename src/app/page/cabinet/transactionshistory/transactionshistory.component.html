@@ -8,23 +8,22 @@
   </div>
   <!-- list of transactions -->
   <div class="row justify-content-center align-items-center">
-    <h1 class="font-color-white header-text">Transactions history</h1>
+    <h1>Credits Transaction history</h1>
   </div>
   <div class="row">
     <div class="col-12">
-      <table class="table table-striped admins-tables">
-        <tr class="admins-tables-header">
-          <th               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
-              (click)="sortBy(column)">
-            test
-          </th>
-        </tr>
+      <table class="table table-striped">
         <tr>
-          <td> 1</td>
-          <td>2</td>
-          <td>3</td>
-          <td> 4</td>
-          <td> 5</td>
+          <th>From</th>
+          <th>To</th>
+          <th align="center">Credits transfered</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let transaction of transactionslist">
+          <td>{{transaction.userFromEmail}}</td>
+          <td>{{transaction.userToEmail}}</td>
+          <td>{{transaction.points}}</td>
+          <td>{{transaction.creationDate}}</td>
         </tr>
       </table>
     </div>
