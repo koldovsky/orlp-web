@@ -14,16 +14,20 @@
         <tbody>
         <tr class="table-row" *ngFor="let course of courses">
           <td [routerLink]="['/course', getCourseLink(course.self)]">
-            <div>
-              <img [src]="course.image" alt="Course image">
-            </div>
+            <!--<div class="justify-content-center">-->
+            <img class="small-img" [src]="course.image" alt="Course image">
+            <!--</div>-->
           </td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
+          <td *ngIf="course.coursePrice == null || course.coursePrice == 0;else price">Free</td>
+          <ng-template #price>
+            <td>{{course.coursePrice}}</td>
+          </ng-template>
+          <!--<td [routerLink]="['/course', getCourseLink(course.self)]">{{course.coursePrice}}</td>-->
           <td *ngIf="isAuthorizedAdmin">
             <button class="btn btn-light" data-toggle="modal" data-target="#formForEditing"
-                    (click)="beforeEditing(course)">
-              <i class="fa"></i> Edit
+                    (click)="beforeEditing(course)">Edit
             </button>
             <button class="btn btn-danger" (click)="assignCourse(course)" data-toggle="modal"
                     data-target="#deleteCourse">Delete
@@ -90,7 +94,7 @@
       </div>
       <div class="card-body">
         <div class="row form-group" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label" for="names">Name</label>
+          <label class="col-md-3 col-form-label" for="names">Name:</label>
           <div class="col-md-9">
             <input type="text" id="names" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
                        (courseForm.get('name').touched||courseForm.get('name').dirty)&&courseForm.get('name').errors}"
@@ -112,9 +116,9 @@
         </div>
 
         <div class="form-group row" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label" for="textarea-inputs">Description</label>
+          <label class="col-md-3 col-form-label" for="textarea-inputs">Description:</label>
           <div class="col-md-9">
-              <textarea id="textarea-inputs" rows="6" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
+              <textarea id="textarea-inputs" rows="3" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
               (courseForm.get('description').touched||courseForm.get('description').dirty)&&courseForm.get('description').errors}"
                         required [(ngModel)]="courseDescription"></textarea>
             <div *ngIf="courseForm.get('description').hasError('required')" class="invalid-feedback">
@@ -131,20 +135,37 @@
             </div>
           </div>
         </div>
-        <div *ngIf="courseImage"> Current image: <img [src]="courseImage" class="course-image" alt="Course image"></div>
+        <div class="row">
+          <div *ngIf="courseImage" class="col">
+            <label class="justify-content-center">Current image:</label>
+            <img [src]="courseImage" class="image mt-2"
+                 alt="Course image">
+          </div>
+          <div class="form-group col" [formGroup]="courseForm">
+            <label>New image</label>
+            <div class="image mt-2">
+              <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
+                <div *ngIf="newImage; then chosenContent else chooseContent"></div>
+                <ng-template #chosenContent class="chosen-area">
+                  <img [src]="newImage.self.href" alt="New course image" class="chosen-img"/>
+                </ng-template>
+                <ng-template #chooseContent>
+                  <div class="chosen-area">
+                    Choose new image...
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="form-group row" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label">Image</label>
+          <label class="col-md-3 col-form-label" for="number-input">Price</label>
           <div class="col-md-9">
-            <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
-              <div *ngIf="newImage; then chosenContent else chooseContent"></div>
-              <ng-template #chosenContent>
-                <img [src]="newImage.self.href" alt="New course image" class="chosen-image"/>
-              </ng-template>
-              <ng-template #chooseContent>
-                <div class="choose-image">
-                  Choose new image...
-                </div>
-              </ng-template>
+            <input type="text" id="number-input" formControlName="price" [ngClass]="{'is-invalid':
+              (courseForm.get('price').touched||courseForm.get('price').dirty)&&courseForm.get('price').errors}"
+                   [(ngModel)]="coursePrice">
+            <div *ngIf="courseForm.get('price').hasError('pattern')">
+              Please specify a positive number from 0 to 999 999
             </div>
           </div>
         </div>
@@ -161,7 +182,7 @@
     </div>
   </div>
 </div>
-<!--adede-->
+
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -170,10 +191,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
       </div>
       <div class="modal-body">
-
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getNewImage(image)" class="modal-image"
-               data-dismiss="modal"/><!-- add functionality to deleteImage and saveImage-->
+               data-dismiss="modal"/>
           <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">
             <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
@@ -186,23 +206,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="reset" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="CreateCategory" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title">{{createCategoryMessage}}</h1>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-footer">
-        <button type="button"
-                class="btn btn-primary"
-                data-dismiss="modal">OK
-        </button>
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
