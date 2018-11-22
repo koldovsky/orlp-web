@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {AdminTransactionsAudit} from './admin.transactionsAudit.service'
+import {AdminTransactionsAudit} from './admin.credits.transactions.audit.service'
 import {TransactionsDTO} from "../../../dto/TransactionsDTO/transactionsDTO";
 
 @Component({
-  selector: 'app-credits',
   providers: [AdminTransactionsAudit],
-  templateUrl: './admin.transactionsAudit.component.html',
-  styleUrls: ['./admin.transactionsAudit.component.css']
+  templateUrl: './admin.credits.transactions.audit.component.html',
+  styleUrls: ['./admin.credits.transactions.audit.component.css']
 })
-export class AdminTransactionsAuditComponent implements OnInit {
-  transactionslist: TransactionsDTO[];
+export class AdminCreditsTransactionsAuditComponent implements OnInit {
+  creditsTransactionsList: TransactionsDTO[];
 
   constructor(private adminTransactionsAudit: AdminTransactionsAudit) { }
 
@@ -20,6 +19,6 @@ export class AdminTransactionsAuditComponent implements OnInit {
   getTransactionsList(){
     this.adminTransactionsAudit.getCreditsTransactionHistory()
       .subscribe(response =>
-            this.transactionslist = response);
+            this.creditsTransactionsList = response);
       }
 }

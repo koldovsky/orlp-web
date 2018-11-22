@@ -19,11 +19,11 @@
           <th align="center">Credits transfered</th>
           <th>Date</th>
         </tr>
-        <tr *ngFor="let transaction of transactionslist">
-          <td>{{transaction.userFromEmail}}</td>
-          <td>{{transaction.userToEmail}}</td>
-          <td>{{transaction.points}}</td>
-          <td>{{transaction.creationDate}}</td>
+        <tr *ngFor="let creditsTransaction of creditsTransactionsList">
+          <td>{{creditsTransaction.userFromEmail}}</td>
+          <td>{{creditsTransaction.userToEmail}}</td>
+          <td>{{creditsTransaction.points}}</td>
+          <td>{{creditsTransaction.creationDate}}</td>
         </tr>
       </table>
     </div>

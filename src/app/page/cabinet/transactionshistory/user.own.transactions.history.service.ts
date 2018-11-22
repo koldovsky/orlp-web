@@ -8,7 +8,7 @@ import {AdminAuditWithPagesDTO} from "../../../dto/AdminDTO/admin.audit.with.pag
 import {DTOConverter} from "../../../dto/dto.converter";
 
 @Injectable()
-export class TransactionshistoryService {
+export class UserOwnTransactionsHistoryService {
 
   constructor(private orlp: ORLPService) { }
 

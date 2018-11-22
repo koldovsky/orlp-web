@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {TransactionshistoryService} from "./transactionshistory.service";
+import {UserOwnTransactionsHistoryService} from "./user.own.transactions.history.service";
 import {TransactionsDTO} from "../../../dto/TransactionsDTO/transactionsDTO";
 import {CabinetService} from '../cabinet.service';
 import {UserDTO} from "../../../dto/UsersDTO/UserDTO";
 
 @Component({
-  providers: [TransactionshistoryService, CabinetService],
-  selector: 'app-transactionshistory',
-  templateUrl: './transactionshistory.component.html',
-  styleUrls: ['./transactionshistory.component.css']
+  providers: [UserOwnTransactionsHistoryService, CabinetService],
+  templateUrl: './user.own.transactions.history.component.html',
+  styleUrls: ['./user.own.transactions.history.component.css']
 })
-export class TransactionshistoryComponent implements OnInit {
-  transactionslist: TransactionsDTO[];
+export class UserOwnTransactionsHistoryComponent implements OnInit {
+  creditsTransactionsList: TransactionsDTO[];
   public user: UserDTO;
 
-  constructor(private transactionsHistoryService: TransactionshistoryService, private cabinetService: CabinetService) { }
+  constructor(private transactionsHistoryService: UserOwnTransactionsHistoryService, private cabinetService: CabinetService) { }
 
   ngOnInit(): void {
     this.loadTransactionsHistoryForUser();
@@ -32,7 +31,7 @@ export class TransactionshistoryComponent implements OnInit {
   getTransactionsList(userId: number){
     this.transactionsHistoryService.getList(userId)
       .subscribe(response =>
-      this.transactionslist = response);
+      this.creditsTransactionsList = response);
   }
 
 }
