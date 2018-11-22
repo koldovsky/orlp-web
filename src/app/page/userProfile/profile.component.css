@@ -144,3 +144,7 @@ img {
   font-weight: bold;
   font-style: italic;
 }
+
+.form-control {
+  height: auto;
+}
