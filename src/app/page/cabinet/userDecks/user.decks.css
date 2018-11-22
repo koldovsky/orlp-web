@@ -103,3 +103,12 @@ label {
   background: hotpink;
   color: rebeccapurple;
 }
+.error {
+  border-width: 1px;
+  border-color: red;
+  border-style: solid;
+}
+
+.error-text{
+  color: red;
+}

@@ -33,6 +33,7 @@ import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
+import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
 
 export class DTOConverter {
 
@@ -109,7 +110,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner);
+       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
