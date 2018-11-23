@@ -1,7 +1,7 @@
 # Version: 0.0.2
 # Demo4
-box:
-  id: node:latest
+box: node
+
 build:
     steps:
         - install-packages:
@@ -24,6 +24,9 @@ build:
     # A step that executes `npm install` command
         - npm-install
         - script:
+            name: install node-sass
+            code: npm install node-sass@4.10.0
+        - script:
             name: run build
             code: npm run build
         - script:
@@ -32,11 +35,11 @@ build:
                 echo "node version $(node -v) running"
                 echo "npm version $(npm -v) running"
 
-#    after-steps:
-#        - slack-notifier:
-#            url: $SLACK_URL
-#            channel: notifications
-#            username: Wercker Event Notifier
+    after-steps:
+        - slack-notifier:
+            url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
             # notify_on: "failed"
 
 deploy:
@@ -65,8 +68,8 @@ deploy:
     after-steps:
         - install-packages:
             packages: ruby
-#        - wantedly/pretty-slack-notify:
-#            webhook_url: $SLACK_URL
-#            channel: notifications
-#            username: Wercker Event Notifier
+        - wantedly/pretty-slack-notify:
+            webhook_url: $SLACK_URL
+            channel: notifications
+            username: Wercker Event Notifier
             # notify_on: "failed"
