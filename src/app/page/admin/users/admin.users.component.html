@@ -87,9 +87,6 @@
         <div *ngIf="success" class="alert alert-success" >
           <span>Points were sent successfully!</span>
         </div>
-        <!--<div class="alert alert-danger" *ngIf="error && !success">-->
-        <!--<span>{{responseMessage.message}}</span>-->
-        <!--</div>-->
         <div class="modal-footer">
           <button [disabled]="!isFormValid() || !pointsSend" type="button"
                   class="btn btn-secondary"
