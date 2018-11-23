@@ -31,6 +31,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" [routerLink]="['/admin/audit']">ADMIN AUDIT</a>
                 <a class="dropdown-item" [routerLink]="['/admin/transactionsaudit']">ADMIN CREDITS TRANSACTIONS AUDIT</a>
+                <a class="dropdown-item" [routerLink]="['/admin/transactionsaudit']">ADMIN CREDITS TRANSACTIONS AUDIT</a>
                 <a class="dropdown-item" [routerLink]="['/admin/categories']">ADMIN CATEGORIES</a>
                 <a class="dropdown-item" [routerLink]="['/admin/courses']">ADMIN COURSES</a>
                 <a class="dropdown-item" [routerLink]="['/admin/users']">ADMIN USERS</a>
@@ -47,8 +48,7 @@
           </ul>
         </div>
         <div class="navbar-nav my-navbar-nav">
-          <a class="nav-link align-self-center" [routerLink]="['/home']"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
-          <a class="align-self-center" *ngIf="isAuthorized" [routerLink]="['/user/profile']">
+          <a class="align-self-center" *ngIf="isAuthorized" [routerLink]="['/user/profile']"></a>
           <form class="search-form">
             <div class="form-group has-feedback" id="search-form">
               <input [(ngModel)] = "searchString" type="text" class="form-control" name="search" id="search" placeholder="Search">
