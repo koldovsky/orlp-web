@@ -482,7 +482,7 @@
             <span>Points were sent successfully!</span>
           </div>
           <div class="alert alert-danger" *ngIf="error && !success">
-            <span>{{responseMessage.message}}</span>
+          <span>{{responseMessage.message}}</span>
           </div>
           <div class="modal-footer">
             <button [disabled]="!isFormValid() || !emailTo || !pointsTo " type="button"
