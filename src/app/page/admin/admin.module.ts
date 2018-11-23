@@ -35,7 +35,7 @@ import {AdminCourseService} from './courses/admin.course.service';
       {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent},
       {path: 'admin/decks', canActivate: [AdminGuardService], component: AdminDecksComponent},
       {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent},
-      {path: 'admin/transactionsaudit', canActivate: [AdminGuardService], component: AdminCreditsTransactionsAuditComponent}
+      {path: 'admin/transactionsaudit', canActivate: [AdminGuardService], component: AdminCreditsTransactionsAuditComponent},
       {path: 'admin/courses', canActivate: [AdminGuardService], component: AdminCourseComponent}
     ])],
   exports: [],
@@ -48,7 +48,7 @@ import {AdminCourseService} from './courses/admin.course.service';
     AdminAuditComponent,
     AdminDecksComponent,
     AdminDeckComponent,
-    AdminCreditsTransactionsAuditComponent
+    AdminCreditsTransactionsAuditComponent,
     AdminCourseComponent
   ],
   providers: [
