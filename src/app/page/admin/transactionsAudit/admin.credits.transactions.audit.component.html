@@ -1,0 +1,24 @@
+<div class="container">
+  <!-- list of transactions -->
+  <div class="row justify-content-center align-items-center">
+    <h1>Credits Transactions Audit</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped">
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th align="center">Credits transfered</th>
+          <th>Date</th>
+        </tr>
+        <tr *ngFor="let creditsTransaction of creditsTransactionsList">
+          <td>{{creditsTransaction.userFromEmail}}</td>
+          <td>{{creditsTransaction.userToEmail}}</td>
+          <td>{{creditsTransaction.points}}</td>
+          <td>{{creditsTransaction.creationDate}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
