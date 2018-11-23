@@ -136,3 +136,15 @@ img {
 .forbidden {
   cursor: not-allowed;
 }
+
+#wallet {
+  font-size: medium;
+}
+#wallet span {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.form-control {
+  height: auto;
+}
