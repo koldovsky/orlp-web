@@ -33,7 +33,9 @@ import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
+import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
 import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
+import {SetPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
 
 export class DTOConverter {
 
@@ -110,7 +112,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
+      data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
@@ -175,7 +177,7 @@ export class DTOConverter {
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
-      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, self);
+      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, data.points, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {
@@ -228,5 +230,13 @@ export class DTOConverter {
   public static jsonToAccountDTO(data: any): AccountDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
+  }
+
+  public static jsonToSendPointsDTO(data: any): SendPointsToFriendDTO {
+    return new SendPointsToFriendDTO(data.emailFrom, data.emailTo, data.points);
+  }
+
+  public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
+    return new SetPointsByAdminDTO(data.email, data.points);
   }
 }
