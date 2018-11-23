@@ -1,0 +1,198 @@
+img {
+  height: 50px;
+}
+
+tr {
+  cursor: pointer;
+}
+
+.image {
+  max-width: 200px;
+  height: 150px;
+  display: block;
+  margin: 0 auto;
+}
+
+.small-img {
+  margin: 0 auto;
+  display: block;
+}
+
+.chosen-area {
+  height: 150px;
+  border: dashed 3px #C5C7C9;
+  cursor: pointer;
+  background-color: white;
+  padding-top: 40px;
+  text-align: center;
+}
+
+.chosen-img {
+  max-width: 200px;
+  height: 150px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.pagination {
+  width: 20%;
+  margin: auto;
+}
+
+.pagination li.active > a:hover {
+  cursor: pointer;
+}
+
+.pagination li.active > a {
+  background-color: #eee;
+}
+
+.active-page-link:hover {
+  background-color: #bcbcbc;
+}
+
+.disabled {
+  cursor: default;
+}
+
+.view {
+  width: 1%;
+}
+
+th, li {
+  cursor: pointer;
+}
+
+.table-row:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+
+.admins-courses-header th:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+
+.header-item {
+  background-color: #e6e6e6;
+}
+
+td {
+  vertical-align: middle;
+}
+
+#name, #textarea-input, #number-input {
+  height: auto;
+}
+
+.btn-secondary {
+  color: #000;
+  background-color: #fff;
+  border-color: #000;
+}
+
+.btn-light {
+  padding: 5px 20px;
+}
+
+.btn-secondary:hover {
+  color: #000;
+  background-color: #f5f5ff;
+  border-color: #6c757d;
+}
+
+.btn-info, .btn-warning {
+  color: white;
+}
+
+.delete-image {
+  position: absolute;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-left: -30px;
+}
+
+.modal-image {
+  margin: 4px;
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+}
+
+.modal-body div {
+  display: inline-block;
+}
+
+.modal-lg {
+  max-width: 700px;
+}
+
+textarea {
+  resize: none;
+  overflow-x: hidden;
+}
+
+.btn-create-course {
+  cursor: pointer;
+}
+
+.input-file {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.input-file + label {
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  font-weight: 700;
+  display: inline-block;
+  text-align: center;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+  background-color: gray;
+}
+
+.input-file:focus + label,
+.input-file + label:hover,
+.incorrect-file {
+  background-color: white;
+}
+
+.incorrect-file {
+  border-style: solid;
+  color: #FF0000;
+  padding-top: 8px;
+  font-size: 70%;
+}
+
+.correct-file {
+  font-size: 1.45em;
+  padding-top: 8px;
+  border-style: dotted;
+}
+
+.card-body {
+  padding-bottom: 0;
+}
+
+#modal-window {
+  margin: 5px auto;
+}
+
+.modal-footer-edit {
+  background-color: #444444;
+  padding: 10px;
+}
+
+.modal-header {
+  padding: 10px;
+}
+
+.alert-success {
+  width: 70%;
+}

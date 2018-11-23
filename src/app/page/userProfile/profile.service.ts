@@ -13,13 +13,12 @@ import {ProfilePersonalInfoDTO} from '../../dto/UserProfileDTO/ProfilePersonalIn
 import {ProfileDataDTO} from '../../dto/UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
-import {MessageDTO} from '../../dto/MessageDTO';
-import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
+import {AccountDTO} from '../../dto/AccountDTO/accountDTO';
 import {SendPointsToFriendDTO} from '../../dto/UserProfileDTO/SendPointsToFriendDTO';
 
 @Injectable()
 export class ProfileService {
-  private url = '/api/profile' ;
+  private url = '/api/profile';
 
   constructor(private orlp: ORLPService,
               private logger: NGXLogger) {
@@ -27,13 +26,13 @@ export class ProfileService {
 
   getProfileData(): Observable<ProfileDataDTO> {
     return this.orlp.get(this.url)
-      .map((response: Response) => <ProfileDataDTO> DTOConverter.jsonToProfileDataDTO(response.json()))
+      .map((response: Response) => <ProfileDataDTO>DTOConverter.jsonToProfileDataDTO(response.json()))
       .catch(this.handleError);
   }
 
   updatePersonalInfo(person: ProfilePersonalInfoDTO): Observable<ProfilePersonalInfoDTO> {
     return this.orlp.put(this.url + '/personal-info', person)
-      .map((response: Response) => <ProfilePersonalInfoDTO> DTOConverter.jsonToProfilePersonalInfoDTO(response.json()))
+      .map((response: Response) => <ProfilePersonalInfoDTO>DTOConverter.jsonToProfilePersonalInfoDTO(response.json()))
       .catch(this.handleError);
   }
 
@@ -45,7 +44,7 @@ export class ProfileService {
 
   uploadProfileImage(image: ProfileImageDTO): Observable<ProfileImageDTO> {
     return this.orlp.post(this.url + '/image', image)
-      .map((response: Response) => <ProfileImageDTO> DTOConverter.jsonToProfileImageDTO(response.json()))
+      .map((response: Response) => <ProfileImageDTO>DTOConverter.jsonToProfileImageDTO(response.json()))
       .catch(this.handleError);
   }
 
@@ -77,6 +76,6 @@ export class ProfileService {
 
   sendPointsToFriend(sendPoints: SendPointsToFriendDTO) {
     return this.orlp.post('api/profile/wallet', sendPoints)
-      .map((response: Response) => <SendPointsToFriendDTO> DTOConverter.jsonToSendPointsDTO(response.json()));
+      .map((response: Response) => <SendPointsToFriendDTO>DTOConverter.jsonToSendPointsDTO(response.json()));
   }
 }
