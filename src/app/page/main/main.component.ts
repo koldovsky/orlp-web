@@ -111,5 +111,6 @@ export class MainComponent implements OnInit {
   }
   onSearchClick(): void {
     this.searchService.getResults(this.searchString);
+    this.searchString = '';
   }
 }
