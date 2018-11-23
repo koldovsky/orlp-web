@@ -1,6 +1,55 @@
-<div>
-  <ul>
-    <li *ngFor="let res of this.searchService.results.decks"><span>{{ res.name }}</span></li>
-  </ul>
+<div class="container">
+  <div class="search-box">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" [placeholder]="searchString" [(ngModel)]="newSearchString" aria-label="Search" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+        <button type="button" class="btn btn-primary" (click)="getSearchResults(newSearchString)">Search</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="results$ | async as results">
+    <div *ngIf="!allArraysAreEmpty(results); else notFound">
+      <div *ngIf="results.categories != 0">
+        <div class="row"><h2>Categories</h2></div>
+        <div class="row search-result" *ngFor="let res of results.categories"
+             [routerLink]="['/category', getShortLink(res.self)]">
+          <div class="col-2"><img class="image" [src]="res.imageURL"></div>
+          <div class="col-10">
+            <div [innerHTML]="res.name | highlight: searchString"></div>
+            <div [innerHTML]="res.description | highlight: searchString"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="results.courses != 0">
+        <div class="row mt-4"><h2>Courses</h2></div>
+        <div class="row search-result" *ngFor="let res of results.courses"
+             [routerLink]="['/course', getShortLink(res.self)]">
+          <div class="col-2"><img class="image" [src]="res.imageURL"></div>
+          <div class="col-10">
+            <div [innerHTML]="res.name | highlight: searchString"></div>
+            <div [innerHTML]="res.description | highlight: searchString"></div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="results.decks != 0">
+        <div class="row mt-4"><h2>Decks</h2></div>
+        <div class="row search-result" *ngFor="let res of results.decks"
+             (click)="startLearning(res.id)">
+          <div class="col-2"><img class="image" src="../../../assets/images/deck-logo.png"></div>
+          <div class="col-10">
+            <div [innerHTML]="res.name | highlight: searchString"></div>
+            <div [innerHTML]="res.description | highlight: searchString"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #notFound>
+    <div>
+      <h3>Your search "{{searchString}}" didn't match any results.</h3>
+    </div>
+  </ng-template>
+
 </div>
+
 

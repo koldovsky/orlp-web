@@ -7,7 +7,7 @@ export class SearchResults {
  public categories: CategorySearchDTO[];
  public decks: DeckSearchDTO[];
 
- constructor(courses: CourseSearchDTO[], categories: CategorySearchDTO[], decks: DeckSearchDTO[]) {
+ constructor(courses?: CourseSearchDTO[], categories?: CategorySearchDTO[], decks?: DeckSearchDTO[]) {
    this.categories = categories;
    this.courses = courses;
    this.decks = decks;

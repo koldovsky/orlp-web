@@ -39,8 +39,6 @@ import {RestorePasswordModule} from './page/authorization/restorePassword/restor
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
 import {CardModule} from './page/card/card.module';
 import {SearchModule} from './page/search/search.module';
-import {SearchComponent} from './page/search/search.component';
-
 
 @NgModule({
   imports: [
@@ -52,7 +50,7 @@ import {SearchComponent} from './page/search/search.component';
     CommonModule,
     RouterModule.forRoot([
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: '**', redirectTo: 'home', pathMatch: 'full'}
+      {path: '**', redirectTo: 'home', pathMatch: 'full'},
     ]),
 
     CategoryInfoModule,
@@ -86,7 +84,7 @@ import {SearchComponent} from './page/search/search.component';
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
     CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService,
-    RestorePasswordService, SearchComponent],
+    RestorePasswordService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

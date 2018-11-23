@@ -239,17 +239,17 @@ export class DTOConverter {
 
   public static jsonToDecksSearchDTO (data: any): DeckSearchDTO {
     const self: Link = DTOConverter.jsonToLinkSearch('self', data);
-    return new DeckSearchDTO(data.name, data.description, data.rating, data.image, self);
+    return new DeckSearchDTO(data.elementId, data.name, data.description, data.rating, data.image, self);
   }
 
   public static jsonToCoursesSearchDTO (data: any): CourseSearchDTO {
     const self: Link = DTOConverter.jsonToLinkSearch('self', data);
-    return new CourseSearchDTO(data.name, data.description, data.rating, data.image, self);
+    return new CourseSearchDTO(data.elementId, data.name, data.description, data.rating, data.image, self);
   }
 
   public static jsonToCategoriesSearchDTO (data: any): CategorySearchDTO {
     const self: Link = DTOConverter.jsonToLinkSearch('self', data);
-    return new CategorySearchDTO(data.name, data.description, data.image, self);
+    return new CategorySearchDTO(data.elementId, data.name, data.description, data.image, self);
   }
 
   public static jsonToSearchResultsDTO (data: any): SearchResults {

@@ -10,14 +10,15 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
-import {SearchComponent} from './search.component';
 
 @Injectable()
 export class SearchService {
   constructor(private orlp: ORLPService, private logger: NGXLogger) {
   }
 
+  public results$: Observable<SearchResults>;
   public results: SearchResults;
+  public searchString: string;
 
   getSearchResults(searchString: string): Observable<SearchResults> {
    return this.orlp.get('api/search/' + searchString)
@@ -27,7 +28,10 @@ export class SearchService {
   }
 
   getResults(searchString: string): void {
+    this.results$ = this.getSearchResults(searchString);
+    this.searchString = searchString;
     this.getSearchResults(searchString).subscribe(result => this.results = result);
+
   }
 
   private handleError(error: Response) {
