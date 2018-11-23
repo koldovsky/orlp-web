@@ -8,6 +8,10 @@ import {Link} from '../../../dto/link';
 import {ORLPService} from '../../../services/orlp.service';
 import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
+import {CabinetService} from "../cabinet.service";
+import {NGXLogger} from "ngx-logger";
+import {DeckPriceDTO} from "../../../dto/DeckDTO/DeckPriceDTO";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -24,16 +28,23 @@ export class UserDecksComponent implements OnInit {
   categoryId: number;
   dialogCategoryId: number;
   category: string;
+  price: number;
   dialogName: string;
   dialogButtonName: string;
   private isCreateDialog: boolean;
   private selectedIndex: number;
   public synthax: String;
+  public deckGroup: FormGroup;
   public errorFileMessage: String;
   public allSynthaxes: String[] = ['' , 'JAVA', 'HTML', 'C++', 'C#', 'JavaScript', 'TypeScript',
     'PHP', 'Go', 'Swift', 'Scala', 'Pascal', 'Ruby', 'SQL', 'C', 'ObjectiveC'];
 
-  constructor(private userDecksService: UserDecksService, private orlp: ORLPService, private deckService: DeckService) {
+  constructor(private userDecksService: UserDecksService,
+              private cabinetService: CabinetService,
+              private orlp: ORLPService,
+              private deckService: DeckService,
+              private logger: NGXLogger,
+              private fb: FormBuilder) {
   }
 
   ngOnInit() {
@@ -42,6 +53,17 @@ export class UserDecksComponent implements OnInit {
       this.getOnlyDecksCreatedByTheUser();
     });
     this.userDecksService.getCategories().subscribe(categories => this.categories = categories);
+
+    const inputValidator = [ Validators.required];
+
+    const priceValidator = [ Validators.pattern(new RegExp(/^[0-9]+$/))];
+    this.deckGroup = this.fb.group({
+      'name': [null,inputValidator],
+      'description': [null,inputValidator],
+      'categoryId': [null,inputValidator],
+      'syntax': [null],
+      'price': [null, priceValidator]
+    });
   }
 
   private getOnlyDecksCreatedByTheUser(): void {
@@ -51,6 +73,8 @@ export class UserDecksComponent implements OnInit {
   private getDeckCreatedByTheUser(deckId: number): void {
     this.userDecksService.getDeckCreatedByTheUser(deckId).subscribe(deck => {
       this.selectedDeck = deck;
+      if(this.selectedDeck.deckPrice == null)
+        this.selectedDeck.deckPrice = new DeckPriceDTO(0);
       this.decks[this.selectedIndex] = this.selectedDeck;
     });
   }
@@ -58,38 +82,46 @@ export class UserDecksComponent implements OnInit {
   private onDeckClicked(deck: DeckDTO, index: number): void {
     this.selectedIndex = index;
     this.selectedDeck = deck;
+    if(this.selectedDeck.deckPrice == null)
+      this.selectedDeck.deckPrice = new DeckPriceDTO(0);
   }
 
   prepareCreateDialog() {
+    this.deckGroup.reset();
     this.dialogName = 'Create new deck';
     this.dialogButtonName = 'Create';
-    this.name = '';
-    this.description = '';
+    this.deckGroup.controls['name'].setValue(null);
+    this.deckGroup.controls['description'].setValue(null);
     this.dialogCategoryId = null;
-    this.categoryId = null;
-    this.category = '';
-    this.synthax = '';
+    this.deckGroup.controls['categoryId'].setValue( null);
+    this.deckGroup.controls['syntax'].setValue(null);
+    this.deckGroup.controls['price'].setValue(null);
     this.isCreateDialog = true;
   }
 
   private prepareEditDialog() {
     this.dialogName = 'Edit the deck';
     this.dialogButtonName = 'Save';
-    this.name = this.selectedDeck.name;
-    this.description = this.selectedDeck.description;
+    this.deckGroup.controls['name'].setValue(this.selectedDeck.name);
+    this.deckGroup.controls['description'].setValue(this.selectedDeck.description);
     this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
-    this.categoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
+    this.deckGroup.controls['categoryId'].setValue( this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null);
+    this.deckGroup.controls['syntax'].setValue(this.selectedDeck.synthax);
+    this.deckGroup.controls['price'].setValue(this.selectedDeck.deckPrice != null ? this.selectedDeck.deckPrice.price : null);
     this.category = this.selectedDeck.category;
-    this.synthax = this.selectedDeck.synthax;
     this.isCreateDialog = false;
   }
 
   private createDeck() {
     if (this.isCreateDialog) {
-      this.userDecksService.createDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax))
-        .subscribe(() => this.getOnlyDecksCreatedByTheUser());
+      this.userDecksService.createDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
+        this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
+        (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)))
+        .subscribe(() => {this.getOnlyDecksCreatedByTheUser();});
     } else {
-      this.userDecksService.editDeck(new NewDeckDTO(this.name, this.description, this.categoryId, this.synthax), this.selectedDeck.deckId)
+      this.userDecksService.editDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
+        this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
+        (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
   }
@@ -104,6 +136,17 @@ export class UserDecksComponent implements OnInit {
 
   public getDeckLink(link: Link): string {
     return this.orlp.getShortLink(link);
+  }
+
+  changeAccessDeck(deck: DeckDTO, access: boolean) {
+    deck.hidden = access;
+
+    this.cabinetService.toggleDeck(deck)
+      .subscribe((response) => this.logger.log(response));
+  }
+
+  isOwnerDeck(deck: DeckDTO): boolean {
+    return deck.ownerId === this.user.id;
   }
 
   private downloadCards(deckId: number, deckName: string) {

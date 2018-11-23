@@ -14,6 +14,7 @@ import {Rating} from '../../dto/Rating';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
+import {DeckDTO} from "../../dto/DeckDTO/DeckDTO";
 
 @Component({
   providers: [CabinetService],
@@ -72,7 +73,9 @@ export class CabinetComponent implements OnInit {
 
   getDecks(link: Link): void {
     this.cabinetService.getDecks(link)
-      .subscribe(decks => {this.decks = decks;
+      .subscribe(decks => {
+        this.decks = decks;
+
         if (decks.length > 0) {
           this.showAlertdeck = false;
         }
@@ -104,7 +107,7 @@ export class CabinetComponent implements OnInit {
   }
 
   deleteCourse(course: CourseLink) {
-    if (this.isOwner(course)) {
+    if (this.isOwnerCourse(course)) {
       this.cabinetService.deleteGlobalCourse(course)
         .subscribe((response) => this.getUserCourses(this.user));
     } else {
@@ -113,15 +116,25 @@ export class CabinetComponent implements OnInit {
     }
   }
 
-  isOwner(course: CourseLink): boolean {
+  isOwnerCourse(course: CourseLink): boolean {
     return course.ownerId === this.user.id;
+  }
+
+  isOwnerDeck(deck: DeckDTO): boolean {
+    return deck.ownerId === this.user.id;
   }
 
   changeAccess(course: CourseLink, access: boolean) {
     course.published = access;
 
     this.cabinetService.updateCourse(course)
-      .subscribe((response) => console.log());
+      .subscribe((response) => this.logger.log(response));
+  }
+
+  changeAccessDeck(deck: DeckLinkByCategory) {
+    this.cabinetService.toggleDeck(deck).subscribe(response => {
+      deck.hidden = response.hidden;
+    });
   }
 
   getCategoryDecks(course: CourseLink) {
@@ -157,7 +170,8 @@ export class CabinetComponent implements OnInit {
   onCourseRatingClick = (course: CourseLink, event: IStarRatingOnClickEvent) => {
     const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
-      course.rating = event.rating; }, (error) => {
+      course.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }
@@ -165,7 +179,8 @@ export class CabinetComponent implements OnInit {
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
-      deck.rating = event.rating; }, (error) => {
+      deck.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
   }

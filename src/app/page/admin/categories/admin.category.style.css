@@ -56,9 +56,9 @@
 
 .delete-image {
   position: absolute;
-  margin-top: -125px;
-  margin-left: 14%;
   cursor: pointer;
+  margin-top: 4px;
+  margin-left: -30px;
 }
 
 .modal-image {

@@ -9,8 +9,12 @@
     </thead>
     <tbody>
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
-      <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.name}}</td>
-      <td (click)="startLearning(deck.deckId, deck.synthax)">{{deck.description}}</td>
+      <td>{{deck.name}}</td>
+      <td>{{deck.description}}</td>
+      <td class="start">
+        <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
+        </button>
+      </td>
       <td class="cards-number-container">
         <div
           *ngIf="isAuthorized && getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0 && isAuthorized"

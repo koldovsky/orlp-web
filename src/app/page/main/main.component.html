@@ -30,7 +30,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" [routerLink]="['/admin/audit']">ADMIN AUDIT</a>
+                <a class="dropdown-item" [routerLink]="['/admin/transactionsaudit']">ADMIN CREDITS TRANSACTIONS AUDIT</a>
                 <a class="dropdown-item" [routerLink]="['/admin/categories']">ADMIN CATEGORIES</a>
+                <a class="dropdown-item" [routerLink]="['/admin/courses']">ADMIN COURSES</a>
                 <a class="dropdown-item" [routerLink]="['/admin/users']">ADMIN USERS</a>
                 <a class="dropdown-item" [routerLink]="['/admin/decks']">ADMIN DECKS</a>
               </div>
@@ -40,11 +42,13 @@
                  (click)="setActiveLink('/user/profile')">PROFILE</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/home']">ABOUT</a>
+              <a class="nav-link" [routerLink]="['/about']" [class.active]="activeLink === '/about'" (click)="setActiveLink('/about')">ABOUT</a>
             </li>
           </ul>
         </div>
         <div class="navbar-nav my-navbar-nav">
+          <a class="nav-link align-self-center" [routerLink]="['/home']"><i class="fa fa-search fa-fw" aria-hidden="true"></i></a>
+          <a class="align-self-center" *ngIf="isAuthorized" [routerLink]="['/user/profile']">
           <form class="search-form">
             <div class="form-group has-feedback" id="search-form">
               <input [(ngModel)] = "searchString" type="text" class="form-control" name="search" id="search" placeholder="Search">
@@ -60,18 +64,19 @@
           <div *ngIf="(isAuthorized && userDetails)">
             <div class="nav-item username ">{{userDetails.firstName}}</div>
             <div class="nav-item email">{{userDetails.email}}</div>
+            <div class="nav-item text-center"><i class="fa fa-money" aria-hidden="true"></i> {{userDetails.pointsBalance}} <span>pts</span></div>
           </div>
-          <div *ngIf="!isAuthorized" class="nav-item">
+          <div *ngIf="!isAuthorized" class="nav-item align-self-center">
             <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'"
                (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
               UP</a>
           </div>
-          <div *ngIf="!isAuthorized" class="nav-item">
+          <div *ngIf="!isAuthorized" class="nav-item align-self-center">
             <a class="nav-link" [routerLink]="['/login']" [class.active]="activeLink === '/login'"
                (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
               IN</a>
           </div>
-          <div *ngIf="isAuthorized" class="nav-item logout-item">
+          <div *ngIf="isAuthorized" class="nav-item logout-item align-self-center">
             <a class="nav-link logout" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>SIGN
               OUT</a>
           </div>

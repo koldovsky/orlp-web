@@ -33,6 +33,10 @@ import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from './AccountDTO/accountDTO';
+import {TransactionsDTO} from './TransactionsDTO/transactionsDTO';
+import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
+import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
+import {AccountDTO} from './AccountDTO/accountDTO';
 import {SearchResults} from './SearchDTO/search.results.DTO';
 import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
 import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
@@ -97,7 +101,7 @@ export class DTOConverter {
 
   public static jsonToPublicCourse(data: any): CoursePublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new CoursePublic(data.name, data.description, data.image, self);
+    return new CoursePublic(data.courseId, data.name, data.description, data.image, data.coursePrice, self);
   }
 
   public static jsonToCourseByPage(data: any): CoursePageDTO {
@@ -114,13 +118,13 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-      data.owner, cards, self, data.synthax);
+       data.owner, cards, self, data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.status, data.synthax);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,data.hidden, data.synthax, data.createdBy);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {
@@ -179,7 +183,7 @@ export class DTOConverter {
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
-      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, self);
+      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, data.points, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {
@@ -195,6 +199,7 @@ export class DTOConverter {
     data.forEach(element => {
       array.push(callback(element));
     });
+
     return array;
   }
 
@@ -235,6 +240,18 @@ export class DTOConverter {
   public static jsonToAccountDTO(data: any): AccountDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
+  }
+
+  public static jsonToTransactionDTO(data: any): TransactionsDTO {
+    return new TransactionsDTO(data.userFromEmail, data.userToEmail, data.points, data.creationDate)
+  }
+
+  public static jsonToTransactionsArray(data: any): TransactionsDTO[]{
+    return this.jsonArrayToCollection(DTOConverter.jsonToTransactionDTO, data);
+  }
+
+  public static jsonToSendPointsDTO(data: any): SendPointsToFriendDTO {
+    return new SendPointsToFriendDTO(data.emailFrom, data.emailTo, data.points);
   }
 
   public static jsonToDecksSearchDTO (data: any): DeckSearchDTO {

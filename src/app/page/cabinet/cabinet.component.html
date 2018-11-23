@@ -4,6 +4,7 @@
     <a [routerLink]="['/user/cabinet']" class="active">My learning</a>
     <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
     <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
+    <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
   </div>
   <!--ALERT-->
   <table id="alert" class="table table-striped folder">
@@ -33,9 +34,9 @@
           <img *ngIf="showFolderDecks" class="icon opened-folder"/>
         </td>
       </tr>
-      </thead>
+      </thead >
       <tbody *ngIf="showFolderDecks">
-      <tr *ngFor="let deck of decks">
+      <tr *ngFor="let deck of decks"  class="tr-deck">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
         <td class="cards-number-container">
@@ -53,10 +54,16 @@
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
         </ng-template>
-
         <td>
           <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
         </td>
+        <td *ngIf="deck.hidden===true && isOwnerDeck(deck)">
+          <button type=" button" class="btn btn-danger btn-sm" (click)="changeAccessDeck(deck)">PRIVATE</button>
+        </td>
+        <td *ngIf="deck.hidden===false && isOwnerDeck(deck)">
+          <button type=" button" class="btn btn-primary btn-sm" (click)="changeAccessDeck(deck)">PUBLIC</button>
+        </td>
+        <td *ngIf="!isOwnerDeck(deck)"></td>
         <td class="right-column">
           <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"
                   (click)="deleteFolderDeck(deck)">Unsubscribe
@@ -85,13 +92,13 @@
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="course.rating" [readOnly]="true"></star-rating-comp>
         </ng-template>
-        <td *ngIf="isOwner(course)&&course.published===false">
+        <td *ngIf="isOwnerCourse(course)&&course.published===false">
           <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
         </td>
-        <td *ngIf="isOwner(course)&&course.published===true">
+        <td *ngIf="isOwnerCourse(course)&&course.published===true">
           <button type="button" class="btn btn-primary btn-sm" (click)="changeAccess(course, false)">PUBLIC</button>
         </td>
-        <td *ngIf="isOwner(course)">
+        <td *ngIf="isOwnerCourse(course)">
           <button (click)="getCategoryDecks(course)" type="button" class="btn btn-success btn-sm" data-toggle="modal"
                   data-target=".bd-example-modal-sm">+
           </button>
