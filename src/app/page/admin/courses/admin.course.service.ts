@@ -5,8 +5,6 @@ import {Observable} from 'rxjs/Observable';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {Response} from '@angular/http';
 import {DTOConverter} from '../../../dto/dto.converter';
-import {Link} from '../../../dto/link';
-import {EditCategoryDTO} from '../../../dto/CategoryDTO/editCategoryDTO';
 import {EditCourseDTO} from '../../../dto/CourseDTO/editCourseDTO';
 
 @Injectable()
@@ -18,7 +16,7 @@ export class AdminCourseService {
 
   getUserImages(): Observable<ImageDTO[]> {
     return this.orlp.get('api/service/images/user/')
-      .map((response: Response) => <ImageDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToImageDTO, response.json()));
+      .map((response: Response) => <ImageDTO[]>DTOConverter.jsonArrayToCollection(DTOConverter.jsonToImageDTO, response.json()));
   }
 
   addImage(file: any) {
@@ -26,12 +24,16 @@ export class AdminCourseService {
       .map((response: Response) => response.json());
   }
 
+  getImageById(id: String): Observable<ImageDTO> {
+    return this.orlp.get('api/service/image/edit/' + id)
+      .map((response: Response) => <ImageDTO>DTOConverter.jsonToImageDTO(response.json()));
+  }
+
   deleteImage(imageLink: string) {
     return this.orlp.deleteByLongLink(imageLink).map((response: Response) => this.logger.log(response));
   }
 
   updateCourse(id: String, courseEdited: EditCourseDTO) {
-    // const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.put('api/cabinet/courses/' + id, courseEdited)
       .map((response: Response) => response.json());
   }

@@ -32,8 +32,8 @@ import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
-import {AccountDTO} from "./AccountDTO/accountDTO";
-import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
+import {AccountDTO} from './AccountDTO/accountDTO';
+import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
 
 export class DTOConverter {
 
@@ -57,9 +57,8 @@ export class DTOConverter {
 
   public static jsonToImageDTO(data: any): ImageDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new ImageDTO(data.imageId, data.isImageUsed, self);
+    return new ImageDTO(data.id, data.isImageUsed, self);
   }
-
   public static jsonToUserDTO(data: any): UserDTO {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const folder: Link = DTOConverter.jsonToLink('folder', data._links.folder);

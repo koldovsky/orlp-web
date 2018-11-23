@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {AdminCourseService} from './admin.course.service';
-import {UserCategoriesService} from '../../user/categories/user.categories.service';
 import {UserCoursesService} from '../../user/courses/user.courses.service';
 import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {Link} from '../../../dto/link';
@@ -9,9 +8,8 @@ import {MainComponent} from '../../main/main.component';
 import {ORLPService} from '../../../services/orlp.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
-import {EditCategoryDTO} from '../../../dto/CategoryDTO/editCategoryDTO';
 import {EditCourseDTO} from '../../../dto/CourseDTO/editCourseDTO';
-import {$} from 'protractor';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-courses',
@@ -27,19 +25,21 @@ export class AdminCourseComponent implements OnInit {
   currentPage = 1;
   lastPage: number;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('id', '#', '\u2191'), new TableColumnDTO('name', 'Course Name', '')
-    , new TableColumnDTO('description', 'Course Description', ''), new TableColumnDTO('coursePrice.price', 'Course price', '')];
+    , new TableColumnDTO('description', 'Course Description', ''), new TableColumnDTO('coursePrice.price', 'Price', '')];
   selectedSortedParam: TableColumnDTO = this.courseColumns[0];
   courseForm: FormGroup;
   courseDescription: String;
   courseName: String;
   courseImage: String;
+  courseImageDto: ImageDTO;
   coursePrice: number;
   courseId: String;
   courseSelfLink: Link;
   errorImageFile: boolean;
   newImage: ImageDTO;
   public userImages: ImageDTO[];
-  createdCourseMessage: String;
+  imageId: String;
+  courseUpdated: boolean;
 
 
   constructor(private adminCourseService: AdminCourseService,
@@ -51,17 +51,15 @@ export class AdminCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCoursesByPage(this.currentPage);
-    // this.isAuthenticated = this.mainComponent.isAuthenticated;
     this.isAuthorizedAdmin = this.mainComponent.isAuthorizedAdmin;
     const nameValidators = [Validators.required, Validators.minLength(2),
-      Validators.maxLength(30), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\".>/?,<\\|0-9]*')];
+      Validators.maxLength(50)];
     const descriptionValidators = [Validators.required, Validators.minLength(10),
-      Validators.maxLength(50), Validators.pattern('[^`~!@$%^*()\\-_=\\[\\]{};:\'\\">/?<\\|0-9]*')];
+      Validators.maxLength(100)];
     this.courseForm = this.formBuilder.group({
       name: ['', nameValidators],
       description: ['', descriptionValidators],
       price: ['', [Validators.pattern(new RegExp(/^[0-9]+$/))
-        // , Validators.pattern(new RegExp(/^[0-9]{0,6}+$/))
       ]]
     });
   }
@@ -108,13 +106,15 @@ export class AdminCourseComponent implements OnInit {
   }
 
   beforeEditing(course: CoursePublic) {
-    this.clearFields();
     this.courseName = course.name;
     this.courseDescription = course.description;
     this.courseId = course.courseId;
     this.courseImage = course.image;
     this.coursePrice = course.coursePrice;
     this.courseSelfLink = course.self;
+    this.imageId = course.image;
+    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
+    this.getImageById(this.imageId);
   }
 
   getUserImages() {
@@ -127,6 +127,16 @@ export class AdminCourseComponent implements OnInit {
 
   getNewImage(image: ImageDTO) {
     this.newImage = image;
+    this.imageId = image.self.href;
+    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
+    this.newImage.id = +this.imageId;
+  }
+
+  getImageById(id: String) {
+    this.adminCourseService.getImageById(id).subscribe(image => {
+      this.courseImageDto = image;
+      this.courseImageDto.id = +id;
+    });
   }
 
   loadFile(fileInput: any) {
@@ -150,23 +160,25 @@ export class AdminCourseComponent implements OnInit {
   }
 
   editCourse() {
+    if (this.newImage === undefined || this.newImage == null) {
+      this.newImage = this.courseImageDto;
+    }
     this.adminCourseService.updateCourse(this.courseId,
       new EditCourseDTO(this.courseDescription, this.courseName, this.newImage, this.coursePrice, this.courseSelfLink)).subscribe(() => {
-      this.createdCourseMessage = 'Course "' + this.courseName + '" edited!';
       this.getCoursesByPage(this.currentPage);
       this.clearFields();
-
+      this.courseUpdated = true;
     });
   }
 
   clearFields() {
-    // this.courseForm.reset();
     this.courseName = '';
     this.courseDescription = '';
     this.courseId = '';
     this.courseImage = '';
     this.newImage = null;
-    this.coursePrice = null;
+    this.coursePrice = 0;
     this.courseSelfLink = null;
   }
 }
+

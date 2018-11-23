@@ -7,16 +7,17 @@ tr {
 }
 
 .image {
-  width: auto;
+  max-width: 200px;
   height: 150px;
   display: block;
   margin: 0 auto;
 }
 
-.small-img{
+.small-img {
   margin: 0 auto;
   display: block;
 }
+
 .chosen-area {
   height: 150px;
   border: dashed 3px #C5C7C9;
@@ -27,7 +28,7 @@ tr {
 }
 
 .chosen-img {
-  width: auto;
+  max-width: 200px;
   height: 150px;
   cursor: pointer;
   display: block;
@@ -81,18 +82,9 @@ td {
   vertical-align: middle;
 }
 
-/*.admins-tables {*/
-  /*background: white;*/
-  /*border-radius: 0.8rem;*/
-/*}*/
-
-/*.admins-tables-header {*/
-  /*border-top: hidden*/
-/*}*/
-
-/*.category-image {*/
-  /*height: 50px;*/
-/*}*/
+#name, #textarea-input, #number-input {
+  height: auto;
+}
 
 .btn-secondary {
   color: #000;
@@ -100,27 +92,19 @@ td {
   border-color: #000;
 }
 
+.btn-light {
+  padding: 5px 20px;
+}
+
 .btn-secondary:hover {
   color: #000;
   background-color: #f5f5ff;
   border-color: #6c757d;
 }
-.btn-info, .btn-warning{
+
+.btn-info, .btn-warning {
   color: white;
 }
-/*.container {*/
-  /*margin-top: 20px;*/
-/*}*/
-
-/*.create-course {*/
-  /*margin: auto;*/
-  /*text-align: center;*/
-  /*width: 50%*/
-/*}*/
-
-/*.category-header {*/
-  /*color: white;*/
-/*}*/
 
 .delete-image {
   position: absolute;
@@ -190,4 +174,25 @@ textarea {
   font-size: 1.45em;
   padding-top: 8px;
   border-style: dotted;
+}
+
+.card-body {
+  padding-bottom: 0;
+}
+
+#modal-window {
+  margin: 5px auto;
+}
+
+.modal-footer-edit {
+  background-color: #444444;
+  padding: 10px;
+}
+
+.modal-header {
+  padding: 10px;
+}
+
+.alert-success {
+  width: 70%;
 }

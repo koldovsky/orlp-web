@@ -14,9 +14,7 @@
         <tbody>
         <tr class="table-row" *ngFor="let course of courses">
           <td [routerLink]="['/course', getCourseLink(course.self)]">
-            <!--<div class="justify-content-center">-->
             <img class="small-img" [src]="course.image" alt="Course image">
-            <!--</div>-->
           </td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
@@ -24,7 +22,6 @@
           <ng-template #price>
             <td>{{course.coursePrice}}</td>
           </ng-template>
-          <!--<td [routerLink]="['/course', getCourseLink(course.self)]">{{course.coursePrice}}</td>-->
           <td *ngIf="isAuthorizedAdmin">
             <button class="btn btn-light" data-toggle="modal" data-target="#formForEditing"
                     (click)="beforeEditing(course)">Edit
@@ -36,7 +33,13 @@
         </tr>
         </tbody>
       </table>
-      <nav *ngIf="currentPage != lastPage" aria-label="Page navigation">
+      <div class="alert alert-success mx-auto" *ngIf="courseUpdated">
+        Course was updated.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
           <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
                                                                                (click)="getCoursesByPage(1)">First</a>
@@ -85,53 +88,47 @@
 </div>
 
 <div class="modal fade" id="formForEditing" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" id="modal-window" role="document">
     <div class="modal-content">
       <div class="modal-header card-header">
-        <h4 class="modal-title">Course</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+        <h4 class="modal-title">Edit course</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearFields()"><span
           aria-hidden="true">&times;</span></button>
       </div>
       <div class="card-body">
         <div class="row form-group" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label" for="names">Name:</label>
+          <label class="col-md-3 col-form-label" for="name">Name:</label>
           <div class="col-md-9">
-            <input type="text" id="names" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
+            <input type="text" id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
                        (courseForm.get('name').touched||courseForm.get('name').dirty)&&courseForm.get('name').errors}"
                    [(ngModel)]="courseName"
                    required>
             <div *ngIf="courseForm.get('name').hasError('required')" class="invalid-feedback">
-              Name is required field!
-            </div>
-            <div *ngIf="courseForm.get('name').hasError('pattern')" class="invalid-feedback">
-              You wrote incorrect characters. (Only letters and +# are allowed)
-            </div>
-            <div *ngIf="courseForm.get('name').hasError('minlength')" class="invalid-feedback">
-              Name is too short! (not less than 2 characters)
+              Required field cannot be left blank.
             </div>
             <div *ngIf="courseForm.get('name').hasError('maxlength')" class="invalid-feedback">
-              Name is too long! (not more than 15 characters)
+              This field cannot contain more than 50 characters.
+            </div>
+            <div *ngIf="courseForm.get('name').hasError('minlength')" class="invalid-feedback">
+              Enter a combination of at least 2 characters.
             </div>
           </div>
         </div>
 
         <div class="form-group row" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label" for="textarea-inputs">Description:</label>
+          <label class="col-md-3 col-form-label" for="textarea-input">Description:</label>
           <div class="col-md-9">
-              <textarea id="textarea-inputs" rows="3" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
+              <textarea id="textarea-input" rows="3" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
               (courseForm.get('description').touched||courseForm.get('description').dirty)&&courseForm.get('description').errors}"
                         required [(ngModel)]="courseDescription"></textarea>
             <div *ngIf="courseForm.get('description').hasError('required')" class="invalid-feedback">
-              Description is required field!
-            </div>
-            <div *ngIf="courseForm.get('description').hasError('pattern')" class="invalid-feedback">
-              You wrote incorrect characters. (Only letters and #+., are allowed)
-            </div>
-            <div *ngIf="courseForm.get('description').hasError('minlength')" class="invalid-feedback">
-              Description is too short! (not less than 10 characters)
+              Required field cannot be left blank.
             </div>
             <div *ngIf="courseForm.get('description').hasError('maxlength')" class="invalid-feedback">
-              Description is too long! (not more than 200 characters)
+              This field cannot contain more than 100 characters.
+            </div>
+            <div *ngIf="courseForm.get('description').hasError('minlength')" class="invalid-feedback">
+              Enter a combination of at least 10 characters.
             </div>
           </div>
         </div>
@@ -142,7 +139,7 @@
                  alt="Course image">
           </div>
           <div class="form-group col" [formGroup]="courseForm">
-            <label>New image</label>
+            <label>New image:</label>
             <div class="image mt-2">
               <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
                 <div *ngIf="newImage; then chosenContent else chooseContent"></div>
@@ -159,25 +156,25 @@
           </div>
         </div>
         <div class="form-group row" [formGroup]="courseForm">
-          <label class="col-md-3 col-form-label" for="number-input">Price</label>
+          <label class="col-md-3 col-form-label" for="number-input">Price:</label>
           <div class="col-md-9">
-            <input type="text" id="number-input" formControlName="price" [ngClass]="{'is-invalid':
+            <input type="text" id="number-input" formControlName="price" class="form-control" [ngClass]="{'is-invalid':
               (courseForm.get('price').touched||courseForm.get('price').dirty)&&courseForm.get('price').errors}"
                    [(ngModel)]="coursePrice">
-            <div *ngIf="courseForm.get('price').hasError('pattern')">
-              Please specify a positive number from 0 to 999 999
+            <div *ngIf="courseForm.get('price').hasError('pattern')" class="invalid-feedback">
+              Please specify a positive number from 0.
             </div>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <!--<button [disabled]="!isFormValid() || !chosenImage " class="btn btn-info"-->
-        <button class="btn btn-info"
+      <div class="modal-footer modal-footer-edit">
+        <button [disabled]="!courseForm.valid"
+                class="btn btn-info"
                 data-dismiss="modal"
                 (click)="editCourse()" data-toggle="modal"
                 data-target="#updateCategory">Save changes
         </button>
-        <button type="reset" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+        <button type="reset" class="btn btn-warning" data-dismiss="modal" (click)="clearFields()">Cancel</button>
       </div>
     </div>
   </div>
@@ -201,8 +198,8 @@
           <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file modal-image"
                  maxlength="1048576" accept="image/png, image/jpg, image/bmp">
           <label class="correct-file" *ngIf="!errorImageFile" for="file">Choose a file</label>
-          <label class="incorrect-file" *ngIf="errorImageFile" for="file">You chosen incorrect file. Please choose image
-            type of file, with size less than 1 mb.</label>
+          <label class="incorrect-file" *ngIf="errorImageFile" for="file">You chosen incorrect file. Please choose
+            ".png" , ".jpg", ".bmp" type of file, with size less than 1 mb.</label>
         </div>
       </div>
       <div class="modal-footer">
