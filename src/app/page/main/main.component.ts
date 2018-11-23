@@ -11,11 +11,12 @@ import {CategoryService} from './search/category.service';
 import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {AuthorizationService} from '../authorization/authorization.service';
+import {SearchService} from '../search/search.service';
 
 @Component({
   selector: 'app-page',
   templateUrl: ('./main.component.html'),
-  styleUrls: ['./main.css', './dropdown.css']
+  styleUrls: ['./main.css', './dropdown.css', './search.css']
 })
 
 export class MainComponent implements OnInit {
@@ -31,6 +32,7 @@ export class MainComponent implements OnInit {
   public showSearchResult: boolean;
   public image: string;
   public activeLink: string;
+  public searchString: string;
 
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
@@ -40,7 +42,8 @@ export class MainComponent implements OnInit {
               private mainService: MainService,
               private adminGuard: AdminGuardService,
               private authorizationService: AuthorizationService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private searchService: SearchService) {
   }
 
   ngOnInit(): void {
@@ -105,5 +108,9 @@ export class MainComponent implements OnInit {
   }
   setNotActive(): void {
     this.activeLink = '';
+  }
+  onSearchClick(): void {
+    this.searchService.getResults(this.searchString);
+    this.searchString = '';
   }
 }

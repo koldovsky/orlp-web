@@ -118,3 +118,14 @@ input {
 .container-footer {
   padding-top: 1%;
 }
+
+.has-feedback{
+  position: relative;
+}
+
+#search-form {
+  margin-bottom: 0;
+}
+/*.search-form {*/
+  /*margin: 0;*/
+/*}*/

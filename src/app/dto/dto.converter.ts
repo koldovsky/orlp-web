@@ -32,11 +32,16 @@ import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
-import {AccountDTO} from "./AccountDTO/accountDTO";
-import {TransactionsDTO} from "./TransactionsDTO/transactionsDTO";
+import {TransactionsDTO} from './TransactionsDTO/transactionsDTO';
 import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
-import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
+import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
+import {AccountDTO} from './AccountDTO/accountDTO';
+import {SearchResults} from './SearchDTO/search.results.DTO';
+import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
+import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
+import {DeckSearchDTO} from './SearchDTO/deck.search.DTO';
 import {SetPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
+
 
 export class DTOConverter {
 
@@ -113,7 +118,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-      data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
+       data.owner, cards, self, data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
@@ -185,6 +190,10 @@ export class DTOConverter {
     return new Link(rel, data.href);
   }
 
+  public static jsonToLinkSearch(rel: string, data: any): Link {
+    return new Link(rel, data.selfLink);
+  }
+
   public static jsonArrayToCollection(callback: Function, data: Array<any>): Array<any> {
     const array: Array<any> = [];
     data.forEach(element => {
@@ -245,6 +254,27 @@ export class DTOConverter {
     return new SendPointsToFriendDTO(data.emailFrom, data.emailTo, data.points);
   }
 
+  public static jsonToDecksSearchDTO (data: any): DeckSearchDTO {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new DeckSearchDTO(data.elementId, data.name, data.description, data.rating, data.image, self);
+  }
+
+  public static jsonToCoursesSearchDTO (data: any): CourseSearchDTO {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new CourseSearchDTO(data.elementId, data.name, data.description, data.rating, data.image, self);
+  }
+
+  public static jsonToCategoriesSearchDTO (data: any): CategorySearchDTO {
+    const self: Link = DTOConverter.jsonToLinkSearch('self', data);
+    return new CategorySearchDTO(data.elementId, data.name, data.description, data.image, self);
+  }
+
+  public static jsonToSearchResultsDTO (data: any): SearchResults {
+    const categories: CategorySearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCategoriesSearchDTO, data.category);
+    const courses: CourseSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCoursesSearchDTO, data.course);
+    const decks: DeckSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToDecksSearchDTO, data.deck);
+    return new SearchResults(courses, categories, decks);
+    
   public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
     return new SetPointsByAdminDTO(data.email, data.points);
   }
