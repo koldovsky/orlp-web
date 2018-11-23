@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private NAME_PATTERN = '[^`~!@#$%^&*()\\-_=\\+\\[\\]{};:\'\".>/?,<\|]*';
   private PASSWORD_MIN_LENGTH = 8;
   private PASSWORD_MAX_LENGTH = 20;
+  private isAuthorizedAdmin: boolean;
 
   constructor(private profileService: ProfileService,
               private mainComponent: MainComponent,
@@ -83,6 +84,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.status = sessionStorage.getItem('status');
     this.getProfileData();
     this.getProfile();
+    this.isAuthorizedAdmin = this.mainComponent.isAuthorizedAdmin;
     this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
 
     const nameValidator = [

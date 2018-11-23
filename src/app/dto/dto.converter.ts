@@ -35,7 +35,8 @@ import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
 import {TransactionsDTO} from "./TransactionsDTO/transactionsDTO";
 import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
-import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
+import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
+import {SetPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
 
 export class DTOConverter {
 
@@ -112,7 +113,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
+      data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
@@ -231,7 +232,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
   }
-  
+
   public static jsonToTransactionDTO(data: any): TransactionsDTO {
     return new TransactionsDTO(data.userFromEmail, data.userToEmail, data.points, data.creationDate)
   }
@@ -242,5 +243,9 @@ export class DTOConverter {
 
   public static jsonToSendPointsDTO(data: any): SendPointsToFriendDTO {
     return new SendPointsToFriendDTO(data.emailFrom, data.emailTo, data.points);
+  }
+
+  public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
+    return new SetPointsByAdminDTO(data.email, data.points);
   }
 }

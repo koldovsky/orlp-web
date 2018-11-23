@@ -58,3 +58,22 @@ th, li {
 .admins-tables-header .header-item {
   background-color: #d6d6d6;
 }
+
+.form-control {
+  height: auto;
+  width: border-box;
+}
+
+.modal-body p {
+  text-align: center;
+}
+
+.modal-body p span {
+  font-size: medium;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.alert {
+  text-align: center;
+}
