@@ -5,7 +5,6 @@ import {ORLPService} from '../../../services/orlp.service';
 import {TransactionsDTO} from "../../../dto/TransactionsDTO/transactionsDTO";
 import {DTOConverter} from "../../../dto/dto.converter";
 
-
 @Injectable()
 export class AdminTransactionsAudit{
 
@@ -17,8 +16,3 @@ export class AdminTransactionsAudit{
             (DTOConverter.jsonToTransactionsArray(response.json())));
       }
 }
-
-
-
-
-
