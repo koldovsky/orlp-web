@@ -73,6 +73,8 @@ export class UserDecksComponent implements OnInit {
   private getDeckCreatedByTheUser(deckId: number): void {
     this.userDecksService.getDeckCreatedByTheUser(deckId).subscribe(deck => {
       this.selectedDeck = deck;
+      if(this.selectedDeck.deckPrice == null)
+        this.selectedDeck.deckPrice = new DeckPriceDTO(0);
       this.decks[this.selectedIndex] = this.selectedDeck;
     });
   }

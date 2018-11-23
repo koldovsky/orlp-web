@@ -11,6 +11,9 @@ import {ProfilePersonalInfoDTO} from '../../dto/UserProfileDTO/ProfilePersonalIn
 import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
 import {LogoutService} from '../logout/logout.service';
+import {SendPointsToFriendDTO} from '../../dto/UserProfileDTO/SendPointsToFriendDTO';
+import {MainComponent} from '../main/main.component';
+import {MessageDTO} from '../../dto/MessageDTO';
 
 function passwordMatcher(form: AbstractControl) {
   const newPassword = form.get('newPassword').value;
@@ -33,6 +36,13 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   email: string;
   firstName: string;
   lastName: string;
+  emailFrom: string;
+  emailTo: string;
+  pointsBalance: number;
+  pointsTo: number;
+  error: boolean;
+  success: boolean;
+  responseMessage: MessageDTO = new MessageDTO();
   originalFirstName: string;
   originalLastName: string;
   currentPassword: string;
@@ -50,6 +60,9 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   isAccountDeactivated = false;
   personalInfoForm: FormGroup;
   passwordForm: FormGroup;
+  sendForm: FormGroup;
+  private EMAIL_MIN_LENGTH = 10;
+  private EMAIL_MAX_LENGTH = 50;
   private NAME_MIN_LENGTH = 2;
   private NAME_MAX_LENGTH = 15;
   private NAME_PATTERN = '[^`~!@#$%^&*()\\-_=\\+\\[\\]{};:\'\".>/?,<\|]*';
@@ -57,6 +70,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private PASSWORD_MAX_LENGTH = 20;
 
   constructor(private profileService: ProfileService,
+              private mainComponent: MainComponent,
               private router: Router,
               private loginService: LoginService,
               private formBuilder: FormBuilder,
@@ -69,6 +83,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.status = sessionStorage.getItem('status');
     this.getProfileData();
     this.getProfile();
+    this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
 
     const nameValidator = [
       Validators.required,
@@ -81,7 +96,21 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       Validators.minLength(this.PASSWORD_MIN_LENGTH),
       Validators.maxLength(this.PASSWORD_MAX_LENGTH)
     ];
+    const emailValidator = [
+      Validators.required,
+      Validators.minLength(this.EMAIL_MIN_LENGTH),
+      Validators.maxLength(this.EMAIL_MAX_LENGTH),
+      Validators.pattern(new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+    ];
+    const pointsValidator = [
+      Validators.required,
+      Validators.pattern(new RegExp('^[1-9][0-9]*$'))
+    ];
 
+    this.sendForm = this.formBuilder.group({
+      email: ['', emailValidator],
+      points: ['', pointsValidator]
+    });
     this.personalInfoForm = this.formBuilder.group({
       firstName: ['', nameValidator],
       lastName: ['', nameValidator]
@@ -91,6 +120,10 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       newPassword: ['', passwordValidator],
       confirmPassword: ['']
     }, {validator: passwordMatcher});
+  }
+
+  isFormValid(): boolean {
+    return this.sendForm.valid;
   }
 
   updatePersonalData() {
@@ -113,6 +146,20 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.firstName = this.originalFirstName;
     this.lastName = this.originalLastName;
     this.personalInfoShowSuccessMessage = false;
+  }
+
+  sendPointsToFriend() {
+    this.emailFrom = this.email;
+    this.profileService.sendPointsToFriend(new SendPointsToFriendDTO(this.emailFrom, this.emailTo, this.pointsTo))
+      .subscribe((response) => {
+        this.pointsBalance = response.points;
+        this.mainComponent.userDetails.pointsBalance = this.pointsBalance;
+        this.success = true;
+      }, (response) => {
+        this.responseMessage = response.json();
+        this.success = false;
+        this.error = true;
+      });
   }
 
   getProfile(): void {
@@ -262,7 +309,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private validateAccountLDetails(): boolean {
     for (let i = 0; i < this.accountLearningDetail.rememberingLevels.length - 1; i++) {
       if (!(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays
-          < this.accountLearningDetail.rememberingLevels[i + 1].numberOfPostponedDays)
+        < this.accountLearningDetail.rememberingLevels[i + 1].numberOfPostponedDays)
         || !(this.accountLearningDetail.rememberingLevels[i].numberOfPostponedDays > 0)) {
         return false;
       }
@@ -274,4 +321,10 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.savingResultMessage = '';
   }
 
+  beforeSend(): void {
+    this.emailTo = '';
+    this.pointsTo = null;
+    this.error = false;
+    this.success = false;
+  }
 }
