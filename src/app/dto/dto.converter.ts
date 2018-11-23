@@ -32,9 +32,9 @@ import {DeckSynthaxDTO} from './DeckDTO/deckSynthaxDTO';
 import {ProfileDataDTO} from './UserProfileDTO/ProfileDataDTO';
 import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
-import {AccountDTO} from "./AccountDTO/accountDTO";
+import {AccountDTO} from './AccountDTO/accountDTO';
 import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
-import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
+import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
 
 export class DTOConverter {
 
