@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-2" id="delete">
-      <button class="btn btn-outline-dark"
+      <button class="btn btn-outline-danger"
               data-toggle="modal" data-target="#deleteModel">Delete profile
       </button>
     </div>
@@ -56,6 +56,10 @@
           <a class="nav-link" href="#regime" role="tab" id="regime-tab" data-toggle="tab"
              aria-controls="regime">Learning regime
           </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#wallet" data-toggle="tab">My wallet</a>
+        </li>
       </ul>
     </div>
 
@@ -407,9 +411,90 @@
           </div>
         </div>
       </div>
+
+      <div role="tabpanel" id="wallet" class="tab-content tab-pane fade">
+        <div class="col-lg-12">
+          <p> Dear, <span> {{firstName}} {{lastName}} ! </span></p>
+        </div>
+        <div class="container align-middle">
+          <div class="row align-middle">
+            <div class="col align-self-center">
+              <label class="m-0"> You have <span>{{pointsBalance}}</span> points</label>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-outline-info ">Buy points</button>
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-outline-info" data-toggle="modal"
+                      (click)="beforeSend()" data-target="#sendToFriend">Send points to friend
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="sendToFriend" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Send points</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="row form-group" [formGroup]="sendForm">
+            <label class="col-md-3 col-form-label" for="email">Email:</label>
+            <div class="col-md-9">
+              <input type="text" id="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':
+                       (sendForm.get('email').touched||sendForm.get('email').dirty)&&sendForm.get('email').errors}"
+                     [(ngModel)]="emailTo"
+                     required>
+              <div *ngIf="sendForm.get('email').hasError('required')" class="invalid-feedback">
+                Email is required field!
+              </div>
+              <div *ngIf="sendForm.get('email').hasError('pattern')" class="invalid-feedback">
+                The email you gave is incorrect
+              </div>
+              <div *ngIf="sendForm.get('email').hasError('minlength')" class="invalid-feedback">
+                Name is too short! (not less than 10 characters)
+              </div>
+              <div *ngIf="sendForm.get('email').hasError('maxlength')" class="invalid-feedback">
+                Name is too long! (not more than 50 characters)
+              </div>
+            </div>
+          </div>
+          <div class="row form-group mb-3" [formGroup]="sendForm">
+            <label class="col-md-3 col-form-label" for="points">Amount:</label>
+            <div class="col-md-9">
+              <input type="text" id="points" class="form-control" formControlName="points" [ngClass]="{'is-invalid':
+                       (sendForm.get('points').touched||sendForm.get('points').dirty)&&sendForm.get('points').errors}"
+                     [(ngModel)]="pointsTo"
+                     required>
+              <div *ngIf="sendForm.get('points').hasError('required')" class="invalid-feedback">
+                Amount is required field!
+              </div>
+              <div *ngIf="sendForm.get('points').hasError('pattern')" class="invalid-feedback">
+                The amount is incorrect. You should write only positive numeric starting not from "0"!
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-success" *ngIf="success">
+            <span>Points were sent successfully!</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="error && !success">
+          <span>{{responseMessage.message}}</span>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="!isFormValid() || !emailTo || !pointsTo " type="button"
+                    class="btn btn-primary"
+                    (click)="sendPointsToFriend()">Send
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
   <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

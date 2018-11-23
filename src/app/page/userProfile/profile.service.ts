@@ -15,6 +15,7 @@ import {ProfileImageDTO} from '../../dto/UserProfileDTO/ProfileImageDTO';
 import {ProfilePasswordDTO} from '../../dto/UserProfileDTO/ProfilePasswordDTO';
 import {MessageDTO} from '../../dto/MessageDTO';
 import {AccountDTO} from "../../dto/AccountDTO/accountDTO";
+import {SendPointsToFriendDTO} from '../../dto/UserProfileDTO/SendPointsToFriendDTO';
 
 @Injectable()
 export class ProfileService {
@@ -72,5 +73,10 @@ export class ProfileService {
 
   updateUserProfile(accountDetails: AccountDTO) {
     return this.orlp.put('api/profile/learning-details', accountDetails).catch(this.handleError);
+  }
+
+  sendPointsToFriend(sendPoints: SendPointsToFriendDTO) {
+    return this.orlp.post('api/profile/wallet', sendPoints)
+      .map((response: Response) => <SendPointsToFriendDTO> DTOConverter.jsonToSendPointsDTO(response.json()));
   }
 }

@@ -34,6 +34,7 @@ import {ProfileImageDTO} from './UserProfileDTO/ProfileImageDTO';
 import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from "./AccountDTO/accountDTO";
 import {TransactionsDTO} from "./TransactionsDTO/transactionsDTO";
+import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
 import {DeckPriceDTO} from "./DeckDTO/DeckPriceDTO";
 
 export class DTOConverter {
@@ -176,7 +177,7 @@ export class DTOConverter {
   public static jsonToUserDetails(data: any): UserDetailsDto {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new UserDetailsDto(data.firstName, data.lastName, data.email, data.imageType, data.imageBase64,
-      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, self);
+      data.image, data.authenticationType, data.authorities, data.accountStatus, data.deactivated, data.points, self);
   }
 
   public static jsonToLink(rel: string, data: any): Link {
@@ -230,7 +231,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new AccountDTO(data.learningRegime, data.rememberingLevels, data.cardsNumber, self);
   }
-
+  
   public static jsonToTransactionDTO(data: any): TransactionsDTO {
     return new TransactionsDTO(data.userFromEmail, data.userToEmail, data.points, data.creationDate)
   }
@@ -239,4 +240,7 @@ export class DTOConverter {
     return this.jsonArrayToCollection(DTOConverter.jsonToTransactionDTO, data);
   }
 
+  public static jsonToSendPointsDTO(data: any): SendPointsToFriendDTO {
+    return new SendPointsToFriendDTO(data.emailFrom, data.emailTo, data.points);
+  }
 }
