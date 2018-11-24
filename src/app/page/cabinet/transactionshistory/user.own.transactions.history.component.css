@@ -1,0 +1,31 @@
+.container {
+  margin-top: 20px;
+}
+
+/*MENU*/
+.vertical-menu {
+  float: left;
+  cursor: pointer !important;
+  width: 200px;
+}
+
+.vertical-menu a {
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+}
+
+.vertical-menu a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.table{
+  table-layout: fixed;
+}

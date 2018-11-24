@@ -22,7 +22,7 @@ export class LogoutService {
 
   logout(): boolean {
     if (this.isAuthorized()) {
-      this.cookie.remove(this.cookieWithToken);
+      this.cookie.removeAll();
       sessionStorage.setItem('status', 'INACTIVE');
       return true;
     }

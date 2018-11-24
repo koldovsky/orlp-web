@@ -18,6 +18,9 @@ import {AdminDecksService} from './decks/admin.decks.service';
 import {AdminDeckComponent} from './decks/deck/admin.deck.component';
 import {AdminDeckService} from './decks/deck/admin.deck.service';
 import {StarRatingModule} from 'angular-star-rating';
+import {AdminCreditsTransactionsAuditComponent} from './transactionsAudit/admin.credits.transactions.audit.component';
+import {AdminCourseComponent} from './courses/admin.course.component';
+import {AdminCourseService} from './courses/admin.course.service';
 
 @NgModule({
   imports: [
@@ -31,7 +34,9 @@ import {StarRatingModule} from 'angular-star-rating';
       {path: 'admin/users', canActivate: [AdminGuardService], component: AdminUsersComponent},
       {path: 'admin/users/:url', canActivate: [AdminGuardService], component: AdminUserComponent},
       {path: 'admin/decks', canActivate: [AdminGuardService], component: AdminDecksComponent},
-      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent}
+      {path: 'admin/decks/:url', canActivate: [AdminGuardService], component: AdminDeckComponent},
+      {path: 'admin/transactionsaudit', canActivate: [AdminGuardService], component: AdminCreditsTransactionsAuditComponent},
+      {path: 'admin/courses', canActivate: [AdminGuardService], component: AdminCourseComponent}
     ])],
   exports: [],
   declarations: [
@@ -42,7 +47,9 @@ import {StarRatingModule} from 'angular-star-rating';
     AdminUserComponent,
     AdminAuditComponent,
     AdminDecksComponent,
-    AdminDeckComponent
+    AdminDeckComponent,
+    AdminCreditsTransactionsAuditComponent,
+    AdminCourseComponent
   ],
   providers: [
     AdminCategoryService,
@@ -51,8 +58,8 @@ import {StarRatingModule} from 'angular-star-rating';
     AdminAuditService,
     AdminGuardService,
     AdminDecksService,
-    AdminDeckService
-
+    AdminDeckService,
+    AdminCourseService
   ],
 })
 

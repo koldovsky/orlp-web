@@ -1,0 +1,210 @@
+<div class="container">
+  <div class="row">
+    <div *ngIf="courses" class="col-12">
+      <table class="table table-striped admins-tables">
+        <thead>
+        <tr class="admins-courses-header">
+          <th *ngFor="let column of courseColumns"
+              [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
+              (click)="sortBy(column)">
+            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-row" *ngFor="let course of courses">
+          <td [routerLink]="['/course', getCourseLink(course.self)]">
+            <img class="small-img" [src]="course.image" alt="Course image">
+          </td>
+          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
+          <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
+          <td *ngIf="course.coursePrice == null || course.coursePrice == 0;else price">Free</td>
+          <ng-template #price>
+            <td>{{course.coursePrice}}</td>
+          </ng-template>
+          <td *ngIf="isAuthorizedAdmin">
+            <button class="btn btn-light" data-toggle="modal" data-target="#formForEditing"
+                    (click)="beforeEditing(course)">Edit
+            </button>
+            <button class="btn btn-danger" (click)="assignCourse(course)" data-toggle="modal"
+                    data-target="#deleteCourse">Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-success mx-auto" *ngIf="courseUpdated">
+        Course was updated.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
+                                                                               (click)="getCoursesByPage(1)">First</a>
+          </li>
+          <ng-template #disabledFirst>
+            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+          </ng-template>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1"
+                                   (click)="getCoursesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+          <li class="active"><a class="page-link" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
+          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage"
+                                   (click)="getCoursesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
+                                                                                      (click)="getCoursesByPage(lastPage)">Last</a>
+          </li>
+          <ng-template #disabledLast>
+            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<div bsModal id="deleteCourse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content" *ngIf="courseSelected">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Course?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{courseSelected.name}} will be deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="deleteCourse(courseSelected)" data-dismiss="modal" class="btn btn-danger">
+          Delete
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="formForEditing" tabindex="-1" role="dialog">
+  <div class="modal-dialog" id="modal-window" role="document">
+    <div class="modal-content">
+      <div class="modal-header card-header">
+        <h4 class="modal-title">Edit course</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearFields()"><span
+          aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="card-body">
+        <div class="row form-group" [formGroup]="courseForm">
+          <label class="col-md-3 col-form-label" for="name">Name:</label>
+          <div class="col-md-9">
+            <input type="text" id="name" class="form-control" formControlName="name" [ngClass]="{'is-invalid':
+                       (courseForm.get('name').touched||courseForm.get('name').dirty)&&courseForm.get('name').errors}"
+                   [(ngModel)]="courseName"
+                   required>
+            <div *ngIf="courseForm.get('name').hasError('required')" class="invalid-feedback">
+              Required field cannot be left blank.
+            </div>
+            <div *ngIf="courseForm.get('name').hasError('maxlength')" class="invalid-feedback">
+              This field cannot contain more than 50 characters.
+            </div>
+            <div *ngIf="courseForm.get('name').hasError('minlength')" class="invalid-feedback">
+              Enter a combination of at least 2 characters.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row" [formGroup]="courseForm">
+          <label class="col-md-3 col-form-label" for="textarea-input">Description:</label>
+          <div class="col-md-9">
+              <textarea id="textarea-input" rows="3" class="form-control" formControlName="description" [ngClass]="{'is-invalid':
+              (courseForm.get('description').touched||courseForm.get('description').dirty)&&courseForm.get('description').errors}"
+                        required [(ngModel)]="courseDescription"></textarea>
+            <div *ngIf="courseForm.get('description').hasError('required')" class="invalid-feedback">
+              Required field cannot be left blank.
+            </div>
+            <div *ngIf="courseForm.get('description').hasError('maxlength')" class="invalid-feedback">
+              This field cannot contain more than 100 characters.
+            </div>
+            <div *ngIf="courseForm.get('description').hasError('minlength')" class="invalid-feedback">
+              Enter a combination of at least 10 characters.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div *ngIf="courseImage" class="col">
+            <label class="justify-content-center">Current image:</label>
+            <img [src]="courseImage" class="image mt-2"
+                 alt="Course image">
+          </div>
+          <div class="form-group col" [formGroup]="courseForm">
+            <label>New image:</label>
+            <div class="image mt-2">
+              <div data-toggle="modal" data-target=".bd-example-modal-lg" (click)="getUserImages()">
+                <div *ngIf="newImage; then chosenContent else chooseContent"></div>
+                <ng-template #chosenContent class="chosen-area">
+                  <img [src]="newImage.self.href" alt="New course image" class="chosen-img"/>
+                </ng-template>
+                <ng-template #chooseContent>
+                  <div class="chosen-area">
+                    Choose new image...
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row" [formGroup]="courseForm">
+          <label class="col-md-3 col-form-label" for="number-input">Price:</label>
+          <div class="col-md-9">
+            <input type="text" id="number-input" formControlName="price" class="form-control" [ngClass]="{'is-invalid':
+              (courseForm.get('price').touched||courseForm.get('price').dirty)&&courseForm.get('price').errors}"
+                   [(ngModel)]="coursePrice">
+            <div *ngIf="courseForm.get('price').hasError('pattern')" class="invalid-feedback">
+              Please specify a positive number from 0.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-edit">
+        <button [disabled]="!courseForm.valid"
+                class="btn btn-info"
+                data-dismiss="modal"
+                (click)="editCourse()" data-toggle="modal"
+                data-target="#updateCategory">Save changes
+        </button>
+        <button type="reset" class="btn btn-warning" data-dismiss="modal" (click)="clearFields()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLongTitle">Images</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let image of userImages">
+          <img [src]="image.self.href" alt="image" (click)="getNewImage(image)" class="modal-image"
+               data-dismiss="modal"/>
+          <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">
+            <i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div>
+          <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file modal-image"
+                 maxlength="1048576" accept="image/png, image/jpg, image/bmp">
+          <label class="correct-file" *ngIf="!errorImageFile" for="file">Choose a file</label>
+          <label class="incorrect-file" *ngIf="errorImageFile" for="file">You chosen incorrect file. Please choose
+            ".png" , ".jpg", ".bmp" type of file, with size less than 1 mb.</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="reset" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

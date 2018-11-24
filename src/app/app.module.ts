@@ -39,6 +39,7 @@ import {RestorePasswordModule} from './page/authorization/restorePassword/restor
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
 import {AboutModule} from "./page/about/about.module";
 import {CardModule} from './page/card/card.module';
+import {SearchModule} from './page/search/search.module';
 
 @NgModule({
   imports: [
@@ -50,7 +51,7 @@ import {CardModule} from './page/card/card.module';
     CommonModule,
     RouterModule.forRoot([
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: '**', redirectTo: 'home', pathMatch: 'full'}
+      {path: '**', redirectTo: 'home', pathMatch: 'full'},
     ]),
 
     AboutModule,
@@ -68,6 +69,7 @@ import {CardModule} from './page/card/card.module';
     UserStatusChangeModule,
     AuthorisedModule,
     RestorePasswordModule,
+    SearchModule,
     LoggerModule.forRoot({
       serverLoggingUrl: environment.SERVER_ADDRESS,
       level: environment.logger.level,

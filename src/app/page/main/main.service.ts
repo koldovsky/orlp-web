@@ -10,6 +10,7 @@ import {ORLPService} from '../../services/orlp.service';
 import {UserDetailsDto} from '../../dto/UserDetailsDto';
 import {DTOConverter} from '../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
+import {SearchResults} from '../../dto/SearchDTO/search.results.DTO';
 
 @Injectable()
 export class MainService {
@@ -22,6 +23,7 @@ export class MainService {
       .map((response: Response) => <UserDetailsDto> DTOConverter.jsonToUserDetails(response.json()))
       .catch(this.handleError);
   }
+
 
   private handleError(error: Response) {
     this.logger.error(error);

@@ -1,0 +1,35 @@
+.row {
+  border-top: 1px solid #c2cfd6;
+  padding: 5px 0;
+  font-size: 16px;
+}
+div .row:nth-child(odd) {
+  background-color: #d6d6d6;
+}
+
+.rating {
+  text-align: right;
+}
+
+.image{
+  height: auto;
+  max-height: 75px;
+  max-width: 100%;
+  border-radius: 5px;
+}
+div .search-result:hover {
+  cursor: pointer;
+  background-color: #e1d7e8;
+}
+.search-highlight {
+  font-size: 24px;
+}
+
+:host ::ng-deep .search-highlight{
+  background-color: #ffc91b;
+}
+
+.search-box {
+  margin: 15px;
+}
+

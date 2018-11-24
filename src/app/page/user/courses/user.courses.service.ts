@@ -3,10 +3,10 @@ import {ORLPService} from '../../../services/orlp.service';
 import {Observable} from 'rxjs/Observable';
 import {Response} from '@angular/http';
 import {DTOConverter} from '../../../dto/dto.converter';
-import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {CoursePageDTO} from '../../../dto/CourseDTO/linkToCourseByPageDTO';
 import {NGXLogger} from 'ngx-logger';
 import {Link} from '../../../dto/link';
+import {CoursePriceDTO} from '../../../dto/CourseDTO/price.course.DTO';
 
 @Injectable()
 export class UserCoursesService {
@@ -27,9 +27,14 @@ export class UserCoursesService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
+  updatePrice(coursePriceDTO: CoursePriceDTO) {
+    return this.orlp.put('/api/courses/' + coursePriceDTO.courseId + '/', coursePriceDTO);
+  }
+
+
   deleteCourse(link: Link) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.delete(shortLink)
-      .map((response: Response) =>response.json());
+      .map((response: Response) => response.json());
   }
 }
