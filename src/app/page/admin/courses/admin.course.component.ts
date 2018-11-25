@@ -40,6 +40,7 @@ export class AdminCourseComponent implements OnInit {
   public userImages: ImageDTO[];
   imageId: String;
   courseUpdated: boolean;
+  SERVER_ADDRESS: 'https://api.infolve.com/';
 
 
   constructor(private adminCourseService: AdminCourseService,
@@ -113,7 +114,7 @@ export class AdminCourseComponent implements OnInit {
     this.coursePrice = course.coursePrice;
     this.courseSelfLink = course.self;
     this.imageId = course.image;
-    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
+    this.imageId = this.imageId.replace(this.SERVER_ADDRESS + 'api/service/image/', '');
     this.getImageById(this.imageId);
   }
 
@@ -128,7 +129,7 @@ export class AdminCourseComponent implements OnInit {
   getNewImage(image: ImageDTO) {
     this.newImage = image;
     this.imageId = image.self.href;
-    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
+    this.imageId = this.imageId.replace(this.SERVER_ADDRESS + 'api/service/image/', '');
     this.newImage.id = +this.imageId;
   }
 
@@ -180,5 +181,8 @@ export class AdminCourseComponent implements OnInit {
     this.coursePrice = 0;
     this.courseSelfLink = null;
   }
-}
 
+  changeCourseUpdated() {
+    this.courseUpdated = false;
+  }
+}

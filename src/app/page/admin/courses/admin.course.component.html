@@ -35,7 +35,7 @@
       </table>
       <div class="alert alert-success mx-auto" *ngIf="courseUpdated">
         Course was updated.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="changeCourseUpdated()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
