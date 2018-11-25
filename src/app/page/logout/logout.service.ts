@@ -8,20 +8,21 @@ import * as ORLPSettings from '../../services/orlp.settings';
 @Injectable()
 export class LogoutService {
   cookieWithToken = 'Authentication';
+  userIsAutorized = false;
 
   constructor(private cookie: CookieService, private orlp: ORLPService, private ngZone: NgZone) {
   }
 
   isAuthorized(): boolean {
     if (this.cookie.get(this.cookieWithToken) != null) {
-      // this.getStatus();
+      this.userIsAutorized = true;
       return true;
     }
     return false;
   }
 
   logout(): boolean {
-    if (this.isAuthorized()) {
+    if (this.userIsAutorized === true) {
       this.cookie.removeAll();
       sessionStorage.setItem('status', 'INACTIVE');
       return true;

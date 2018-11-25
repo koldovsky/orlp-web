@@ -181,4 +181,8 @@ export class AdminCourseComponent implements OnInit {
     this.coursePrice = 0;
     this.courseSelfLink = null;
   }
+
+  changeCourseUpdated() {
+    this.courseUpdated = false;
+  }
 }
