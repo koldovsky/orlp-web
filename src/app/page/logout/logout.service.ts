@@ -25,6 +25,7 @@ export class LogoutService {
     if (this.userIsAutorized === true) {
       this.cookie.removeAll();
       sessionStorage.setItem('status', 'INACTIVE');
+      this.userIsAutorized = false;
       return true;
     }
     return false;
