@@ -274,7 +274,8 @@ export class DTOConverter {
     const courses: CourseSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCoursesSearchDTO, data.course);
     const decks: DeckSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToDecksSearchDTO, data.deck);
     return new SearchResults(courses, categories, decks);
-    
+  }
+
   public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
     return new SetPointsByAdminDTO(data.email, data.points);
   }

@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
               private authorizationService: AuthorizationService,
-              private logoutServise: LogoutService) {
+              private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
@@ -246,7 +246,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
-        this.logoutServise.logout();
+        this.logoutService.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
         this.router.navigate(['user/status/change']);
       });
