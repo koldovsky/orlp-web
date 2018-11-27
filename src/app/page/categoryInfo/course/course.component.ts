@@ -4,7 +4,6 @@ import {ORLPService} from '../../../services/orlp.service';
 import {CourseLink} from '../../../dto/CourseDTO/link.course.DTO';
 import {CourseLinkWithStatus} from '../../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
-import {LogoutService} from '../../logout/logout.service';
 import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
 import {DeckService} from '../deck/deck.service';
 import {Rating} from '../../../dto/Rating';
@@ -13,6 +12,7 @@ import {UserStatusChangeService} from '../../userStatusChange/user.status.change
 import {NGXLogger} from 'ngx-logger';
 import {Router} from '@angular/router';
 import {CardComponent} from '../../card/card.component';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-course-table',
@@ -25,6 +25,7 @@ export class CourseComponent implements OnInit {
   public decks: DeckPublic[];
   public clickedCourse: any;
   public isAuthorized: boolean;
+  private isAuthenticated: boolean;
   @Input() url: string;
   private coursesIdOfTheUser: number[] = [];
   coursesWithStatus: CourseLinkWithStatus[] = [];
@@ -40,7 +41,7 @@ export class CourseComponent implements OnInit {
               private courseService: CourseService,
               private router: Router,
               private orlpService: ORLPService,
-              private logoutService: LogoutService,
+              private authentication: AuthenticationService,
               private userStatusChangeService: UserStatusChangeService,
               private logger: NGXLogger) {
   }
@@ -50,10 +51,13 @@ export class CourseComponent implements OnInit {
     this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
     this.getCoursesByPage(this.currentPage);
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
   }
 
-  public getCoursesByPage(numberPage: number)  {
+  public getCoursesByPage(numberPage: number) {
     this.courseService.getCourses(this.categoryId, numberPage, this.selectedSortedParam, this.actionSort)
       .subscribe(value => {
         this.currentPage = numberPage;
@@ -139,20 +143,22 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseRatingClick = (course: CourseLinkWithStatus, event: IStarRatingOnClickEvent) => {
-    const courseRating: Rating = new Rating( event.rating);
+    const courseRating: Rating = new Rating(event.rating);
     this.courseService.addCourseRating(courseRating, course.courseId).subscribe(() => {
-      course.rating = event.rating; }, (error) => {
+      course.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
-      deck.rating = event.rating; }, (error) => {
+      deck.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   startLearning(deckId: number, deckSynthax: String): void {
     this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
