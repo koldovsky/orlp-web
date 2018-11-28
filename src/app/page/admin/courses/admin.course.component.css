@@ -106,13 +106,6 @@ td {
   color: white;
 }
 
-.delete-image {
-  position: absolute;
-  cursor: pointer;
-  margin-top: 4px;
-  margin-left: -30px;
-}
-
 .modal-image {
   margin: 4px;
   width: 120px;

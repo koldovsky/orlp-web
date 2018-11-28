@@ -40,12 +40,6 @@ export class AdminCourseService {
       .catch(this.handleError);
   }
 
-  deleteImage(imageLink: string) {
-    return this.orlp.deleteByLongLink(imageLink)
-      .map((response: Response) => response.json())
-      .catch(this.handleError);
-  }
-
   updateCourse(id: String, courseEdited: EditCourseDTO) {
     return this.orlp.put('api/cabinet/courses/' + id, courseEdited)
       .map((response: Response) => response.json())

@@ -138,13 +138,6 @@ export class AdminCourseComponent implements OnInit {
     this.errorImageFile = false;
   }
 
-  deleteImage(image: ImageDTO) {
-    this.adminCourseService.deleteImage(image.self.href)
-      .subscribe(() => {
-        this.getUserImages();
-      });
-  }
-
   editCourse() {
     if (this.newImage === null) {
       this.newImage = this.courseImage;

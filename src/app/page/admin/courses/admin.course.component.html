@@ -197,8 +197,6 @@
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getNewImage(image)" class="modal-image"
                data-dismiss="modal"/>
-          <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">
-            <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div>
           <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file modal-image"
