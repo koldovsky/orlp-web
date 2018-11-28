@@ -35,6 +35,8 @@ import {ProfilePersonalInfoDTO} from './UserProfileDTO/ProfilePersonalInfoDTO';
 import {AccountDTO} from './AccountDTO/accountDTO';
 import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
 import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
+import {EditCourse} from './CourseDTO/edit.course';
+import {EditCoursePageDTO} from './CourseDTO/editCoursePageDTO';
 
 export class DTOConverter {
 
@@ -102,6 +104,17 @@ export class DTOConverter {
     return new CoursePageDTO(coursesPublic, data.totalPages);
   }
 
+  public static jsonAdminToPublicCourse(data: any): EditCourse {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    const image: ImageDTO = new ImageDTO(data.image.imageId, data.image.isImageUsed, data.image._links.self);
+    return new EditCourse(data.courseId, data.name, data.description, image, data.coursePrice, self);
+  }
+
+  public static jsonAdminToCourseByPage(data: any): EditCoursePageDTO {
+    const coursesPublic: Array<EditCourse> = DTOConverter.jsonArrayToCollection(DTOConverter.jsonAdminToPublicCourse, data.content);
+    return new EditCoursePageDTO(coursesPublic, data.totalPages);
+  }
+
   public static jsonToPublicDeck(data: any): DeckPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     return new DeckPublic(data.deckId, data.name, data.description, data.rating, self);
@@ -111,13 +124,13 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-       data.owner, cards, self,data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
+      data.owner, cards, self, data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,data.hidden, data.synthax, data.createdBy);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.hidden, data.synthax, data.createdBy);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {

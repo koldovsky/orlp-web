@@ -193,6 +193,6 @@ textarea {
   padding: 10px;
 }
 
-.alert-success {
+.alert-success, .alert-danger {
   width: 70%;
 }
