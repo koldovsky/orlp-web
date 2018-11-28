@@ -37,8 +37,10 @@ import {environment} from '../environments/environment';
 import {RestorePasswordService} from './page/authorization/restorePassword/restorePassword.service';
 import {RestorePasswordModule} from './page/authorization/restorePassword/restorePassword.module';
 import {AuthorisedModule} from './page/authorization/authorizated/authorised.module';
-import {AboutModule} from "./page/about/about.module";
+import {AboutModule} from './page/about/about.module';
 import {CardModule} from './page/card/card.module';
+import {SearchModule} from './page/search/search.module';
+import {AuthenticationService} from './page/authentication/authentication.service';
 
 @NgModule({
   imports: [
@@ -50,7 +52,7 @@ import {CardModule} from './page/card/card.module';
     CommonModule,
     RouterModule.forRoot([
       {path: '', redirectTo: 'home', pathMatch: 'full'},
-      {path: '**', redirectTo: 'home', pathMatch: 'full'}
+      {path: '**', redirectTo: 'home', pathMatch: 'full'},
     ]),
 
     AboutModule,
@@ -68,6 +70,7 @@ import {CardModule} from './page/card/card.module';
     UserStatusChangeModule,
     AuthorisedModule,
     RestorePasswordModule,
+    SearchModule,
     LoggerModule.forRoot({
       serverLoggingUrl: environment.SERVER_ADDRESS,
       level: environment.logger.level,
@@ -84,7 +87,7 @@ import {CardModule} from './page/card/card.module';
 
   providers: [ORLPService, CategoryService, CourseService, DeckService, CookieService, LogoutService, MainService,
     CabinetService, UserCategoriesService, UserCoursesService, ProfileService, CommentService, UserStatusChangeService,
-    RestorePasswordService],
+    RestorePasswordService, AuthenticationService],
   bootstrap: [MainComponent]
 })
 export class AppModule {

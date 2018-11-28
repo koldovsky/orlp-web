@@ -3,7 +3,6 @@ import {HomeService} from './home.service';
 import {ORLPService} from '../../services/orlp.service';
 import {Link} from '../../dto/link';
 import {CategoryTop} from '../../dto/CategoryDTO/top.category.DTO';
-import {LogoutService} from '../logout/logout.service';
 import {IStarRatingOnClickEvent} from 'angular-star-rating';
 import {Rating} from '../../dto/Rating';
 import {CourseService} from '../categoryInfo/course/course.service';
@@ -13,6 +12,7 @@ import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {CourseLinkWithStatus} from '../../dto/CourseDTO/linkByUserWithStatus.course.DTO';
 import {ContactUsEmail} from '../../dto/ContactUsEmail';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const UNSUBSCRIBE = 'UNSUBSCRIBE';
@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   public status: string;
   errorMessage: string;
   isAuthorized: boolean;
+  private isAuthenticated: boolean;
   public subscriptionButtonText: string[] = [];
   coursesWithStatus: CourseLinkWithStatus[] = [];
   private coursesIdOfTheUser: number[] = [];
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private mainService: HomeService,
               private orlp: ORLPService,
-              private logoutService: LogoutService,
+              private authentication: AuthenticationService,
               private courseService: CourseService,
               private authorizationService: AuthorizationService,
               private ngZone: NgZone,
@@ -50,7 +51,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     window.onscroll = (() => this.scrollFunction());
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
     this.status = sessionStorage.getItem('status');
     this.mainService.getCategories()
       .subscribe(categories => this.setSlider(this.categories, categories),
@@ -110,7 +114,7 @@ export class HomeComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   scrollDown() {
     if (window.pageYOffset < this.categoriesContainer.nativeElement.offsetTop) {

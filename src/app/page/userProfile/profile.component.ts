@@ -68,6 +68,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   private NAME_PATTERN = '[^`~!@#$%^&*()\\-_=\\+\\[\\]{};:\'\".>/?,<\|]*';
   private PASSWORD_MIN_LENGTH = 8;
   private PASSWORD_MAX_LENGTH = 20;
+  private isAuthorizedAdmin: boolean;
 
   constructor(private profileService: ProfileService,
               private mainComponent: MainComponent,
@@ -76,13 +77,14 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
               private authorizationService: AuthorizationService,
-              private logoutServise: LogoutService) {
+              private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
     this.getProfileData();
     this.getProfile();
+    this.isAuthorizedAdmin = this.mainComponent.isAuthorizedAdmin;
     this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
 
     const nameValidator = [
@@ -244,7 +246,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
-        this.logoutServise.logout();
+        this.logoutService.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
         this.router.navigate(['user/status/change']);
       });

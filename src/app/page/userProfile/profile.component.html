@@ -57,7 +57,7 @@
              aria-controls="regime">Learning regime
           </a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="!isAuthorizedAdmin" class="nav-item">
           <a class="nav-link" href="#wallet" data-toggle="tab">My wallet</a>
         </li>
       </ul>

@@ -41,7 +41,9 @@ export class AdminCourseService {
   }
 
   deleteImage(imageLink: string) {
-    return this.orlp.deleteByLongLink(imageLink).map((response: Response) => this.logger.log(response));
+    return this.orlp.deleteByLongLink(imageLink)
+      .map((response: Response) => response.json())
+      .catch(this.handleError);
   }
 
   updateCourse(id: String, courseEdited: EditCourseDTO) {
@@ -53,7 +55,7 @@ export class AdminCourseService {
   deleteCourse(link: Link) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.delete(shortLink)
-      .map((response: Response) => response.json()).catch
+      .map((response: Response) => response.json())
       .catch(this.handleError);
   }
 }
