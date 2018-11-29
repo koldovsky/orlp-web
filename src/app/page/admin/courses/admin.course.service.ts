@@ -41,7 +41,7 @@ export class AdminCourseService {
   }
 
   updateCourse(id: String, courseEdited: EditCourseDTO) {
-    return this.orlp.put('api/cabinet/courses/' + id, courseEdited)
+    return this.orlp.put('api/admin/courses/' + id, courseEdited)
       .map((response: Response) => response.json())
       .catch(this.handleError);
   }

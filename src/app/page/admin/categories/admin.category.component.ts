@@ -4,9 +4,8 @@ import {CategoriesPublic} from '../../../dto/CategoryDTO/public.categories';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
-import {Link} from "../../../dto/link";
-import {toNumber} from "ngx-bootstrap/timepicker/timepicker.utils";
-import {EditCategoryDTO} from "../../../dto/CategoryDTO/editCategoryDTO";
+import {Link} from '../../../dto/link';
+import {EditCategoryDTO} from '../../../dto/CategoryDTO/editCategoryDTO';
 
 @Component({
   providers: [AdminCategoryService],
@@ -24,9 +23,11 @@ export class AdminCategoryComponent implements OnInit {
   public userImages: ImageDTO[];
   public chosenImage: ImageDTO;
   public createCategoryMessage: string;
+  public deleteCategoryMessage: string;
   public categoryForm: FormGroup;
   public errorImageFile: boolean;
   public categoryLink: Link;
+  public categorySelected: CategoriesPublic;
 
 
   constructor(private adminCategoryService: AdminCategoryService, private formBuilder: FormBuilder) {
@@ -83,11 +84,6 @@ export class AdminCategoryComponent implements OnInit {
     this.chosenImage = image;
   }
 
-  deleteImage(image: ImageDTO) {
-    this.adminCategoryService.deleteImage(image.self.href)
-      .subscribe(() => this.getUserImages());
-  }
-
   beforeCreate() {
     this.categoryForm.reset();
     this.categoryName = '';
@@ -112,10 +108,14 @@ export class AdminCategoryComponent implements OnInit {
     });
   }
 
-  deleteCategory(category: CategoriesPublic): void {
-    this.adminCategoryService.deleteCategory(category.self)
-      .subscribe( () => {
-        this.createCategoryMessage = 'Category "' + this.categoryName + '" deleted!';
+  assignCategory(category: CategoriesPublic): void {
+    this.categorySelected = category;
+  }
+
+  deleteCategory(): void {
+    this.adminCategoryService.deleteCategory(this.categorySelected.self)
+      .subscribe(() => {
+        this.deleteCategoryMessage = 'Category "' + this.categoryName + '" deleted!';
         this.getAllCategories();
       });
   }
