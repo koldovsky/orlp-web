@@ -5,7 +5,6 @@ import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
 import {Link} from '../../../dto/link';
 import {Router} from '@angular/router';
 import {DeckLinkByFolderWithStatus} from '../../../dto/DeckDTO/linkByFolderWithStatus.deck.DTO';
-import {LogoutService} from '../../logout/logout.service';
 import {DeckPublic} from '../../../dto/DeckDTO/public.deck.DTO';
 import {IStarRatingOnClickEvent} from 'angular-star-rating';
 import {Rating} from '../../../dto/Rating';
@@ -14,6 +13,7 @@ import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.that.need.repeating.dto';
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
+import {AuthenticationService} from '../../authentication/authentication.service';
 
 @Component({
   selector: 'app-deck-table',
@@ -26,6 +26,7 @@ export class DeckComponent implements OnInit {
   public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
   public decksIdInYourFolder: number[] = [];
   public isAuthorized: boolean;
+  private isAuthenticated: boolean;
   @Input() url: string;
   @Input() categoryId: number;
   actionSort = true;
@@ -43,7 +44,7 @@ export class DeckComponent implements OnInit {
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
               private router: Router,
-              private logoutService: LogoutService,
+              private authentication: AuthenticationService,
               private userStatusChangeService: UserStatusChangeService,
               private logger: NGXLogger) {
   }
@@ -51,11 +52,14 @@ export class DeckComponent implements OnInit {
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
     this.url = this.orlpService.decodeLink(this.url);
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
     this.getDeckByPage(this.currentPage);
   }
 
-  public getDeckByPage(numberPage: number)  {
+  public getDeckByPage(numberPage: number) {
     this.deckService.getDecks(this.categoryId, numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
       .subscribe(deckList => {
         this.currentPage = numberPage;
@@ -75,6 +79,7 @@ export class DeckComponent implements OnInit {
         }
       });
   }
+
   public sortBy(param: TableColumnDTO) {
     if (param === this.selectedSortedParam) {
       this.actionSort = !this.actionSort;
@@ -151,10 +156,11 @@ export class DeckComponent implements OnInit {
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckRating: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckRating, deck.deckId).subscribe(() => {
-      deck.rating = event.rating; }, (error) => {
+      deck.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
     for (const value of this.numbersOfCardsThatNeedRepeating) {
