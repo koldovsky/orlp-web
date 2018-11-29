@@ -40,7 +40,7 @@ export class CabinetService {
   public getCategoryDecks(categoryId: number): Observable<DeckLinkByCategory[]> {
     return this.orlp.get('/api/categories/' + categoryId + '/decks')
       .map((response: Response) => <DeckLinkByCategory[]> DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()));
+        .jsonDecksArrayToCollection(DTOConverter.jsonToDeckLinkByCategory, response.json()));
   }
 
   public updateCourse(course: CourseLink) {
@@ -56,6 +56,11 @@ export class CabinetService {
 
   public addDeckToCourse(courseId: number, deckId: number) {
     return this.orlp.put('api/categories/courses/' + courseId + '/decks/' + deckId, {})
+      .map((response: Response) => this.logger.log(response));
+  }
+
+  public deleteDeckFromCourse(courseId: number, deckId: number) {
+    return this.orlp.delete('api/categories/courses/' + courseId + '/decks/' + deckId)
       .map((response: Response) => this.logger.log(response));
   }
 

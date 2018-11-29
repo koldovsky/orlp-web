@@ -274,8 +274,12 @@ export class DTOConverter {
     const courses: CourseSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToCoursesSearchDTO, data.course);
     const decks: DeckSearchDTO[] = DTOConverter.jsonArrayToCollection(this.jsonToDecksSearchDTO, data.deck);
     return new SearchResults(courses, categories, decks);
-    
+  }
   public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
     return new SetPointsByAdminDTO(data.email, data.points);
+  }
+  public static jsonDecksArrayToCollection(callback: Function, data: any): Array<DeckLinkByCategory> {
+    const array: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(callback, data.content);
+    return array;
   }
 }
