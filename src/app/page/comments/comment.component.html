@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-md-12">
       <div class="blog-comment">
-        <hr/>
         <ul class="comments">
           <li *ngFor="let comment of listOfComments; let item = index; " class="clearfix">
             <img *ngIf="comment.image; else base64" class="avatar" src="{{comment.image}}">
@@ -13,7 +12,7 @@
               <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
             </ng-template>
             <div class="post-comments">
-              <p class="meta comment-owner"><b>{{comment.commentDate | date: 'MMM d, y, HH:mm:ss, '}} {{comment.personFirstName}}
+              <p class="meta comment-owner"><b>{{comment.commentDate | date: 'MMM d, y | HH:mm:ss, '}} {{comment.personFirstName}}
                 {{comment.personLastName}}</b> commented :
                 <button *ngIf="isAuthorized&&isCommentOwner(comment)" class="btn btn-outline-danger btn-sm icon-right pull-right"
                         data-toggle="modal" data-target="#deleteComment" (click)="setCommentNeedToDelete(comment.self)"><i class="fa fa-trash-o"> Delete</i></button>
@@ -27,8 +26,8 @@
             </div>
             <ul *ngFor="let childComment of comment.listOfChildComments; let childItem = index" class="comments">
               <li class="clearfix">
-                <img *ngIf="childComment.image; else default_image" class="avatar" lt="user profile image"
-                     src="{{childComment.image}}">
+                <img *ngIf="childComment.imageBase64; else default_image" class="avatar" lt="user profile image"
+                     [src]=getImage(childComment.imageBase64)>
                 <ng-template #default_image>
                   <img src="../../../assets/images/avatar.png" class="img-circle avatar" alt="user profile image">
                 </ng-template>
