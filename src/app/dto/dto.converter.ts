@@ -42,7 +42,7 @@ import {SearchResults} from './SearchDTO/search.results.DTO';
 import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
 import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
 import {DeckSearchDTO} from './SearchDTO/deck.search.DTO';
-import {SetPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
+import {AddPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
 
 
 export class DTOConverter {
@@ -289,8 +289,8 @@ export class DTOConverter {
     return new SearchResults(courses, categories, decks);
   }
 
-  public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
-    return new SetPointsByAdminDTO(data.email, data.points);
+  public static jsonToAddPointsDTO(data: any): AddPointsByAdminDTO {
+    return new AddPointsByAdminDTO(data.email, data.points);
   }
   public static jsonDecksArrayToCollection(callback: Function, data: any): Array<DeckLinkByCategory> {
     const array: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(callback, data.content);

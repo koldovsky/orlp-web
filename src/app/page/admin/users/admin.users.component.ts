@@ -7,7 +7,7 @@ import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AdminDeck} from '../../../dto/AdminDTO/admin.deck.DTO';
 import {SendPointsToFriendDTO} from '../../../dto/UserProfileDTO/SendPointsToFriendDTO';
-import {SetPointsByAdminDTO} from '../../../dto/AdminDTO/admin.user.points.DTO';
+import {AddPointsByAdminDTO} from '../../../dto/AdminDTO/admin.user.points.DTO';
 
 @Component({
   providers: [AdminUsersService],
@@ -84,9 +84,9 @@ export class AdminUsersComponent implements OnInit {
     this.success = false;
   }
 
-  setPoints() {
+  addPoints() {
     this.success = false;
-    this.adminUsersSevice.setPoints(new SetPointsByAdminDTO(this.selectedUser.email, this.pointsSend))
+    this.adminUsersSevice.addPoints(new AddPointsByAdminDTO(this.selectedUser.email, this.pointsSend))
        .subscribe( (response) => {
          this.success = true;
       }, () => {

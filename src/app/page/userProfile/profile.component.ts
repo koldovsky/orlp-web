@@ -85,7 +85,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.getProfileData();
     this.getProfile();
     this.isAuthorizedAdmin = this.mainComponent.isAuthorizedAdmin;
-    this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
 
     const nameValidator = [
       Validators.required,
@@ -295,6 +294,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       .subscribe((data) => {
         this.email = data.email;
         this.firstName = data.firstName;
+        this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
         this.lastName = data.lastName;
         this.originalFirstName = this.firstName;
         this.originalLastName = this.lastName;

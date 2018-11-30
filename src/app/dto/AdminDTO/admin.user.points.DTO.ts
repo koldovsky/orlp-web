@@ -1,4 +1,4 @@
-export class SetPointsByAdminDTO {
+export class AddPointsByAdminDTO {
   public email: string;
   public points: number;
 

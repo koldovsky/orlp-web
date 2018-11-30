@@ -29,8 +29,8 @@
           </td>
           <td>
             <button class="btn btn-secondary" data-toggle="modal"
-                    (click)="assignUser(user)" data-target="#setPoints">
-              <i class="fa fa-money" aria-hidden="true"></i> Set points
+                    (click)="assignUser(user)" data-target="#addPoints">
+              <i class="fa fa-money" aria-hidden="true"></i> Add points
             </button>
           </td>
         </tr>
@@ -58,9 +58,9 @@
     </div>
   </div>
 
-  <div class="modal fade" id="setPoints" tabindex="-1" role="dialog">
+  <div class="modal fade" id="addPoints" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-secondary" role="document">
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="selectedUser">
         <div class="modal-header">
           <h4 class="modal-title">Set points</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -90,7 +90,7 @@
         <div class="modal-footer">
           <button [disabled]="!isFormValid() || !pointsSend" type="button"
                   class="btn btn-secondary"
-                  (click)="setPoints()">Send
+                  (click)="addPoints()">Add
           </button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
