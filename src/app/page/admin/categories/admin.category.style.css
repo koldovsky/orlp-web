@@ -54,13 +54,6 @@
   text-align: center;
 }
 
-.delete-image {
-  position: absolute;
-  cursor: pointer;
-  margin-top: 4px;
-  margin-left: -30px;
-}
-
 .modal-image {
   margin: 4px;
   width: 120px;
@@ -70,6 +63,14 @@
 
 .modal-body div {
   display: inline-block;
+}
+
+.modal-body {
+  background-color: white;
+}
+
+.modal-footer {
+  background-color: whitesmoke;
 }
 
 .modal-lg {
