@@ -53,7 +53,7 @@
         </tr>
         <tr>
           <th>Deck Price</th>
-          <td>{{selectedDeck.price }}</td>
+          <td>{{selectedDeck.price != 0 ? selectedDeck.price : "Free"}}</td>
         </tr>
         </tbody>
       </table>
