@@ -99,13 +99,18 @@
           <button type="button" class="btn btn-primary btn-sm" (click)="changeAccess(course, false)">PUBLIC</button>
         </td>
         <td *ngIf="isOwnerCourse(course)">
-          <button (click)="getCategoryDecks(course)" type="button" class="btn btn-success btn-sm" data-toggle="modal"
+          <button (click)="getCategoryDecks(course,true)" type="button" class="btn btn-success btn-sm" data-toggle="modal"
                   data-target=".bd-example-modal-sm">+
+          </button>
+        </td>
+        <td *ngIf="isOwnerCourse(course)">
+          <button (click)="getCategoryDecks(course,false)" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+                  data-target=".bd-example-modal-sm">x
           </button>
         </td>
         <td></td>
         <td>
-          <button type="button" class="btn btn-danger btn-sm" (click)="deleteCourse(course)">x</button>
+          <button type="button" class="btn btn-danger btn-sm" (click)="deleteCourse(course)">Unsubscribe</button>
         </td>
       </tr>
       </thead>
@@ -130,7 +135,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title" id="exampleModalTitle">Choose deck</h1>
+          <h1 class="modal-title" id="exampleModalTitle">{{title}}</h1>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
         </div>
         <div class="modal-body">
@@ -140,11 +145,11 @@
               <th>Name</th>
               <th>Description</th>
               <th>Rating</th>
-              <th>Add</th>
+              <th>{{columnName}}</th>
             </tr>
             </thead>
-            <tbody *ngFor="let deck of categoryDecks">
-            <tr *ngIf="!deck.hidden">
+            <tbody *ngIf="isAdd === true">
+            <tr  *ngFor="let deck of categoryDecks" >
               <td>{{deck.name}}</td>
               <td>{{deck.description}}</td>
               <td>
@@ -153,6 +158,19 @@
               </td>
               <td>
                 <button (click)="addDeckToCourse(deck)" type="button" class="btn btn-success btn-sm">+</button>
+              </td>
+            </tr>
+            </tbody>
+            <tbody *ngIf="isAdd === false">
+            <tr *ngFor="let deck of decks">
+              <td>{{deck.name}}</td>
+              <td>{{deck.description}}</td>
+              <td>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                  [rating]="deck.rating"></star-rating-comp>
+              </td>
+              <td>
+                <button (click)="deleteDeckFromCourse(deck)" type="button" class="btn btn-danger btn-sm">x</button>
               </td>
             </tr>
             </tbody>

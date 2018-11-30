@@ -292,4 +292,8 @@ export class DTOConverter {
   public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
     return new SetPointsByAdminDTO(data.email, data.points);
   }
+  public static jsonDecksArrayToCollection(callback: Function, data: any): Array<DeckLinkByCategory> {
+    const array: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(callback, data.content);
+    return array;
+  }
 }
