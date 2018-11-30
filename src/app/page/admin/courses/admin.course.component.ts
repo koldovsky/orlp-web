@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CoursePublic} from '../../../dto/CourseDTO/public.course.DTO';
 import {AdminCourseService} from './admin.course.service';
-import {UserCoursesService} from '../../user/courses/user.courses.service';
 import {TableColumnDTO} from '../../../dto/TableColumnDTO';
 import {Link} from '../../../dto/link';
 import {MainComponent} from '../../main/main.component';
@@ -9,7 +7,7 @@ import {ORLPService} from '../../../services/orlp.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {EditCourseDTO} from '../../../dto/CourseDTO/editCourseDTO';
-import {environment} from '../../../../environments/environment';
+import {EditCourse} from '../../../dto/CourseDTO/edit.course';
 
 @Component({
   selector: 'app-courses',
@@ -18,8 +16,8 @@ import {environment} from '../../../../environments/environment';
 })
 export class AdminCourseComponent implements OnInit {
 
-  courses: CoursePublic[];
-  courseSelected: CoursePublic;
+  courses: EditCourse[];
+  courseSelected: EditCourse;
   public isAuthorizedAdmin: boolean;
   actionSort = true;
   currentPage = 1;
@@ -30,20 +28,18 @@ export class AdminCourseComponent implements OnInit {
   courseForm: FormGroup;
   courseDescription: String;
   courseName: String;
-  courseImage: String;
-  courseImageDto: ImageDTO;
+  courseImage: ImageDTO;
   coursePrice: number;
   courseId: String;
   courseSelfLink: Link;
   errorImageFile: boolean;
-  newImage: ImageDTO;
-  public userImages: ImageDTO[];
-  imageId: String;
+  newImage: ImageDTO = null;
+  userImages: ImageDTO[];
   courseUpdated: boolean;
+  courseDeleted: boolean;
 
 
   constructor(private adminCourseService: AdminCourseService,
-              private userCoursesService: UserCoursesService,
               private mainComponent: MainComponent,
               private formBuilder: FormBuilder,
               private orlpService: ORLPService) {
@@ -69,7 +65,7 @@ export class AdminCourseComponent implements OnInit {
   }
 
   public getCoursesByPage(numberPage: number) {
-    this.userCoursesService.getCoursesByPage(numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
+    this.adminCourseService.getCoursesByPage(numberPage, this.selectedSortedParam.nameColumnParam, this.actionSort)
       .subscribe(courses => {
         this.currentPage = numberPage;
         this.lastPage = courses.totalPages;
@@ -94,27 +90,25 @@ export class AdminCourseComponent implements OnInit {
     this.getCoursesByPage(this.currentPage);
   }
 
-  assignCourse(course: CoursePublic): void {
+  assignCourse(course: EditCourse): void {
     this.courseSelected = course;
   }
 
-  deleteCourse(course: CoursePublic): void {
-    this.userCoursesService.deleteCourse(course.self)
+  deleteCourse(course: EditCourse): void {
+    this.adminCourseService.deleteCourse(course.self)
       .subscribe(() => {
         this.getCoursesByPage(this.currentPage);
+        this.courseDeleted = true;
       });
   }
 
-  beforeEditing(course: CoursePublic) {
+  beforeEditing(course: EditCourse) {
     this.courseName = course.name;
     this.courseDescription = course.description;
     this.courseId = course.courseId;
     this.courseImage = course.image;
     this.coursePrice = course.coursePrice;
     this.courseSelfLink = course.self;
-    this.imageId = course.image;
-    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
-    this.getImageById(this.imageId);
   }
 
   getUserImages() {
@@ -127,16 +121,6 @@ export class AdminCourseComponent implements OnInit {
 
   getNewImage(image: ImageDTO) {
     this.newImage = image;
-    this.imageId = image.self.href;
-    this.imageId = this.imageId.replace(environment.SERVER_ADDRESS + 'api/service/image/', '');
-    this.newImage.id = +this.imageId;
-  }
-
-  getImageById(id: String) {
-    this.adminCourseService.getImageById(id).subscribe(image => {
-      this.courseImageDto = image;
-      this.courseImageDto.id = +id;
-    });
   }
 
   loadFile(fileInput: any) {
@@ -154,14 +138,9 @@ export class AdminCourseComponent implements OnInit {
     this.errorImageFile = false;
   }
 
-  deleteImage(image: ImageDTO) {
-    this.adminCourseService.deleteImage(image.self.href)
-      .subscribe(() => this.getUserImages());
-  }
-
   editCourse() {
-    if (this.newImage === undefined || this.newImage == null) {
-      this.newImage = this.courseImageDto;
+    if (this.newImage === null) {
+      this.newImage = this.courseImage;
     }
     this.adminCourseService.updateCourse(this.courseId,
       new EditCourseDTO(this.courseDescription, this.courseName, this.newImage, this.coursePrice, this.courseSelfLink)).subscribe(() => {
@@ -175,10 +154,18 @@ export class AdminCourseComponent implements OnInit {
     this.courseName = '';
     this.courseDescription = '';
     this.courseId = '';
-    this.courseImage = '';
+    this.courseImage = null;
     this.newImage = null;
     this.coursePrice = 0;
     this.courseSelfLink = null;
+  }
+
+  changeCourseUpdated() {
+    this.courseUpdated = false;
+  }
+
+  changeCourseDeleted() {
+    this.courseUpdated = false;
   }
 }
 

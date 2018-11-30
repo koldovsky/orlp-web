@@ -11,10 +11,8 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {NGXLogger} from 'ngx-logger';
 import {ImageDTO} from '../../../dto/ImageDTO/ImageDTO';
 import {CreateCategoryDTO} from '../../../dto/CategoryDTO/createCategoryDTO';
-import {AdminDeck} from "../../../dto/AdminDTO/admin.deck.DTO";
-import {EditDeckDTO} from "../../../dto/DeckDTO/deck.edit.DTO";
-import {Link} from "../../../dto/link";
-import {EditCategoryDTO} from "../../../dto/CategoryDTO/editCategoryDTO";
+import {Link} from '../../../dto/link';
+import {EditCategoryDTO} from '../../../dto/CategoryDTO/editCategoryDTO';
 
 @Injectable()
 export class AdminCategoryService {
@@ -34,6 +32,7 @@ export class AdminCategoryService {
     return this.orlp.post('api/admin/categories/', newCategory).map((response: Response) => response.json())
       .catch(this.handleError);
   }
+
   addImage(file: any) {
     return this.orlp.post('/api/service/image', file)
       .map((response: Response) => response.json());
@@ -41,23 +40,19 @@ export class AdminCategoryService {
 
   getUserImages(): Observable<ImageDTO[]> {
     return this.orlp.get('api/service/images/user/')
-      .map((response: Response) => <ImageDTO[]> DTOConverter.jsonArrayToCollection(DTOConverter.jsonToImageDTO, response.json()));
-  }
-
-  deleteImage(imageLink: string) {
-    return this.orlp.deleteByLongLink(imageLink).map((response: Response) => this.logger.log(response));
+      .map((response: Response) => <ImageDTO[]>DTOConverter.jsonArrayToCollection(DTOConverter.jsonToImageDTO, response.json()));
   }
 
   updateCategory(link: Link, categoryEdit: EditCategoryDTO) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.put(shortLink, categoryEdit)
-      .map((response: Response) =>response.json());
+      .map((response: Response) => response.json());
   }
 
   deleteCategory(link: Link) {
     const shortLink: string = this.orlp.decodeLink(this.orlp.getShortLink(link));
     return this.orlp.delete(shortLink)
-      .map((response: Response) =>response.json());
+      .map((response: Response) => response.json());
   }
 
   private handleError(error: Response) {
