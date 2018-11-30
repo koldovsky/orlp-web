@@ -10,7 +10,6 @@ import {DeckService} from '../../categoryInfo/deck/deck.service';
 import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
 import {CabinetService} from "../cabinet.service";
 import {NGXLogger} from "ngx-logger";
-import {DeckPriceDTO} from "../../../dto/DeckDTO/DeckPriceDTO";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -73,8 +72,8 @@ export class UserDecksComponent implements OnInit {
   private getDeckCreatedByTheUser(deckId: number): void {
     this.userDecksService.getDeckCreatedByTheUser(deckId).subscribe(deck => {
       this.selectedDeck = deck;
-      if(this.selectedDeck.deckPrice == null)
-        this.selectedDeck.deckPrice = new DeckPriceDTO(0);
+      if(this.selectedDeck.price == null)
+        this.selectedDeck.price = 0;
       this.decks[this.selectedIndex] = this.selectedDeck;
     });
   }
@@ -82,8 +81,8 @@ export class UserDecksComponent implements OnInit {
   private onDeckClicked(deck: DeckDTO, index: number): void {
     this.selectedIndex = index;
     this.selectedDeck = deck;
-    if(this.selectedDeck.deckPrice == null)
-      this.selectedDeck.deckPrice = new DeckPriceDTO(0);
+    if(this.selectedDeck.price == null)
+      this.selectedDeck.price = 0;
   }
 
   prepareCreateDialog() {
@@ -107,7 +106,7 @@ export class UserDecksComponent implements OnInit {
     this.dialogCategoryId = this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null;
     this.deckGroup.controls['categoryId'].setValue( this.selectedDeck.categoryId ? this.selectedDeck.categoryId : null);
     this.deckGroup.controls['syntax'].setValue(this.selectedDeck.synthax);
-    this.deckGroup.controls['price'].setValue(this.selectedDeck.deckPrice != null ? this.selectedDeck.deckPrice.price : null);
+    this.deckGroup.controls['price'].setValue(this.selectedDeck.price != null ? this.selectedDeck.price : null);
     this.category = this.selectedDeck.category;
     this.isCreateDialog = false;
   }
@@ -116,12 +115,12 @@ export class UserDecksComponent implements OnInit {
     if (this.isCreateDialog) {
       this.userDecksService.createDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
         this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
-        (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)))
+        (this.deckGroup.value.price == null)? 0 : this.deckGroup.value.price))
         .subscribe(() => {this.getOnlyDecksCreatedByTheUser();});
     } else {
       this.userDecksService.editDeck(new NewDeckDTO(this.deckGroup.value.name, this.deckGroup.value.description,
         this.deckGroup.value.categoryId, this.deckGroup.value.syntax,
-        (this.deckGroup.value.price == null || this.deckGroup.value.price == 0)? null : new DeckPriceDTO(this.deckGroup.value.price)), this.selectedDeck.deckId)
+        (this.deckGroup.value.price == null) ? 0 : this.deckGroup.value.price), this.selectedDeck.deckId)
         .subscribe(() => this.getDeckCreatedByTheUser(this.selectedDeck.deckId));
     }
   }
