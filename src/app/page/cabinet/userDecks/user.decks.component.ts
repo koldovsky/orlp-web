@@ -55,7 +55,7 @@ export class UserDecksComponent implements OnInit {
 
     const inputValidator = [ Validators.required];
 
-    const priceValidator = [ Validators.pattern(new RegExp(/^[0-9]+$/))];
+    const priceValidator = [Validators.max(999999), Validators.pattern(new RegExp(/^[0-9]+$/))];
     this.deckGroup = this.fb.group({
       'name': [null,inputValidator],
       'description': [null,inputValidator],
