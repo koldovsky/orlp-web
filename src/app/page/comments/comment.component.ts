@@ -6,9 +6,9 @@ import {CommentService} from './comment.service';
 import {CommentDTO} from '../../dto/CommentDTO/commentDTO';
 import {Link} from '../../dto/link';
 import {CreateCommentDTO} from '../../dto/CommentDTO/createCommentDTO';
-import {LogoutService} from '../logout/logout.service';
 import {UserRoleDTO} from '../../dto/CommentDTO/UeserRoleDTO';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
   selector: 'app-course-comments',
@@ -24,12 +24,16 @@ export class CommentComponent implements OnInit {
   public showFormToAddReply = false;
   public commentId: number;
   public isAuthorized: boolean;
+  private isAuthenticated: boolean;
   public person: UserRoleDTO;
   public linkToCommentNeedToDelete: Link;
   private readonly imageType: string = 'data:image/PNG;base64,';
 
-  constructor(private route: ActivatedRoute, private orlp: ORLPService, private commentService: CommentService
-    , private logoutService: LogoutService, private sanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute,
+              private orlp: ORLPService,
+              private commentService: CommentService,
+              private authenticated: AuthenticationService,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
@@ -40,7 +44,10 @@ export class CommentComponent implements OnInit {
       }
     );
     this.getAllComments();
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authenticated.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
     this.getPersonRole();
   }
 
@@ -94,7 +101,7 @@ export class CommentComponent implements OnInit {
   }
 
   getImage(imageBase64: string): SafeUrl {
-    const image = this.sanitizer.bypassSecurityTrustUrl(this.imageType + imageBase64);
+    const image = this.sanitizer.bypassSecurityTrustUrl(imageBase64);
     return image;
   }
 }

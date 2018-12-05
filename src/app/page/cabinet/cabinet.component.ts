@@ -32,6 +32,9 @@ export class CabinetComponent implements OnInit {
   public chosenCourse: CourseLink;
   public showAlertdeck = true;
   public showAlertcouse = true;
+  public title: string;
+  public columnName: string;
+  public isAdd: boolean;
   numbersOfCardsThatNeedRepeating: NumberOfCardsThatNeedRepeatingDTO[] = [];
   public status: string;
 
@@ -47,6 +50,15 @@ export class CabinetComponent implements OnInit {
   ngOnInit(): void {
     this.status = sessionStorage.getItem('status');
     this.getUser();
+  }
+  prepareAddDialog(){
+    this.title = "Choose deck";
+    this.columnName="Add";
+  }
+
+  prepareDeleteDialog(){
+    this.title = "Delete deck";
+    this.columnName="Delete";
   }
 
   getUser(): void {
@@ -137,7 +149,13 @@ export class CabinetComponent implements OnInit {
     });
   }
 
-  getCategoryDecks(course: CourseLink) {
+  getCategoryDecks(course: CourseLink,isAdd: boolean) {
+    if(isAdd){
+      this.prepareAddDialog();
+    }else{
+      this.prepareDeleteDialog();
+    }
+    this.isAdd=isAdd;
     this.showFolderDecks = false;
     this.showCourseDecks = course.courseId;
     this.cabinetService.getDecks(course.decks)
@@ -152,11 +170,21 @@ export class CabinetComponent implements OnInit {
   }
 
   addDeckToCourse(deck: DeckLinkByCategory) {
-    deck.hidden = true;
     this.cabinetService.addDeckToCourse(this.chosenCourse.courseId, deck.deckId)
       .subscribe(() => this.cabinetService.getDecks(this.chosenCourse.decks)
-          .subscribe(decks => this.decks = decks),
-        error => deck.hidden = false);
+          .subscribe(decks => {
+            this.decks = decks;
+            this.cabinetService.getCategoryDecks(this.chosenCourse.categoryId)
+              .subscribe((filterDecks) => {
+                this.categoryDecks = filterDecks.filter(deck => !this.decks.some(deckInCourse => deckInCourse.deckId === deck.deckId));
+              });
+          }));
+  }
+
+  deleteDeckFromCourse(deck: DeckLinkByCategory) {
+    this.cabinetService.deleteDeckFromCourse(this.chosenCourse.courseId, deck.deckId)
+      .subscribe(() => this.cabinetService.getDecks(this.chosenCourse.decks)
+        .subscribe(decks => this.decks = decks));
   }
 
   deleteFolderDeck(deck: DeckLinkByCategory) {

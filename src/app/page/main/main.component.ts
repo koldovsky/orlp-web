@@ -12,6 +12,7 @@ import {AdminGuardService} from '../admin/admin.main.guard.service';
 import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {SearchService} from '../search/search.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
   selector: 'app-page',
@@ -43,14 +44,15 @@ export class MainComponent implements OnInit {
               private adminGuard: AdminGuardService,
               private authorizationService: AuthorizationService,
               private ngZone: NgZone,
-              private searchService: SearchService) {
+              private searchService: SearchService,
+              private authentication: AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.isAuthorized = false;
     this.isAuthorizedAdmin = false;
     this.userDetails = null;
-    this.isAuthenticated = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
     if (this.isAuthenticated) {
       this.getRole();
     }
@@ -103,12 +105,15 @@ export class MainComponent implements OnInit {
   setAdmin(): void {
     this.adminGuard.isAdmin = this.isAuthorizedAdmin;
   }
+
   setActiveLink(link: string): void {
     this.activeLink = link;
   }
+
   setNotActive(): void {
     this.activeLink = '';
   }
+
   onSearchClick(): void {
     this.searchService.getResults(this.searchString);
     this.searchString = '';

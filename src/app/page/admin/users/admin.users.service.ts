@@ -11,7 +11,7 @@ import {DTOConverter} from '../../../dto/dto.converter';
 import {AdminUsersByPage} from '../../../dto/AdminDTO/admin.users.with.pages.DTO';
 import {NGXLogger} from 'ngx-logger';
 import {SendPointsToFriendDTO} from '../../../dto/UserProfileDTO/SendPointsToFriendDTO';
-import {SetPointsByAdminDTO} from '../../../dto/AdminDTO/admin.user.points.DTO';
+import {AddPointsByAdminDTO} from '../../../dto/AdminDTO/admin.user.points.DTO';
 
 @Injectable()
 export class AdminUsersService {
@@ -32,8 +32,8 @@ export class AdminUsersService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  setPoints(setPoints: SetPointsByAdminDTO) {
-    return this.orlp.post('api/admin/users/points', setPoints)
-      .map((response: Response) => <SetPointsByAdminDTO> DTOConverter.jsonToSetPointsDTO(response.json()));
+  addPoints(addPoints: AddPointsByAdminDTO) {
+    return this.orlp.post('api/admin/users/points', addPoints)
+      .map((response: Response) => <AddPointsByAdminDTO> DTOConverter.jsonToAddPointsDTO(response.json()));
   }
 }
