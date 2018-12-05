@@ -39,8 +39,8 @@
 
               <button class="btn btn-danger"
                       data-dismiss="modal"
-                      (click)="deleteCategory(category)" data-toggle="modal"
-                      data-target="#CreateCategory"><i class="fa"></i> Delete
+                      (click)="assignCategory(category)" data-toggle="modal"
+                      data-target="#deleteCategory"><i class="fa"></i> Delete
               </button>
             </div>
           </td>
@@ -224,8 +224,6 @@
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
                data-dismiss="modal"/>
-          <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">
-            <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div>
           <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file modal-image"
@@ -253,6 +251,30 @@
                 class="btn btn-primary"
                 data-dismiss="modal">OK
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal id="deleteCategory" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-danger" role="document">
+    <div class="modal-content" *ngIf="categorySelected">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Category?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{categorySelected.name}} will be deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="deleteCategory()" data-dismiss="modal" class="btn btn-danger">
+          Delete
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

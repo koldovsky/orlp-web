@@ -4,7 +4,6 @@ import {Subscription} from 'rxjs/Subscription';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ORLPService} from '../../services/orlp.service';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
-import {LogoutService} from '../logout/logout.service';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 import {IStarRatingOnClickEvent} from 'angular-star-rating/star-rating-struct';
 import {DeckService} from '../categoryInfo/deck/deck.service';
@@ -13,6 +12,7 @@ import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
 import {CardComponent} from '../card/card.component';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -28,6 +28,7 @@ export class CourseInfoComponent implements OnInit {
   public addCourseToUserButton: string;
   private coursesIdExistsInUser: number[] = [];
   public isAuthorized: boolean;
+  private isAuthenticated: boolean;
   public showComment = false;
   public status: string;
 
@@ -35,7 +36,7 @@ export class CourseInfoComponent implements OnInit {
               private orlp: ORLPService,
               private router: Router,
               private courseInfoService: CourseInfoService,
-              private logoutService: LogoutService,
+              private authentication: AuthenticationService,
               private deckService: DeckService,
               private courseService: CourseService,
               private userStatusChangeService: UserStatusChangeService,
@@ -50,7 +51,10 @@ export class CourseInfoComponent implements OnInit {
       }
     );
     this.takeCourse();
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
   }
 
   takeCourse() {
@@ -138,7 +142,7 @@ export class CourseInfoComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
     const deckLocal: Rating = new Rating(event.rating);
@@ -147,7 +151,7 @@ export class CourseInfoComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   startLearning(deckId: number, deckSynthax: String): void {
     this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);

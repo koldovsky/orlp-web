@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, Router} from '@angular/router';
-import {LogoutService} from '../logout/logout.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Injectable()
 export class AuthorizationUserGuardService implements CanActivate {
 
-  constructor(private router: Router, private logoutService: LogoutService) {
+  constructor(private router: Router, private authentication: AuthenticationService) {
   }
 
   canActivate(): boolean {
-    if (!this.logoutService.isAuthorized()) {
+    if (!this.authentication.isAuthenticated()) {
       return true;
     } else {
       this.router.navigate(['authorised']);

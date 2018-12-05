@@ -14,7 +14,7 @@
         <tbody>
         <tr class="table-row" *ngFor="let course of courses">
           <td [routerLink]="['/course', getCourseLink(course.self)]">
-            <img class="small-img" [src]="course.image" alt="Course image">
+            <img class="small-img" [src]="course.image.self.href" alt="Course image">
           </td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.name}}</td>
           <td [routerLink]="['/course', getCourseLink(course.self)]">{{course.description}}</td>
@@ -36,6 +36,12 @@
       <div class="alert alert-success mx-auto" *ngIf="courseUpdated">
         Course was updated.
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="changeCourseUpdated()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="alert alert-danger mx-auto" *ngIf="courseDeleted">
+        Course {{courseSelected.name}} was deleted.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="changeCourseDeleted()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -135,7 +141,7 @@
         <div class="row">
           <div *ngIf="courseImage" class="col">
             <label class="justify-content-center">Current image:</label>
-            <img [src]="courseImage" class="image mt-2"
+            <img [src]="courseImage.self.href" class="image mt-2"
                  alt="Course image">
           </div>
           <div class="form-group col" [formGroup]="courseForm">
@@ -191,8 +197,6 @@
         <div *ngFor="let image of userImages">
           <img [src]="image.self.href" alt="image" (click)="getNewImage(image)" class="modal-image"
                data-dismiss="modal"/>
-          <button *ngIf="!image.isImageUsed" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">
-            <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
         <div>
           <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file modal-image"

@@ -1,31 +1,22 @@
-import {Injectable, NgZone} from '@angular/core';
-import {CookieService} from 'angular2-cookie/core';
-import {Observable} from 'rxjs/Observable';
-import {Response} from '@angular/http';
-import {ORLPService} from '../../services/orlp.service';
-import * as ORLPSettings from '../../services/orlp.settings';
+import {Injectable} from '@angular/core';
+import {CookieOptionsArgs, CookieService} from 'angular2-cookie/core';
+import {AuthenticationService} from '../authentication/authentication.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class LogoutService {
   cookieWithToken = 'Authentication';
-  userIsAutorized = false;
+  opts: CookieOptionsArgs = {
+    domain: environment.DOMAIN_NAME
+  };
 
-  constructor(private cookie: CookieService, private orlp: ORLPService, private ngZone: NgZone) {
-  }
-
-  isAuthorized(): boolean {
-    if (this.cookie.get(this.cookieWithToken) != null) {
-      this.userIsAutorized = true;
-      return true;
-    }
-    return false;
+  constructor(private cookie: CookieService, private authentication: AuthenticationService) {
   }
 
   logout(): boolean {
-    if (this.userIsAutorized === true) {
-      this.cookie.removeAll();
+    if (this.authentication.isAuthenticated()) {
+      this.cookie.remove(this.cookieWithToken, this.opts);
       sessionStorage.setItem('status', 'INACTIVE');
-      this.userIsAutorized = false;
       return true;
     }
     return false;

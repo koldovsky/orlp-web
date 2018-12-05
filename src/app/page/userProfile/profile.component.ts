@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
               private formBuilder: FormBuilder,
               private userStatusChangeService: UserStatusChangeService,
               private authorizationService: AuthorizationService,
-              private logoutServise: LogoutService) {
+              private logoutService: LogoutService) {
   }
 
   ngOnInit(): void {
@@ -85,7 +85,6 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
     this.getProfileData();
     this.getProfile();
     this.isAuthorizedAdmin = this.mainComponent.isAuthorizedAdmin;
-    this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
 
     const nameValidator = [
       Validators.required,
@@ -246,7 +245,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
   deleteProfile() {
     this.profileService.deleteProfile()
       .subscribe(() => {
-        this.logoutServise.logout();
+        this.logoutService.logout();
         this.authorizationService.emitIsAuthorizedChangeEvent(false);
         this.router.navigate(['user/status/change']);
       });
@@ -295,6 +294,7 @@ export class ProfileComponent implements OnInit, AfterViewChecked {
       .subscribe((data) => {
         this.email = data.email;
         this.firstName = data.firstName;
+        this.pointsBalance = this.mainComponent.userDetails.pointsBalance;
         this.lastName = data.lastName;
         this.originalFirstName = this.firstName;
         this.originalLastName = this.lastName;

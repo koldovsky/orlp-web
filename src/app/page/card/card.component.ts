@@ -2,12 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CardPublic} from '../../dto/CardsDTO/public.card.DTO';
 import {CardService} from './card.service';
-import {LogoutService} from '../logout/logout.service';
-
 import '../categoryInfo/deck/deckLanguages';
 import {IStarRatingOnClickEvent} from 'angular-star-rating';
 import {Rating} from '../../dto/Rating';
 import {UserStatusChangeService} from '../userStatusChange/user.status.change.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 
 @Component({
   templateUrl: ('./card.component.html'),
@@ -34,12 +33,13 @@ export class CardComponent implements OnInit {
   public answerConfig;
   public configSynthax: String;
   private isAuthorized: boolean;
+  private isAuthenticated: boolean;
   private cardTitle: string;
 
   constructor(private route: ActivatedRoute,
               private cardService: CardService,
               private userStatusChangeService: UserStatusChangeService,
-              private logoutService: LogoutService) {
+              private authentication: AuthenticationService) {
   }
 
   ngOnInit() {
@@ -47,7 +47,10 @@ export class CardComponent implements OnInit {
     this.converSynthax();
     this.config = {theme: 'xq-dark', mode: (this.configSynthax), lineWrapping: true};
     this.answerConfig = {readonly: true, theme: 'xq-dark', mode: (this.configSynthax), lineWrapping: true};
-    this.isAuthorized = this.logoutService.isAuthorized();
+    this.isAuthenticated = this.authentication.isAuthenticated();
+    if (this.isAuthenticated === true) {
+      this.isAuthorized = true;
+    }
     this.route.params.subscribe(
       params => {
         this.url = params['url'];
@@ -159,11 +162,12 @@ export class CardComponent implements OnInit {
   onCardRatingClick = (card: CardPublic, event: IStarRatingOnClickEvent) => {
     this.cardTitle = 'You gave this card ' + event.rating + ' stars';
     const cardRating: Rating = new Rating(event.rating);
-    this.cardService.addCardRating(cardRating,  card.cardId).subscribe(() => {
-      card.rating = event.rating; }, (error) => {
+    this.cardService.addCardRating(cardRating, card.cardId).subscribe(() => {
+      card.rating = event.rating;
+    }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  }
+  };
 
   setRatingTitle(): void {
     if (this.isAuthorized) {
