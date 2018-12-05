@@ -1,9 +1,8 @@
-.container-fluid {
+.nav-link {
   padding: 0;
 }
 
-.custom-navbar-nav, .nav-link {
-  padding-right: 15px;
+.custom-navbar-nav {
   padding-left: 15px;
 }
 
@@ -23,17 +22,37 @@
 
 .navbar-brand .label-name {
   color: black;
-  border: 2px solid black;
+  border: 1px solid black;
   font-size: 25px;
-  padding: 0 3px 0 3px;
+  padding: 0 5px;
   font-weight: bold;
   max-width: 120px;
   font-family: "Helvetica Neue", sans-serif;
 }
 
-.username, .email {
-  text-align: center;
+.nav-link {
+  font-weight: bold;
+  font-family: "Helvetica Neue", sans-serif;
+  color: black;
+}
+
+.username {
   font-size: 13px;
+  font-weight: bold;
+  margin: -4px 0 1px 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.user-header {
+  background-color: rgba(232, 233, 234, 0.81);
+  padding: 10px;
+  font-size: small;
+}
+
+.email {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .user-image {
@@ -41,13 +60,21 @@
   border-radius: 50%;
 }
 
-.user-information, .user-image, .user-details {
-  float: right;
+.fa-edit, .fa-sign-out {
+  color: black;
 }
 
-.user-image {
-  margin-left: 5px;
-  margin-right: 5px;
+.fa-navicon {
+  font-size: 1.5em;
+  /*color: rgba(232, 233, 234, 0.81);*/
+}
+
+.logout-block {
+  border-top: rgb(194, 207, 214) 2px solid;
+}
+
+.user-menu .dropdown-item {
+  font-size: small;
 }
 
 .logout-item {
@@ -66,28 +93,21 @@ ul li a, .my-navbar-nav a {
   margin-left: 10px;
 }
 
-form {
-  margin: 13px 5px 0 30px;
-}
-
-input {
-  width: 100%;
-  height: 25px;
-  border: 1px solid black;
-  border-radius: 20px;
-}
-
 .active {
   border-bottom: 2px solid #ffc91b;
 }
 
 .navbar-toggler {
-  border: 1px solid black;
   color: black;
 }
 
 .dropdown-menu > .dropdown-item {
   margin-left: 0;
+}
+
+.dropdown-menu {
+  box-shadow: 4px 6px 20px 0;
+  border: none;
 }
 
 .footer p {
@@ -119,13 +139,55 @@ input {
   padding-top: 1%;
 }
 
-.has-feedback{
+.has-feedback {
   position: relative;
-}
-
-#search-form {
   margin-bottom: 0;
 }
-/*.search-form {*/
-  /*margin: 0;*/
-/*}*/
+
+.user-menu {
+  right: 0 !important;
+}
+
+.menu-wrapper {
+  padding: 10px;
+}
+
+@media (max-width: 992px) {
+
+  .navbar-collapse {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100vh;
+    z-index: 999;
+    background: white;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+  }
+  .navbar-collapse.show {
+    left: 0;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .nav-item {
+    padding: 5px;
+  }
+}
+
+@media (min-width: 992px) {
+  .inside-brand {
+    display: none;
+  }
+}

@@ -34,7 +34,9 @@ export class MainComponent implements OnInit {
   public image: string;
   public activeLink: string;
   public searchString: string;
-
+  public overlayStatus = false;
+  // public isOpen: boolean;
+  public isCollapsed = true;
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
               private deckService: DeckService,
@@ -117,5 +119,9 @@ export class MainComponent implements OnInit {
   onSearchClick(): void {
     this.searchService.getResults(this.searchString);
     this.searchString = '';
+  }
+
+  changeOverlay(boolean: boolean) {
+    this.overlayStatus = boolean;
   }
 }

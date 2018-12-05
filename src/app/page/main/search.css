@@ -2,7 +2,7 @@
   float: right !important;
   transition: all 0.5s, border-radius 0s;
   width: 50%;
-  height: 32px;
+  /*height: 32px;*/
   background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   border-radius: 25px;
@@ -10,7 +10,7 @@
 }
 
 .search-form .form-group input.form-control {
-  padding-right: 20px;
+  padding-right: 50px;
   border: 0 none;
   background: transparent;
   box-shadow: none;
@@ -36,7 +36,7 @@
 .search-form .form-group:hover,
 .search-form .form-group.hover {
   width: 100%;
-  border-radius: 4px 25px 25px 4px;
+  /*border-radius: 4px 25px 25px 4px;*/
 }
 
 .search-form .form-group span.form-control-feedback {
@@ -59,4 +59,8 @@
   top: 0;
   right: 0;
   padding: 4px;
+}
+
+.fa-search {
+  color: black;
 }
