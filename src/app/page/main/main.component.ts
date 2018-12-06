@@ -17,7 +17,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 @Component({
   selector: 'app-page',
   templateUrl: ('./main.component.html'),
-  styleUrls: ['./main.css', './dropdown.css', './search.css']
+  styleUrls: ['./main.css', './search.css']
 })
 
 export class MainComponent implements OnInit {
