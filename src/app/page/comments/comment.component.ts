@@ -101,7 +101,7 @@ export class CommentComponent implements OnInit {
   }
 
   getImage(imageBase64: string): SafeUrl {
-    const image = this.sanitizer.bypassSecurityTrustUrl(this.imageType + imageBase64);
+    const image = this.sanitizer.bypassSecurityTrustUrl(imageBase64);
     return image;
   }
 }

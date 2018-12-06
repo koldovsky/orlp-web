@@ -36,13 +36,12 @@ import {TransactionsDTO} from './TransactionsDTO/transactionsDTO';
 import {SendPointsToFriendDTO} from './UserProfileDTO/SendPointsToFriendDTO';
 import {EditCourse} from './CourseDTO/edit.course';
 import {EditCoursePageDTO} from './CourseDTO/editCoursePageDTO';
-import {DeckPriceDTO} from './DeckDTO/DeckPriceDTO';
 import {AccountDTO} from './AccountDTO/accountDTO';
 import {SearchResults} from './SearchDTO/search.results.DTO';
 import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
 import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
 import {DeckSearchDTO} from './SearchDTO/deck.search.DTO';
-import {SetPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
+import {AddPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
 
 
 export class DTOConverter {
@@ -131,7 +130,7 @@ export class DTOConverter {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
     return new DeckDTO(data.deckId, data.name, data.description, data.category, data.categoryId, data.rating,
-      data.owner, cards, self, data.hidden, data.synthax, data.deckOwner, data.deckPrice != null ? new DeckPriceDTO(data.deckPrice.price) : null);
+       data.owner, cards, self, data.hidden, data.synthax, data.deckOwner, data.price != null ? data.price : null);
   }
 
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
@@ -289,8 +288,8 @@ export class DTOConverter {
     return new SearchResults(courses, categories, decks);
   }
 
-  public static jsonToSetPointsDTO(data: any): SetPointsByAdminDTO {
-    return new SetPointsByAdminDTO(data.email, data.points);
+  public static jsonToAddPointsDTO(data: any): AddPointsByAdminDTO {
+    return new AddPointsByAdminDTO(data.email, data.points);
   }
   public static jsonDecksArrayToCollection(callback: Function, data: any): Array<DeckLinkByCategory> {
     const array: Array<DeckLinkByCategory> = DTOConverter.jsonArrayToCollection(callback, data.content);
