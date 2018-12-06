@@ -25,8 +25,7 @@ export class MainComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckPublic[];
   public listFilter: string;
-  public isAuthorized:
-    boolean;
+  public isAuthorized: boolean;
   public isAuthenticated: boolean;
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
@@ -35,8 +34,7 @@ export class MainComponent implements OnInit {
   public activeLink: string;
   public searchString: string;
   public overlayStatus = false;
-  // public isOpen: boolean;
-  public isCollapsed = true;
+
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
               private deckService: DeckService,
@@ -110,6 +108,7 @@ export class MainComponent implements OnInit {
 
   setActiveLink(link: string): void {
     this.activeLink = link;
+    this.changeOverlay(false);
   }
 
   setNotActive(): void {
@@ -123,5 +122,15 @@ export class MainComponent implements OnInit {
 
   changeOverlay(boolean: boolean) {
     this.overlayStatus = boolean;
+  }
+
+  activate(boolean: boolean) {
+    const elem = document.querySelectorAll('.nav-link');
+    for (let i = elem.length; i--;) {
+      elem.item(i).addEventListener('click', () => {
+        document.getElementById('navbarToggler').classList.remove('show');
+      }, false);
+    }
+    this.changeOverlay(boolean);
   }
 }

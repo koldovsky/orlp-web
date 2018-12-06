@@ -1,29 +1,26 @@
 <div class="main-container">
-  <nav class="navbar navbar-expand-lg navbar-white bg-white text-dark pl-2 pr-3 pl-lg-5 pr-lg-5">
+  <div [ngClass]="{'overlay': overlayStatus === true}" (click)="changeOverlay(false)"
+       data-toggle="collapse" data-target="#navbarToggler"></div>
+  <nav class="navbar navbar-expand-lg navbar-white bg-white text-dark pl-0 pl-sm-2 pr-0 pr-sm-3 pl-lg-5 pr-lg-5">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler"
             aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation"
-            (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed">
-            <!--(click)="changeOverlay(true)"-->
-
+            (click)="activate(true)">
       <i class="fa fa-navicon fa-lg" aria-hidden="true"></i>
     </button>
-    <!--logo-->
-    <a class=" navbar-brand ml-2" [routerLink]="['/home']" (click)="setNotActive()">
+    <a class=" navbar-brand ml-2 main-brand" [routerLink]="['/home']" (click)="setNotActive()">
       <div class="label-name">INFOLVE</div>
     </a>
-    <!--inside nav-->
-    <div class="collapse navbar-collapse" id="navbarToggler" [ngbCollapse]="isCollapsed">
-         <!--[ngClass]="{'in': isOpen}">-->
+    <div class="collapse navbar-collapse" id="navbarToggler">
       <div class="pt-3">
-      <button class="navbar-toggler navbar-brand" type="button" data-toggle="collapse" data-target="#navbarToggler"
-              aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation" (click)="changeOverlay(false)">
-        <i class="fa fa-navicon fa-lg" aria-hidden="true"></i>
-      </button>
-      <a class=" navbar-brand ml-2 pt-0 inside-brand" [routerLink]="['/home']" (click)="setNotActive()">
-        <div class="label-name">INFOLVE</div>
-      </a>
+        <button class="navbar-toggler navbar-brand" type="button" data-toggle="collapse" data-target="#navbarToggler"
+                aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation"
+                (click)="changeOverlay(false)">
+          <i class="fa fa-navicon fa-lg" aria-hidden="true"></i>
+        </button>
+        <a class="navbar-brand ml-2 pt-0 inside-brand">
+          <div class="label-name">INFOLVE</div>
+        </a>
       </div>
-      <!--left part-->
       <div class="nav-menu-items mr-auto mt-2 mt-lg-0 mt-xl-0">
         <ul class="navbar-nav custom-navbar-nav ml-2">
           <li class="nav-item">
@@ -39,24 +36,20 @@
                (click)="setActiveLink('/user/cabinet')">CABINET</a>
           </li>
           <li *ngIf="isAuthorizedAdmin && isAuthorized" class="dropdown nav-item">
-            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            <a class="dropdown-toggle admin-dropdown" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
               ADMIN
             </a>
-            <!--add such think to profile-->
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" [routerLink]="['/admin/audit']">ADMIN AUDIT</a>
-              <a class="dropdown-item" [routerLink]="['/admin/transactionsaudit']">ADMIN CREDITS TRANSACTIONS AUDIT</a>
-              <a class="dropdown-item" [routerLink]="['/admin/categories']">ADMIN CATEGORIES</a>
-              <a class="dropdown-item" [routerLink]="['/admin/courses']">ADMIN COURSES</a>
-              <a class="dropdown-item" [routerLink]="['/admin/users']">ADMIN USERS</a>
-              <a class="dropdown-item" [routerLink]="['/admin/decks']">ADMIN DECKS</a>
+            <div class="dropdown-menu admin-menu" aria-labelledby="dropdownMenuLink">
+              <a class="nav-link" [routerLink]="['/admin/audit']">AUDIT</a>
+              <a class="nav-link" [routerLink]="['/admin/transactionsaudit']">CREDITS TRANSACTIONS</a>
+              <a class="nav-link" [routerLink]="['/admin/categories']">CATEGORIES</a>
+              <a class="nav-link" [routerLink]="['/admin/courses']">COURSES</a>
+              <a class="nav-link" [routerLink]="['/admin/users']">USERS</a>
+              <a class="nav-link" [routerLink]="['/admin/decks']">DECKS</a>
             </div>
           </li>
-          <!--<li *ngIf="isAuthorized" class="nav-item">-->
-          <!--<a class="nav-link" [routerLink]="['/user/profile']" [class.active]="activeLink === '/user/profile'"-->
-          <!--(click)="setActiveLink('/user/profile')">PROFILE</a>-->
-          <!--</li>-->
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/about']" [class.active]="activeLink === '/about'"
                (click)="setActiveLink('/about')">ABOUT</a>
@@ -64,12 +57,7 @@
         </ul>
       </div>
     </div>
-    <!--out of button-->
-    <!--right part-->
-    <!--<div class="nav-menu-items">-->
-    <!--<div class="navbar-nav">-->
-    <!--<a class="align-self-center" *ngIf="isAuthorized" [routerLink]="['/user/profile']"></a>-->
-    <form class="search-form nav-item align-self-center mr-2 ml-auto">
+    <form class="search-form nav-item align-self-center mr-0 mr-sm-2 ml-auto ml-sm-auto">
       <div class="form-group has-feedback" id="search-form">
         <input [(ngModel)]="searchString" type="text" class="form-control" name="search" id="search"
                placeholder="Search">
@@ -81,15 +69,12 @@
       <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownUserMenu"
          data-toggle="dropdown"
          aria-haspopup="true" aria-expanded="false" data-reference="parent">
-        <!--[routerLink]="['/user/profile']"-->
         <img *ngIf="image; else default_image" class="user-image" src="{{image}}">
         <ng-template #default_image>
           <img class="user-image" src="../../../assets/images/avatar.png" alt="User image">
         </ng-template>
       </a>
-      <!--droped area-->
       <div class="dropdown-menu user-menu" aria-labelledby="dropdownUserMenu" style="left: auto">
-        <!--<div class="menu-wrapper">-->
         <div class="d-inline-flex user-header">
           <div class="col-3 d-flex align-items-center">
             <img *ngIf="image; else default_image" class="user-image" src="{{image}}">
@@ -98,7 +83,7 @@
             </ng-template>
           </div>
           <div class="col-9 d-flex align-items-center">
-            <div *ngIf="(isAuthorized && userDetails)" class="align-self-center">
+            <div *ngIf="(isAuthorized && userDetails)" class="align-self-center user-info">
               <div class="nav-item username">{{userDetails.firstName}}</div>
               <div class="nav-item email">{{userDetails.email}}</div>
               <div *ngIf="!isAuthorizedAdmin&&isAuthorized" class="nav-item"><i class="fa fa-money"
@@ -116,25 +101,28 @@
         <div *ngIf="isAuthorized" class="align-self-center logout-block">
           <a class="dropdown-item" (click)="logoutUser()"><i class="fa fa-sign-out fa-fw fa-lg"></i>Sign out</a>
         </div>
-
-        <!--</div>-->
       </div>
     </div>
-    <!--</div>-->
-    <!--</div>-->
-    <div *ngIf="!isAuthorized" class="nav-item align-self-center">
-      <a class="nav-link" [routerLink]="['/register']" [class.active]="activeLink === '/register'"
-         (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
-        UP</a>
-    </div>
-    <div *ngIf="!isAuthorized" class="nav-item align-self-center">
-      <a class="nav-link" [routerLink]="['/login']" [class.active]="activeLink === '/login'"
-         (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
-        IN</a>
+    <div *ngIf="!isAuthorized" class="dropdown nav-item">
+      <a class="nav-link" href="#" role="button" id="dropdownAuthorizationMenu"
+         data-toggle="dropdown"
+         aria-haspopup="true" aria-expanded="false" data-reference="parent"><i class="fa fa-user-o fa-fw fa-lg black"
+                                                                               aria-hidden="true"></i>
+      </a>
+      <div class="dropdown-menu user-menu p-2 mt-3" aria-labelledby="dropdownAuthorizationMenu" style="left: auto">
+        <div *ngIf="!isAuthorized" class="nav-item align-self-center">
+          <a class="nav-link sign-item" [routerLink]="['/register']" [class.active]="activeLink === '/register'"
+             (click)="setActiveLink('/register')"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>SIGN
+            UP</a>
+        </div>
+        <div *ngIf="!isAuthorized" class="nav-item align-self-center">
+          <a class="nav-link sign-item" [routerLink]="['/login']" [class.active]="activeLink === '/login'"
+             (click)="setActiveLink('/login')"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>SIGN
+            IN</a>
+        </div>
+      </div>
     </div>
   </nav>
-  <div [ngClass]="{'overlay': overlayStatus === true}" (click)="changeOverlay(false)"
-       data-toggle="collapse" data-target="#navbarToggler"></div>
   <router-outlet></router-outlet>
   <footer class="footer">
     <div class="container-footer">

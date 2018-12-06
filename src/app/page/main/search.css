@@ -2,7 +2,6 @@
   float: right !important;
   transition: all 0.5s, border-radius 0s;
   width: 50%;
-  /*height: 32px;*/
   background-color: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   border-radius: 25px;
@@ -36,7 +35,6 @@
 .search-form .form-group:hover,
 .search-form .form-group.hover {
   width: 100%;
-  /*border-radius: 4px 25px 25px 4px;*/
 }
 
 .search-form .form-group span.form-control-feedback {
@@ -58,9 +56,43 @@
   position: absolute;
   top: 0;
   right: 0;
-  padding: 4px;
+  padding: 7px 4px 4px;
 }
 
 .fa-search {
   color: black;
+}
+
+.icon {
+  padding: 7px 4px 4px;
+}
+
+@media (max-width: 301px) {
+  .search-form .form-group {
+    width: 100%;
+  }
+
+  #search-form {
+    height: 2rem;
+    width: 120px;
+  }
+
+  #search {
+    padding-bottom: 0.75rem;
+  }
+
+  .user-image {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon {
+    padding: 5px 4px 4px;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-form .form-group input.form-control {
+    padding-right: 10px;
+  }
 }

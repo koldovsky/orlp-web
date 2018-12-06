@@ -30,7 +30,7 @@
   font-family: "Helvetica Neue", sans-serif;
 }
 
-.nav-link {
+.nav-menu-items ul li a {
   font-weight: bold;
   font-family: "Helvetica Neue", sans-serif;
   color: black;
@@ -60,13 +60,13 @@
   border-radius: 50%;
 }
 
-.fa-edit, .fa-sign-out {
+.fa-edit, .fa-sign-out, .fa-user-o {
   color: black;
+  cursor: pointer;
 }
 
 .fa-navicon {
   font-size: 1.5em;
-  /*color: rgba(232, 233, 234, 0.81);*/
 }
 
 .logout-block {
@@ -94,7 +94,7 @@ ul li a, .my-navbar-nav a {
 }
 
 .active {
-  border-bottom: 2px solid #ffc91b;
+  border-bottom: 2px solid #ffc91b !important;
 }
 
 .navbar-toggler {
@@ -105,7 +105,7 @@ ul li a, .my-navbar-nav a {
   margin-left: 0;
 }
 
-.dropdown-menu {
+.user-menu {
   box-shadow: 4px 6px 20px 0;
   border: none;
 }
@@ -148,12 +148,44 @@ ul li a, .my-navbar-nav a {
   right: 0 !important;
 }
 
+.user-info .nav-item {
+  padding: 0;
+}
+
 .menu-wrapper {
   padding: 10px;
 }
 
-@media (max-width: 992px) {
+.admin-dropdown {
+  padding: 0 0.5rem;
+}
 
+.dropdown-toggle::after {
+  color: black;
+}
+
+.sign-item {
+  color: black;
+  font-weight: 600;
+}
+
+@media (max-width: 301px) {
+  .navbar-toggler {
+    padding: 5px;
+  }
+
+  .user-menu {
+    max-width: 230px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-brand {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
   .navbar-collapse {
     width: 250px;
     position: fixed;
@@ -166,6 +198,7 @@ ul li a, .my-navbar-nav a {
     overflow-y: scroll;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
+
   .navbar-collapse.show {
     left: 0;
   }
@@ -181,13 +214,47 @@ ul li a, .my-navbar-nav a {
     transition: all 0.5s ease-in-out;
   }
 
+  .admin-menu .dropdown-item {
+    padding: 0;
+    border: none;
+  }
+
   .nav-item {
     padding: 5px;
+  }
+
+  .dropdown.nav-link {
+    padding: 5px;
+  }
+
+  .admin-menu {
+    max-width: 150px;
+    margin-left: 15px;
+    margin-top: 10px;
+    padding: 0 5px 0 10px;
+    border: none;
+    border-left: 2px solid #ffc91b;
+  }
+
+  .admin-menu a {
+    white-space: pre-line;
+    border-bottom: 1px grey solid !important;
+  }
+
+  .admin-dropdown {
+    border: none;
+    padding: 0;
   }
 }
 
 @media (min-width: 992px) {
   .inside-brand {
     display: none;
+  }
+
+  .dropdown-menu .nav-link {
+    margin-left: 0;
+    padding: 5px 5px 5px 10px;
+    border-bottom: 1px solid lightgrey;
   }
 }
