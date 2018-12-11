@@ -113,6 +113,7 @@ export class MainComponent implements OnInit {
 
   setNotActive(): void {
     this.activeLink = '';
+    this.changeOverlay(false);
   }
 
   onSearchClick(): void {
@@ -126,7 +127,7 @@ export class MainComponent implements OnInit {
 
   activate(boolean: boolean) {
     const elem = document.querySelectorAll('.nav-link');
-    for (let i = elem.length; i--;) {
+    for (let i = elem.length; i--; ) {
       elem.item(i).addEventListener('click', () => {
         document.getElementById('navbarToggler').classList.remove('show');
       }, false);

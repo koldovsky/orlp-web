@@ -1,33 +1,36 @@
 <div class="main-container">
-  <div class="bg">
-    <div class="row justify-content-center">
-      <div class="main-card">
-        <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
-        <p class="sub-title">THE PERFECT WAY TO LEARN</p>
+  <div class="bg d-flex justify-content-center">
+    <div class="greeting-container align-self-center">
+      <div class="row">
+        <div class="main-card">
+          <p class="title">YOUR INFORMATION SHOULD EVOLVE</p>
+          <p class="sub-title">THE PERFECT WAY TO LEARN</p>
+        </div>
+      </div>
+      <div class="row justify-content-center button-row">
+        <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
+                routerLink="/user/cabinet">START
+          LEARNING
+        </button>
+        <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/user/courses">START
+          LEARNING
+        </button>
       </div>
     </div>
-    <div class="row justify-content-center button-row">
-      <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
-              routerLink="/user/cabinet">START
-        LEARNING
-      </button>
-      <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/user/courses">START LEARNING
-      </button>
-    </div>
 
-    <div class="row end-row">
+    <div class="row end-row end-button">
       <div class="col center-col">
-        <img class="down scroll-button" id="arrow" (click)="scrollDown()" #arrow/>
+        <img src="#" alt="End-button" class="down scroll-button" id="arrow" (click)="scrollDown()" #arrow/>
       </div>
     </div>
   </div>
 </div>
-<div class="categories-container" id="categories" #categoriesContainer>
+<div class="categories-container pb-2" id="categories" #categoriesContainer>
   <div class="over-line"></div>
   <div class="row justify-content-center mt-1">
     <p class="our-categories">OUR CATEGORIES</p>
   </div>
-  <div class="row justify-content-center mt-4">
+  <div class="row justify-content-center mt-md-4">
     <div id="categoryCarousel" class="carousel slide col-12 col-md-12 col-lg-12" data-ride="carousel">
       <div class="carousel-inner">
         <div *ngFor="let i of categories;let item = index" class="carousel-item " [ngClass]="{'active': item==0}">
@@ -50,15 +53,17 @@
       </a>
     </div>
     <div class="row justify-content-center">
-      <div class="card col-12 col-md-7 cat-main-card">
-        <ul class="card-body">
-          <li class="card-text">All learning material is divided by categories.</li>
-          <li class="card-text">Categories are specific topics, such as programming languages.</li>
-          <li class="card-text">Each category contains courses that can and should take place over and over again to
-            consolidate material.
-          </li>
-          <li class="card-text">In addition, you can estimate each course and leave a comment about it.</li>
-        </ul>
+      <div class="description-site">
+        <div class="card col-12 cat-main-card">
+          <ul class="description-body">
+            <li class="card-text">All learning material is divided by categories.</li>
+            <li class="card-text">Categories are specific topics, such as programming languages.</li>
+            <li class="card-text">Each category contains courses that can and should take place over and over again to
+              consolidate material.
+            </li>
+            <li class="card-text">In addition, you can estimate each course and leave a comment about it.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -68,12 +73,14 @@
   <div class="row justify-content-center">
     <p class="our-courses">OUR COURSES</p>
   </div>
-  <div class="row">
-    <div *ngFor="let course of courses" class="col">
+  <div class="row mr-lg-3">
+    <div *ngFor="let course of courses" class="col-6 col-sm mt-2 mt-sm-0">
       <div class="card course-card">
-        <img class="card-image" src={{course.image}} [routerLink]="['/course/top', getCourseLink(course.self)]"
+        <img class="card-image img-fluid" src={{course.image}}
+             [routerLink]="['/course/top', getCourseLink(course.self)]"
              alt="Card image cap">
-        <div class="card-body course-card-body">
+        <div class="card-body course-card-body d-flex flex-column justify-content-center"
+             [routerLink]="['/course/top', getCourseLink(course.self)]">
           <div class="title-course">
             <h5 class="card-title" [routerLink]="['/course/top', getCourseLink(course.self)]">{{course.name}}</h5>
           </div>
@@ -81,7 +88,6 @@
             <p class="card-description" [routerLink]="['/course/top', getCourseLink(course.self)]">
               {{course.description}}</p>
           </div>
-          <h3 [routerLink]="['/course/top', getCourseLink(course.self)]"></h3>
           <div class="star-rating" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
             <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                               [rating]="course.rating"
@@ -108,7 +114,7 @@
   </div>
   <form class="was-validated" [formGroup]="contactUsForm" (ngSubmit)="sendEmailMessage(contactUsForm.value)">
     <div class="container-form row">
-      <div class="input-container col-5">
+      <div class="input-container col-12 col-sm-5">
         <input type="text" placeholder="Name*" formControlName="name" required>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['name'].touched || contactUsForm.controls['name'].dirty)
                                           && (contactUsForm.controls['name'].hasError('minlength') || contactUsForm.controls['name'].hasError('pattern'))">
@@ -151,7 +157,7 @@
           This field cannot contain more than 50 characters.
         </div>
       </div>
-      <div class="message col-7">
+      <div class="message col-12 col-sm-7">
         <textarea placeholder="Message*" name="text" formControlName="text" required></textarea>
         <div class="is-invalid" *ngIf="(contactUsForm.controls['text'].touched || contactUsForm.controls['text'].dirty)
                                           && contactUsForm.controls['text'].hasError('minlength')">
