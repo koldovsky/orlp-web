@@ -17,7 +17,7 @@
                 (click)="changeOverlay(false)">
           <i class="fa fa-navicon fa-lg" aria-hidden="true"></i>
         </button>
-        <a class="navbar-brand ml-2 pt-0 inside-brand">
+        <a class="navbar-brand ml-2 pt-0 inside-brand nav-link" [routerLink]="['/home']" (click)="setNotActive()">
           <div class="label-name">INFOLVE</div>
         </a>
       </div>
@@ -60,7 +60,7 @@
     <form class="search-form nav-item align-self-center mr-0 mr-sm-2 ml-auto ml-sm-auto">
       <div class="form-group has-feedback" id="search-form">
         <input [(ngModel)]="searchString" type="text" class="form-control" name="search" id="search"
-               placeholder="Search">
+               placeholder="Search" autocomplete="off">
         <span class="icon"><a class="" [routerLink]="['/search']" (click)="onSearchClick()"><i
           class="fa fa-search fa-fw" aria-hidden="true"></i></a></span>
       </div>

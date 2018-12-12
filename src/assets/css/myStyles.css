@@ -150,21 +150,6 @@ div, button:focus, .card-title, img {
   position: absolute;
 }
 
-.title {
-  margin-top: 20%;
-  color: black;
-  font-size: 37px;
-  font-weight: bold;
-  font-family: "Helvetica Neue", sans-serif;
-}
-
-.sub-title {
-  color: #ffc91b;
-  font-size: 23px;
-  font-family: "Helvetica Neue", sans-serif;
-  font-weight: lighter;
-}
-
 .pagination {
   margin-bottom: 20px !important;
 }
