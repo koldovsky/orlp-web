@@ -32,6 +32,7 @@ export class DeckComponent implements OnInit {
   actionSort = true;
   courseColumns: TableColumnDTO[] = [new TableColumnDTO('name', 'Name', '\u2191'),
     new TableColumnDTO('description', 'Description', ''),
+    new TableColumnDTO('deckPrice.price', 'Price', ''),
     new TableColumnDTO('', '', ''),
     new TableColumnDTO('', '', ''),
     new TableColumnDTO('rating', 'Rating', '')];
@@ -117,7 +118,7 @@ export class DeckComponent implements OnInit {
     this.decksWithStatus = [];
     for (const entry of this.decks) {
       this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name,
-        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false, entry.synthax));
+        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false, entry.synthax, entry.price));
     }
     this.setStatusForDecksThatInFolder();
   }

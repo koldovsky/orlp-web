@@ -44,6 +44,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Price</th>
         <th class="start"></th>
         <th class="alignCenter">Rating</th>
       </tr>
@@ -52,6 +53,7 @@
       <tr *ngFor="let deck of decks" class="table-row">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
+        <td>{{deck.price == null ? 'Free': deck.price}}</td>
         <td>
           <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
           </button>
