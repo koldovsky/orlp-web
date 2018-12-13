@@ -8,13 +8,12 @@
         </div>
       </div>
       <div class="row justify-content-center button-row">
-        <button *ngIf="isAuthorized&&status==='ACTIVE'" type="button" class="btn learning-button"
-                routerLink="/user/cabinet">START
-          LEARNING
-        </button>
-        <button *ngIf="!isAuthorized" type="button" class="btn learning-button" routerLink="/user/courses">START
-          LEARNING
-        </button>
+        <a *ngIf="isAuthorized" class="btn learning-button" [routerLink]="['/user/cabinet']">
+          START LEARNING
+        </a>
+        <a *ngIf="!isAuthorized" class="btn learning-button" [routerLink]="['/user/courses']">
+          START LEARNING
+        </a>
       </div>
     </div>
 
