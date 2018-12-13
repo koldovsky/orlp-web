@@ -28,6 +28,7 @@
   font-weight: bold;
   max-width: 120px;
   font-family: "Helvetica Neue", sans-serif;
+  cursor: pointer;
 }
 
 .nav-menu-items ul li a {
