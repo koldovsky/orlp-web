@@ -165,3 +165,7 @@ th, li {
   border-radius: 50px;
   cursor: default;
 }
+
+.alert {
+  text-align: center;
+}
