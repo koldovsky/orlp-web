@@ -113,7 +113,7 @@ label {
 }
 
 .create-decks-list-button{
-  margin-bottom: 1em;
+  margin-bottom: 12px;
 }
 
 /*.container{*/
@@ -122,24 +122,24 @@ label {
 
 @media screen and (max-width: 576px) {
   .list-button-container{
-    margin-top: 1em;
+    margin-top: 12px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .list-button-container{
-    margin-top: 1em;
+    margin-top: 12px;
   }
   .deck-info-table{
-    margin-top: 1em;
+    margin-top: 12px;
   }
 }
 
 @media screen and (min-width: 989px) and (max-width: 1200px){
   .deck-info-table{
-   margin-left: 2em;
+   margin-left: 24px;
   }
   .first-decks-list-button{
-    margin-left: 2em;
+    margin-left: 24px;
   }
 }

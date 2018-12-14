@@ -8,7 +8,7 @@
     </div>
     <!--ALERT-->
     <div class="col-sm-12 col-lg-9">
-      <table id="alert" class="table table-striped">
+      <table id="alert" class="table table-striped alter">
         <div *ngIf="showAlertdeck" class="alert alert-info">
           Folder "My deck" is empty now. You can subscribe to deck in section
           <a [routerLink]="['/user/categories']">Categories</a>
@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="table-responsive-sm">
+      <div >
         <table class="table table-striped deck-table">
           <tbody *ngIf="showFolderDecks">
           <tr *ngFor="let deck of decks" class="tr-deck">

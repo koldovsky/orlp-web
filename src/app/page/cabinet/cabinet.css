@@ -27,11 +27,10 @@
 
 /*FOLDER AND COURSES*/
 .folder, .course {
-  /*margin-left: 300px;*/
   width: 100%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 575px) {
   tr {
     display: block;
   }
@@ -44,22 +43,32 @@
     border-top: 1px solid #ccc;
   }
 
-  .deck-table {
-    margin-top: 1em;
-  }
   .course-deck-tr {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 }
 
-@media screen and (min-width: 500px){
+
+@media screen and (max-width: 780px){
+  .deck-table {
+    margin-top: 12px;
+  }
+}
+
+@media screen and (min-width: 576px){
   td{
     border-top: inherit;
   }
   .course-deck-tr {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .alter{
+    margin-top: 12px;
   }
 }
 

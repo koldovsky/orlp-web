@@ -14,10 +14,10 @@
 
 @media screen and (max-width: 768px) {
   .create-course {
-    margin-top: 2em;
+    margin-top: 24px;
   }
   .btn-create-course {
-    margin-bottom: 1em;
+    margin-bottom: 12px;
   }
 }
 
