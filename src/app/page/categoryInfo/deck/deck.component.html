@@ -59,7 +59,7 @@
           <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button SubscribeCheckboxActive"
                title="Add deck to cabinet"></div>
         </div>
-        <div *ngIf="deck.status">
+        <div *ngIf="deck.status && deck.isBought || deck.status && deck.price == null">
           <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button SubscribeCheckboxChecked"
                title="Deck is already in your cabinet"></div>
         </div>
