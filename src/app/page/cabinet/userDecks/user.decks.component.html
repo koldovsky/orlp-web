@@ -1,173 +1,189 @@
 <div class="container">
-  <div class="vertical-menu">
-    <a [routerLink]="['/user/cabinet']">My learning</a>
-    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
-    <a [routerLink]="['/user/cabinet/manage/decks']" class="active">Manage decks</a>
-    <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
-  </div>
-
-  <div class="list-button-container">
-    <div class="decks-list">
-      <div [class.selected]="deck === selectedDeck" class="decks-list-item" *ngFor="let deck of decks; let i = index"
-           (click)="onDeckClicked(deck, i)">
-        <span>{{deck.name}}</span>
-        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck">-</button>
-      </div>
+  <div class="row">
+    <div class="vertical-menu col-sm-12 col-md-4 col-lg-3">
+      <a [routerLink]="['/user/cabinet']">My learning</a>
+      <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+      <a [routerLink]="['/user/cabinet/manage/decks']" class="active">Manage decks</a>
+      <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
     </div>
-    <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
 
-    <div class="centered-container">
-      <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
-              (click)="prepareCreateDialog()">Create new deck
-      </button>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="selectedDeck">
-    <div class="col-12">
-      <table class="table table-striped deck-info-table">
-        <tbody>
-        <tr>
-          <th>Deck Name</th>
-          <td>{{selectedDeck.name}}</td>
-        </tr>
-        <tr>
-          <th>Deck Description</th>
-          <td>{{selectedDeck.description}}</td>
-        </tr>
-        <tr>
-          <th>Deck Rating</th>
-          <td>{{selectedDeck.rating}}</td>
-        </tr>
-        <tr>
-          <th>Deck Category</th>
-          <td>{{selectedDeck.category}}</td>
-        </tr>
-        <tr>
-          <th>Deck Owner</th>
-          <td>{{selectedDeck.owner}}</td>
-        </tr>
-        <tr>
-          <th>Deck Syntax</th>
-          <td>{{selectedDeck.synthax}}</td>
-        </tr>
-        <tr>
-          <th>Deck Price</th>
-          <td>{{selectedDeck.price != 0 ? selectedDeck.price : "Free"}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
-              (click)="prepareEditDialog()">Edit
-      </button>
-      <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']"
-              class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck">Manage Cards
-      </button>
-      <button class="btn btn-primary decks-list-button" (click)="downloadCards(selectedDeck.deckId, selectedDeck.name)">
-        Download cards
-      </button>
-      <button class="btn btn-primary decks-list-button" (click)="downloadCardsTemplate()">Download cards template
-      </button>
-      <button *ngIf="selectedDeck.hidden===true && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
-              (click)="changeAccessDeck(selectedDeck, false)">Private</button>
-
-      <button *ngIf="selectedDeck.hidden===false && isOwnerDeck(selectedDeck)" class="btn btn-primary decks-list-button"
-              (click)="changeAccessDeck(selectedDeck, true)">Public</button>
-
-      <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
-      <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
-      <div class="wrong-format-file-exception">
-        <p>{{errorFileMessage}}</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="create-edit-deck" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">{{dialogName}}</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body">
-          <form class="was-validated" [formGroup]="deckGroup">
-          <div class="input-container col-lg-12">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Deck name*:</label>
-              <div class="col-sm-4">
-                <input type="text" formControlName="name"
-                       [class.error]="deckGroup.controls['name'].touched && !deckGroup.controls['name'].valid"/>
-                <div class="is-invalid error-text"
-                     *ngIf="deckGroup.controls['name'].touched && deckGroup.controls['name'].hasError('required')">
-                  Enter name
-                </div>
+    <div class="col-sm-12 col-md-8 col-lg-9">
+      <div class="row">
+        <div class="col-sm-12 col-lg-4">
+          <div class="list-button-container">
+            <div class="decks-list">
+              <div [class.selected]="deck === selectedDeck" class="decks-list-item"
+                   *ngFor="let deck of decks; let i = index"
+                   (click)="onDeckClicked(deck, i)">
+                <span>{{deck.name}}</span>
+                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-deck">-</button>
               </div>
             </div>
-            <hr class="col-11">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Deck description*:</label>
-              <div class="col-sm-4">
-                <input type="text" formControlName="description"
-                       [class.error]="deckGroup.controls['description'].touched && !deckGroup.controls['description'].valid"/>
-                <div class="is-invalid error-text"
-                     *ngIf="deckGroup.controls['description'].touched && deckGroup.controls['description'].hasError('required')">
-                  Enter description
-                </div>
-              </div>
-            </div>
-            <hr class="col-11">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Choose a category*:</label>
-              <div class="col-sm-4">
-                <select class="category-select" formControlName="categoryId"
-                        [class.error]="deckGroup.controls['categoryId'].touched && !deckGroup.controls['categoryId'].valid">
-                <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}</option>
-                </select>
-                <div class="is-invalid error-text"
-                     *ngIf="deckGroup.controls['categoryId'].touched && deckGroup.controls['categoryId'].hasError('required')">
-                  Choose category
-                </div>
-              </div>
-            </div>
-            <hr class="col-11">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Choose syntax:</label>
-              <div class="col-sm-3">
-                <select class="category-select" formControlName="syntax">
-                  <option *ngFor="let syntax of allSynthaxes">{{syntax}}</option>
-                </select>
-              </div>
-            </div>
-            <hr class="col-11">
-            <div class="form-group row">
-              <label class="col-sm-6 col-form-label">Deck price:</label>
-              <div class="col-sm-4">
-                <input type="text" formControlName="price"
-                       [class.error]="deckGroup.controls['price'].touched && !deckGroup.controls['price'].valid"/>
-                <div class="is-invalid error-text" *ngIf="deckGroup.controls['price'].hasError('pattern')">
-                Enter positive value
-              </div>
-                <div class="is-invalid error-text" *ngIf="deckGroup.controls['price'].hasError('max')">
-                  Please specify a positive number from 1 to 999 999
-                </div>
-            </div>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary btn-pointer"
-                      data-dismiss="modal" aria-label="Close" [disabled] ="!deckGroup.valid"
-                      (click)="createDeck()">{{dialogButtonName}}
+            <div *ngIf="decks.length === 0" class="empty-list-label">List of decks is empty</div>
+
+            <div class="centered-container">
+              <button class="btn btn-primary decks-list-button create-decks-list-button" data-toggle="modal"
+                      data-target="#create-edit-deck"
+                      (click)="prepareCreateDialog()">Create new deck
               </button>
-              <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
             </div>
           </div>
-          </form>
+        </div>
+        <div class=" col-sm-12 col-lg-8" *ngIf="selectedDeck">
+          <table class="table table-striped deck-info-table">
+            <tbody>
+            <tr>
+              <th>Deck Name</th>
+              <td>{{selectedDeck.name}}</td>
+            </tr>
+            <tr>
+              <th>Deck Description</th>
+              <td>{{selectedDeck.description}}</td>
+            </tr>
+            <tr>
+              <th>Deck Rating</th>
+              <td>{{selectedDeck.rating}}</td>
+            </tr>
+            <tr>
+              <th>Deck Category</th>
+              <td>{{selectedDeck.category}}</td>
+            </tr>
+            <tr>
+              <th>Deck Owner</th>
+              <td>{{selectedDeck.owner}}</td>
+            </tr>
+            <tr>
+              <th>Deck Syntax</th>
+              <td>{{selectedDeck.synthax}}</td>
+            </tr>
+            <tr>
+              <th>Deck Price</th>
+              <td>{{selectedDeck.price != 0 ? selectedDeck.price : "Free"}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="first-decks-list-button">
+            <button class="btn btn-primary decks-list-button" data-toggle="modal" data-target="#create-edit-deck"
+                    (click)="prepareEditDialog()">Edit
+            </button>
+            <button [routerLink]="['/manage/cards', getDeckLink(selectedDeck.self), 'CabinetDecks']"
+                    class="btn btn-primary decks-list-button " data-toggle="modal" data-target="#create-edit-deck">
+              Manage
+              Cards
+            </button>
+            <button class="btn btn-primary decks-list-button"
+                    (click)="downloadCards(selectedDeck.deckId, selectedDeck.name)">
+              Download cards
+            </button>
+            <button class="btn btn-primary decks-list-button" (click)="downloadCardsTemplate()">Download cards template
+            </button>
+            <button *ngIf="selectedDeck.hidden===true && isOwnerDeck(selectedDeck)"
+                    class="btn btn-primary decks-list-button"
+                    (click)="changeAccessDeck(selectedDeck, false)">Private
+            </button>
+
+            <button *ngIf="selectedDeck.hidden===false && isOwnerDeck(selectedDeck)"
+                    class="btn btn-primary decks-list-button"
+                    (click)="changeAccessDeck(selectedDeck, true)">Public
+            </button>
+
+            <label for="file-upload" class="btn btn-primary decks-list-button">Upload cards</label>
+            <input id="file-upload" type="file" (change)="uploadCards(selectedDeck.deckId, $event)"/>
+            <div class="wrong-format-file-exception">
+              <p>{{errorFileMessage}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="create-edit-deck" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{dialogName}}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <form class="was-validated" [formGroup]="deckGroup">
+              <div class="input-container col-lg-12">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Deck name*:</label>
+                  <div class="col-sm-4">
+                    <input type="text" formControlName="name"
+                           [class.error]="deckGroup.controls['name'].touched && !deckGroup.controls['name'].valid"/>
+                    <div class="is-invalid error-text"
+                         *ngIf="deckGroup.controls['name'].touched && deckGroup.controls['name'].hasError('required')">
+                      Enter name
+                    </div>
+                  </div>
+                </div>
+                <hr class="col-11">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Deck description*:</label>
+                  <div class="col-sm-4">
+                    <input type="text" formControlName="description"
+                           [class.error]="deckGroup.controls['description'].touched && !deckGroup.controls['description'].valid"/>
+                    <div class="is-invalid error-text"
+                         *ngIf="deckGroup.controls['description'].touched && deckGroup.controls['description'].hasError('required')">
+                      Enter description
+                    </div>
+                  </div>
+                </div>
+                <hr class="col-11">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Choose a category*:</label>
+                  <div class="col-sm-4">
+                    <select class="category-select" formControlName="categoryId"
+                            [class.error]="deckGroup.controls['categoryId'].touched && !deckGroup.controls['categoryId'].valid">
+                      <option *ngFor="let category of categories" [ngValue]="category.categoryId">{{category.name}}
+                      </option>
+                    </select>
+                    <div class="is-invalid error-text"
+                         *ngIf="deckGroup.controls['categoryId'].touched && deckGroup.controls['categoryId'].hasError('required')">
+                      Choose category
+                    </div>
+                  </div>
+                </div>
+                <hr class="col-11">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Choose syntax:</label>
+                  <div class="col-sm-3">
+                    <select class="category-select" formControlName="syntax">
+                      <option *ngFor="let syntax of allSynthaxes">{{syntax}}</option>
+                    </select>
+                  </div>
+                </div>
+                <hr class="col-11">
+                <div class="form-group row">
+                  <label class="col-sm-6 col-form-label">Deck price:</label>
+                  <div class="col-sm-4">
+                    <input type="text" formControlName="price"
+                           [class.error]="deckGroup.controls['price'].touched && !deckGroup.controls['price'].valid"/>
+                    <div class="is-invalid error-text" *ngIf="deckGroup.controls['price'].hasError('pattern')">
+                      Enter positive value
+                    </div>
+                    <div class="is-invalid error-text" *ngIf="deckGroup.controls['price'].hasError('max')">
+                      Please specify a positive number from 1 to 999 999
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary btn-pointer"
+                          data-dismiss="modal" aria-label="Close" [disabled]="!deckGroup.valid"
+                          (click)="createDeck()">{{dialogButtonName}}
+                  </button>
+                  <button class="btn btn-default btn-pointer" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-    <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="selectedDeck">
+  <div class="modal fade" id="delete-deck" tabindex="-1" role="dialog" *ngIf="selectedDeck">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

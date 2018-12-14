@@ -1,185 +1,194 @@
 <main class="container">
-
-  <div class="vertical-menu">
-    <a [routerLink]="['/user/cabinet']" class="active">My learning</a>
-    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
-    <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
-    <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
-  </div>
-  <!--ALERT-->
-  <table id="alert" class="table table-striped folder">
-    <div *ngIf="showAlertdeck" class="alert alert-info">
-      Folder "My deck" is empty now. You can subscribe to deck in section
-      <a [routerLink]="['/user/categories']">Categories</a>
-      decks and it appears in your folder.
+  <div class="row">
+    <div class="vertical-menu col-sm-12 col-md-5 col-lg-3">
+      <a [routerLink]="['/user/cabinet']" class="active">My learning</a>
+      <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+      <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
+      <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
     </div>
-    <div *ngIf="showAlertcouse" class="alert alert-info">
-      You don't have any courses in your cabinet. You can subscribe to course in section
-      <a [routerLink]="['/user/courses']">Courses</a>
-      or create own course in section
-      <a [routerLink]="['/user/cabinet/create/course']">Create course</a>.
-    </div>
-  </table>
-  <!--FOLDER-->
-  <div>
-    <table class="table table-striped folder">
-      <thead class="folder-head" (click)="getFolderDecks()">
-      <tr>
-        <td colspan="5">
-          <img src="../../../assets/images/myDecks.png" class="folder-img">
-          <div class="decks-folder">My decks</div>
-        </td>
-        <td class="right-column">
-          <img *ngIf="!showFolderDecks" class="icon closed-folder"/>
-          <img *ngIf="showFolderDecks" class="icon opened-folder"/>
-        </td>
-      </tr>
-      </thead >
-      <tbody *ngIf="showFolderDecks">
-      <tr *ngFor="let deck of decks"  class="tr-deck">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td class="cards-number-container">
-          <div
-            *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0"
-            title="Number of cards that need repeating"
-            class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
+    <!--ALERT-->
+    <div class="col-sm-12 col-lg-9">
+      <table id="alert" class="table table-striped">
+        <div *ngIf="showAlertdeck" class="alert alert-info">
+          Folder "My deck" is empty now. You can subscribe to deck in section
+          <a [routerLink]="['/user/categories']">Categories</a>
+          decks and it appears in your folder.
+        </div>
+        <div *ngIf="showAlertcouse" class="alert alert-info">
+          You don't have any courses in your cabinet. You can subscribe to course in section
+          <a [routerLink]="['/user/courses']">Courses</a>
+          or create own course in section
+          <a [routerLink]="['/user/cabinet/create/course']">Create course</a>.
+        </div>
+      </table>
+      <!--FOLDER-->
+      <div class="folder-head " (click)="getFolderDecks()">
+        <div class="row mb-lg-2 mb-md-2 mt-sm-3">
+          <div class="col-2">
+            <img src="../../../assets/images/myDecks.png" class="folder-img">
           </div>
-        </td>
-        <td *ngIf="status==='ACTIVE';else unAuthorized">
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
-        </td>
-        <ng-template #unAuthorized>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
-        </ng-template>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
-        </td>
-        <td *ngIf="deck.hidden===true && isOwnerDeck(deck)">
-          <button type=" button" class="btn btn-danger btn-sm" (click)="changeAccessDeck(deck)">PRIVATE</button>
-        </td>
-        <td *ngIf="deck.hidden===false && isOwnerDeck(deck)">
-          <button type=" button" class="btn btn-primary btn-sm" (click)="changeAccessDeck(deck)">PUBLIC</button>
-        </td>
-        <td *ngIf="!isOwnerDeck(deck)"></td>
-        <td class="right-column">
-          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"
-                  (click)="deleteFolderDeck(deck)">Unsubscribe
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!--COURSES-->
-  <div>
-    <table class="table table-striped course" *ngFor="let course of courses">
-      <thead class="course-head">
-      <tr>
-        <div (click)="getCourseDecks(course)">
-          <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
-          <td>{{course.name}}</td>
-          <td>{{course.description}}</td>
+          <div class="col-7 mt-md-3 mt-lg-3 folder-title">My decks</div>
+          <div class="right-column col-3">
+            <img *ngIf="!showFolderDecks" class="icon closed-folder"/>
+            <img *ngIf="showFolderDecks" class="icon opened-folder"/>
+          </div>
         </div>
-        <td *ngIf="status==='ACTIVE';else unAuthorized">
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="course.rating" (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
-        </td>
-        <ng-template #unAuthorized>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="course.rating" [readOnly]="true"></star-rating-comp>
-        </ng-template>
-        <td *ngIf="isOwnerCourse(course)&&course.published===false">
-          <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
-        </td>
-        <td *ngIf="isOwnerCourse(course)&&course.published===true">
-          <button type="button" class="btn btn-primary btn-sm" (click)="changeAccess(course, false)">PUBLIC</button>
-        </td>
-        <td *ngIf="isOwnerCourse(course)">
-          <button (click)="getCategoryDecks(course,true)" type="button" class="btn btn-success btn-sm" data-toggle="modal"
-                  data-target=".bd-example-modal-sm">+
-          </button>
-        </td>
-        <td *ngIf="isOwnerCourse(course)">
-          <button (click)="getCategoryDecks(course,false)" type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                  data-target=".bd-example-modal-sm">x
-          </button>
-        </td>
-        <td></td>
-        <td>
-          <button type="button" class="btn btn-danger btn-sm" (click)="deleteCourse(course)">Unsubscribe</button>
-        </td>
-      </tr>
-      </thead>
-      <tbody *ngIf="course.courseId === showCourseDecks">
-      <tr *ngFor="let deck of decks">
-        <td>{{deck.name}}</td>
-        <td>{{deck.description}}</td>
-        <td>
-          <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
-                            [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
-        </td>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
-        <td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+      </div>
+      <div class="table-responsive-sm">
+        <table class="table table-striped deck-table">
+          <tbody *ngIf="showFolderDecks">
+          <tr *ngFor="let deck of decks" class="tr-deck">
+            <td>{{deck.name}}</td>
+            <td>{{deck.description}}</td>
+            <td class="cards-number-container">
+              <div
+                *ngIf="getNumberOfCardsThatNeedRepeating(deck.deckId) && getNumberOfCardsThatNeedRepeating(deck.deckId) !== 0"
+                title="Number of cards that need repeating"
+                class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
+              </div>
+            </td>
+            <td *ngIf="status==='ACTIVE';else unAuthorized">
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="deck.rating"
+                                (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
+            </td>
+            <ng-template #unAuthorized>
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
+            </ng-template>
+            <td>
+              <button class="btn btn-primary btn-sm" (click)="startLearning(deck.deckId)">START</button>
+            </td>
+            <td *ngIf="deck.hidden===true && isOwnerDeck(deck)">
+              <button type=" button" class="btn btn-danger btn-sm" (click)="changeAccessDeck(deck)">PRIVATE</button>
+            </td>
+            <td *ngIf="deck.hidden===false && isOwnerDeck(deck)">
+              <button type=" button" class="btn btn-primary btn-sm" (click)="changeAccessDeck(deck)">PUBLIC</button>
+            </td>
+            <td *ngIf="!isOwnerDeck(deck)"></td>
+            <td class="right-column">
+              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"
+                      (click)="deleteFolderDeck(deck)">Unsubscribe
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
-  <!-- Modal add deck-->
-  <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title" id="exampleModalTitle">{{title}}</h1>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-        </div>
-        <div class="modal-body">
-          <table class="table table-striped">
-            <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Rating</th>
-              <th>{{columnName}}</th>
-            </tr>
-            </thead>
-            <tbody *ngIf="isAdd === true">
-            <tr  *ngFor="let deck of categoryDecks" >
-              <td>{{deck.name}}</td>
+      <!--COURSES-->
+      <div class="table-responsive-md" *ngFor="let course of courses">
+        <table class="table">
+          <tbody>
+          <tr>
+            <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>
+            <td (click)="getCourseDecks(course)">{{course.name}}</td>
+            <td (click)="getCourseDecks(course)">{{course.description}}</td>
+            <td *ngIf="status==='ACTIVE';else unAuthorized">
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="course.rating"
+                                (onClick)="onCourseRatingClick(course, $event)"></star-rating-comp>
+            </td>
+            <ng-template #unAuthorized>
+              <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                [rating]="course.rating" [readOnly]="true"></star-rating-comp>
+            </ng-template>
+            <td *ngIf="isOwnerCourse(course)&&course.published===false">
+              <button type="button" class="btn btn-danger btn-sm" (click)="changeAccess(course, true)">PRIVATE</button>
+            </td>
+            <td *ngIf="isOwnerCourse(course)&&course.published===true">
+              <button type="button" class="btn btn-primary btn-sm" (click)="changeAccess(course, false)">PUBLIC</button>
+            </td>
+            <td *ngIf="isOwnerCourse(course)">
+              <button (click)="getCategoryDecks(course,true)" type="button" class="btn btn-success btn-sm"
+                      data-toggle="modal"
+                      data-target=".bd-example-modal-sm">+
+              </button>
+            </td>
+            <td *ngIf="isOwnerCourse(course)">
+              <button (click)="getCategoryDecks(course,false)" type="button" class="btn btn-danger btn-sm"
+                      data-toggle="modal"
+                      data-target=".bd-example-modal-sm">x
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" (click)="deleteCourse(course)">Unsubscribe</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div>
+          <table class="table table-sm table-striped">
+            <tbody *ngIf="course.courseId === showCourseDecks">
+            <tr *ngFor="let deck of decks" >
+              <td class="course-deck-tr">{{deck.name}}</td>
               <td>{{deck.description}}</td>
               <td>
-                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                                  [rating]="deck.rating"></star-rating-comp>
+                <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
+                                  [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
               </td>
               <td>
-                <button (click)="addDeckToCourse(deck)" type="button" class="btn btn-success btn-sm">+</button>
-              </td>
-            </tr>
-            </tbody>
-            <tbody *ngIf="isAdd === false">
-            <tr *ngFor="let deck of decks">
-              <td>{{deck.name}}</td>
-              <td>{{deck.description}}</td>
+                <button class="btn btn-primary btn-sm " (click)="startLearning(deck.deckId)">START</button>
               <td>
-                <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
-                                  [rating]="deck.rating"></star-rating-comp>
-              </td>
-              <td>
-                <button (click)="deleteDeckFromCourse(deck)" type="button" class="btn btn-danger btn-sm">x</button>
-              </td>
             </tr>
             </tbody>
           </table>
-          <div class="btn-center">
-            <button class="btn btn-primary btn-sm" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal add deck-->
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalTitle">{{title}}</h1>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+          </div>
+          <div class="modal-body table-responsive-sm">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Rating</th>
+                <th>{{columnName}}</th>
+              </tr>
+              </thead>
+              <tbody *ngIf="isAdd === true">
+              <tr *ngFor="let deck of categoryDecks">
+                <td>{{deck.name}}</td>
+                <td>{{deck.description}}</td>
+                <td>
+                  <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                    [rating]="deck.rating"></star-rating-comp>
+                </td>
+                <td>
+                  <button (click)="addDeckToCourse(deck)" type="button" class="btn btn-success btn-sm">+</button>
+                </td>
+              </tr>
+              </tbody>
+              <tbody *ngIf="isAdd === false">
+              <tr *ngFor="let deck of decks">
+                <td>{{deck.name}}</td>
+                <td>{{deck.description}}</td>
+                <td>
+                  <star-rating-comp [starType]="'svg'" [showHalfStars]="true" [readOnly]="true"
+                                    [rating]="deck.rating"></star-rating-comp>
+                </td>
+                <td>
+                  <button (click)="deleteDeckFromCourse(deck)" type="button" class="btn btn-danger btn-sm">x</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="btn-center">
+              <button class="btn btn-primary btn-sm" data-dismiss="modal">OK</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </main>

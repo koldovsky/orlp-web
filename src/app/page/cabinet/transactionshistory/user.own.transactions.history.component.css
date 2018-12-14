@@ -6,7 +6,82 @@
 .vertical-menu {
   float: left;
   cursor: pointer !important;
-  width: 200px;
+}
+
+@media screen and (max-width: 576px) {
+
+  tr, td, th {
+    display: block;
+  }
+
+  thead{
+    visibility: hidden;
+  }
+
+  thead tr {
+    position: absolute;
+  }
+
+  tr { border: 1px solid #ccc; }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 35%;
+  }
+
+  td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    padding-left: 6px;
+  }
+
+  td:nth-of-type(1):before { content: "From"; }
+  td:nth-of-type(2):before { content: "To"; }
+  td:nth-of-type(3):before { content: "Credits"; }
+  td:nth-of-type(4):before { content: "Date"; }
+
+  .transaction-title{
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  h1{
+    font-size: large;
+    font-weight: bold;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px)  {
+  table {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .transaction-title{
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  td{
+    padding-bottom: 1.5em;
+    padding-top: 1.5em;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .transaction-title{
+    margin-bottom: 1em;
+  }
 }
 
 .vertical-menu a {

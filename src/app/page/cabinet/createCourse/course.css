@@ -12,6 +12,15 @@
   color: white;
 }
 
+@media screen and (max-width: 768px) {
+  .create-course {
+    margin-top: 2em;
+  }
+  .btn-create-course {
+    margin-bottom: 1em;
+  }
+}
+
 .chosen-image {
   width: 120px;
   height: 120px;
@@ -76,7 +85,6 @@
 .vertical-menu {
   float: left;
   cursor: pointer !important;
-  width: 200px;
 }
 
 .vertical-menu a {
