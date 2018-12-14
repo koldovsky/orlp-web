@@ -11,9 +11,10 @@ export class DeckLinkByFolderWithStatus {
   public status: boolean;
   public synthax: String;
   public price: number;
+  public isBought: boolean;
 
   constructor(name: String, description: String, rating: number, self: Link, cards: Link, deckId: number,
-              status: boolean, synthax: String,price: number) {
+              status: boolean, synthax: String, price: number, isBought: boolean) {
     this.name = name;
     this.description = description;
     this.rating = rating;
@@ -23,5 +24,6 @@ export class DeckLinkByFolderWithStatus {
     this.status = status;
     this.synthax = synthax;
     this.price = price;
+    this.isBought = isBought;
   }
 }

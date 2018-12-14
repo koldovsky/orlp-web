@@ -12,9 +12,10 @@ export class DeckLinkByCategory {
   public synthax: string;
   public ownerId: number;
   public price: number;
+  public isBought: boolean;
 
   constructor(name: string, description: string, rating: number, self: Link, cards: Link,
-              deckId: number, hidden: boolean, synthax: string, ownerId: number,price:number) {
+              deckId: number, hidden: boolean, synthax: string, ownerId: number, price: number, isBought: boolean) {
     this.name = name;
     this.description = description;
     this.rating = rating;
@@ -25,6 +26,7 @@ export class DeckLinkByCategory {
     this.synthax = synthax;
     this.ownerId = ownerId;
     this.price = price;
+    this.isBought = isBought;
   }
 
 }

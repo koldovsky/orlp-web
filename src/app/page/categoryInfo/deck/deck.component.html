@@ -11,9 +11,14 @@
     <tr *ngFor="let deck of decksWithStatus" class="tr-deck table-row">
       <td>{{deck.name}}</td>
       <td>{{deck.description}}</td>
-      <td>{{deck.price == null ? 'Free': deck.price}}</td>
+      <td *ngIf="!deck.isBought; else bought">
+        {{deck.price == null ? 'Free': deck.price}}
+      </td>
+      <ng-template #bought>
+        <td>Bought</td>
+      </ng-template>
       <td class="start">
-        <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
+        <button [disabled]="deck.price != null && !deck.isBought" class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
         </button>
       </td>
       <td class="cards-number-container">
@@ -23,11 +28,11 @@
           class="cards-number">{{getNumberOfCardsThatNeedRepeating(deck.deckId)}}
         </div>
       </td>
-      <td class="alignCenter" *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
+      <td class="alignCenter" *ngIf="isAuthorized&&status==='ACTIVE' && deck.price == null || deck.isBought;else unAuthorized">
         <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                           [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
       </td>
-      <ng-template #unAuthorized>
+      <ng-template #unAuthorized >
         <td>
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" [readOnly]="true"></star-rating-comp>
@@ -40,27 +45,58 @@
             <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
+            <button [disabled]="deck.price != null && !deck.isBought" class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
               <i class="fa fa-download" aria-hidden="true"></i>Download cards
-            </a>
+            </button>
+            <button *ngIf="deck.price != null && !deck.isBought" class="dropdown-item" (click)="assignDeck(deck)" data-toggle="modal" data-target="#buyDeck">
+              <i class="fa fa-money" aria-hidden="true"></i>Buy deck
+            </button>
           </div>
         </div>
       </td>
       <td class="alignCenter">
-        <div *ngIf="!deck.status">
+        <div *ngIf="!deck.status && deck.isBought || !deck.status && deck.price == null">
           <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button SubscribeCheckboxActive"
                title="Add deck to cabinet"></div>
         </div>
-        <div *ngIf="deck.status">
+        <div *ngIf="deck.status && deck.isBought || deck.status && deck.price == null">
           <div (click)="addDeckToFolder(deck.deckId)" *ngIf="isAuthorized" class="button SubscribeCheckboxChecked"
                title="Deck is already in your cabinet"></div>
         </div>
+        <div *ngIf="isAuthorized && deck.price != null && !deck.isBought" class="button SubscribeCheckboxInActive"
+             title="Please buy deck to have ability to add deck to your cabinet"></div>
         <div *ngIf="!isAuthorized" class="button SubscribeCheckboxInActive"
              title="Please Sign In to have ability to add decks to your cabinet"></div>
       </td>
     </tr>
     </tbody>
   </table>
+  <div bsModal id="buyDeck" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+      <div class="modal-content" *ngIf="deckSelected">
+        <div class="modal-header">
+          <h4 class="modal-title">Buy deck</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Do you really want to buy {{deckSelected.name}} deck?</p>
+        </div>
+        <div class="alert alert-success" *ngIf="success">
+        <span>You've bought deck successfully!</span>
+      </div>
+        <div class="alert alert-danger" *ngIf="error && !success">
+          <span>{{responseMessage.message}}</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" (click)="buyDeck()" class="btn btn-outline-primary">Buy</button>
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <nav aria-label="Page navigation">
     <ul class="pagination">
       <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getDeckByPage(1)">First</a>

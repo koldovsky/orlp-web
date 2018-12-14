@@ -14,6 +14,8 @@ import {NumberOfCardsThatNeedRepeatingDTO} from '../../../dto/number.of.cards.th
 import {UserStatusChangeService} from '../../userStatusChange/user.status.change.service';
 import {NGXLogger} from 'ngx-logger';
 import {AuthenticationService} from '../../authentication/authentication.service';
+import {MainComponent} from '../../main/main.component';
+import {MessageDTO} from '../../../dto/MessageDTO';
 
 @Component({
   selector: 'app-deck-table',
@@ -23,10 +25,15 @@ import {AuthenticationService} from '../../authentication/authentication.service
 export class DeckComponent implements OnInit {
 
   public decks: DeckLinkByCategory[];
+  public deckSelected: DeckLinkByCategory;
   public decksWithStatus: DeckLinkByFolderWithStatus[] = [];
   public decksIdInYourFolder: number[] = [];
   public isAuthorized: boolean;
   private isAuthenticated: boolean;
+  public isBought: boolean;
+  public error: boolean;
+  public success: boolean;
+  public responseMessage: MessageDTO = new MessageDTO();
   @Input() url: string;
   @Input() categoryId: number;
   actionSort = true;
@@ -44,6 +51,7 @@ export class DeckComponent implements OnInit {
 
   constructor(private deckService: DeckService,
               private orlpService: ORLPService,
+              private mainComponent: MainComponent,
               private router: Router,
               private authentication: AuthenticationService,
               private userStatusChangeService: UserStatusChangeService,
@@ -118,7 +126,7 @@ export class DeckComponent implements OnInit {
     this.decksWithStatus = [];
     for (const entry of this.decks) {
       this.decksWithStatus.push(new DeckLinkByFolderWithStatus(entry.name,
-        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false, entry.synthax, entry.price));
+        entry.description, entry.rating, entry.self, entry.cards, entry.deckId, false, entry.synthax, entry.price, entry.isBought));
     }
     this.setStatusForDecksThatInFolder();
   }
@@ -161,7 +169,7 @@ export class DeckComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  };
+  }
 
   getNumberOfCardsThatNeedRepeating(deckId: number): number {
     for (const value of this.numbersOfCardsThatNeedRepeating) {
@@ -175,4 +183,24 @@ export class DeckComponent implements OnInit {
     this.deckService.downloadCards(deckId, deckName);
   }
 
+  assignDeck(deck: DeckLinkByCategory): void {
+    this.error = false;
+    this.success = false;
+    this.deckSelected = deck;
+  }
+
+  buyDeck() {
+    this.isBought = false;
+    this.deckService.buyDeck(this.deckSelected.deckId)
+      .subscribe(
+        (response) => {
+          this.mainComponent.userDetails.pointsBalance = response.points;
+          this.deckSelected.isBought = response.isBought;
+          this.success = true;
+        }, (response) => {
+          this.responseMessage = response.json();
+          this.success = false;
+          this.error = true;
+        });
+  }
 }
