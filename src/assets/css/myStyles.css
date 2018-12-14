@@ -153,3 +153,7 @@ div, button:focus, .card-title, img {
 .pagination {
   margin-bottom: 20px !important;
 }
+
+#table {
+  background: white;
+}
