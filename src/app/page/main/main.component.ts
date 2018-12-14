@@ -17,7 +17,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 @Component({
   selector: 'app-page',
   templateUrl: ('./main.component.html'),
-  styleUrls: ['./main.css', './dropdown.css', './search.css']
+  styleUrls: ['./main.css', './search.css']
 })
 
 export class MainComponent implements OnInit {
@@ -25,8 +25,7 @@ export class MainComponent implements OnInit {
   public courses: CourseLink[];
   public decks: DeckPublic[];
   public listFilter: string;
-  public isAuthorized:
-    boolean;
+  public isAuthorized: boolean;
   public isAuthenticated: boolean;
   public isAuthorizedAdmin: boolean;
   public userDetails: UserDetailsDto;
@@ -34,6 +33,7 @@ export class MainComponent implements OnInit {
   public image: string;
   public activeLink: string;
   public searchString: string;
+  public overlayStatus = false;
 
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
@@ -108,14 +108,30 @@ export class MainComponent implements OnInit {
 
   setActiveLink(link: string): void {
     this.activeLink = link;
+    this.changeOverlay(false);
   }
 
   setNotActive(): void {
     this.activeLink = '';
+    this.changeOverlay(false);
   }
 
   onSearchClick(): void {
     this.searchService.getResults(this.searchString);
     this.searchString = '';
+  }
+
+  changeOverlay(boolean: boolean) {
+    this.overlayStatus = boolean;
+  }
+
+  activate(boolean: boolean) {
+    const elem = document.querySelectorAll('.nav-link');
+    for (let i = elem.length; i--; ) {
+      elem.item(i).addEventListener('click', () => {
+        document.getElementById('navbarToggler').classList.remove('show');
+      }, false);
+    }
+    this.changeOverlay(boolean);
   }
 }
