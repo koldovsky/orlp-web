@@ -13,6 +13,8 @@ import {Rating} from '../../../dto/Rating';
 import {DeckByCategoryAndPageDTO} from '../../../dto/DeckDTO/linkToDeckByCategoryAndPage';
 import {NGXLogger} from 'ngx-logger';
 import {saveAs} from 'file-saver';
+import {SendPointsToFriendDTO} from '../../../dto/UserProfileDTO/SendPointsToFriendDTO';
+import {DeckBuyDTO} from '../../../dto/DeckDTO/deck.buy.DTO';
 
 @Injectable()
 export class DeckService {
@@ -66,5 +68,10 @@ export class DeckService {
     this.logger.error(error);
 
     return Observable.throw(error.json().error || 'Server error');
+  }
+
+  buyDeck(deckId: number) {
+    return this.orlp.post('api/buy/deck/' + deckId, {})
+      .map((response: Response) => <DeckBuyDTO>DTOConverter.jsonToDeckBuyDTO(response.json()));
   }
 }

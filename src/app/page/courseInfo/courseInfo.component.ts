@@ -13,6 +13,10 @@ import {UserStatusChangeService} from '../userStatusChange/user.status.change.se
 import {NGXLogger} from 'ngx-logger';
 import {CardComponent} from '../card/card.component';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {AdminDeck} from '../../dto/AdminDTO/admin.deck.DTO';
+import {DecksGetDTO} from '../../dto/DeckDTO/decksGetDTO';
+import {MainComponent} from '../main/main.component';
+import {MessageDTO} from '../../dto/MessageDTO';
 
 @Component({
   templateUrl: ('./courseInfo.component.html'),
@@ -21,7 +25,8 @@ import {AuthenticationService} from '../authentication/authentication.service';
 })
 export class CourseInfoComponent implements OnInit {
   private url: string;
-  decks: DeckPublic[];
+  decks: DecksGetDTO[];
+  private deckSelected: DecksGetDTO;
   private sub: Subscription;
   errorMessage: string;
   course: CourseLinkWithId;
@@ -31,11 +36,16 @@ export class CourseInfoComponent implements OnInit {
   private isAuthenticated: boolean;
   public showComment = false;
   public status: string;
+  public isBought: boolean;
+  public error: boolean;
+  public success: boolean;
+  public responseMessage: MessageDTO = new MessageDTO();
 
   constructor(private route: ActivatedRoute,
               private orlp: ORLPService,
               private router: Router,
               private courseInfoService: CourseInfoService,
+              private mainComponent: MainComponent,
               private authentication: AuthenticationService,
               private deckService: DeckService,
               private courseService: CourseService,
@@ -142,16 +152,16 @@ export class CourseInfoComponent implements OnInit {
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  };
+  }
 
-  onDeckRatingClick = (deck: DeckPublic, event: IStarRatingOnClickEvent) => {
+  onDeckRatingClick = (deck: DecksGetDTO, event: IStarRatingOnClickEvent) => {
     const deckLocal: Rating = new Rating(event.rating);
     this.deckService.addDeckRating(deckLocal, deck.deckId).subscribe(() => {
       deck.rating = event.rating;
     }, (error) => {
       this.userStatusChangeService.handleUserStatusError(error.status);
     });
-  };
+  }
 
   startLearning(deckId: number, deckSynthax: String): void {
     this.router.navigate(['/cards', '/api/decks/' + deckId + '/learn']);
@@ -169,5 +179,26 @@ export class CourseInfoComponent implements OnInit {
 
   private downloadCards(deckId: number, deckName: string) {
     this.deckService.downloadCards(deckId, deckName);
+  }
+
+  assignDeck(deck: DecksGetDTO): void {
+    this.error = false;
+    this.success = false;
+    this.deckSelected = deck;
+  }
+
+  buyDeck() {
+    this.isBought = false;
+    this.courseInfoService.buyDeck(this.deckSelected.deckId)
+      .subscribe(
+      (response) => {
+        this.mainComponent.userDetails.pointsBalance = response.points;
+        this.deckSelected.isBought = response.isBought;
+        this.success = true;
+      }, (response) => {
+          this.responseMessage = response.json();
+          this.success = false;
+          this.error = true;
+        });
   }
 }

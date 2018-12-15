@@ -11,6 +11,7 @@ import {ERROR_FILE_TYPE_MESSAGE} from '../../../services/orlp.settings';
 import {CabinetService} from "../cabinet.service";
 import {NGXLogger} from "ngx-logger";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {DeckLinkByCategory} from '../../../dto/DeckDTO/linkByCategory.deck.DTO';
 
 @Component({
   templateUrl: ('./user.decks.component.html'),
@@ -137,7 +138,7 @@ export class UserDecksComponent implements OnInit {
     return this.orlp.getShortLink(link);
   }
 
-  changeAccessDeck(deck: DeckDTO, access: boolean) {
+  changeAccessDeck(deck: DeckLinkByCategory, access: boolean) {
     deck.hidden = access;
 
     this.cabinetService.toggleDeck(deck)
