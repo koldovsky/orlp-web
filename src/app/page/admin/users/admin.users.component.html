@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-lg-8 col-xs-12 col-sm-6">
       <h1 class="font-color-white header-text">All Users</h1>
     </div>
@@ -10,12 +10,14 @@
   <div class="row">
     <div class="col">
       <table class="table table-striped admins-tables" id="table">
-        <tr class="admins-tables-header">
+        <tr class="hrow">
           <th *ngFor="let column of courseColumns"
               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
               (click)="sortBy(column)">
             {{column.nameColumnForDisplay}} {{column.symbolSorting}}
           </th>
+          <th></th>
+          <th></th>
         </tr>
         <tr *ngFor="let user of users | usersFilter:usersListFilter">
           <td>{{user.firstName}}</td>
