@@ -21,7 +21,7 @@ export class SearchService {
   public searchString: string;
 
   getSearchResults(searchString: string): Observable<SearchResults> {
-   return this.orlp.get('api/search/' + searchString)
+    return this.orlp.get('api/search/' + encodeURIComponent(searchString).trim())
       .map((response: Response) => <SearchResults>
         (DTOConverter.jsonToSearchResultsDTO(response.json())))
       .catch(this.handleError);

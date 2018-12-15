@@ -1,5 +1,5 @@
 <div>
-  <table class="table table-striped" *ngFor="let course of coursesWithStatus">
+  <table class="table table-striped" id="table" *ngFor="let course of coursesWithStatus">
     <thead class="course-head" (click)="showDecks(course)">
     <tr>
       <td><img [src]="course.image" class="mx-auto d-block rounded-main course-img"></td>

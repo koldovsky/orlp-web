@@ -3,7 +3,7 @@
     <h2 class="header-text" *ngIf="course">{{course.name.toString()}}</h2>
   </div>
   <div class='has-error col-12' *ngIf='errorMessage'>{{errorMessage}}</div>
-  <table class="table table-striped" *ngIf="course">
+  <table class="table table-striped" id="table" *ngIf="course">
     <tbody>
     <tr>
       <th>Course Name</th>

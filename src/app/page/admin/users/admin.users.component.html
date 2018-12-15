@@ -9,7 +9,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <table class="table table-striped admins-tables">
+      <table class="table table-striped admins-tables" id="table">
         <tr class="admins-tables-header">
           <th *ngFor="let column of courseColumns"
               [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"

@@ -42,12 +42,24 @@
               ADMIN
             </a>
             <div class="dropdown-menu admin-menu" aria-labelledby="dropdownMenuLink">
-              <a class="nav-link" [routerLink]="['/admin/audit']">AUDIT</a>
-              <a class="nav-link" [routerLink]="['/admin/transactionsaudit']">CREDITS TRANSACTIONS</a>
-              <a class="nav-link" [routerLink]="['/admin/categories']">CATEGORIES</a>
-              <a class="nav-link" [routerLink]="['/admin/courses']">COURSES</a>
-              <a class="nav-link" [routerLink]="['/admin/users']">USERS</a>
-              <a class="nav-link" [routerLink]="['/admin/decks']">DECKS</a>
+              <a class="nav-link" [routerLink]="['/admin/audit']"
+                 [class.active]="activeLink === '/admin/audit'"
+                 (click)="setActiveLink('/admin/audit')">AUDIT</a>
+              <a class="nav-link" [routerLink]="['/admin/transactionsaudit']"
+                 [class.active]="activeLink === '/admin/transactionsaudit'"
+                 (click)="setActiveLink('/admin/transactionsaudit')">CREDITS TRANSACTIONS</a>
+              <a class="nav-link" [routerLink]="['/admin/categories']"
+                 [class.active]="activeLink === '/admin/categories'"
+                 (click)="setActiveLink('/admin/categories')">CATEGORIES</a>
+              <a class="nav-link" [routerLink]="['/admin/courses']"
+                 [class.active]="activeLink === '/admin/courses'"
+                 (click)="setActiveLink('/admin/courses')">COURSES</a>
+              <a class="nav-link" [routerLink]="['/admin/users']"
+                 [class.active]="activeLink === '/admin/users'"
+                 (click)="setActiveLink('/admin/users')">USERS</a>
+              <a class="nav-link" [routerLink]="['/admin/decks']"
+                 [class.active]="activeLink === '/admin/decks'"
+                 (click)="setActiveLink('/admin/decks')">DECKS</a>
             </div>
           </li>
           <li class="nav-item">
@@ -61,8 +73,13 @@
       <div class="form-group has-feedback" id="search-form">
         <input [(ngModel)]="searchString" type="text" class="form-control" name="search" id="search"
                placeholder="Search" autocomplete="off">
-        <span class="icon"><a class="" [routerLink]="['/search']" (click)="onSearchClick()"><i
-          class="fa fa-search fa-fw" aria-hidden="true"></i></a></span>
+        <span class="icon"><a *ngIf="searchString !== undefined && searchString !== ''; else default_icon"
+                              [routerLink]="['/search']" (click)="onSearchClick()">
+          <i class="fa fa-search fa-fw" aria-hidden="true"></i></a></span>
+        <ng-template #default_icon>
+          <span class="icon"><a><i class="fa fa-search fa-fw" aria-hidden="true"></i></a></span>
+        </ng-template>
+
       </div>
     </form>
     <div *ngIf="isAuthorized" class="dropdown nav-item">
