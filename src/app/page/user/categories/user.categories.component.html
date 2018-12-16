@@ -1,49 +1,47 @@
 <div class="container">
-  <div class="row">
-    <div *ngIf="categories" class="col-12">
-      <table class="table table-striped admins-tables">
-        <tr class="admins-tables-header">
-          <th class="disabled-header">#</th>
-          <th *ngFor="let column of categoryColumns"
-              [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
-              (click)="sortBy(column)">
-            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
-          <th class="disabled-header view"></th>
-        </tr>
-        <tr class="table-row" *ngFor="let category of categories">
-          <td>
-            <div>
-              <img [src]="category.image" style="height: 50px">
-            </div>
-          </td>
-          <td>{{category.name}}</td>
-          <td>{{category.description}}</td>
-          <td>
-            <button class="btn btn-primary" [routerLink]="['/category', getCategoryLink(category.self)]">View category</button>
-          </td>
-        </tr>
-      </table>
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
-                                                                               (click)="getCategoriesByPage(1)">First</a>
-          </li>
-          <ng-template #disabledFirst>
-            <li class="page-item disabled"><a class="page-link" (click)="getCategoriesByPage(1)">First</a></li>
-          </ng-template>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1"
-                                   (click)="getCategoriesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="active"><a class="page-link" (click)="getCategoriesByPage(currentPage)">{{currentPage}}</a></li>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage"
-                                   (click)="getCategoriesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
-                                                                                      (click)="getCategoriesByPage(lastPage)">Last</a>
-          </li>
-          <ng-template #disabledLast>
-            <li class="page-item disabled"><a class="page-link" (click)="getCategoriesByPage(lastPage)">Last</a></li>
-          </ng-template>
-        </ul>
-      </nav>
-    </div>
-  </div>
+  <table *ngIf="categories" class="table table-striped  mt-1 mt-sm-2 mt-md-3 mt-xl-3" id="table">
+    <tr>
+      <th class="disabled-header">#</th>
+      <th *ngFor="let column of categoryColumns"
+          [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam"
+          (click)="sortBy(column)">
+        {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+      <th class="disabled-header view"></th>
+    </tr>
+    <tr class="table-row" *ngFor="let category of categories">
+      <td class="pl-2">
+        <div>
+          <img [src]="category.image" style="height: 50px" alt="Category image">
+        </div>
+      </td>
+      <td>{{category.name}}</td>
+      <td>{{category.description}}</td>
+      <td class="pr-2">
+        <button class="btn btn-primary btn-sm-450" [routerLink]="['/category', getCategoryLink(category.self)]">View
+          category
+        </button>
+      </td>
+    </tr>
+  </table>
+  <nav aria-label="Page navigation">
+    <ul class="pagination d-flex justify-content-center">
+      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
+                                                                           (click)="getCategoriesByPage(1)">First</a>
+      </li>
+      <ng-template #disabledFirst>
+        <li class="page-item disabled"><a class="page-link" (click)="getCategoriesByPage(1)">First</a></li>
+      </ng-template>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1"
+                               (click)="getCategoriesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="active"><a class="page-link" (click)="getCategoriesByPage(currentPage)">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage"
+                               (click)="getCategoriesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
+                                                                                  (click)="getCategoriesByPage(lastPage)">Last</a>
+      </li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getCategoriesByPage(lastPage)">Last</a></li>
+      </ng-template>
+    </ul>
+  </nav>
 </div>

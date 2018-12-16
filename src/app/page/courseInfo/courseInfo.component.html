@@ -3,7 +3,7 @@
     <h2 class="header-text" *ngIf="course">{{course.name.toString()}}</h2>
   </div>
   <div class='has-error col-12' *ngIf='errorMessage'>{{errorMessage}}</div>
-  <table class="table table-striped" *ngIf="course">
+  <table class="table table-striped" id="table" *ngIf="course">
     <tbody>
     <tr>
       <th>Course Name</th>
@@ -44,6 +44,7 @@
       <tr>
         <th>Name</th>
         <th>Description</th>
+        <th>Price</th>
         <th class="start"></th>
         <th class="alignCenter">Rating</th>
       </tr>
@@ -52,11 +53,17 @@
       <tr *ngFor="let deck of decks" class="table-row">
         <td>{{deck.name}}</td>
         <td>{{deck.description}}</td>
+        <td *ngIf="!deck.isBought; else bought">
+          {{deck.price == null ? 'Free': deck.price}}
+        </td>
+        <ng-template #bought>
+        <td>Bought</td>
+        </ng-template>
         <td>
-          <button class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
+          <button [disabled]="deck.price != null && !deck.isBought" class="btn btn-primary" (click)="startLearning(deck.deckId, deck.synthax)">Start learning!
           </button>
         </td>
-        <td *ngIf="isAuthorized&&status==='ACTIVE';else unAuthorized">
+        <td *ngIf="isAuthorized&&status==='ACTIVE' && deck.price == null || deck.isBought;else unAuthorized">
           <star-rating-comp [starType]="'svg'" [showHalfStars]="true"
                             [rating]="deck.rating" (onClick)="onDeckRatingClick(deck, $event)"></star-rating-comp>
         </td>
@@ -73,9 +80,12 @@
               <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
+              <button [disabled]="deck.price != null && !deck.isBought" class="dropdown-item" (click)="downloadCards(deck.deckId, deck.name)">
                 <i class="fa fa-download" aria-hidden="true"></i>Download cards
-              </a>
+              </button>
+              <button *ngIf="deck.price != null && !deck.isBought" class="dropdown-item" (click)="assignDeck(deck)" data-toggle="modal" data-target="#buyDeck">
+                <i class="fa fa-money" aria-hidden="true"></i>Buy deck
+              </button>
             </div>
           </div>
         </td>
@@ -85,6 +95,32 @@
     <div class="btn-comments">
       <button class="btn btn-warning" aria-hidden="true" (click)="tabClick()"><h6 class="text-light">Comments</h6>
       </button>
+    </div>
+    <div bsModal id="buyDeck" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content" *ngIf="deckSelected">
+          <div class="modal-header">
+            <h4 class="modal-title">Buy deck</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Do you really want to buy {{deckSelected.name}} deck?</p>
+          </div>
+          <div class="alert alert-success" *ngIf="success">
+            <span>You've bought deck successfully!</span>
+          </div>
+          <div class="alert alert-danger" *ngIf="error && !success">
+            <span>{{responseMessage.message}}</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="buyDeck()" class="btn btn-outline-primary">Buy</button>
+            <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

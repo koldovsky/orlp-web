@@ -90,6 +90,7 @@ export class SignUpComponent implements OnInit {
     this.authorizationService.sendGoogleIdToken(this.userSignIn.idToken)
       .subscribe((response) => {
         this.success = true;
+        sessionStorage.setItem('status', 'ACTIVE');
         this.authorizationService.emitIsAuthorizedChangeEvent(true);
         this.router.navigate(['main']);
       }, (error) => {

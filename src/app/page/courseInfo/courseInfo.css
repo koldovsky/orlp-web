@@ -103,11 +103,15 @@ td img {
   font-weight: bold;
 }
 
-.fa-download {
+.fa-download, .fa-money {
   color: black;
   margin: 0 2px 0 0;
 }
 
 .start {
   width: 1%;
+}
+
+.alert {
+  text-align: center;
 }

@@ -1,8 +1,3 @@
-.table-row:hover {
-  cursor: pointer;
-  background-color: #e1d7e8;
-}
-
 .view {
   width: 1%;
 }
@@ -11,13 +6,12 @@ td {
   vertical-align: middle;
 }
 
-.admins-tables-header th:hover {
+.table thead th {
   cursor: pointer;
-  background-color: #e1d7e8;
 }
 
-.header-item {
-  background-color: #f1f1f1;
+.table tbody tr:hover {
+  background-color: darkgray;
 }
 
 .pagination {
@@ -29,23 +23,30 @@ td {
   cursor: pointer;
 }
 
-.pagination li.active > a {
-  background-color: #eee;
-}
-
-.active-page-link:hover {
-  background-color: #bcbcbc;
-}
-
 .disabled {
   cursor: default;
 }
 
-.admins-tables-header .disabled-header:hover {
-  cursor: default;
-  background-color: #d8d9da;
-}
-
 th, li {
   cursor: pointer;
+}
+
+@media (max-width: 450px) {
+  td, th {
+    font-size: smaller;
+    padding: 0.35rem;
+  }
+
+  .btn-sm-450 {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.765625rem;
+    line-height: 1.5;
+    border-radius: 0;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      overflow-x: scroll;
+    }
+  }
 }

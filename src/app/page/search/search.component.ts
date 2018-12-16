@@ -43,12 +43,12 @@ export class SearchComponent implements OnInit {
   }
 
   allArraysAreEmpty(result: SearchResults): boolean {
-      if ((result.decks.length === 0) &&
-        (result.courses.length === 0) && (result.categories.length === 0)) {
-        return true;
-      } else {
-    return false;
-      }
+    if ((result.decks.length === 0) &&
+      (result.courses.length === 0) && (result.categories.length === 0)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getSearchResults(searchString: string): void {
@@ -57,8 +57,12 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // console.log(this.searchString);
+    // if (this.searchString !== undefined) {
     this.results$ = this.searchService.results$.publishReplay().refCount();
-    this.searchString = this.searchService.searchString;
+    this.newSearchString = this.searchService.searchString;
+
+    // }
   }
 
 }

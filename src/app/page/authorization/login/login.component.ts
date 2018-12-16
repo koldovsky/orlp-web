@@ -111,6 +111,10 @@ export class LoginComponent implements OnInit {
   sendGoogleToken() {
     this.authorizationService.sendGoogleIdToken(this.user.idToken)
       .subscribe((response) => this.ngZone.run(() => {
+        this.success = true;
+        sessionStorage.setItem('status', 'ACTIVE');
+        this.authorizationService.emitIsAuthorizedChangeEvent(true);
+        this.router.navigate(['main']);
       }), (error) => this.ngZone.run(() => {
         this.processError(error);
       }));
