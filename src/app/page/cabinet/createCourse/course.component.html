@@ -1,64 +1,70 @@
 <div class="container">
-  <div class="vertical-menu">
-    <a [routerLink]="['/user/cabinet']">My learning</a>
-    <a [routerLink]="['/user/cabinet/create/course']" class="active">Create course</a>
-    <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
-    <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
-  </div>
-
-  <div class="create-course">
-    <!--Category-->
-    <h1 class="category-header">Choose category</h1>
-    <select id="selectedCategory" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
-      <option selected></option>
-      <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
-    </select>
-
-    <!-- Choose course image -->
-    <div *ngIf="chosenCategoryId" data-toggle="modal" data-target=".bd-example-modal-lg">
-      <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
-      <ng-template #chosenContent>
-        <img [src]="chosenImage.self.href" alt="image" class="chosen-image"/>
-      </ng-template>
-      <ng-template #chooseContent>
-        <div class="choose-image">
-          Choose image
-        </div>
-      </ng-template>
+  <div class="row">
+    <div class="vertical-menu col-sm-12 col-md-4 col-lg-3">
+      <a [routerLink]="['/user/cabinet']">My learning</a>
+      <a [routerLink]="['/user/cabinet/create/course']" class="active">Create course</a>
+      <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
+      <a [routerLink]="['/user/cabinet/transactionshistory']">Transactions History</a>
     </div>
 
-    <!-- Course form info -->
-    <form *ngIf="chosenCategoryId && chosenImage" id="courseForm">
-      <div class="form-group">
-        <input class="form-control" [(ngModel)]="courseName" name="courseName" placeholder="Name">
-      </div>
-      <div class="form-group">
-        <input class="form-control" [(ngModel)]="courseDescription" name="courseDescription" placeholder="Description">
-      </div>
-    </form>
+    <div class="col-sm-12 col-md-8 col-lg-9">
+      <div class="create-course">
+        <!--Category-->
+        <h1 class="category-header">Choose category</h1>
+        <select id="selectedCategory" class="form-control form-control-sm" (change)="onCategorySelect($event.target)">
+          <option selected></option>
+          <option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</option>
+        </select>
 
-    <!-- Button create course -->
-    <button *ngIf="courseName && courseDescription" type="button"
-            class="btn btn-primary btn-create-course" (click)="createCourse()">Create course
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title" id="exampleModalLongTitle">Images</h1>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div *ngFor="let image of userImages">
-              <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
-                   data-dismiss="modal"/>
-              <button type="button" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">x</button>
+        <!-- Choose course image -->
+        <div *ngIf="chosenCategoryId" data-toggle="modal" data-target=".bd-example-modal-lg">
+          <div *ngIf="chosenImage; then chosenContent else chooseContent"></div>
+          <ng-template #chosenContent>
+            <img [src]="chosenImage.self.href" alt="image" class="chosen-image"/>
+          </ng-template>
+          <ng-template #chooseContent>
+            <div class="choose-image">
+              Choose image
             </div>
-            <div>
-              <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file">
-              <label for="file">Choose a file</label>
+          </ng-template>
+        </div>
+
+        <!-- Course form info -->
+        <form *ngIf="chosenCategoryId && chosenImage" id="courseForm">
+          <div class="form-group">
+            <input class="form-control" [(ngModel)]="courseName" name="courseName" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <input class="form-control" [(ngModel)]="courseDescription" name="courseDescription"
+                   placeholder="Description">
+          </div>
+        </form>
+
+        <!-- Button create course -->
+        <button *ngIf="courseName && courseDescription" type="button"
+                class="btn btn-primary btn-create-course" (click)="createCourse()">Create course
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLongTitle">Images</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div *ngFor="let image of userImages">
+                  <img [src]="image.self.href" alt="image" (click)="getChosenImage(image)" class="modal-image"
+                       data-dismiss="modal"/>
+                  <button type="button" class="btn btn-danger btn-sm delete-image" (click)="deleteImage(image)">x
+                  </button>
+                </div>
+                <div>
+                  <input type="file" (change)="loadFile($event)" name="file" id="file" class="input-file">
+                  <label for="file">Choose a file</label>
+                </div>
+              </div>
             </div>
           </div>
         </div>

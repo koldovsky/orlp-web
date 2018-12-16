@@ -3,16 +3,17 @@
   margin: auto;
 }
 
-.pagination li.active > a:hover {
+.table thead th {
+  border-bottom: none;
   cursor: pointer;
 }
 
-.pagination li.active > a {
-  background-color: #eee;
+.table th {
+  border-top: none;
 }
 
-.active-page-link:hover {
-  background-color: #bcbcbc;
+.table tbody tr:hover {
+  background-color: darkgray;
 }
 
 .disabled {
@@ -23,36 +24,38 @@
   width: 1%;
 }
 
-th, li {
-  cursor: pointer;
-}
-
-.table-row:hover {
-  cursor: pointer;
-  background-color: #e1d7e8;
-}
-
-.admins-courses-header th:hover {
-  cursor: pointer;
-  background-color: #e1d7e8;
-}
-
-.header-item {
-  background-color: #e6e6e6;
-}
-
 td {
   vertical-align: middle;
 }
 
-.deletecoursebutton{
+.deletecoursebutton {
   width: 100%;
 }
 
-.updatecoursepricebutton{
+.updatecoursepricebutton {
   width: 100%;
 }
 
-.freeorpaidtoggle{
+.freeorpaidtoggle {
   width: 100%;
+}
+
+@media (max-width: 450px) {
+  td, th {
+    font-size: smaller;
+    padding: 0.35rem;
+  }
+
+  .btn-sm-450 {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.765625rem;
+    line-height: 1.5;
+    border-radius: 0;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      overflow-x: scroll;
+    }
+  }
 }

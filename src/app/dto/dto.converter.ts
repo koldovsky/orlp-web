@@ -42,6 +42,8 @@ import {CategorySearchDTO} from './SearchDTO/category.search.DTO';
 import {CourseSearchDTO} from './SearchDTO/course.search.DTO';
 import {DeckSearchDTO} from './SearchDTO/deck.search.DTO';
 import {AddPointsByAdminDTO} from './AdminDTO/admin.user.points.DTO';
+import {DecksGetDTO} from './DeckDTO/decksGetDTO';
+import {DeckBuyDTO} from './DeckDTO/deck.buy.DTO';
 
 
 export class DTOConverter {
@@ -123,7 +125,16 @@ export class DTOConverter {
 
   public static jsonToPublicDeck(data: any): DeckPublic {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
-    return new DeckPublic(data.deckId, data.name, data.description, data.rating, self);
+    return new DeckPublic(data.deckId, data.name, data.description, data.rating, self, data.price);
+  }
+
+  public static jsonToGetDeck(data: any): DecksGetDTO {
+    const self: Link = DTOConverter.jsonToLink('self', data._links.self);
+    return new DecksGetDTO(data.deckId, data.name, data.description, data.rating, self, data.price, data.isBought);
+  }
+
+  public static jsonToDeckBuyDTO(data: any): DeckBuyDTO {
+    return new DeckBuyDTO(data.points, data.isBought);
   }
 
   public static jsonToDeck(data: any): DeckDTO {
@@ -136,7 +147,8 @@ export class DTOConverter {
   public static jsonToDeckLinkByCategory(data: any): DeckLinkByCategory {
     const self: Link = DTOConverter.jsonToLink('self', data._links.self);
     const cards: Link = DTOConverter.jsonToLink('cards', data._links.cards);
-    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId, data.hidden, data.synthax, data.createdBy);
+    return new DeckLinkByCategory(data.name, data.description, data.rating, self, cards, data.deckId,
+      data.hidden, data.synthax, data.createdBy, data.price, data.isBought);
   }
 
   public static jsonToCategoriesByPage(data: any): CategoriesByPageDTO {

@@ -1,72 +1,76 @@
 <div class="container">
-  <div class="row">
-    <div *ngIf="courses" class="col-12">
-      <table class="table table-striped admins-tables">
-        <thead>
-        <tr class="admins-courses-header">
-          <th *ngFor="let column of courseColumns" [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
-            {{column.nameColumnForDisplay}} {{column.symbolSorting}}
-          </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-row" *ngFor="let course of courses">
-          <td>
-            <div>
-              <img [src]="course.image" style="height: 50px">
-            </div>
-          </td>
-          <td>{{course.name}}</td>
-          <td>{{course.description}}</td>
-          <td *ngIf="course.coursePrice == null">Free</td>
-          <td *ngIf="course.coursePrice != null">{{course.coursePrice}}</td>
-          <td class="view">
-            <button class="btn btn-primary" [routerLink]="['/course', getCourseLink(course.self)]">View course
-            </button>
-          </td>
-          <td *ngIf="isAuthorizedAdmin">
+  <table *ngIf="courses" class="table table-striped mt-1 mt-sm-2 mt-md-3 mt-xl-3" id="table">
+    <thead>
+    <tr>
+      <th *ngFor="let column of courseColumns"
+          [class.header-item]="column.nameColumnParam === selectedSortedParam.nameColumnParam" (click)="sortBy(column)">
+        {{column.nameColumnForDisplay}} {{column.symbolSorting}}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-row" *ngFor="let course of courses">
+      <td class="pl-2">
+        <div>
+          <img [src]="course.image" style="height: 50px" alt="Course image">
+        </div>
+      </td>
+      <td>{{course.name}}</td>
+      <td>{{course.description}}</td>
+      <td *ngIf="course.coursePrice == null">Free</td>
+      <td *ngIf="course.coursePrice != null">{{course.coursePrice}}</td>
+      <td class="view">
+        <button class="btn btn-primary btn-sm-450" [routerLink]="['/course', getCourseLink(course.self)]">View course
+        </button>
+      </td>
+      <td *ngIf="isAuthorizedAdmin">
             <span class="dropdown">
               <button class="btn btn-light" type="button" id="dropdownMenuButton"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-ellipsis-h fa-lg" aria-hidden="true"></i>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <button *ngIf="course.coursePrice == null" class="btn btn-warning freeorpaidtoggle" (click)="togglePaidOrFree(course)">Make Paid
+                <button *ngIf="course.coursePrice == null" class="btn btn-warning freeorpaidtoggle"
+                        (click)="togglePaidOrFree(course)">Make Paid
                 </button>
                 <div *ngIf="course.coursePrice != null">
                 <button class="btn btn-warning freeorpaidtoggle" (click)="togglePaidOrFree(course)">Make Free
                 </button>
-                <button class="btn btn-warning updatecoursepricebutton" (click)="assignCourse(course)" data-toggle="modal"
-                   data-target="#updatePrice">Update price
+                <button class="btn btn-warning updatecoursepricebutton" (click)="assignCourse(course)"
+                        data-toggle="modal"
+                        data-target="#updatePrice">Update price
                 </button>
                   </div>
                 <button class="btn btn-danger deletecoursebutton" (click)="assignCourse(course)" data-toggle="modal"
                         data-target="#deleteCourse">Delete
                 </button>
               </div>
-
             </span>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <nav aria-label="Page navigation">
-        <ul class="pagination">
-          <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
-          <ng-template #disabledFirst>
-            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
-          </ng-template>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="getCoursesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
-          <li class="active"><a class="page-link" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
-          <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage" (click)="getCoursesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
-          <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
-          <ng-template #disabledLast>
-            <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
-          </ng-template>
-        </ul>
-      </nav>
-    </div>
-  </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation">
+    <ul class="pagination d-flex justify-content-center">
+      <li *ngIf="currentPage > 1; else disabledFirst" class="page-item"><a class="page-link"
+                                                                           (click)="getCoursesByPage(1)">First</a></li>
+      <ng-template #disabledFirst>
+        <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(1)">First</a></li>
+      </ng-template>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1"
+                               (click)="getCoursesByPage(currentPage - 1)">{{currentPage - 1}}</a></li>
+      <li class="active"><a class="page-link" (click)="getCoursesByPage(currentPage)">{{currentPage}}</a></li>
+      <li class="page-item"><a class="page-link" *ngIf="currentPage < lastPage"
+                               (click)="getCoursesByPage(currentPage + 1)">{{currentPage + 1}}</a></li>
+      <li *ngIf="currentPage != lastPage; else disabledLast" class="page-item"><a class="page-link"
+                                                                                  (click)="getCoursesByPage(lastPage)">Last</a>
+      </li>
+      <ng-template #disabledLast>
+        <li class="page-item disabled"><a class="page-link" (click)="getCoursesByPage(lastPage)">Last</a></li>
+      </ng-template>
+    </ul>
+  </nav>
+
   <div bsModal id="deleteCourse" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
        aria-hidden="true">
     <div class="modal-dialog modal-danger" role="document">
@@ -81,7 +85,9 @@
           <p>{{courseSelected.name}} will be deleted.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" (click)="deleteCourse(courseSelected)" data-dismiss="modal" class="btn btn-danger">Delete</button>
+          <button type="button" (click)="deleteCourse(courseSelected)" data-dismiss="modal" class="btn btn-danger">
+            Delete
+          </button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>
@@ -103,14 +109,20 @@
               <input type="number" name="price" [formControl]="reactiveForm.controls['price']">
             </label>
             <div *ngIf="reactiveForm.controls['price'].pristine">
-              Leave empty to make the course free</div>
+              Leave empty to make the course free
+            </div>
             <div *ngIf="reactiveForm.controls['price'].hasError('pattern')">
-              Please specify a positive number from 0 to 999 999 </div>
+              Please specify a positive number from 0 to 999 999
+            </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button *ngIf="reactiveForm.valid" input type="submit" aria-label="Close" class="btn btn-primary btn-warning" type="button" (click)="updatePrice(courseSelected.courseId, reactiveForm.value.price)" data-dismiss="modal">Update</button>
-          <button *ngIf="!reactiveForm.valid" class="btn btn-primary btn-warning disabled" aria-label="Close">Update</button>
+          <button *ngIf="reactiveForm.valid" input type="submit" aria-label="Close" class="btn btn-primary btn-warning"
+                  type="button" (click)="updatePrice(courseSelected.courseId, reactiveForm.value.price)"
+                  data-dismiss="modal">Update
+          </button>
+          <button *ngIf="!reactiveForm.valid" class="btn btn-primary btn-warning disabled" aria-label="Close">Update
+          </button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         </div>
       </div>

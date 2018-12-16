@@ -69,13 +69,12 @@ th, li {
   background-color: #e1d7e8;
 }
 
+.table th {
+  border: none;
+}
 .admins-courses-header th:hover {
   cursor: pointer;
   background-color: #e1d7e8;
-}
-
-.header-item {
-  background-color: #e6e6e6;
 }
 
 td {

@@ -36,11 +36,3 @@ th:hover {
   cursor: pointer;
   background-color: #e1d7e8;
 }
-
-.admins-tables-header th {
-  background-color: #e6e6e6;
-}
-
-.admins-tables-header .header-item {
-  background-color: #d6d6d6;
-}
