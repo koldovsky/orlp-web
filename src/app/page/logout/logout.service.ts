@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {CookieOptionsArgs, CookieService} from 'angular2-cookie/core';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class LogoutService {
   cookieWithToken = 'Authentication';
   opts: CookieOptionsArgs = {
-    domain: 'localhost'
+    domain: environment.DOMAIN_NAME
   };
 
   constructor(private cookie: CookieService, private authentication: AuthenticationService) {
