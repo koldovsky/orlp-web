@@ -10,6 +10,8 @@ import {DTOConverter} from '../../dto/dto.converter';
 import {DeckPublic} from '../../dto/DeckDTO/public.deck.DTO';
 import {CourseLinkWithId} from '../../dto/CourseDTO/linkWithId.course.DTO';
 import {NGXLogger} from 'ngx-logger';
+import {DecksGetDTO} from '../../dto/DeckDTO/decksGetDTO';
+import {DeckBuyDTO} from '../../dto/DeckDTO/deck.buy.DTO';
 
 @Injectable()
 export class CourseInfoService {
@@ -26,11 +28,11 @@ export class CourseInfoService {
       .catch(this.handleError);
   }
 
-  getDecks(course: CourseLinkWithId): Observable<DeckPublic[]> {
+  getDecks(course: CourseLinkWithId): Observable<DecksGetDTO[]> {
     const url = this.orlp.decodeLink(this.orlp.getShortLink(course.decks));
     return this.orlp.get(url)
-      .map((response: Response) => <DeckPublic[]>(DTOConverter
-        .jsonArrayToCollection(DTOConverter.jsonToPublicDeck, response.json())))
+      .map((response: Response) => <DecksGetDTO[]>(DTOConverter
+        .jsonArrayToCollection(DTOConverter.jsonToGetDeck, response.json())))
       .catch(this.handleError);
   }
 
@@ -51,5 +53,10 @@ export class CourseInfoService {
   private extractData(res: Response) {
     const body = res.json();
     return body.data || {};
+  }
+
+  buyDeck(deckId: number) {
+    return this.orlp.post('api/buy/deck/' + deckId, {})
+      .map((response: Response) => <DeckBuyDTO>DTOConverter.jsonToDeckBuyDTO(response.json()));
   }
 }

@@ -1,13 +1,19 @@
 <div class="container">
   <div class="search-box">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" [placeholder]="searchString" [(ngModel)]="newSearchString" aria-label="Search" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <button type="button" class="btn btn-primary" (click)="getSearchResults(newSearchString)">Search</button>
+      <label for="searchInput"></label>
+      <input type="text" id="searchInput" class="form-control" [defaultValue]="searchString"
+             [(ngModel)]="newSearchString"
+             aria-label="Search" aria-describedby="basic-addon2">
+      <div class="input-group-append pl-2">
+        <button type="button" class="btn btn-primary" (click)="getSearchResults(newSearchString)"
+                [disabled]="(searchString === undefined && newSearchString === undefined)
+                || newSearchString == ''">Search
+        </button>
       </div>
     </div>
   </div>
-  <div *ngIf="results$ | async as results">
+  <div *ngIf="results$ | async as results" class="p-3">
     <div *ngIf="!allArraysAreEmpty(results); else notFound">
       <div *ngIf="results.categories != 0">
         <div class="row"><h2>Categories</h2></div>
@@ -46,7 +52,7 @@
   </div>
   <ng-template #notFound>
     <div>
-      <h3>Your search "{{searchString}}" didn't match any results.</h3>
+      <h3>Your search "{{newSearchString}}" didn't match any results.</h3>
     </div>
   </ng-template>
 

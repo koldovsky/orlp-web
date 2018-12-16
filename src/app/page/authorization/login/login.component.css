@@ -27,3 +27,9 @@
 .btn-link {
   color: powderblue;;
 }
+
+.fa {
+  vertical-align: middle;
+  line-height: inherit;
+  padding-top: 5px;
+}

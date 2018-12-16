@@ -113,7 +113,6 @@ export class MainComponent implements OnInit {
 
   setNotActive(): void {
     this.activeLink = '';
-    this.changeOverlay(false);
   }
 
   onSearchClick(): void {

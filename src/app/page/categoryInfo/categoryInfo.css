@@ -142,10 +142,6 @@ th, li {
   background-color: #e1d7e8;
 }
 
-.header-item {
-  background-color: #e6e6e6;
-}
-
 .deck-header th.alignCenter:hover {
   background-color: white;
 }
@@ -164,4 +160,8 @@ th, li {
   border: 2px solid black;
   border-radius: 50px;
   cursor: default;
+}
+
+.alert {
+  text-align: center;
 }
