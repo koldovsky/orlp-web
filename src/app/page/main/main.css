@@ -239,7 +239,7 @@ ul li a, .my-navbar-nav a {
 
   .admin-menu a {
     white-space: pre-line;
-    border-bottom: 1px grey solid !important;
+    border-bottom: 1px grey solid;
   }
 
   .admin-dropdown {
