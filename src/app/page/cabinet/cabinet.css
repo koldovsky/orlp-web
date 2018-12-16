@@ -6,7 +6,6 @@
 .vertical-menu {
   float: left;
   cursor: pointer !important;
-  width: 200px;
 }
 
 .vertical-menu a {
@@ -28,11 +27,56 @@
 
 /*FOLDER AND COURSES*/
 .folder, .course {
-  margin-left: 300px;
-  width: 60%;
+  width: 100%;
 }
 
-.folder-head, .course-head, .btn-sm {
+@media screen and (max-width: 575px) {
+  tr {
+    display: block;
+  }
+
+  td {
+    border-top: inherit;
+  }
+
+  table {
+    border-top: 1px solid #ccc;
+  }
+
+  .course-deck-tr {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+
+@media screen and (max-width: 780px){
+  .deck-table {
+    margin-top: 12px;
+  }
+}
+
+@media screen and (min-width: 576px){
+  td{
+    border-top: inherit;
+  }
+  .course-deck-tr {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .alter{
+    margin-top: 12px;
+  }
+}
+
+.course-head, .btn-sm {
+  cursor: pointer;
+}
+
+.folder-title {
   cursor: pointer;
 }
 
@@ -54,6 +98,7 @@
 
 .icon {
   background-size: contain;
+  padding-left: 0px;
   width: 40px;
   height: 40px;
 }
@@ -89,4 +134,8 @@
   border: 2px solid black;
   border-radius: 50px;
   cursor: default;
+}
+
+td{
+  vertical-align: middle;
 }

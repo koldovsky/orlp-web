@@ -1,31 +1,39 @@
 <div class="container">
-  <!-- Page Navigation menu -->
-  <div class="vertical-menu">
-    <a [routerLink]="['/user/cabinet']">My learning</a>
-    <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
-    <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
-    <a [routerLink]="['/user/cabinet/transactionshistory']" class="active" >Transactions History</a>
-  </div>
-  <!-- list of transactions -->
-  <div class="row justify-content-center align-items-center">
-    <h1>Credits Transaction history</h1>
-  </div>
   <div class="row">
-    <div class="col-12">
-      <table class="table table-striped" id="table">
-        <tr>
-          <th>From</th>
-          <th>To</th>
-          <th align="center">Credits transfered</th>
-          <th>Date</th>
-        </tr>
-        <tr *ngFor="let creditsTransaction of creditsTransactionsList">
-          <td>{{creditsTransaction.userFromEmail}}</td>
-          <td>{{creditsTransaction.userToEmail}}</td>
-          <td>{{creditsTransaction.points}}</td>
-          <td>{{creditsTransaction.creationDate}}</td>
-        </tr>
-      </table>
+    <!-- Page Navigation menu -->
+    <div class="vertical-menu col-sm-12 col-md-5 col-lg-3">
+      <a [routerLink]="['/user/cabinet']">My learning</a>
+      <a [routerLink]="['/user/cabinet/create/course']">Create course</a>
+      <a [routerLink]="['/user/cabinet/manage/decks']">Manage decks</a>
+      <a [routerLink]="['/user/cabinet/transactionshistory']" class="active">Transactions History</a>
+    </div>
+    <!-- list of transactions -->
+    <div class="col-sm-12 col-lg-9">
+      <div class="row justify-content-center align-items-center">
+        <h1 class="transaction-title">Credits Transaction history</h1>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-striped" id="table">
+            <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th align="center">Credits transferred</th>
+              <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let creditsTransaction of creditsTransactionsList">
+              <td>{{creditsTransaction.userFromEmail}}</td>
+              <td>{{creditsTransaction.userToEmail}}</td>
+              <td>{{creditsTransaction.points}}</td>
+              <td>{{creditsTransaction.creationDate}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
