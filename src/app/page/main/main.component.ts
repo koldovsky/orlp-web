@@ -13,6 +13,7 @@ import {CourseLink} from '../../dto/CourseDTO/link.course.DTO';
 import {AuthorizationService} from '../authorization/authorization.service';
 import {SearchService} from '../search/search.service';
 import {AuthenticationService} from '../authentication/authentication.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-page',
@@ -34,6 +35,7 @@ export class MainComponent implements OnInit {
   public activeLink: string;
   public searchString: string;
   public overlayStatus = false;
+  public version = environment.VERSION;
 
   constructor(private categoryService: CategoryService,
               private courseService: CourseService,
